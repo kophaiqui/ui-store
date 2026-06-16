@@ -109,7 +109,7 @@ function Slash() {
 
 function Section({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <section className="mb-12">
+    <section id={label.toLowerCase()} className="mb-12 scroll-mt-20">
       <h2 className="mb-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground/60">
         {label}
       </h2>

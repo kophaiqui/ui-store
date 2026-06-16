@@ -1,0 +1,120 @@
+"use client";
+
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
+import designsRegistry from "@/registry/designs.json";
+
+// ── Component detail page TOC ─────────────────────────────────────────────────
+const DETAIL_SECTIONS = ["preview", "props", "usage", "tags"] as const;
+
+function ComponentTOC() {
+  const [active, setActive] = useState<string>("preview");
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        }
+      },
+      { rootMargin: "-20% 0px -65% 0px", threshold: 0 }
+    );
+
+    DETAIL_SECTIONS.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <nav className="px-4 pt-2">
+      <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/50">
+        On this page
+      </p>
+      <ul className="space-y-0.5">
+        {DETAIL_SECTIONS.map((id) => (
+          <li key={id}>
+            <a
+              href={`#${id}`}
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className={cn(
+                "block rounded-md px-2 py-1 text-[13px] capitalize transition-colors",
+                active === id
+                  ? "font-medium text-foreground"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
+            >
+              {id}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
+
+// ── Overview page TOC ─────────────────────────────────────────────────────────
+function OverviewTOC() {
+  const designs = designsRegistry as Record<string, { name: string; category: string }>;
+  const categories = [...new Set(Object.values(designs).map((d) => d.category))];
+
+  function scrollTo(id: string) {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  }
+
+  return (
+    <nav className="px-4 pt-2">
+      <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/50">
+        On this page
+      </p>
+      <ul className="space-y-4">
+        {categories.map((cat) => {
+          const items = Object.entries(designs).filter(([, m]) => m.category === cat);
+          return (
+            <li key={cat}>
+              <button
+                onClick={() => scrollTo(cat)}
+                className="mb-1 block text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/60 transition-colors hover:text-muted-foreground"
+              >
+                {cat}
+              </button>
+              <ul className="ml-2 space-y-0.5 border-l border-border/40 pl-3">
+                {items.map(([slug, meta]) => (
+                  <li key={slug}>
+                    <button
+                      onClick={() => scrollTo(slug)}
+                      className="block py-0.5 text-[12px] text-muted-foreground transition-colors hover:text-foreground"
+                    >
+                      {meta.name}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+  );
+}
+
+// ── Public export ─────────────────────────────────────────────────────────────
+export function TableOfContents() {
+  const pathname = usePathname();
+
+  if (pathname === "/components" || pathname === "/components/overview") {
+    return <OverviewTOC />;
+  }
+
+  if (pathname.startsWith("/components/")) {
+    return <ComponentTOC />;
+  }
+
+  return null;
+}

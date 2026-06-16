@@ -1,6 +1,7 @@
 import { getAllDesigns, getAllCategories } from "@/lib/registry";
 import { SectionLayout } from "@/components/layout/SectionLayout";
 import { Sidebar, type SidebarSection } from "@/components/layout/Sidebar";
+import { TableOfContents } from "@/components/layout/TableOfContents";
 
 export default function UILayout({ children }: { children: React.ReactNode }) {
   const designs = getAllDesigns();
@@ -18,7 +19,7 @@ export default function UILayout({ children }: { children: React.ReactNode }) {
   }));
 
   return (
-    <SectionLayout sidebar={<Sidebar sections={sections} />}>
+    <SectionLayout sidebar={<Sidebar sections={sections} />} toc={<TableOfContents />}>
       {children}
     </SectionLayout>
   );

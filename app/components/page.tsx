@@ -20,13 +20,15 @@ export default function ComponentsPage() {
       {categories.map((cat) => {
         const items = Object.entries(designs).filter(([, m]) => m.category === cat);
         return (
-          <section key={cat} className="mb-14">
+          <section key={cat} id={cat} className="mb-14 scroll-mt-20">
             <h2 className="mb-5 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
               {cat}
             </h2>
             <div className="space-y-4">
               {items.map(([slug, meta]) => (
-                <ComponentPanel key={slug} slug={slug} meta={meta} />
+                <div key={slug} id={slug} className="scroll-mt-20">
+                  <ComponentPanel slug={slug} meta={meta} />
+                </div>
               ))}
             </div>
           </section>
