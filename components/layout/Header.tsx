@@ -8,6 +8,9 @@ const NAV = [
   { label: "Docs", href: "/docs" },
   { label: "Components", href: "/components" },
   { label: "Fonts", href: "/fonts" },
+  { label: "Style", href: "/style" },
+  { label: "Block", href: "/block" },
+  { label: "Design", href: "/design" },
 ];
 
 export default function Header() {
