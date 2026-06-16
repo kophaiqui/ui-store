@@ -9,7 +9,7 @@ const DOCS = [
 
 export default function DocsPage() {
   return (
-    <div className="mx-auto max-w-4xl px-6 py-12">
+    <div className="px-8 py-10 max-w-3xl">
       <div className="mb-10">
         <h1 className="mb-2 text-3xl font-semibold tracking-tight">Docs</h1>
         <p className="text-muted-foreground">

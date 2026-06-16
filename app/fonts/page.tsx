@@ -9,7 +9,7 @@ export default function FontsPage() {
   const entries = Object.entries(fonts);
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-12">
+    <div className="px-8 py-10">
       <div className="mb-10">
         <h1 className="mb-2 text-3xl font-semibold tracking-tight">Fonts</h1>
         <p className="text-muted-foreground">

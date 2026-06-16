@@ -32,7 +32,7 @@ export default async function DocPage({ params }: Props) {
   });
 
   return (
-    <div className="mx-auto max-w-3xl px-6 py-12">
+    <div className="px-8 py-10 max-w-3xl">
       <article className="prose prose-zinc dark:prose-invert max-w-none">
         <MDXContent />
       </article>

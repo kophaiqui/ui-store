@@ -21,7 +21,7 @@ export default async function FontPage({ params }: Props) {
   if (!meta) notFound();
 
   return (
-    <div className="mx-auto max-w-4xl px-6 py-12">
+    <div className="px-8 py-10 max-w-2xl">
       <div className="mb-2 text-sm text-muted-foreground">
         {meta.category} · {meta.license}
       </div>
