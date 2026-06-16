@@ -4,9 +4,9 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import type { DesignMeta } from "@/lib/registry";
 
-type Props = { slug: string; meta: DesignMeta };
+type Props = { slug: string; meta: DesignMeta; linkBase?: string };
 
-export function DesignCardPreview({ slug, meta }: Props) {
+export function DesignCardPreview({ slug, meta, linkBase = "/ui" }: Props) {
   const Preview = dynamic(
     () =>
       import(`@/designs/${meta.category}/${slug}/Preview`).catch(
@@ -17,7 +17,7 @@ export function DesignCardPreview({ slug, meta }: Props) {
 
   return (
     <Link
-      href={`/design/${slug}`}
+      href={`${linkBase}/${slug}`}
       className="group flex flex-col overflow-hidden rounded-xl border border-border/60 bg-card transition-all hover:border-border hover:shadow-md"
     >
       {/* Preview area */}

@@ -1,28 +1,45 @@
 import Link from "next/link";
 import { ThemeToggle } from "@/components/shared/ThemeToggle";
+import { NavLink } from "@/components/layout/NavLink";
+
+const NAV = [
+  { label: "Home", href: "/" },
+  { label: "Docs", href: "/docs" },
+  { label: "UI", href: "/ui" },
+  { label: "Fonts", href: "/fonts" },
+];
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-md">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
-        <Link href="/" className="flex items-center gap-2">
-          <span className="text-sm font-bold tracking-tight">that one ui</span>
+    <header className="sticky top-0 z-50 h-[57px] border-b border-border/60 bg-background/90 backdrop-blur-md">
+      <div className="flex h-full items-center gap-6 px-6">
+        {/* Logo */}
+        <Link href="/" className="mr-2 shrink-0 text-sm font-bold tracking-tight">
+          that one ui
         </Link>
 
-        <nav className="hidden items-center gap-7 sm:flex">
-          <Link href="/library" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
-            Library
-          </Link>
-          <Link href="/fonts" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
-            Fonts
-          </Link>
-          <Link href="/docs" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
-            Docs
-          </Link>
+        {/* Nav */}
+        <nav className="hidden items-center gap-1 sm:flex">
+          {NAV.map((item) => (
+            <NavLink key={item.href} href={item.href} label={item.label} />
+          ))}
         </nav>
 
-        <div className="flex items-center gap-2">
+        {/* Search */}
+        <div className="ml-auto flex items-center gap-2">
+          <button className="hidden items-center gap-2 rounded-md border border-border/60 bg-muted/40 px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:border-border hover:bg-muted sm:flex">
+            <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.35-4.35" />
+            </svg>
+            <span>Search...</span>
+            <kbd className="ml-4 rounded border border-border/60 px-1.5 py-0.5 text-[10px] text-muted-foreground/70">
+              ⌘K
+            </kbd>
+          </button>
+
           <ThemeToggle />
+
           <a
             href="https://github.com"
             target="_blank"
