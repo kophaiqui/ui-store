@@ -31,6 +31,18 @@ export type MotionMeta = {
   tags: string[];
 };
 
+export type PropDef = {
+  name: string;
+  type: string;
+  default: string;
+  description: string;
+};
+
+export type UsageExample = {
+  label: string;
+  code: string;
+};
+
 export type DesignMeta = {
   name: string;
   category: string;
@@ -38,6 +50,8 @@ export type DesignMeta = {
   description: string;
   preview: boolean;
   new: boolean;
+  props?: PropDef[];
+  usage?: UsageExample[];
 };
 
 export function getAllComponents(): Record<string, ComponentMeta> {

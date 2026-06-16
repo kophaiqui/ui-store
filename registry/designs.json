@@ -3,40 +3,99 @@
     "name": "Neon Button",
     "category": "buttons",
     "tags": ["button", "neon", "glow", "hover"],
-    "description": "A button with a neon glow effect that intensifies on hover.",
+    "description": "A button with a neon glow effect that intensifies on hover. Built with pure Tailwind — no extra dependencies.",
     "preview": true,
-    "new": true
+    "new": true,
+    "props": [
+      { "name": "children", "type": "ReactNode", "default": "\"Get Started\"", "description": "Button label or content" },
+      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Controls padding and font size" },
+      { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables the button and reduces opacity to 40%" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<NeonButton>Get Started</NeonButton>" },
+      { "label": "Sizes", "code": "<NeonButton size=\"sm\">Small</NeonButton>\n<NeonButton size=\"md\">Medium</NeonButton>\n<NeonButton size=\"lg\">Large</NeonButton>" },
+      { "label": "Disabled", "code": "<NeonButton disabled>Disabled</NeonButton>" }
+    ]
   },
   "shimmer-button": {
     "name": "Shimmer Button",
     "category": "buttons",
     "tags": ["button", "shimmer", "animation", "gradient"],
-    "description": "A button with a moving shimmer gradient animation.",
+    "description": "A button with a moving shimmer gradient that sweeps across on hover. Supports a persistent loading shimmer mode.",
     "preview": true,
-    "new": true
+    "new": true,
+    "props": [
+      { "name": "children", "type": "ReactNode", "default": "\"Deploy Now\"", "description": "Button label or content" },
+      { "name": "variant", "type": "\"dark\" | \"light\"", "default": "\"dark\"", "description": "Dark or light background variant" },
+      { "name": "loading", "type": "boolean", "default": "false", "description": "Plays a continuous shimmer and shows 'Loading…'" },
+      { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables interaction and shimmer effect" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<ShimmerButton>Deploy Now</ShimmerButton>" },
+      { "label": "Light variant", "code": "<ShimmerButton variant=\"light\">Continue</ShimmerButton>" },
+      { "label": "Loading state", "code": "<ShimmerButton loading>Loading</ShimmerButton>" }
+    ]
   },
   "magnetic-button": {
     "name": "Magnetic Button",
     "category": "buttons",
     "tags": ["button", "magnetic", "motion", "interactive"],
-    "description": "A button that magnetically follows the cursor on hover.",
+    "description": "A button that follows the cursor with a magnetic pull effect using raw DOM math — no animation library required.",
     "preview": true,
-    "new": false
+    "new": false,
+    "props": [
+      { "name": "children", "type": "ReactNode", "default": "\"Hover me\"", "description": "Button label or content" },
+      { "name": "variant", "type": "\"default\" | \"outline\" | \"ghost\"", "default": "\"default\"", "description": "Visual style of the button" },
+      { "name": "strength", "type": "number", "default": "0.35", "description": "Magnetic pull multiplier. Higher = more movement" },
+      { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables the magnetic effect and interaction" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<MagneticButton>Hover me</MagneticButton>" },
+      { "label": "Outline", "code": "<MagneticButton variant=\"outline\">Outline</MagneticButton>" },
+      { "label": "Strong pull", "code": "<MagneticButton strength={0.7}>Strong</MagneticButton>" }
+    ]
   },
   "glass-card": {
     "name": "Glass Card",
     "category": "cards",
     "tags": ["card", "glass", "blur", "frosted"],
-    "description": "A frosted glass card with backdrop blur and subtle border.",
+    "description": "A frosted glass morphism card using backdrop-blur. Works on both dark and light backgrounds.",
     "preview": true,
-    "new": true
+    "new": true,
+    "props": [
+      { "name": "name", "type": "string", "default": "\"Alex Johnson\"", "description": "Primary name displayed in the card header" },
+      { "name": "role", "type": "string", "default": "\"Product Designer\"", "description": "Role or subtitle below the name" },
+      { "name": "quote", "type": "string", "default": "\"Building products...\"", "description": "Body text of the card" },
+      { "name": "avatar", "type": "string", "default": "undefined", "description": "Optional image URL for the avatar" },
+      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Controls card width and padding" },
+      { "name": "blur", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Intensity of the backdrop blur" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<GlassCard name=\"Alex Johnson\" role=\"Designer\" />" },
+      { "label": "Large blur", "code": "<GlassCard blur=\"lg\" size=\"lg\" />" },
+      { "label": "With avatar", "code": "<GlassCard avatar=\"/avatar.jpg\" name=\"Sam\" role=\"Engineer\" />" }
+    ]
   },
   "tilt-card": {
     "name": "Tilt Card",
     "category": "cards",
     "tags": ["card", "tilt", "3d", "motion", "perspective"],
-    "description": "A card with a 3D tilt effect that follows the mouse.",
+    "description": "A card with a 3D perspective tilt and radial glare that follows the mouse. Pure CSS transforms, no library needed.",
     "preview": true,
-    "new": false
+    "new": false,
+    "props": [
+      { "name": "title", "type": "string", "default": "\"Tilt Effect\"", "description": "Card heading" },
+      { "name": "description", "type": "string", "default": "\"Move your cursor...\"", "description": "Card body text" },
+      { "name": "icon", "type": "string", "default": "\"🟧\"", "description": "Emoji or short string shown in the icon block" },
+      { "name": "maxTilt", "type": "number", "default": "16", "description": "Maximum tilt angle in degrees" },
+      { "name": "glare", "type": "boolean", "default": "true", "description": "Shows a radial light glare that tracks the cursor" },
+      { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables tilt and glare — renders as a static card" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<TiltCard title=\"Hello\" description=\"Hover me\" />" },
+      { "label": "No glare", "code": "<TiltCard glare={false} />" },
+      { "label": "Strong tilt", "code": "<TiltCard maxTilt={30} />" },
+      { "label": "Static", "code": "<TiltCard disabled />" }
+    ]
   }
 }

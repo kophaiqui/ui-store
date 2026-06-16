@@ -3,6 +3,8 @@ import Link from "next/link";
 import { getDesign, getAllDesigns } from "@/lib/registry";
 import { getDesignCode } from "@/lib/getDesignCode";
 import { DesignViewer } from "@/components/shared/DesignViewer";
+import { PropsTable } from "@/components/shared/PropsTable";
+import { UsageBlock } from "@/components/shared/UsageBlock";
 import type { Metadata } from "next";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -18,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return { title: meta.name, description: meta.description };
 }
 
-export default async function UIDesignPage({ params }: Props) {
+export default async function ComponentDetailPage({ params }: Props) {
   const { slug } = await params;
   const meta = getDesign(slug);
   if (!meta) notFound();
@@ -26,45 +28,92 @@ export default async function UIDesignPage({ params }: Props) {
   const code = getDesignCode(slug, meta);
 
   return (
-    <div className="px-8 py-10">
+    <div className="px-8 py-10 max-w-4xl">
+
       {/* Breadcrumb */}
-      <nav className="mb-6 flex items-center gap-1.5 text-sm text-muted-foreground">
-        <Link href="/components" className="hover:text-foreground">UI</Link>
-        <span>/</span>
-        <Link href={`/ui?category=${meta.category}`} className="capitalize hover:text-foreground">
+      <nav className="mb-8 flex items-center gap-1.5 text-sm text-muted-foreground">
+        <Link href="/" className="transition-colors hover:text-foreground">Home</Link>
+        <Slash />
+        <Link href="/components" className="transition-colors hover:text-foreground">Components</Link>
+        <Slash />
+        <Link
+          href={`/components?category=${meta.category}`}
+          className="capitalize transition-colors hover:text-foreground"
+        >
           {meta.category}
         </Link>
-        <span>/</span>
+        <Slash />
         <span className="text-foreground">{meta.name}</span>
       </nav>
 
       {/* Header */}
-      <div className="mb-2 flex items-center gap-3">
-        <h1 className="text-3xl font-bold tracking-tight">{meta.name}</h1>
+      <div className="mb-3 flex flex-wrap items-center gap-3">
+        <h1 className="text-4xl font-bold tracking-tight">{meta.name}</h1>
+        <span className="rounded-full border border-border/60 px-2.5 py-0.5 text-xs capitalize text-muted-foreground">
+          {meta.category}
+        </span>
         {meta.new && (
-          <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-xs font-medium text-emerald-500">
+          <span className="rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-xs font-medium text-emerald-500">
             New
           </span>
         )}
       </div>
-      <p className="mb-8 text-muted-foreground">{meta.description}</p>
+      <p className="mb-10 max-w-xl text-[15px] leading-relaxed text-muted-foreground">
+        {meta.description}
+      </p>
 
-      {/* Preview / Code viewer */}
-      <div className="mb-8">
+      {/* Preview + Code viewer */}
+      <Section label="Preview">
         <DesignViewer slug={slug} meta={meta} code={code} />
-      </div>
+      </Section>
+
+      {/* Props table */}
+      {meta.props && meta.props.length > 0 && (
+        <Section label="Props">
+          <PropsTable props={meta.props} />
+        </Section>
+      )}
+
+      {/* Usage examples */}
+      {meta.usage && meta.usage.length > 0 && (
+        <Section label="Usage">
+          <div className="space-y-3">
+            {meta.usage.map((ex) => (
+              <UsageBlock key={ex.label} label={ex.label} code={ex.code} />
+            ))}
+          </div>
+        </Section>
+      )}
 
       {/* Tags */}
-      <div className="flex flex-wrap gap-2">
-        {meta.tags.map((tag) => (
-          <span
-            key={tag}
-            className="rounded-full border border-border/60 px-3 py-1 text-xs text-muted-foreground"
-          >
-            {tag}
-          </span>
-        ))}
-      </div>
+      <Section label="Tags">
+        <div className="flex flex-wrap gap-2">
+          {meta.tags.map((tag) => (
+            <span
+              key={tag}
+              className="rounded-full border border-border/60 px-3 py-1 text-xs text-muted-foreground"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </Section>
+
     </div>
+  );
+}
+
+function Slash() {
+  return <span className="text-border">/</span>;
+}
+
+function Section({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <section className="mb-12">
+      <h2 className="mb-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground/60">
+        {label}
+      </h2>
+      {children}
+    </section>
   );
 }
