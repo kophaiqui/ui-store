@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { getComponent, getAllComponents } from "@/lib/registry";
-import dynamic from "next/dynamic";
+import DemoPreview from "@/components/shared/DemoPreview";
 import type { Metadata } from "next";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -21,11 +21,6 @@ export default async function ComponentPage({ params }: Props) {
   const meta = getComponent(slug);
   if (!meta) notFound();
 
-  const Demo = dynamic(
-    () => import(`@/components/ui/${slug}/Demo`).catch(() => () => null),
-    { ssr: false }
-  );
-
   return (
     <div className="mx-auto max-w-4xl px-6 py-12">
       <div className="mb-2 text-sm text-muted-foreground">{meta.category}</div>
@@ -39,7 +34,7 @@ export default async function ComponentPage({ params }: Props) {
           Preview
         </h2>
         <div className="rounded-xl border border-border bg-muted/30 p-10">
-          <Demo />
+          <DemoPreview slug={slug} />
         </div>
       </section>
 
