@@ -44,9 +44,9 @@ function ComponentTOC() {
                 document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
               }}
               className={cn(
-                "block rounded-md px-2 py-1 text-[13px] capitalize transition-colors",
+                "flex items-center gap-1.5 rounded-md px-2 py-1 text-[13px] capitalize transition-colors",
                 active === id
-                  ? "font-medium text-foreground"
+                  ? "font-medium text-violet-400"
                   : "text-muted-foreground hover:text-foreground"
               )}
             >
@@ -63,6 +63,27 @@ function ComponentTOC() {
 function OverviewTOC() {
   const designs = designsRegistry as Record<string, { name: string; category: string }>;
   const categories = [...new Set(Object.values(designs).map((d) => d.category))];
+  const slugs = Object.keys(designs);
+
+  const [activeSlug, setActiveSlug] = useState<string>("");
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActiveSlug(entry.target.id);
+        }
+      },
+      { rootMargin: "-10% 0px -70% 0px", threshold: 0 }
+    );
+
+    slugs.forEach((slug) => {
+      const el = document.getElementById(slug);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   function scrollTo(id: string) {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -76,25 +97,43 @@ function OverviewTOC() {
       <ul className="space-y-4">
         {categories.map((cat) => {
           const items = Object.entries(designs).filter(([, m]) => m.category === cat);
+          const catActive = items.some(([slug]) => slug === activeSlug);
           return (
             <li key={cat}>
               <button
                 onClick={() => scrollTo(cat)}
-                className="mb-1 block text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/60 transition-colors hover:text-muted-foreground"
+                className={cn(
+                  "mb-1 block text-[10px] font-semibold uppercase tracking-widest transition-colors",
+                  catActive ? "text-violet-400" : "text-muted-foreground/60 hover:text-muted-foreground"
+                )}
               >
                 {cat}
               </button>
               <ul className="ml-2 space-y-0.5 border-l border-border/40 pl-3">
-                {items.map(([slug, meta]) => (
-                  <li key={slug}>
-                    <button
-                      onClick={() => scrollTo(slug)}
-                      className="block py-0.5 text-[12px] text-muted-foreground transition-colors hover:text-foreground"
-                    >
-                      {meta.name}
-                    </button>
-                  </li>
-                ))}
+                {items.map(([slug, meta]) => {
+                  const isActive = slug === activeSlug;
+                  return (
+                    <li key={slug}>
+                      <button
+                        onClick={() => scrollTo(slug)}
+                        className={cn(
+                          "flex items-center gap-1.5 py-0.5 text-[12px] transition-colors",
+                          isActive
+                            ? "font-medium text-violet-400"
+                            : "text-muted-foreground hover:text-foreground"
+                        )}
+                      >
+                        <span
+                          className={cn(
+                            "h-1 w-1 shrink-0 rounded-full transition-colors",
+                            isActive ? "bg-violet-500" : "bg-transparent"
+                          )}
+                        />
+                        {meta.name}
+                      </button>
+                    </li>
+                  );
+                })}
               </ul>
             </li>
           );
