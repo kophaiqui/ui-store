@@ -1,41 +1,41 @@
 import Link from "next/link";
 import { ThemeToggle } from "@/components/shared/ThemeToggle";
 import { NavLink } from "@/components/layout/NavLink";
+import { Logo } from "@/components/shared/Logo";
 
 const NAV = [
   { label: "Home", href: "/" },
   { label: "Docs", href: "/docs" },
-  { label: "UI", href: "/ui" },
+  { label: "Components", href: "/components" },
   { label: "Fonts", href: "/fonts" },
 ];
 
 export default function Header() {
   return (
     <header className="sticky top-0 z-50 h-[57px] border-b border-border/60 bg-background/90 backdrop-blur-md">
-      <div className="flex h-full items-center gap-6 px-6">
-        {/* Logo */}
-        <Link href="/" className="mr-2 shrink-0 text-sm font-bold tracking-tight">
-          that one ui
+      <div className="relative flex h-full items-center px-6">
+
+        {/* Logo — left */}
+        <Link href="/" className="flex shrink-0 items-center gap-2.5">
+          <Logo size={26} />
+          <span className="text-base font-bold tracking-tight">that one ui</span>
         </Link>
 
-        {/* Nav */}
-        <nav className="hidden items-center gap-1 sm:flex">
+        {/* Nav — absolutely centered */}
+        <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 sm:flex">
           {NAV.map((item) => (
             <NavLink key={item.href} href={item.href} label={item.label} />
           ))}
         </nav>
 
-        {/* Search */}
+        {/* Actions — right */}
         <div className="ml-auto flex items-center gap-2">
           <button className="hidden items-center gap-2 rounded-md border border-border/60 bg-muted/40 px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:border-border hover:bg-muted sm:flex">
             <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <circle cx="11" cy="11" r="8" />
-              <path d="m21 21-4.35-4.35" />
+              <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
             </svg>
             <span>Search...</span>
-            <kbd className="ml-4 rounded border border-border/60 px-1.5 py-0.5 text-[10px] text-muted-foreground/70">
-              ⌘K
-            </kbd>
+            <kbd className="ml-4 rounded border border-border/60 px-1.5 py-0.5 text-[10px] text-muted-foreground/70">⌘K</kbd>
           </button>
 
           <ThemeToggle />
