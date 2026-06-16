@@ -1,0 +1,25 @@
+# Hover Lift
+
+A subtle lift effect on hover using Motion's `whileHover`.
+
+## Usage
+
+```tsx
+import { motion } from "motion/react";
+
+export default function HoverLift({ children }: { children: React.ReactNode }) {
+  return (
+    <motion.div
+      whileHover={{ y: -4, boxShadow: "0 8px 24px rgba(0,0,0,0.12)" }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+```
+
+## Notes
+
+- Works best on cards and interactive containers
+- Use `damping` to control overshoot

@@ -1,0 +1,32 @@
+# Button
+
+A versatile button component with multiple variants, sizes, and states.
+
+## Usage
+
+```tsx
+import { Button } from "@/components/ui/button";
+
+export default function Example() {
+  return <Button variant="default">Click me</Button>;
+}
+```
+
+## Variants
+
+| Variant      | Description                        |
+| ------------ | ---------------------------------- |
+| `default`    | Primary action button              |
+| `destructive`| For irreversible or dangerous actions |
+| `outline`    | Secondary actions                  |
+| `ghost`      | Minimal visual weight              |
+| `link`       | Styled as a hyperlink              |
+
+## Props
+
+| Prop       | Type     | Default     | Description           |
+| ---------- | -------- | ----------- | --------------------- |
+| `variant`  | string   | `"default"` | Visual style variant  |
+| `size`     | string   | `"default"` | `sm`, `default`, `lg` |
+| `disabled` | boolean  | `false`     | Disables interaction  |
+| `asChild`  | boolean  | `false`     | Render as child slot  |
