@@ -1,0 +1,8 @@
+{
+  "name": "Button",
+  "slug": "button",
+  "category": "form",
+  "tags": ["button", "interactive", "form"],
+  "preview": true,
+  "description": "A versatile button component with multiple variants, sizes, and states."
+}
