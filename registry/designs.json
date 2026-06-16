@@ -1,101 +1,272 @@
 {
-  "neon-button": {
-    "name": "Neon Button",
-    "category": "buttons",
-    "tags": ["button", "neon", "glow", "hover"],
-    "description": "A button with a neon glow effect that intensifies on hover. Built with pure Tailwind — no extra dependencies.",
+  "button": {
+    "name": "Button",
+    "category": "inputs",
+    "tags": ["button", "interactive", "action", "base-ui"],
+    "description": "6 variants · 3 sizes · 3 shapes · disabled + loading states. Built on Base UI's Button primitive.",
     "preview": true,
     "new": true,
     "props": [
-      { "name": "children", "type": "ReactNode", "default": "\"Get Started\"", "description": "Button label or content" },
-      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Controls padding and font size" },
-      { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables the button and reduces opacity to 40%" }
+      { "name": "variant", "type": "\"solid\" | \"outline\" | \"ghost\" | \"soft\" | \"link\" | \"destructive\"", "default": "\"solid\"", "description": "Visual style of the button" },
+      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Controls height, padding, and font size" },
+      { "name": "shape", "type": "\"default\" | \"pill\" | \"square\"", "default": "\"default\"", "description": "Border radius and aspect ratio" },
+      { "name": "loading", "type": "boolean", "default": "false", "description": "Replaces leading content with a spinner; disables interaction" },
+      { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables interaction and reduces opacity to 40%" }
     ],
     "usage": [
-      { "label": "Default", "code": "<NeonButton>Get Started</NeonButton>" },
-      { "label": "Sizes", "code": "<NeonButton size=\"sm\">Small</NeonButton>\n<NeonButton size=\"md\">Medium</NeonButton>\n<NeonButton size=\"lg\">Large</NeonButton>" },
-      { "label": "Disabled", "code": "<NeonButton disabled>Disabled</NeonButton>" }
+      { "label": "Variants", "code": "<UIButton variant=\"solid\">Solid</UIButton>\n<UIButton variant=\"outline\">Outline</UIButton>\n<UIButton variant=\"ghost\">Ghost</UIButton>\n<UIButton variant=\"soft\">Soft</UIButton>\n<UIButton variant=\"link\">Link</UIButton>\n<UIButton variant=\"destructive\">Destructive</UIButton>" },
+      { "label": "Sizes", "code": "<UIButton size=\"sm\">Small</UIButton>\n<UIButton size=\"md\">Medium</UIButton>\n<UIButton size=\"lg\">Large</UIButton>" },
+      { "label": "Shapes", "code": "<UIButton shape=\"default\">Default</UIButton>\n<UIButton shape=\"pill\">Pill</UIButton>\n<UIButton shape=\"square\" size=\"md\">A</UIButton>" },
+      { "label": "States", "code": "<UIButton loading>Saving…</UIButton>\n<UIButton disabled>Disabled</UIButton>" }
     ]
   },
-  "shimmer-button": {
-    "name": "Shimmer Button",
-    "category": "buttons",
-    "tags": ["button", "shimmer", "animation", "gradient"],
-    "description": "A button with a moving shimmer gradient that sweeps across on hover. Supports a persistent loading shimmer mode.",
+
+  "checkbox": {
+    "name": "Checkbox",
+    "category": "inputs",
+    "tags": ["checkbox", "form", "selection", "base-ui"],
+    "description": "An accessible checkbox with emerald checked state and optional label. Built on Base UI's Checkbox primitive.",
     "preview": true,
     "new": true,
     "props": [
-      { "name": "children", "type": "ReactNode", "default": "\"Deploy Now\"", "description": "Button label or content" },
-      { "name": "variant", "type": "\"dark\" | \"light\"", "default": "\"dark\"", "description": "Dark or light background variant" },
-      { "name": "loading", "type": "boolean", "default": "false", "description": "Plays a continuous shimmer and shows 'Loading…'" },
-      { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables interaction and shimmer effect" }
+      { "name": "label", "type": "string", "default": "undefined", "description": "Optional label rendered beside the checkbox" },
+      { "name": "defaultChecked", "type": "boolean", "default": "false", "description": "Initial checked state" },
+      { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables interaction and reduces opacity" }
     ],
     "usage": [
-      { "label": "Default", "code": "<ShimmerButton>Deploy Now</ShimmerButton>" },
-      { "label": "Light variant", "code": "<ShimmerButton variant=\"light\">Continue</ShimmerButton>" },
-      { "label": "Loading state", "code": "<ShimmerButton loading>Loading</ShimmerButton>" }
+      { "label": "With label", "code": "<UICheckbox label=\"Accept terms\" />" },
+      { "label": "Checked by default", "code": "<UICheckbox label=\"Enabled\" defaultChecked />" },
+      { "label": "Disabled", "code": "<UICheckbox label=\"Locked\" disabled />" }
     ]
   },
-  "magnetic-button": {
-    "name": "Magnetic Button",
-    "category": "buttons",
-    "tags": ["button", "magnetic", "motion", "interactive"],
-    "description": "A button that follows the cursor with a magnetic pull effect using raw DOM math — no animation library required.",
-    "preview": true,
-    "new": false,
-    "props": [
-      { "name": "children", "type": "ReactNode", "default": "\"Hover me\"", "description": "Button label or content" },
-      { "name": "variant", "type": "\"default\" | \"outline\" | \"ghost\"", "default": "\"default\"", "description": "Visual style of the button" },
-      { "name": "strength", "type": "number", "default": "0.35", "description": "Magnetic pull multiplier. Higher = more movement" },
-      { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables the magnetic effect and interaction" }
-    ],
-    "usage": [
-      { "label": "Default", "code": "<MagneticButton>Hover me</MagneticButton>" },
-      { "label": "Outline", "code": "<MagneticButton variant=\"outline\">Outline</MagneticButton>" },
-      { "label": "Strong pull", "code": "<MagneticButton strength={0.7}>Strong</MagneticButton>" }
-    ]
-  },
-  "glass-card": {
-    "name": "Glass Card",
-    "category": "cards",
-    "tags": ["card", "glass", "blur", "frosted"],
-    "description": "A frosted glass morphism card using backdrop-blur. Works on both dark and light backgrounds.",
+
+  "input": {
+    "name": "Input",
+    "category": "inputs",
+    "tags": ["input", "text", "form", "base-ui"],
+    "description": "A dark text input with inset shadow, emerald focus ring, and full disabled/read-only state support.",
     "preview": true,
     "new": true,
     "props": [
-      { "name": "name", "type": "string", "default": "\"Alex Johnson\"", "description": "Primary name displayed in the card header" },
-      { "name": "role", "type": "string", "default": "\"Product Designer\"", "description": "Role or subtitle below the name" },
-      { "name": "quote", "type": "string", "default": "\"Building products...\"", "description": "Body text of the card" },
-      { "name": "avatar", "type": "string", "default": "undefined", "description": "Optional image URL for the avatar" },
-      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Controls card width and padding" },
-      { "name": "blur", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Intensity of the backdrop blur" }
+      { "name": "placeholder", "type": "string", "default": "undefined", "description": "Placeholder text shown when empty" },
+      { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables input and reduces opacity" },
+      { "name": "readOnly", "type": "boolean", "default": "false", "description": "Makes the input read-only" }
     ],
     "usage": [
-      { "label": "Default", "code": "<GlassCard name=\"Alex Johnson\" role=\"Designer\" />" },
-      { "label": "Large blur", "code": "<GlassCard blur=\"lg\" size=\"lg\" />" },
-      { "label": "With avatar", "code": "<GlassCard avatar=\"/avatar.jpg\" name=\"Sam\" role=\"Engineer\" />" }
+      { "label": "Default", "code": "<UIInput placeholder=\"Search…\" />" },
+      { "label": "Disabled", "code": "<UIInput disabled placeholder=\"Unavailable\" />" }
     ]
   },
-  "tilt-card": {
-    "name": "Tilt Card",
-    "category": "cards",
-    "tags": ["card", "tilt", "3d", "motion", "perspective"],
-    "description": "A card with a 3D perspective tilt and radial glare that follows the mouse. Pure CSS transforms, no library needed.",
+
+  "radio-group": {
+    "name": "Radio Group",
+    "category": "inputs",
+    "tags": ["radio", "selection", "form", "base-ui"],
+    "description": "An accessible radio group using Base UI Radio + RadioGroup primitives. Emerald accent on selection.",
     "preview": true,
-    "new": false,
+    "new": true,
     "props": [
-      { "name": "title", "type": "string", "default": "\"Tilt Effect\"", "description": "Card heading" },
-      { "name": "description", "type": "string", "default": "\"Move your cursor...\"", "description": "Card body text" },
-      { "name": "icon", "type": "string", "default": "\"🟧\"", "description": "Emoji or short string shown in the icon block" },
-      { "name": "maxTilt", "type": "number", "default": "16", "description": "Maximum tilt angle in degrees" },
-      { "name": "glare", "type": "boolean", "default": "true", "description": "Shows a radial light glare that tracks the cursor" },
-      { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables tilt and glare — renders as a static card" }
+      { "name": "options", "type": "{ label: string; value: string }[]", "default": "[...]", "description": "Array of selectable options" },
+      { "name": "defaultValue", "type": "string", "default": "undefined", "description": "Initially selected value" }
     ],
     "usage": [
-      { "label": "Default", "code": "<TiltCard title=\"Hello\" description=\"Hover me\" />" },
-      { "label": "No glare", "code": "<TiltCard glare={false} />" },
-      { "label": "Strong tilt", "code": "<TiltCard maxTilt={30} />" },
-      { "label": "Static", "code": "<TiltCard disabled />" }
+      { "label": "Default", "code": "<UIRadioGroup options={[{ label: 'A', value: 'a' }, { label: 'B', value: 'b' }]} />" },
+      { "label": "Pre-selected", "code": "<UIRadioGroup defaultValue=\"b\" />" }
+    ]
+  },
+
+  "select": {
+    "name": "Select",
+    "category": "inputs",
+    "tags": ["select", "dropdown", "form", "base-ui"],
+    "description": "A dark dropdown select with glass-effect popup, highlighted states, and a check mark on the selected item.",
+    "preview": true,
+    "new": true,
+    "props": [
+      { "name": "options", "type": "{ label: string; value: string }[]", "default": "[...]", "description": "Options rendered inside the popup" },
+      { "name": "placeholder", "type": "string", "default": "\"Select an option\"", "description": "Shown when no value is selected" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<UISelect />" },
+      { "label": "Custom options", "code": "<UISelect options={[{ label: 'Red', value: 'red' }, { label: 'Blue', value: 'blue' }]} />" }
+    ]
+  },
+
+  "slider": {
+    "name": "Slider",
+    "category": "inputs",
+    "tags": ["slider", "range", "form", "base-ui"],
+    "description": "A range slider with emerald fill track and a thumb that grows on active. Built on Base UI's Slider primitive.",
+    "preview": true,
+    "new": true,
+    "props": [
+      { "name": "defaultValue", "type": "number[]", "default": "[42]", "description": "Initial value of the slider handle" },
+      { "name": "min", "type": "number", "default": "0", "description": "Minimum allowed value" },
+      { "name": "max", "type": "number", "default": "100", "description": "Maximum allowed value" },
+      { "name": "step", "type": "number", "default": "1", "description": "Increment step between values" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<UISlider />" },
+      { "label": "Custom range", "code": "<UISlider min={0} max={10} step={0.5} defaultValue={[4]} />" }
+    ]
+  },
+
+  "switch": {
+    "name": "Switch",
+    "category": "inputs",
+    "tags": ["switch", "toggle", "form", "base-ui"],
+    "description": "A toggle switch that transitions to emerald when active. Thumb translates smoothly on state change.",
+    "preview": true,
+    "new": true,
+    "props": [
+      { "name": "label", "type": "string", "default": "undefined", "description": "Optional label rendered beside the switch" },
+      { "name": "defaultChecked", "type": "boolean", "default": "false", "description": "Initial on/off state" },
+      { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables interaction" }
+    ],
+    "usage": [
+      { "label": "With label", "code": "<UISwitch label=\"Enable notifications\" />" },
+      { "label": "On by default", "code": "<UISwitch defaultChecked label=\"Active\" />" }
+    ]
+  },
+
+  "avatar": {
+    "name": "Avatar",
+    "category": "data-display",
+    "tags": ["avatar", "user", "image", "base-ui"],
+    "description": "A circular avatar with image support and a text fallback. Sizes: sm, md, lg, xl.",
+    "preview": true,
+    "new": true,
+    "props": [
+      { "name": "src", "type": "string", "default": "undefined", "description": "Image URL — shows fallback if missing or broken" },
+      { "name": "alt", "type": "string", "default": "\"Avatar\"", "description": "Alt text for the image" },
+      { "name": "fallback", "type": "string", "default": "\"AB\"", "description": "Initials shown when image is absent" },
+      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\" | \"xl\"", "default": "\"md\"", "description": "Avatar diameter" }
+    ],
+    "usage": [
+      { "label": "Fallback only", "code": "<UIAvatar fallback=\"KQ\" />" },
+      { "label": "Large", "code": "<UIAvatar fallback=\"MR\" size=\"xl\" />" },
+      { "label": "With image", "code": "<UIAvatar src=\"https://i.pravatar.cc/150\" alt=\"User\" />" }
+    ]
+  },
+
+  "separator": {
+    "name": "Separator",
+    "category": "data-display",
+    "tags": ["separator", "divider", "layout", "base-ui"],
+    "description": "A thin 1px zinc-800 rule. Supports horizontal (default) and vertical orientations.",
+    "preview": true,
+    "new": true,
+    "props": [
+      { "name": "orientation", "type": "\"horizontal\" | \"vertical\"", "default": "\"horizontal\"", "description": "Direction of the separator line" }
+    ],
+    "usage": [
+      { "label": "Horizontal", "code": "<UISeparator />" },
+      { "label": "Vertical", "code": "<div className=\"flex h-10 items-center gap-4\"><span>Left</span><UISeparator orientation=\"vertical\" /><span>Right</span></div>" }
+    ]
+  },
+
+  "tabs": {
+    "name": "Tabs",
+    "category": "data-display",
+    "tags": ["tabs", "navigation", "panel", "base-ui"],
+    "description": "Tab bar with a sliding emerald underline indicator. Panels swap on selection.",
+    "preview": true,
+    "new": true,
+    "props": [
+      { "name": "tabs", "type": "{ label: string; value: string; content: ReactNode }[]", "default": "[...]", "description": "Tab definitions with label, value, and panel content" },
+      { "name": "defaultValue", "type": "string", "default": "\"overview\"", "description": "Initially active tab value" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<UITabs />" },
+      { "label": "Custom tabs", "code": "<UITabs tabs={[{ label: 'Code', value: 'code', content: 'Code panel.' }, { label: 'Preview', value: 'preview', content: 'Preview panel.' }]} />" }
+    ]
+  },
+
+  "progress": {
+    "name": "Progress",
+    "category": "data-display",
+    "tags": ["progress", "bar", "indicator", "base-ui"],
+    "description": "A linear progress bar with optional label and value display. Emerald fill, zinc-800 track.",
+    "preview": true,
+    "new": true,
+    "props": [
+      { "name": "value", "type": "number", "default": "62", "description": "Progress percentage (0–100)" },
+      { "name": "label", "type": "string", "default": "undefined", "description": "Optional label shown above the track" },
+      { "name": "showValue", "type": "boolean", "default": "false", "description": "Shows the numeric percentage alongside the label" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<UIProgress value={62} />" },
+      { "label": "With label", "code": "<UIProgress value={38} label=\"Upload progress\" showValue />" }
+    ]
+  },
+
+  "accordion": {
+    "name": "Accordion",
+    "category": "data-display",
+    "tags": ["accordion", "collapsible", "disclosure", "base-ui"],
+    "description": "Collapsible panels with a chevron indicator that rotates on open. Divided by zinc-800 rules.",
+    "preview": true,
+    "new": true,
+    "props": [
+      { "name": "items", "type": "{ value: string; title: string; content: string }[]", "default": "[...]", "description": "Array of accordion panels" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<UIAccordion />" },
+      { "label": "Custom items", "code": "<UIAccordion items={[{ value: '1', title: 'Question', content: 'Answer.' }]} />" }
+    ]
+  },
+
+  "tooltip": {
+    "name": "Tooltip",
+    "category": "data-display",
+    "tags": ["tooltip", "hover", "overlay", "base-ui"],
+    "description": "A dark glass tooltip anchored to its trigger with configurable side placement.",
+    "preview": true,
+    "new": true,
+    "props": [
+      { "name": "content", "type": "ReactNode", "default": "\"Tooltip text\"", "description": "Content rendered inside the tooltip popup" },
+      { "name": "children", "type": "ReactNode", "default": "\"Hover me\"", "description": "Trigger element that shows the tooltip on hover" },
+      { "name": "side", "type": "\"top\" | \"bottom\" | \"left\" | \"right\"", "default": "\"top\"", "description": "Side of the trigger where the popup appears" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<UITooltip content=\"Keyboard shortcut: Cmd+K\">Open palette</UITooltip>" },
+      { "label": "Bottom", "code": "<UITooltip side=\"bottom\" content=\"Saved\">Save</UITooltip>" }
+    ]
+  },
+
+  "dialog": {
+    "name": "Dialog",
+    "category": "feedback",
+    "tags": ["dialog", "modal", "overlay", "base-ui"],
+    "description": "A centered modal dialog with dark glass surface, backdrop blur, and confirm/cancel actions.",
+    "preview": true,
+    "new": true,
+    "props": [
+      { "name": "trigger", "type": "string", "default": "\"Open Dialog\"", "description": "Text rendered on the trigger button" },
+      { "name": "title", "type": "string", "default": "\"Confirm action\"", "description": "Dialog heading" },
+      { "name": "description", "type": "string", "default": "\"...\"", "description": "Body text shown below the heading" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<UIDialog />" },
+      { "label": "Custom content", "code": "<UIDialog trigger=\"Delete\" title=\"Delete item\" description=\"This cannot be undone.\" />" }
+    ]
+  },
+
+  "popover": {
+    "name": "Popover",
+    "category": "feedback",
+    "tags": ["popover", "anchor", "overlay", "base-ui"],
+    "description": "A dark glass popover anchored to its trigger. Includes a close button and description slot.",
+    "preview": true,
+    "new": true,
+    "props": [
+      { "name": "trigger", "type": "string", "default": "\"Open Popover\"", "description": "Text rendered on the trigger button" },
+      { "name": "title", "type": "string", "default": "\"Popover\"", "description": "Popover heading" },
+      { "name": "content", "type": "ReactNode", "default": "\"...\"", "description": "Body content inside the popover" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<UIPopover />" },
+      { "label": "Custom content", "code": "<UIPopover title=\"Filters\" content=\"Adjust your display filters here.\" />" }
     ]
   }
 }
