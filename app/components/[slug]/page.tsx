@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getDesign, getAllDesigns } from "@/lib/registry";
 import { getDesignCode } from "@/lib/getDesignCode";
 import { DesignViewer } from "@/components/shared/DesignViewer";
-import { PropsTable } from "@/components/shared/PropsTable";
+import { PropExplorer } from "@/components/shared/PropExplorer";
 import { UsageBlock } from "@/components/shared/UsageBlock";
 import type { Metadata } from "next";
 
@@ -67,10 +67,10 @@ export default async function ComponentDetailPage({ params }: Props) {
         <DesignViewer slug={slug} meta={meta} code={code} />
       </Section>
 
-      {/* Props table */}
+      {/* Props table with live explorer */}
       {meta.props && meta.props.length > 0 && (
         <Section label="Props">
-          <PropsTable props={meta.props} />
+          <PropExplorer slug={slug} category={meta.category} props={meta.props} />
         </Section>
       )}
 
@@ -79,7 +79,7 @@ export default async function ComponentDetailPage({ params }: Props) {
         <Section label="Usage">
           <div className="space-y-3">
             {meta.usage.map((ex) => (
-              <UsageBlock key={ex.label} label={ex.label} code={ex.code} />
+              <UsageBlock key={ex.label} label={ex.label} code={ex.code} slug={slug} category={meta.category} />
             ))}
           </div>
         </Section>
