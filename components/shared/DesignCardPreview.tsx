@@ -6,7 +6,7 @@ import type { DesignMeta } from "@/lib/registry";
 
 type Props = { slug: string; meta: DesignMeta; linkBase?: string };
 
-export function DesignCardPreview({ slug, meta, linkBase = "/ui" }: Props) {
+export function DesignCardPreview({ slug, meta, linkBase = "/components" }: Props) {
   const Preview = dynamic(
     () =>
       import(`@/designs/${meta.category}/${slug}/Preview`).catch(

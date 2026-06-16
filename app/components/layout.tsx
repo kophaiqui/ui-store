@@ -12,7 +12,7 @@ export default function UILayout({ children }: { children: React.ReactNode }) {
       .filter(([, meta]) => meta.category === cat)
       .map(([slug, meta]) => ({
         label: meta.name,
-        href: `/ui/${slug}`,
+        href: `/components/${slug}`,
         new: meta.new,
       })),
   }));

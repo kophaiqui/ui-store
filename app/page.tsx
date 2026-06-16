@@ -37,7 +37,7 @@ export default function HomePage() {
 
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Link
-              href="/ui"
+              href="/components"
               className="rounded-lg bg-foreground px-6 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-80"
             >
               Browse Library
@@ -59,7 +59,7 @@ export default function HomePage() {
           {categories.map((cat) => (
             <Link
               key={cat}
-              href={`/ui?category=${cat}`}
+              href={`/components?category=${cat}`}
               className="shrink-0 rounded-full border border-border/60 px-3 py-1 text-xs capitalize text-muted-foreground transition-colors hover:border-foreground/30 hover:text-foreground"
             >
               {cat}
@@ -73,7 +73,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-8 flex items-end justify-between">
             <h2 className="text-xl font-semibold">Featured designs</h2>
-            <Link href="/ui" className="text-sm text-muted-foreground hover:text-foreground">
+            <Link href="/components" className="text-sm text-muted-foreground hover:text-foreground">
               View all →
             </Link>
           </div>
@@ -94,7 +94,7 @@ export default function HomePage() {
             New buttons, cards, inputs, and motion patterns added regularly.
           </p>
           <Link
-            href="/ui"
+            href="/components"
             className="rounded-lg bg-foreground px-6 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-80"
           >
             Explore the library

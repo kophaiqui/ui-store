@@ -1,48 +1,37 @@
-import Link from "next/link";
-import { getAllComponents } from "@/lib/registry";
+import { getAllDesigns, getAllCategories } from "@/lib/registry";
+import { ComponentPanel } from "@/components/shared/ComponentPanel";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = { title: "Components" };
 
 export default function ComponentsPage() {
-  const components = getAllComponents();
-  const entries = Object.entries(components);
+  const designs = getAllDesigns();
+  const categories = getAllCategories();
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-12">
+    <div className="px-8 py-10">
       <div className="mb-10">
-        <h1 className="mb-2 text-3xl font-semibold tracking-tight">
-          Components
-        </h1>
-        <p className="text-muted-foreground">
-          {entries.length} component{entries.length !== 1 ? "s" : ""}
+        <h1 className="mb-1 text-3xl font-bold tracking-tight">Components</h1>
+        <p className="text-[15px] text-muted-foreground">
+          {Object.keys(designs).length} designs across {categories.length} categories — click any to see the code.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {entries.map(([slug, meta]) => (
-          <Link
-            key={slug}
-            href={`/components/${slug}`}
-            className="rounded-xl border border-border p-5 transition-colors hover:border-foreground/20 hover:bg-muted/40"
-          >
-            <div className="mb-1 font-medium">{meta.title}</div>
-            <div className="mb-3 text-sm text-muted-foreground line-clamp-2">
-              {meta.description}
-            </div>
-            <div className="flex flex-wrap gap-1">
-              {meta.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded-md bg-muted px-2 py-0.5 text-xs text-muted-foreground"
-                >
-                  {tag}
-                </span>
+      {categories.map((cat) => {
+        const items = Object.entries(designs).filter(([, m]) => m.category === cat);
+        return (
+          <section key={cat} className="mb-14">
+            <h2 className="mb-5 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+              {cat}
+            </h2>
+            <div className="space-y-4">
+              {items.map(([slug, meta]) => (
+                <ComponentPanel key={slug} slug={slug} meta={meta} />
               ))}
             </div>
-          </Link>
-        ))}
-      </div>
+          </section>
+        );
+      })}
     </div>
   );
 }
