@@ -6,7 +6,31 @@ type Props = React.ComponentProps<typeof Avatar.Root> & {
   src?: string;
   alt?: string;
   fallback?: string;
-  size?: "sm" | "md" | "lg" | "xl";
+  size?: "xs" | "sm" | "md" | "lg" | "xl";
+  shape?: "circle" | "square";
+  status?: "online" | "offline" | "busy";
+};
+
+const sizeMap = {
+  xs: { root: "size-6", text: "text-[9px]" },
+  sm: { root: "size-8", text: "text-[10px]" },
+  md: { root: "size-10", text: "text-xs" },
+  lg: { root: "size-12", text: "text-sm" },
+  xl: { root: "size-16", text: "text-base" },
+};
+
+const statusMap = {
+  online: "bg-emerald-500",
+  offline: "bg-zinc-500",
+  busy:   "bg-red-500",
+};
+
+const statusSizeMap = {
+  xs: "size-[7px] ring-[1.5px]",
+  sm: "size-[9px] ring-2",
+  md: "size-[10px] ring-2",
+  lg: "size-3 ring-2",
+  xl: "size-3.5 ring-2",
 };
 
 export function UIAvatar({
@@ -14,43 +38,55 @@ export function UIAvatar({
   alt = "Avatar",
   fallback = "AB",
   size = "md",
+  shape = "circle",
+  status,
   className,
   ...props
 }: Props) {
+  const { root, text } = sizeMap[size];
+
   return (
-    <Avatar.Root
-      className={cn(
-        "relative inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full",
-        "border border-zinc-700/60 bg-zinc-800",
-        "ring-2 ring-zinc-900",
-        size === "sm" && "size-8",
-        size === "md" && "size-10",
-        size === "lg" && "size-12",
-        size === "xl" && "size-16",
-        className,
-      )}
-      {...props}
-    >
-      {src && (
-        <Avatar.Image
-          src={src}
-          alt={alt}
-          className="aspect-square h-full w-full object-cover"
+    <div className="relative inline-flex shrink-0">
+      <Avatar.Root
+        className={cn(
+          "relative inline-flex items-center justify-center overflow-hidden",
+          "border border-zinc-700/60 bg-zinc-800",
+          "ring-2 ring-zinc-900",
+          shape === "circle" ? "rounded-full" : "rounded-md",
+          root,
+          className,
+        )}
+        {...props}
+      >
+        {src && (
+          <Avatar.Image
+            src={src}
+            alt={alt}
+            className="aspect-square h-full w-full object-cover"
+          />
+        )}
+        <Avatar.Fallback
+          className={cn(
+            "flex h-full w-full items-center justify-center font-medium tracking-wide text-zinc-300 bg-zinc-800",
+            text,
+          )}
+          delay={0}
+        >
+          {fallback}
+        </Avatar.Fallback>
+      </Avatar.Root>
+
+      {status && (
+        <span
+          className={cn(
+            "absolute bottom-0 right-0 rounded-full ring-zinc-950",
+            statusMap[status],
+            statusSizeMap[size],
+          )}
+          aria-label={status}
         />
       )}
-      <Avatar.Fallback
-        className={cn(
-          "flex h-full w-full items-center justify-center font-medium tracking-wide text-zinc-300 bg-zinc-800",
-          size === "sm" && "text-[10px]",
-          size === "md" && "text-xs",
-          size === "lg" && "text-sm",
-          size === "xl" && "text-base",
-        )}
-        delay={0}
-      >
-        {fallback}
-      </Avatar.Fallback>
-    </Avatar.Root>
+    </div>
   );
 }
 

@@ -12,6 +12,10 @@ type Props = Omit<React.ComponentProps<typeof Button>, "disabled"> & {
   shape?: ButtonShape;
   loading?: boolean;
   disabled?: boolean;
+  icon?: React.ReactNode;
+  iconPosition?: "left" | "right";
+  fullWidth?: boolean;
+  type?: "button" | "submit" | "reset";
 };
 
 const sizeMap: Record<ButtonSize, { base: string; square: string; text: string }> = {
@@ -50,29 +54,35 @@ export function UIButton({
   shape = "default",
   loading = false,
   disabled = false,
+  icon,
+  iconPosition = "left",
+  fullWidth = false,
+  type = "button",
   className,
   ...props
 }: Props) {
   const s = sizeMap[size];
   const isDisabled = disabled || loading;
 
+  const leadingIcon = !loading && icon && iconPosition === "left" ? icon : null;
+  const trailingIcon = !loading && icon && iconPosition === "right" ? icon : null;
+
   return (
     <Button
       disabled={isDisabled}
+      type={type}
       className={cn(
         "inline-flex items-center justify-center font-medium whitespace-nowrap",
         "transition-all duration-150 ease-out",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950",
         !isDisabled && "active:scale-[0.97] active:-translate-y-px",
         loading && "cursor-wait",
-        // Shape → border radius
+        fullWidth && "w-full",
         shape === "default" && "rounded-md",
         shape === "pill"    && "rounded-full",
         shape === "square"  && "rounded-md",
-        // Size
         variant !== "link" && (shape === "square" ? `${s.square} ${s.text}` : `${s.base} ${s.text}`),
         variant === "link"  && s.text,
-        // ── Variants ─────────────────────────────────────────────────────────
         variant === "solid" && cn(
           "bg-zinc-100 text-zinc-950",
           "shadow-[0_1px_2px_rgba(0,0,0,0.4)]",
@@ -115,7 +125,9 @@ export function UIButton({
       {...props}
     >
       {loading && <Spinner size={spinnerSize[size]} />}
+      {leadingIcon}
       {children}
+      {trailingIcon}
     </Button>
   );
 }
