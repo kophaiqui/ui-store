@@ -1,6 +1,7 @@
 import componentsRegistry from "@/registry/components.json";
 import fontsRegistry from "@/registry/fonts.json";
 import motionRegistry from "@/registry/motion.json";
+import designsRegistry from "@/registry/designs.json";
 
 export type ComponentMeta = {
   title: string;
@@ -30,6 +31,15 @@ export type MotionMeta = {
   tags: string[];
 };
 
+export type DesignMeta = {
+  name: string;
+  category: string;
+  tags: string[];
+  description: string;
+  preview: boolean;
+  new: boolean;
+};
+
 export function getAllComponents(): Record<string, ComponentMeta> {
   return componentsRegistry as Record<string, ComponentMeta>;
 }
@@ -52,4 +62,24 @@ export function getAllMotion(): Record<string, MotionMeta> {
 
 export function getMotion(slug: string): MotionMeta | null {
   return (motionRegistry as Record<string, MotionMeta>)[slug] ?? null;
+}
+
+export function getAllDesigns(): Record<string, DesignMeta> {
+  return designsRegistry as Record<string, DesignMeta>;
+}
+
+export function getDesign(slug: string): DesignMeta | null {
+  return (designsRegistry as Record<string, DesignMeta>)[slug] ?? null;
+}
+
+export function getDesignsByCategory(category: string): Record<string, DesignMeta> {
+  const all = getAllDesigns();
+  return Object.fromEntries(
+    Object.entries(all).filter(([, meta]) => meta.category === category)
+  );
+}
+
+export function getAllCategories(): string[] {
+  const all = getAllDesigns();
+  return [...new Set(Object.values(all).map((d) => d.category))];
 }

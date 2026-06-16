@@ -1,0 +1,42 @@
+{
+  "neon-button": {
+    "name": "Neon Button",
+    "category": "buttons",
+    "tags": ["button", "neon", "glow", "hover"],
+    "description": "A button with a neon glow effect that intensifies on hover.",
+    "preview": true,
+    "new": true
+  },
+  "shimmer-button": {
+    "name": "Shimmer Button",
+    "category": "buttons",
+    "tags": ["button", "shimmer", "animation", "gradient"],
+    "description": "A button with a moving shimmer gradient animation.",
+    "preview": true,
+    "new": true
+  },
+  "magnetic-button": {
+    "name": "Magnetic Button",
+    "category": "buttons",
+    "tags": ["button", "magnetic", "motion", "interactive"],
+    "description": "A button that magnetically follows the cursor on hover.",
+    "preview": true,
+    "new": false
+  },
+  "glass-card": {
+    "name": "Glass Card",
+    "category": "cards",
+    "tags": ["card", "glass", "blur", "frosted"],
+    "description": "A frosted glass card with backdrop blur and subtle border.",
+    "preview": true,
+    "new": true
+  },
+  "tilt-card": {
+    "name": "Tilt Card",
+    "category": "cards",
+    "tags": ["card", "tilt", "3d", "motion", "perspective"],
+    "description": "A card with a 3D tilt effect that follows the mouse.",
+    "preview": true,
+    "new": false
+  }
+}
