@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { getFont, getAllFonts } from "@/lib/registry";
+import { FontDemo } from "@/components/shared/FontDemo";
 import type { Metadata } from "next";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -21,42 +22,30 @@ export default async function FontPage({ params }: Props) {
   if (!meta) notFound();
 
   return (
-    <div className="px-8 py-10 max-w-2xl">
-      <div className="mb-2 text-sm text-muted-foreground">
+    <div className="px-8 py-10 max-w-3xl">
+      <div className="mb-1 text-sm text-muted-foreground capitalize">
         {meta.category} · {meta.license}
       </div>
-      <h1 className="mb-2 text-3xl font-semibold tracking-tight">{meta.name}</h1>
-      <p className="mb-2 text-muted-foreground">by {meta.designer}</p>
-      <p className="mb-10 text-muted-foreground">{meta.description}</p>
+      <h1 className="mb-1 text-3xl font-bold tracking-tight">{meta.name}</h1>
+      <p className="mb-2 text-[15px] text-muted-foreground">by {meta.designer}</p>
+      <p className="mb-10 text-[15px] text-muted-foreground">{meta.description}</p>
 
-      <section className="mb-10 rounded-xl border border-border bg-muted/20 p-8">
-        <p className="text-2xl leading-relaxed">{meta.preview}</p>
-      </section>
+      <FontDemo
+        family={meta.family}
+        weights={meta.weights}
+        provider={meta.source.provider}
+      />
 
-      <section className="mb-10">
-        <h2 className="mb-3 text-sm font-medium uppercase tracking-widest text-muted-foreground">
-          Weights
-        </h2>
-        <div className="flex flex-wrap gap-2">
-          {meta.weights.map((w) => (
-            <span
-              key={w}
-              className="rounded-md border border-border px-3 py-1 text-sm"
-            >
-              {w}
-            </span>
-          ))}
-        </div>
-      </section>
-
-      <a
-        href={meta.source.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 rounded-lg bg-foreground px-4 py-2 text-sm font-medium text-background transition-opacity hover:opacity-80"
-      >
-        Download from {meta.source.provider} →
-      </a>
+      <div className="mt-10">
+        <a
+          href={meta.source.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 rounded-lg bg-foreground px-4 py-2 text-sm font-medium text-background transition-opacity hover:opacity-80"
+        >
+          Download from {meta.source.provider} →
+        </a>
+      </div>
     </div>
   );
 }
