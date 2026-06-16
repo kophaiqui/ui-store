@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# That One UI
 
-## Getting Started
+> The UI library you keep coming back to.
 
-First, run the development server:
+A curated collection of beautiful, motion-ready UI designs. Not another component library — this is a design library. Every entry is a distinct take on a familiar element: a button, a card, an input. Same HTML, different soul.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Pick a design. Copy the code. Ship it.
+
+---
+
+## What makes it different
+
+Most UI libraries give you a `<Button>`. We give you ten buttons — each with its own personality, motion, and visual style. You're not here for API docs. You're here because you saw something that looked good and want it in your project in 30 seconds.
+
+- **Design-first** — organized by category, each category has many distinct visual designs
+- **Motion-ready** — hover effects, entrance animations, cursor interactions built in
+- **Copy-paste** — no install required, just grab the source from the Code tab
+- **Dark + light** — everything works in both modes
+- **Zero database** — all content is JSON + source code, statically generated
+
+---
+
+## Stack
+
+| Layer | Tech |
+|---|---|
+| Framework | Next.js 16 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS v4 |
+| Components | shadcn/ui (base-ui) |
+| Animation | Motion (formerly Framer Motion) |
+| Docs | MDX |
+| Theme | next-themes |
+| Deploy | Vercel |
+
+---
+
+## Project structure
+
+```
+designs/
+├── buttons/
+│   ├── neon-button/      ← Preview.tsx + meta.json
+│   ├── shimmer-button/
+│   └── magnetic-button/
+└── cards/
+    ├── glass-card/
+    └── tilt-card/
+
+registry/
+├── designs.json          ← source of truth for the library
+├── fonts.json
+└── components.json
+
+app/
+├── page.tsx              ← landing page
+├── library/              ← browsable grid with category tabs
+└── design/[slug]/        ← individual design (preview + code)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Adding a new design
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Create the folder: `designs/<category>/<slug>/`
+2. Add `Preview.tsx` — the component itself, self-contained
+3. Add `meta.json` — slug, name, category
+4. Register it in `registry/designs.json`
 
-## Learn More
+That's it. The page generates automatically.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Running locally
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm install
+npm run dev
+```
 
-## Deploy on Vercel
+Open [http://localhost:3000](http://localhost:3000).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deploying
+
+Push to GitHub, import into Vercel. No environment variables needed.
+
+---
+
+## License
+
+MIT. Take the designs, make them yours.
