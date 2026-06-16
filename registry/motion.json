@@ -1,0 +1,16 @@
+{
+  "fade-in": {
+    "title": "Fade In",
+    "description": "Simple opacity entrance animation.",
+    "path": "/motion/fade-in",
+    "category": "entrance",
+    "tags": ["fade", "opacity", "entrance"]
+  },
+  "hover-lift": {
+    "title": "Hover Lift",
+    "description": "Subtle lift effect on hover with shadow.",
+    "path": "/motion/hover-lift",
+    "category": "interaction",
+    "tags": ["hover", "lift", "interaction"]
+  }
+}

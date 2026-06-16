@@ -1,0 +1,44 @@
+{
+  "inter": {
+    "name": "Inter",
+    "family": "Inter",
+    "category": "sans-serif",
+    "weights": [300, 400, 500, 600, 700],
+    "license": "OFL",
+    "designer": "Rasmus Andersson",
+    "description": "A typeface carefully crafted for computer screens.",
+    "preview": "The quick brown fox jumps over the lazy dog",
+    "source": {
+      "provider": "google",
+      "url": "https://fonts.google.com/specimen/Inter"
+    }
+  },
+  "geist": {
+    "name": "Geist",
+    "family": "Geist",
+    "category": "sans-serif",
+    "weights": [300, 400, 500, 600, 700, 800, 900],
+    "license": "OFL",
+    "designer": "Vercel",
+    "description": "A new font family created by Vercel, inspired by the Swiss International Style.",
+    "preview": "The quick brown fox jumps over the lazy dog",
+    "source": {
+      "provider": "google",
+      "url": "https://fonts.google.com/specimen/Geist"
+    }
+  },
+  "geist-mono": {
+    "name": "Geist Mono",
+    "family": "Geist Mono",
+    "category": "monospace",
+    "weights": [300, 400, 500, 600, 700],
+    "license": "OFL",
+    "designer": "Vercel",
+    "description": "A monospace companion to Geist, designed for code and technical contexts.",
+    "preview": "const hello = () => 'world';",
+    "source": {
+      "provider": "google",
+      "url": "https://fonts.google.com/specimen/Geist+Mono"
+    }
+  }
+}

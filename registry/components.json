@@ -1,0 +1,9 @@
+{
+  "button": {
+    "title": "Button",
+    "description": "A versatile button component with multiple variants.",
+    "path": "/components/button",
+    "category": "form",
+    "tags": ["button", "interactive", "form"]
+  }
+}
