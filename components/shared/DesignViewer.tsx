@@ -1,15 +1,78 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import dynamic from "next/dynamic";
+import hljs from "highlight.js/lib/core";
+import tsx from "highlight.js/lib/languages/typescript";
 import { cn } from "@/lib/utils";
 import type { DesignMeta } from "@/lib/registry";
+
+hljs.registerLanguage("typescript", tsx);
+
+// hljs drops syntax highlighting inside JSX expression attributes {…}.
+// This pass re-colors all tokens that were left unspanned.
+function fixJSXHighlight(html: string): string {
+  const parts = html.split(/(<\/?span[^>]*>)/);
+  let depth = 0;
+
+  const S = (cls: string, v: string) => `<span class="${cls}">${v}</span>`;
+
+  return parts
+    .map((part) => {
+      if (/^<span/.test(part)) { depth++; return part; }
+      if (/^<\/span/.test(part)) { depth--; return part; }
+      if (depth > 0) return part;
+
+      let out = part;
+
+      // 1. JSX/XML tag names: <ComponentName or </ComponentName
+      out = out.replace(/(&lt;\/?)([\w.:-]+)/g, (_, bracket, name) =>
+        S("hljs-punctuation", bracket) +
+        S(/^[A-Z]/.test(name) ? "hljs-title" : "hljs-tag", name)
+      );
+
+      // 2. Self-close /> and closing >
+      out = out.replace(/\/&gt;/g, S("hljs-punctuation", "/&gt;"));
+      out = out.replace(/&gt;/g,   S("hljs-punctuation", "&gt;"));
+
+      // 3. JSX attribute names: word immediately before ={ or ="
+      out = out.replace(/\b([\w-]+)(=(?:\{|&quot;))/g, (_, attr, eq) =>
+        S("hljs-attr", attr) + eq
+      );
+
+      // 4. Operators: === !== && || =>
+      out = out.replace(
+        /(===|!==|==|!=|&amp;&amp;|\|\||=>)/g,
+        S("hljs-operator", "$1")
+      );
+
+      // 5. Double-quoted strings (&quot;…&quot;)
+      out = out.replace(
+        /(&quot;)([^&]*)(&quot;)/g,
+        (_, o, mid, c) => S("hljs-string", o + mid + c)
+      );
+
+      // 6. Template literals `…`
+      out = out.replace(/(`[^`\n]*`)/g, S("hljs-string", "$1"));
+
+      // 7. Line comments
+      out = out.replace(/(\/\/[^\n]*)/g, S("hljs-comment", "$1"));
+
+      return out;
+    })
+    .join("");
+}
 
 type Props = { slug: string; meta: DesignMeta; code: string };
 
 export function DesignViewer({ slug, meta, code }: Props) {
   const [tab, setTab] = useState<"preview" | "code">("preview");
   const [copied, setCopied] = useState(false);
+
+  const highlighted = useMemo(
+    () => fixJSXHighlight(hljs.highlight(code, { language: "typescript" }).value),
+    [code]
+  );
 
   const Preview = dynamic(
     () =>
@@ -74,13 +137,39 @@ export function DesignViewer({ slug, meta, code }: Props) {
 
       {/* Content */}
       {tab === "preview" ? (
-        <div className="flex min-h-[280px] items-center justify-center bg-muted/10 px-8 py-12 dark:bg-muted/5">
-          <Preview />
+        <div className="relative flex min-h-[280px] items-center justify-center overflow-hidden bg-zinc-950 px-8 py-12">
+          {/* Grid with radial fade */}
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{
+              backgroundImage:
+                "linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px)",
+              backgroundSize: "28px 28px",
+              maskImage:
+                "radial-gradient(ellipse 70% 70% at 50% 50%, black 0%, transparent 100%)",
+              WebkitMaskImage:
+                "radial-gradient(ellipse 70% 70% at 50% 50%, black 0%, transparent 100%)",
+            }}
+          />
+          {/* Edge vignette */}
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, rgba(9,9,11,0.85) 100%)",
+            }}
+          />
+          <div className="relative">
+            <Preview />
+          </div>
         </div>
       ) : (
-        <div className="relative max-h-[480px] overflow-auto">
+        <div className="relative max-h-[480px] overflow-auto bg-zinc-950">
           <pre className="p-5 text-[13px] leading-relaxed">
-            <code className="font-mono text-foreground/90">{code}</code>
+            <code
+              className="hljs font-mono"
+              dangerouslySetInnerHTML={{ __html: highlighted }}
+            />
           </pre>
         </div>
       )}

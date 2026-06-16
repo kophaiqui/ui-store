@@ -129,3 +129,29 @@
     @apply font-sans;
   }
 }
+
+/* highlight.js custom theme — zinc/violet/amber palette */
+@layer base {
+  .hljs                { color: #a1a1aa }
+  .hljs-keyword        { color: #818cf8 }
+  .hljs-operator       { color: #818cf8 }
+  .hljs-string         { color: #fbbf24 }
+  .hljs-number         { color: #fb923c }
+  .hljs-literal        { color: #fb923c }
+  .hljs-comment        { color: #52525b }
+  .hljs-title          { color: #38bdf8 }
+  .hljs-type           { color: #34d399 }
+  .hljs-built_in       { color: #34d399 }
+  .hljs-attr           { color: #c4b5fd }
+  .hljs-name           { color: #c4b5fd }
+  .hljs-tag            { color: #52525b }
+  .hljs-variable       { color: #e4e4e7 }
+  .hljs-params         { color: #e4e4e7 }
+  .hljs-punctuation    { color: #52525b }
+  .hljs-property       { color: #c4b5fd }
+  .hljs-symbol         { color: #34d399 }
+  .hljs-title.class_   { color: #34d399 }
+  .hljs-title.function_{ color: #38bdf8 }
+  .hljs-tag            { color: #71717a } /* zinc-500 – lowercase html tags */
+  .hljs-punctuation    { color: #52525b } /* zinc-600 – brackets */
+}
