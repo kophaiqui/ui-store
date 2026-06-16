@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { cn } from "@/lib/utils";
@@ -34,7 +34,7 @@ export function ComponentPanel({ slug, meta }: Props) {
       {/* Panel header */}
       <div className="flex items-center justify-between border-b border-border/60 bg-muted/20 px-4 py-2.5">
         <div className="flex items-center gap-3">
-          <div className="flex gap-1">
+          <div className="flex gap-0.5">
             {(["preview", "code"] as const).map((t) => (
               <button
                 key={t}
@@ -50,7 +50,8 @@ export function ComponentPanel({ slug, meta }: Props) {
               </button>
             ))}
           </div>
-          <span className="text-sm font-medium">{meta.name}</span>
+          <div className="h-3.5 w-px bg-border/60" />
+          <span className="text-[13px] font-medium">{meta.name}</span>
           {meta.new && (
             <span className="rounded-full bg-emerald-500/10 px-1.5 py-0.5 text-[10px] font-medium text-emerald-500">
               New
@@ -65,9 +66,9 @@ export function ComponentPanel({ slug, meta }: Props) {
               className="flex items-center gap-1.5 rounded-md border border-border/60 bg-background px-2.5 py-1 text-xs text-muted-foreground transition-colors hover:border-border hover:text-foreground"
             >
               {copied ? (
-                <><svg width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" /></svg> Copied</>
+                <><CopyCheckIcon /> Copied</>
               ) : (
-                <><svg width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg> Copy</>
+                <><CopyIcon /> Copy</>
               )}
             </button>
           )}
@@ -95,20 +96,37 @@ export function ComponentPanel({ slug, meta }: Props) {
 function CodeView({ slug, category }: { slug: string; category: string }) {
   const [code, setCode] = useState<string | null>(null);
 
-  if (code === null) {
+  useEffect(() => {
     fetch(`/api/design-code?slug=${slug}&category=${category}`)
       .then((r) => r.json())
       .then((d) => setCode(d.code))
       .catch(() => setCode("// Could not load source"));
-  }
+  }, [slug, category]);
 
   return (
-    <div className="max-h-[360px] overflow-auto">
-      <pre className="p-5 text-[13px] leading-relaxed">
-        <code className="font-mono text-foreground/90">
-          {code ?? "Loading..."}
+    <div className="max-h-[400px] overflow-auto bg-muted/5">
+      <pre className="p-5 text-[12.5px] leading-relaxed">
+        <code className="font-mono text-foreground/85">
+          {code ?? "Loading…"}
         </code>
       </pre>
     </div>
+  );
+}
+
+function CopyIcon() {
+  return (
+    <svg width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+      <rect x="9" y="9" width="13" height="13" rx="2" />
+      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+    </svg>
+  );
+}
+
+function CopyCheckIcon() {
+  return (
+    <svg width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+      <polyline points="20 6 9 17 4 12" />
+    </svg>
   );
 }

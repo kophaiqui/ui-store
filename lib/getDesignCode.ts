@@ -3,13 +3,11 @@ import path from "path";
 import type { DesignMeta } from "@/lib/registry";
 
 export function getDesignCode(slug: string, meta: DesignMeta): string {
-  const filePath = path.join(
-    process.cwd(),
-    "designs",
-    meta.category,
-    slug,
-    "Preview.tsx"
-  );
+  const base = path.join(process.cwd(), "designs", meta.category, slug);
+  // Prefer Component.tsx — the reusable parametrized component users actually copy
+  const componentPath = path.join(base, "Component.tsx");
+  const previewPath = path.join(base, "Preview.tsx");
+  const filePath = fs.existsSync(componentPath) ? componentPath : previewPath;
   try {
     return fs.readFileSync(filePath, "utf-8");
   } catch {

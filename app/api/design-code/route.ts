@@ -11,7 +11,12 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ code: "" }, { status: 400 });
   }
 
-  const filePath = path.join(process.cwd(), "designs", category, slug, "Preview.tsx");
+  const base = path.join(process.cwd(), "designs", category, slug);
+  // Prefer Component.tsx (the reusable parametrized component) over Preview.tsx
+  const filePath = fs.existsSync(path.join(base, "Component.tsx"))
+    ? path.join(base, "Component.tsx")
+    : path.join(base, "Preview.tsx");
+
   try {
     const code = fs.readFileSync(filePath, "utf-8");
     return NextResponse.json({ code });
