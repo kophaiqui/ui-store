@@ -31,7 +31,7 @@ function ComponentTOC() {
 
   return (
     <nav className="px-4 pt-2">
-      <p className="mb-3 text-[0.625rem] font-semibold uppercase tracking-widest text-muted-foreground/50">
+      <p className="mb-3 text-[0.6875rem] font-semibold uppercase tracking-widest text-muted-foreground/50">
         On this page
       </p>
       <ul className="space-y-0.5">
@@ -44,7 +44,7 @@ function ComponentTOC() {
                 document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
               }}
               className={cn(
-                "flex items-center gap-1.5 rounded-md px-2 py-1 text-[0.8125rem] capitalize transition-colors",
+                "flex items-center gap-1.5 rounded-md px-2 py-1 text-[0.875rem] font-medium capitalize transition-colors",
                 active === id
                   ? "font-medium text-violet-400"
                   : "text-muted-foreground hover:text-foreground"
@@ -91,7 +91,7 @@ function OverviewTOC() {
 
   return (
     <nav className="px-4 pt-2">
-      <p className="mb-3 text-[0.625rem] font-semibold uppercase tracking-widest text-muted-foreground/50">
+      <p className="mb-3 text-[0.6875rem] font-semibold uppercase tracking-widest text-muted-foreground/50">
         On this page
       </p>
       <ul className="space-y-4">
@@ -103,7 +103,7 @@ function OverviewTOC() {
               <button
                 onClick={() => scrollTo(cat)}
                 className={cn(
-                  "mb-1 block text-[0.625rem] font-semibold uppercase tracking-widest transition-colors",
+                  "mb-1 block text-[0.6875rem] font-semibold uppercase tracking-widest transition-colors",
                   catActive ? "text-violet-400" : "text-muted-foreground/60 hover:text-muted-foreground"
                 )}
               >
@@ -117,7 +117,7 @@ function OverviewTOC() {
                       <button
                         onClick={() => scrollTo(slug)}
                         className={cn(
-                          "flex items-center gap-1.5 py-0.5 text-[0.75rem] transition-colors",
+                          "flex items-center gap-1.5 py-0.5 text-[0.8125rem] font-medium transition-colors",
                           isActive
                             ? "font-medium text-violet-400"
                             : "text-muted-foreground hover:text-foreground"
