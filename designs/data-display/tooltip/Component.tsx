@@ -6,6 +6,7 @@ type Props = {
   content?: React.ReactNode;
   children?: React.ReactNode;
   side?: "top" | "bottom" | "left" | "right";
+  delay?: number;
   className?: string;
 };
 
@@ -13,10 +14,11 @@ export function UITooltip({
   content = "Tooltip text",
   children = "Hover me",
   side = "top",
+  delay = 100,
   className,
 }: Props) {
   return (
-    <Tooltip.Provider>
+    <Tooltip.Provider delay={delay}>
       <Tooltip.Root>
         <Tooltip.Trigger
           className={cn(
