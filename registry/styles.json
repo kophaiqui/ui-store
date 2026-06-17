@@ -40,5 +40,40 @@
     "description": "Bold multi-stop gradients, glowing accents, and saturated color that carries the entire interface.",
     "status": "coming-soon",
     "accent": "#d946ef"
+  },
+  "retro": {
+    "name": "Retro",
+    "tagline": "Warm, nostalgic, 70s-inspired",
+    "description": "Cream paper backgrounds, chunky outlines, hard offset shadows, and a warm sunset palette of orange, mustard, and brown.",
+    "status": "coming-soon",
+    "accent": "#e8743b"
+  },
+  "terminal": {
+    "name": "Terminal",
+    "tagline": "Monospace command-line green",
+    "description": "Pure black canvas, phosphor-green monospace type, blinking cursors, and bracketed labels — the interface as a console.",
+    "status": "coming-soon",
+    "accent": "#22c55e"
+  },
+  "aurora": {
+    "name": "Aurora",
+    "tagline": "Flowing northern-lights gradients",
+    "description": "Deep night surfaces lit by drifting teal, indigo, and violet glows, with glassy panels floating on top.",
+    "status": "coming-soon",
+    "accent": "#2dd4bf"
+  },
+  "pixel": {
+    "name": "Pixel",
+    "tagline": "8-bit pixel-art interfaces",
+    "description": "Hard pixel edges, chunky monospace type, blocky shadows, and a vivid retro-game palette. No anti-aliasing allowed.",
+    "status": "coming-soon",
+    "accent": "#ef476f"
+  },
+  "material": {
+    "name": "Material",
+    "tagline": "Elevated, tonal, expressive",
+    "description": "Tonal surfaces, soft elevation shadows, pill-shaped buttons, and a confident accent — clean Material-style hierarchy.",
+    "status": "coming-soon",
+    "accent": "#6750a4"
   }
 }

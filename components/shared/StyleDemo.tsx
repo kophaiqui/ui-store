@@ -126,6 +126,90 @@ function GradientDemo() {
   );
 }
 
+function RetroDemo() {
+  return (
+    <div className="flex h-full w-full items-center justify-center bg-[#f3e3c3]">
+      <div className="relative w-40 rounded-2xl border-2 border-[#5b4636] bg-[#fff7e8] p-3 shadow-[4px_4px_0_0_#5b4636]">
+        <div className="mb-2.5 flex items-center gap-1">
+          <span className="h-2.5 w-2.5 rounded-full bg-[#e8743b]" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#e3b23c]" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#3a7d6e]" />
+        </div>
+        <div className="flex items-center justify-center rounded-full border-2 border-[#5b4636] bg-[#e8743b] py-1.5 text-[0.6875rem] font-bold uppercase tracking-wide text-[#fff7e8]">
+          Button
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function TerminalDemo() {
+  return (
+    <div className="flex h-full w-full items-center justify-center bg-black font-mono">
+      <div className="relative w-44 rounded-md border border-green-500/30 bg-black p-3 text-[0.625rem] leading-relaxed text-green-400 shadow-[0_0_24px_rgba(34,197,94,0.15)]">
+        <div className="mb-1 text-green-500/60">$ ui add button</div>
+        <div className="mb-1">✓ installed</div>
+        <div className="flex items-center">
+          <span className="text-green-500/60">&gt;&nbsp;</span>
+          <span className="ml-0.5 inline-block h-3 w-1.5 animate-pulse bg-green-400" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AuroraDemo() {
+  return (
+    <div className="flex h-full w-full items-center justify-center bg-[#06090f]">
+      <div className="pointer-events-none absolute -left-6 -top-4 h-28 w-28 rounded-full bg-emerald-500/40 blur-2xl" />
+      <div className="pointer-events-none absolute left-10 top-0 h-24 w-24 rounded-full bg-indigo-500/40 blur-2xl" />
+      <div className="pointer-events-none absolute -right-4 bottom-0 h-28 w-28 rounded-full bg-fuchsia-500/30 blur-2xl" />
+      <div className="relative w-40 rounded-2xl border border-white/10 bg-white/[0.04] p-3 shadow-[0_8px_32px_rgba(45,212,191,0.2)] backdrop-blur-sm">
+        <div className="mb-2.5 flex items-center gap-1.5">
+          <span className="h-1.5 w-1.5 rounded-full bg-teal-300" />
+          <span className="h-1.5 w-14 rounded-full bg-white/15" />
+        </div>
+        <div className="flex items-center justify-center rounded-lg bg-gradient-to-r from-emerald-400 via-teal-400 to-indigo-400 py-1.5 text-[0.6875rem] font-medium text-slate-900 shadow-[0_4px_16px_rgba(45,212,191,0.4)]">
+          Button
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function PixelDemo() {
+  return (
+    <div className="flex h-full w-full items-center justify-center bg-[#1a1c2c] font-mono [image-rendering:pixelated]">
+      <div className="relative w-40 border-2 border-[#f4f4f4] bg-[#29366f] p-3 shadow-[4px_4px_0_0_#000]">
+        <div className="mb-2.5 flex items-center gap-1">
+          <span className="h-2 w-2 bg-[#ef476f]" />
+          <span className="h-2 w-2 bg-[#ffd166]" />
+          <span className="h-2 w-2 bg-[#06d6a0]" />
+        </div>
+        <div className="flex items-center justify-center border-2 border-black bg-[#ef476f] py-1.5 text-[0.625rem] font-bold uppercase tracking-widest text-white shadow-[3px_3px_0_0_#000]">
+          Button
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MaterialDemo() {
+  return (
+    <div className="flex h-full w-full items-center justify-center bg-[#f4f1f8]">
+      <div className="relative w-40 rounded-2xl bg-white p-3 shadow-[0_4px_12px_rgba(103,80,164,0.18),0_1px_3px_rgba(0,0,0,0.1)]">
+        <div className="mb-3 flex items-center gap-2">
+          <span className="h-4 w-4 rounded-full bg-[#6750a4]" />
+          <span className="h-1.5 w-16 rounded-full bg-[#e7e0ec]" />
+        </div>
+        <div className="flex items-center justify-center rounded-full bg-[#6750a4] py-1.5 text-[0.6875rem] font-medium uppercase tracking-wide text-white shadow-[0_2px_6px_rgba(103,80,164,0.4)]">
+          Button
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const DEMOS: Record<string, () => React.ReactElement> = {
   default: DefaultDemo,
   glass: GlassDemo,
@@ -133,4 +217,9 @@ const DEMOS: Record<string, () => React.ReactElement> = {
   neobrutalism: NeobrutalismDemo,
   neumorphism: NeumorphismDemo,
   gradient: GradientDemo,
+  retro: RetroDemo,
+  terminal: TerminalDemo,
+  aurora: AuroraDemo,
+  pixel: PixelDemo,
+  material: MaterialDemo,
 };
