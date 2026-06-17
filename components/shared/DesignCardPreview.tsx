@@ -4,9 +4,9 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import type { DesignMeta } from "@/lib/registry";
 
-type Props = { slug: string; meta: DesignMeta; linkBase?: string };
+type Props = { slug: string; meta: DesignMeta; linkBase?: string; showNew?: boolean };
 
-export function DesignCardPreview({ slug, meta, linkBase = "/components" }: Props) {
+export function DesignCardPreview({ slug, meta, linkBase = "/components", showNew = true }: Props) {
   const Preview = dynamic(
     () =>
       import(`@/designs/${meta.category}/${slug}/Preview`).catch(
@@ -31,7 +31,7 @@ export function DesignCardPreview({ slug, meta, linkBase = "/components" }: Prop
           <div>
             <div className="flex items-center gap-2">
               <span className="text-sm font-medium">{meta.name}</span>
-              {meta.new && (
+              {showNew && meta.new && (
                 <span className="rounded-full bg-emerald-500/10 px-1.5 py-0.5 text-[0.625rem] font-medium text-emerald-500">
                   New
                 </span>

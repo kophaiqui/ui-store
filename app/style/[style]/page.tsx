@@ -59,7 +59,7 @@ export default async function StyleDetailPage({ params }: Props) {
             </h2>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {items.map(([slug, m]) => (
-                <DesignCardPreview key={slug} slug={slug} meta={m} />
+                <DesignCardPreview key={slug} slug={slug} meta={m} showNew={false} />
               ))}
             </div>
           </section>
