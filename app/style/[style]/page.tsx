@@ -7,7 +7,7 @@ import {
   getDesignsByStyle,
   getAllCategories,
 } from "@/lib/registry";
-import { DesignCardPreview } from "@/components/shared/DesignCardPreview";
+import { StyleComponentCard } from "@/components/shared/StyleComponentCard";
 import { StyleDemo } from "@/components/shared/StyleDemo";
 
 type Props = { params: Promise<{ style: string }> };
@@ -59,7 +59,7 @@ export default async function StyleDetailPage({ params }: Props) {
             </h2>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {items.map(([slug, m]) => (
-                <DesignCardPreview key={slug} slug={slug} meta={m} showNew={false} />
+                <StyleComponentCard key={slug} slug={slug} meta={m} />
               ))}
             </div>
           </section>
