@@ -371,5 +371,146 @@
       { "label": "Top placement", "code": "<UIPopover placement=\"top\" />" },
       { "label": "Custom content", "code": "<UIPopover title=\"Filters\" content=\"Adjust your display filters here.\" />" }
     ]
+  },
+
+  "card": {
+    "name": "Card",
+    "category": "data-display",
+    "style": "default",
+    "tags": ["card", "container", "surface", "layout"],
+    "description": "A flexible surface container for grouping related content. Supports glass, bordered, and hoverable variants.",
+    "preview": true,
+    "new": true,
+    "props": [
+      { "name": "variant", "type": "\"default\" | \"glass\" | \"bordered\"", "default": "\"default\"", "description": "Surface style — default uses card bg + border, glass uses frosted-glass effect, bordered is transparent with a thicker border" },
+      { "name": "padding", "type": "\"none\" | \"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Internal padding of the card" },
+      { "name": "radius", "type": "\"none\" | \"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Corner radius of the card" },
+      { "name": "shadow", "type": "boolean", "default": "false", "description": "Adds a subtle drop shadow beneath the card" },
+      { "name": "hoverable", "type": "boolean", "default": "false", "description": "Adds a lift + shadow effect on hover" },
+      { "name": "clickable", "type": "boolean", "default": "false", "description": "Makes the card interactive — adds cursor-pointer and keyboard focus support" },
+      { "name": "onClick", "type": "() => void", "default": "undefined", "description": "Click handler; also enables clickable styles when provided" },
+      { "name": "children", "type": "ReactNode", "default": "undefined", "description": "Content rendered inside the card" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<UICard><p>Card content.</p></UICard>" },
+      { "label": "Glass", "code": "<UICard variant=\"glass\">Glass card.</UICard>" },
+      { "label": "Hoverable", "code": "<UICard hoverable><p>Hover me.</p></UICard>" },
+      { "label": "Clickable", "code": "<UICard clickable onClick={() => alert('Clicked!')}><p>Click me.</p></UICard>" }
+    ]
+  },
+
+  "badge": {
+    "name": "Badge",
+    "category": "data-display",
+    "style": "default",
+    "tags": ["badge", "label", "status", "tag"],
+    "description": "A compact label for status indicators, counts, or metadata. Supports solid, soft, and outline styles across six colors.",
+    "preview": true,
+    "new": true,
+    "props": [
+      { "name": "variant", "type": "\"solid\" | \"soft\" | \"outline\"", "default": "\"soft\"", "description": "Fill style of the badge" },
+      { "name": "color", "type": "\"default\" | \"emerald\" | \"red\" | \"amber\" | \"blue\" | \"violet\"", "default": "\"default\"", "description": "Color palette applied to the badge" },
+      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Controls badge height and text size" },
+      { "name": "dot", "type": "boolean", "default": "false", "description": "Prepends a small colored dot — useful for status indicators" },
+      { "name": "rounded", "type": "boolean", "default": "false", "description": "Uses fully rounded (pill) corners instead of the default rounded-md" },
+      { "name": "icon", "type": "ReactNode", "default": "undefined", "description": "Icon rendered before the label (ignored when dot is true)" },
+      { "name": "children", "type": "ReactNode", "default": "\"Badge\"", "description": "Badge label text" }
+    ],
+    "usage": [
+      { "label": "Colors", "code": "<UIBadge color=\"emerald\">Active</UIBadge>\n<UIBadge color=\"red\">Error</UIBadge>\n<UIBadge color=\"amber\">Warning</UIBadge>\n<UIBadge color=\"blue\">Info</UIBadge>" },
+      { "label": "Variants", "code": "<UIBadge variant=\"solid\">Solid</UIBadge>\n<UIBadge variant=\"soft\">Soft</UIBadge>\n<UIBadge variant=\"outline\">Outline</UIBadge>" },
+      { "label": "With dot", "code": "<UIBadge dot color=\"emerald\">Online</UIBadge>\n<UIBadge dot color=\"red\">Offline</UIBadge>" },
+      { "label": "Pill", "code": "<UIBadge rounded color=\"blue\">New</UIBadge>" }
+    ]
+  },
+
+  "chip": {
+    "name": "Chip",
+    "category": "data-display",
+    "style": "default",
+    "tags": ["chip", "tag", "filter", "selection"],
+    "description": "An interactive filter or selection token. Supports selected state and a removable dismiss button.",
+    "preview": true,
+    "new": true,
+    "props": [
+      { "name": "selected", "type": "boolean", "default": "false", "description": "Highlights the chip with the emerald accent to indicate active selection" },
+      { "name": "removable", "type": "boolean", "default": "false", "description": "Renders an × button on the right that calls onRemove when clicked" },
+      { "name": "onRemove", "type": "() => void", "default": "undefined", "description": "Callback fired when the remove button is clicked" },
+      { "name": "onClick", "type": "() => void", "default": "undefined", "description": "Click handler — also enables button role and keyboard support" },
+      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Controls chip height, padding, and text size" },
+      { "name": "icon", "type": "ReactNode", "default": "undefined", "description": "Icon rendered before the label" },
+      { "name": "children", "type": "ReactNode", "default": "\"Chip\"", "description": "Chip label text" }
+    ],
+    "usage": [
+      { "label": "Filter chips", "code": "<UIChip selected>Design</UIChip>\n<UIChip>Tailwind</UIChip>\n<UIChip>React</UIChip>" },
+      { "label": "Removable", "code": "<UIChip removable onRemove={() => {}}>TypeScript</UIChip>" },
+      { "label": "Sizes", "code": "<UIChip size=\"sm\">Small</UIChip>\n<UIChip size=\"md\">Medium</UIChip>\n<UIChip size=\"lg\">Large</UIChip>" }
+    ]
+  },
+
+  "alert": {
+    "name": "Alert",
+    "category": "feedback",
+    "style": "default",
+    "tags": ["alert", "message", "notification", "status"],
+    "description": "An inline status message in four severity levels: info, success, warning, and error. Optionally dismissible.",
+    "preview": true,
+    "new": true,
+    "props": [
+      { "name": "variant", "type": "\"info\" | \"success\" | \"warning\" | \"error\"", "default": "\"info\"", "description": "Determines the color scheme and default icon" },
+      { "name": "title", "type": "string", "default": "undefined", "description": "Optional bold heading above the description" },
+      { "name": "description", "type": "string", "default": "\"Something happened…\"", "description": "Main body text of the alert" },
+      { "name": "icon", "type": "ReactNode", "default": "undefined", "description": "Custom icon — overrides the default variant icon when provided" },
+      { "name": "closable", "type": "boolean", "default": "false", "description": "Shows a dismiss button that hides the alert on click" },
+      { "name": "onClose", "type": "() => void", "default": "undefined", "description": "Callback fired when the dismiss button is clicked" }
+    ],
+    "usage": [
+      { "label": "Variants", "code": "<UIAlert variant=\"info\" description=\"Your request is being processed.\" />\n<UIAlert variant=\"success\" description=\"Changes saved successfully.\" />\n<UIAlert variant=\"warning\" description=\"Your plan is almost at its limit.\" />\n<UIAlert variant=\"error\" description=\"Unable to connect to the server.\" />" },
+      { "label": "With title", "code": "<UIAlert variant=\"error\" title=\"Upload failed\" description=\"The file exceeds the 10 MB size limit.\" />" },
+      { "label": "Dismissible", "code": "<UIAlert variant=\"success\" title=\"Done!\" description=\"All changes saved.\" closable />" }
+    ]
+  },
+
+  "toast": {
+    "name": "Toast",
+    "category": "feedback",
+    "style": "default",
+    "tags": ["toast", "notification", "snackbar", "base-ui"],
+    "description": "Transient notifications that slide in from the corner. Uses Base UI Toast with a global toastManager for triggering outside React.",
+    "preview": true,
+    "new": true,
+    "props": [
+      { "name": "timeout", "type": "number", "default": "5000", "description": "Default auto-dismiss delay in milliseconds. Pass 0 to disable auto-dismiss." },
+      { "name": "limit", "type": "number", "default": "3", "description": "Maximum number of toasts shown at once" },
+      { "name": "children", "type": "ReactNode", "default": "undefined", "description": "App content wrapped by the toast provider" }
+    ],
+    "usage": [
+      { "label": "Setup", "code": "// Wrap your app once\n<UIToast>\n  <App />\n</UIToast>" },
+      { "label": "Default", "code": "import { toastManager } from '@/designs/feedback/toast/Component';\ntoastManager.add({ data: { title: 'Hello!', description: 'Welcome back.' } });" },
+      { "label": "Success", "code": "toastManager.add({ data: { variant: 'success', title: 'Saved', description: 'Your changes are saved.' } });" },
+      { "label": "Error", "code": "toastManager.add({ data: { variant: 'error', title: 'Failed', description: 'Something went wrong.' } });" }
+    ]
+  },
+
+  "dropdown-menu": {
+    "name": "Dropdown Menu",
+    "category": "feedback",
+    "style": "default",
+    "tags": ["menu", "dropdown", "context-menu", "base-ui"],
+    "description": "A keyboard-navigable dropdown menu with icons, keyboard shortcuts, separators, and a danger style. Built on Base UI Menu primitive.",
+    "preview": true,
+    "new": true,
+    "props": [
+      { "name": "triggerLabel", "type": "string", "default": "\"Open menu\"", "description": "Text label on the default trigger button" },
+      { "name": "trigger", "type": "ReactNode", "default": "undefined", "description": "Custom trigger element — replaces the default trigger button when provided" },
+      { "name": "items", "type": "MenuItem[]", "default": "[...]", "description": "Array of menu items. Each item: { label, icon?, shortcut?, disabled?, danger?, separator? }" },
+      { "name": "align", "type": "\"start\" | \"center\" | \"end\"", "default": "\"start\"", "description": "Horizontal alignment of the popup relative to the trigger" },
+      { "name": "side", "type": "\"top\" | \"bottom\" | \"left\" | \"right\"", "default": "\"bottom\"", "description": "Side the popup opens on relative to the trigger" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<UIDropdownMenu />" },
+      { "label": "Custom items", "code": "<UIDropdownMenu items={[{ label: 'Profile' }, { label: 'Settings', shortcut: '⌘,' }, { separator: true, label: '' }, { label: 'Log out', danger: true }]} />" },
+      { "label": "Custom trigger", "code": "<UIDropdownMenu trigger={<button>⋮</button>} items={[{ label: 'Edit' }, { label: 'Delete', danger: true }]} />" }
+    ]
   }
 }
