@@ -8,8 +8,6 @@ import {
   getAllCategories,
 } from "@/lib/registry";
 import { StyleComponentCard } from "@/components/shared/StyleComponentCard";
-import { StyleSidebar, StyleToc, type StyleNavSection } from "@/components/shared/StyleNav";
-import { SectionLayout } from "@/components/layout/SectionLayout";
 import { StyleDemo } from "@/components/shared/StyleDemo";
 
 type Props = { params: Promise<{ style: string }> };
@@ -40,48 +38,36 @@ export default async function StyleDetailPage({ params }: Props) {
   );
   const total = Object.keys(designs).length;
 
-  const sections: StyleNavSection[] = categories.map((cat) => ({
-    category: cat,
-    items: Object.entries(designs)
-      .filter(([, m]) => m.category === cat)
-      .map(([slug, m]) => ({ slug, name: m.name })),
-  }));
-
   return (
-    <SectionLayout
-      sidebar={<StyleSidebar styleName={meta.name} sections={sections} />}
-      toc={<StyleToc sections={sections} />}
-    >
-      <div className="px-8 py-10">
-        <Breadcrumb name={meta.name} />
+    <div className="px-8 py-10">
+      <Breadcrumb name={meta.name} />
 
-        <div className="mb-12 max-w-2xl">
-          <h1 className="mb-2 text-4xl font-bold tracking-tight">{meta.name}</h1>
-          <p className="text-[0.9375rem] leading-relaxed text-muted-foreground">{meta.description}</p>
-          <p className="mt-3 text-sm text-muted-foreground">
-            {total} component{total === 1 ? "" : "s"} in this style.
-          </p>
-        </div>
-
-        {categories.map((cat) => {
-          const items = Object.entries(designs).filter(([, m]) => m.category === cat);
-          return (
-            <section key={cat} id={cat} className="mb-14 scroll-mt-24">
-              <h2 className="mb-5 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                {cat}
-              </h2>
-              <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-                {items.map(([slug, m]) => (
-                  <div key={slug} id={slug} className="scroll-mt-24">
-                    <StyleComponentCard slug={slug} meta={m} />
-                  </div>
-                ))}
-              </div>
-            </section>
-          );
-        })}
+      <div className="mb-12 max-w-2xl">
+        <h1 className="mb-2 text-4xl font-bold tracking-tight">{meta.name}</h1>
+        <p className="text-[0.9375rem] leading-relaxed text-muted-foreground">{meta.description}</p>
+        <p className="mt-3 text-sm text-muted-foreground">
+          {total} component{total === 1 ? "" : "s"} in this style.
+        </p>
       </div>
-    </SectionLayout>
+
+      {categories.map((cat) => {
+        const items = Object.entries(designs).filter(([, m]) => m.category === cat);
+        return (
+          <section key={cat} id={cat} className="mb-14 scroll-mt-24">
+            <h2 className="mb-5 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+              {cat}
+            </h2>
+            <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+              {items.map(([slug, m]) => (
+                <div key={slug} id={slug} className="scroll-mt-24">
+                  <StyleComponentCard slug={slug} meta={m} href={`/style/${style}/${slug}`} />
+                </div>
+              ))}
+            </div>
+          </section>
+        );
+      })}
+    </div>
   );
 }
 

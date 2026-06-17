@@ -4,7 +4,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import type { DesignMeta } from "@/lib/registry";
 
-type Props = { slug: string; meta: DesignMeta };
+type Props = { slug: string; meta: DesignMeta; href?: string };
 
 /**
  * A live, interactive component card for the style gallery.
@@ -12,7 +12,7 @@ type Props = { slug: string; meta: DesignMeta };
  * inside stays fully interactive (open the accordion, drag the slider, …)
  * without routing away. A subtle "Open" link still leads to the full page.
  */
-export function StyleComponentCard({ slug, meta }: Props) {
+export function StyleComponentCard({ slug, meta, href = `/components/${slug}` }: Props) {
   const Preview = dynamic(
     () => import(`@/designs/${meta.category}/${slug}/Preview`).catch(() => () => null),
     { ssr: false, loading: () => <div className="h-16 w-32 animate-pulse rounded bg-muted/50" /> }
@@ -53,7 +53,7 @@ export function StyleComponentCard({ slug, meta }: Props) {
           <div className="text-xs capitalize text-muted-foreground">{meta.category}</div>
         </div>
         <Link
-          href={`/components/${slug}`}
+          href={href}
           className="rounded-md border border-border/60 px-2.5 py-1 text-xs text-muted-foreground transition-colors hover:border-border hover:text-foreground"
         >
           Open →
