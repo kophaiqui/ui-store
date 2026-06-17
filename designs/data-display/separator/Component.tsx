@@ -9,7 +9,7 @@ export function UISeparator({
   return (
     <Separator
       className={cn(
-        "shrink-0 bg-violet-500/60",
+        "shrink-0 bg-emerald-500/60",
         "data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full",
         // h-full stretches to the parent's height; min-h keeps it visible when
         // used on its own (e.g. in the preview) where no parent height exists.
