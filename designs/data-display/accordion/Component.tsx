@@ -33,14 +33,14 @@ export function UIAccordion({
   className,
 }: Props) {
   return (
-    <Accordion.Root className={cn("w-full divide-y divide-zinc-800", className)}>
+    <Accordion.Root className={cn("w-full divide-y divide-border", className)}>
       {items.map((item) => (
         <Accordion.Item key={item.value} value={item.value}>
           <Accordion.Header>
             <Accordion.Trigger
               className={cn(
                 "group flex w-full items-center justify-between py-4",
-                "text-sm font-medium text-zinc-300 hover:text-zinc-100",
+                "text-sm font-medium text-foreground/90 hover:text-foreground",
                 "transition-colors duration-150",
                 "focus-visible:outline-none",
                 "cursor-default select-none",
@@ -53,7 +53,7 @@ export function UIAccordion({
                 viewBox="0 0 14 14"
                 fill="none"
                 aria-hidden
-                className="shrink-0 text-zinc-600 transition-transform duration-200 ease-out group-aria-[expanded=true]:rotate-180"
+                className="shrink-0 text-muted-foreground/70 transition-transform duration-200 ease-out group-aria-[expanded=true]:rotate-180"
               >
                 <path
                   d="M2.5 5L7 9.5L11.5 5"
@@ -65,7 +65,7 @@ export function UIAccordion({
               </svg>
             </Accordion.Trigger>
           </Accordion.Header>
-          <Accordion.Panel className="pb-4 text-sm text-zinc-400 leading-relaxed">
+          <Accordion.Panel className="pb-4 text-sm text-muted-foreground leading-relaxed">
             {item.content}
           </Accordion.Panel>
         </Accordion.Item>

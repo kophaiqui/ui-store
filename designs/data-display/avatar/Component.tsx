@@ -12,8 +12,8 @@ type Props = React.ComponentProps<typeof Avatar.Root> & {
 };
 
 const sizeMap = {
-  xs: { root: "size-6", text: "text-[9px]" },
-  sm: { root: "size-8", text: "text-[10px]" },
+  xs: { root: "size-6", text: "text-[0.5625rem]" },
+  sm: { root: "size-8", text: "text-[0.625rem]" },
   md: { root: "size-10", text: "text-xs" },
   lg: { root: "size-12", text: "text-sm" },
   xl: { root: "size-16", text: "text-base" },
@@ -21,7 +21,7 @@ const sizeMap = {
 
 const statusMap = {
   online: "bg-emerald-500",
-  offline: "bg-zinc-500",
+  offline: "bg-muted-foreground",
   busy:   "bg-red-500",
 };
 
@@ -50,8 +50,8 @@ export function UIAvatar({
       <Avatar.Root
         className={cn(
           "relative inline-flex items-center justify-center overflow-hidden",
-          "border border-zinc-700/60 bg-zinc-800",
-          "ring-2 ring-zinc-900",
+          "border border-border/60 bg-muted",
+          "ring-2 ring-card",
           shape === "circle" ? "rounded-full" : "rounded-md",
           root,
           className,
@@ -67,7 +67,7 @@ export function UIAvatar({
         )}
         <Avatar.Fallback
           className={cn(
-            "flex h-full w-full items-center justify-center font-medium tracking-wide text-zinc-300 bg-zinc-800",
+            "flex h-full w-full items-center justify-center font-medium tracking-wide text-foreground/90 bg-muted",
             text,
           )}
           delay={0}
@@ -79,7 +79,7 @@ export function UIAvatar({
       {status && (
         <span
           className={cn(
-            "absolute bottom-0 right-0 rounded-full ring-zinc-950",
+            "absolute bottom-0 right-0 rounded-full ring-background",
             statusMap[status],
             statusSizeMap[size],
           )}

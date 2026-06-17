@@ -69,7 +69,7 @@ export default async function ComponentVariantPage({ params }: Props) {
           </span>
         )}
       </div>
-      <p className="mb-10 max-w-xl text-[15px] leading-relaxed text-muted-foreground">
+      <p className="mb-10 max-w-xl text-[0.9375rem] leading-relaxed text-muted-foreground">
         {meta.description}
       </p>
 

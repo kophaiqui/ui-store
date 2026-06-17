@@ -21,7 +21,7 @@ export function UITabs({
 }: Props) {
   return (
     <Tabs.Root defaultValue={defaultValue} className={cn("w-full", className)}>
-      <Tabs.List className="relative flex gap-0 border-b border-zinc-800">
+      <Tabs.List className="relative flex gap-0 border-b border-border">
         <Tabs.Indicator
           className="absolute bottom-0 left-0 h-px bg-emerald-500 transition-all duration-200 ease-out"
           style={{ width: "var(--active-tab-width)", left: "var(--active-tab-left)" }}
@@ -31,9 +31,9 @@ export function UITabs({
             key={tab.value}
             value={tab.value}
             className={cn(
-              "relative px-4 pb-3 pt-1 text-sm font-medium text-zinc-500",
-              "transition-colors duration-150 hover:text-zinc-200",
-              "data-[selected]:text-zinc-100",
+              "relative px-4 pb-3 pt-1 text-sm font-medium text-muted-foreground",
+              "transition-colors duration-150 hover:text-foreground",
+              "data-[selected]:text-foreground",
               "focus-visible:outline-none",
               "cursor-default select-none",
             )}
@@ -46,7 +46,7 @@ export function UITabs({
         <Tabs.Panel
           key={tab.value}
           value={tab.value}
-          className="pt-4 text-sm text-zinc-400 leading-relaxed focus-visible:outline-none"
+          className="pt-4 text-sm text-muted-foreground leading-relaxed focus-visible:outline-none"
         >
           {tab.content}
         </Tabs.Panel>

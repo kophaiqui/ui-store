@@ -32,7 +32,7 @@ export function DesignCardPreview({ slug, meta, linkBase = "/components" }: Prop
             <div className="flex items-center gap-2">
               <span className="text-sm font-medium">{meta.name}</span>
               {meta.new && (
-                <span className="rounded-full bg-emerald-500/10 px-1.5 py-0.5 text-[10px] font-medium text-emerald-500">
+                <span className="rounded-full bg-emerald-500/10 px-1.5 py-0.5 text-[0.625rem] font-medium text-emerald-500">
                   New
                 </span>
               )}

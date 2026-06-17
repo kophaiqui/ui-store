@@ -7,35 +7,45 @@ type Option = { label: string; value: string };
 type Props = {
   options?: Option[];
   placeholder?: string;
+  multiSelect?: boolean;
   className?: string;
 };
 
 export function UISelect({
-  options = [
-    { label: "Design System", value: "ds" },
-    { label: "Component Library", value: "cl" },
-    { label: "Style Guide", value: "sg" },
-  ],
+  options = [],
   placeholder = "Select an option",
+  multiSelect = false,
   className,
 }: Props) {
+  const labelOf = (value: string) =>
+    options.find((opt) => opt.value === value)?.label ?? value;
+
   return (
-    <Select.Root>
+    <Select.Root items={options} multiple={multiSelect}>
       <Select.Trigger
         className={cn(
-          "flex h-9 w-full items-center justify-between gap-2 rounded-md border border-zinc-800 bg-zinc-900 px-3",
-          "text-sm text-zinc-100",
+          "flex h-9 w-full items-center justify-between gap-2 rounded-md border border-border bg-card px-3",
+          "text-sm text-foreground",
           "shadow-[inset_0_1px_3px_rgba(0,0,0,0.3)]",
-          "transition-all duration-150 hover:border-zinc-700",
+          "transition-all duration-150 hover:border-border",
           "focus:outline-none focus:border-emerald-500/70 focus:ring-2 focus:ring-emerald-500/20",
           "disabled:pointer-events-none disabled:opacity-40",
           className,
         )}
       >
-        <Select.Value
-          placeholder={<span className="text-zinc-500">{placeholder}</span>}
-        />
-        <Select.Icon className="shrink-0 text-zinc-500">
+        <Select.Value placeholder={<span className="text-muted-foreground">{placeholder}</span>}>
+          {(value: string | string[] | null) => {
+            if (Array.isArray(value)) {
+              if (value.length === 0)
+                return <span className="text-muted-foreground">{placeholder}</span>;
+              return value.map(labelOf).join(", ");
+            }
+            if (value == null || value === "")
+              return <span className="text-muted-foreground">{placeholder}</span>;
+            return labelOf(value);
+          }}
+        </Select.Value>
+        <Select.Icon className="shrink-0 text-muted-foreground">
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
             <path
               d="M2.5 4.5L6 8L9.5 4.5"
@@ -53,7 +63,7 @@ export function UISelect({
           <Select.Popup
             className={cn(
               "z-50 min-w-[var(--anchor-width)] overflow-hidden rounded-lg",
-              "border border-zinc-800 bg-zinc-950 py-1",
+              "border border-border bg-background py-1",
               "shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.04)]",
             )}
           >
@@ -62,9 +72,9 @@ export function UISelect({
                 key={opt.value}
                 value={opt.value}
                 className={cn(
-                  "flex h-8 cursor-default select-none items-center px-3 text-sm text-zinc-300",
+                  "flex h-8 cursor-default select-none items-center px-3 text-sm text-foreground/90",
                   "transition-colors duration-100",
-                  "data-[highlighted]:bg-zinc-800 data-[highlighted]:text-zinc-100",
+                  "data-[highlighted]:bg-muted data-[highlighted]:text-foreground",
                   "data-[selected]:text-emerald-400",
                 )}
               >

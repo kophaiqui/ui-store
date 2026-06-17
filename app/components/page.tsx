@@ -12,7 +12,7 @@ export default function ComponentsPage() {
     <div className="px-8 py-10">
       <div className="mb-10">
         <h1 className="mb-1 text-3xl font-bold tracking-tight">Components</h1>
-        <p className="text-[15px] text-muted-foreground">
+        <p className="text-[0.9375rem] text-muted-foreground">
           {Object.keys(designs).length} designs across {categories.length} categories — click any to see the code.
         </p>
       </div>

@@ -51,11 +51,11 @@ export function UIRadioGroup({
             value={opt.value}
             className={cn(
               "relative flex shrink-0 items-center justify-center rounded-full",
-              "border border-zinc-700 bg-zinc-900",
+              "border border-border bg-card",
               "transition-all duration-150",
-              "hover:border-zinc-600",
+              "hover:border-input",
               "data-[checked]:border-emerald-500",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40 focus-visible:ring-offset-1 focus-visible:ring-offset-zinc-950",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40 focus-visible:ring-offset-1 focus-visible:ring-offset-background",
               radioSizeMap[size],
             )}
           >
@@ -63,7 +63,7 @@ export function UIRadioGroup({
               <span className={cn("block rounded-full bg-emerald-500", dotSizeMap[size])} />
             </Radio.Indicator>
           </Radio.Root>
-          <span className="text-sm text-zinc-300 group-hover:text-zinc-100 transition-colors duration-150">
+          <span className="text-sm text-foreground/90 group-hover:text-foreground transition-colors duration-150">
             {opt.label}
           </span>
         </label>

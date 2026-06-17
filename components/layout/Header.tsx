@@ -38,7 +38,7 @@ export default function Header() {
               <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
             </svg>
             <span>Search...</span>
-            <kbd className="ml-4 rounded border border-border/60 px-1.5 py-0.5 text-[10px] text-muted-foreground/70">⌘K</kbd>
+            <kbd className="ml-4 rounded border border-border/60 px-1.5 py-0.5 text-[0.625rem] text-muted-foreground/70">⌘K</kbd>
           </button>
 
           <ThemeToggle />

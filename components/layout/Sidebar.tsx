@@ -234,7 +234,7 @@ function ComponentItem({
       <button
         onClick={() => setOpen((o) => !o)}
         className={cn(
-          "group relative flex w-full items-center justify-between rounded-md px-2 py-1.5 text-[13px] transition-all duration-150",
+          "group relative flex w-full items-center justify-between rounded-md px-2 py-1.5 text-[0.8125rem] transition-all duration-150",
           isActive
             ? "bg-violet-500/[0.08] font-medium text-foreground before:absolute before:inset-y-1 before:left-0 before:w-[2px] before:rounded-full before:bg-violet-500"
             : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
@@ -252,7 +252,7 @@ function ComponentItem({
           {item.label}
         </span>
         <div className="flex items-center gap-1.5">
-          <span className="rounded-full bg-violet-500/10 px-1.5 py-0.5 text-[10px] font-medium tabular-nums text-violet-400">
+          <span className="rounded-full bg-violet-500/10 px-1.5 py-0.5 text-[0.625rem] font-medium tabular-nums text-violet-400">
             {variants.length}
           </span>
           <Chevron open={open} />
@@ -268,7 +268,7 @@ function ComponentItem({
                 <Link
                   href={v.href}
                   className={cn(
-                    "flex items-center gap-1.5 rounded-md px-2 py-1 text-[12px] transition-colors",
+                    "flex items-center gap-1.5 rounded-md px-2 py-1 text-[0.75rem] transition-colors",
                     isVariantActive
                       ? "font-medium text-violet-400"
                       : "text-muted-foreground hover:text-foreground"
@@ -300,7 +300,7 @@ function Category({
 }) {
   return (
     <div className="mb-4">
-      <p className="mb-1 px-2 py-1 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/50">
+      <p className="mb-1 px-2 py-1 text-[0.625rem] font-semibold uppercase tracking-widest text-muted-foreground/50">
         {section.title}
       </p>
       <ul className="space-y-0.5">
@@ -323,7 +323,7 @@ export function Sidebar({ sections }: Props) {
       <Link
         href="/components"
         className={cn(
-          "relative mb-4 flex items-center gap-2 rounded-md px-2 py-2 text-[13px] font-medium transition-all duration-150",
+          "relative mb-4 flex items-center gap-2 rounded-md px-2 py-2 text-[0.8125rem] font-medium transition-all duration-150",
           isOverview
             ? "bg-violet-500/[0.08] text-foreground before:absolute before:inset-y-1.5 before:left-0 before:w-[2px] before:rounded-full before:bg-violet-500"
             : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"

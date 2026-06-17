@@ -30,29 +30,29 @@ export function UIInput({
   const base = cn(
     "flex w-full rounded-md",
     sizeMap[size],
-    "text-zinc-100 placeholder:text-zinc-500",
+    "text-foreground placeholder:text-muted-foreground",
     "transition-all duration-150",
     "focus:outline-none focus:ring-2",
     "disabled:pointer-events-none disabled:opacity-40",
     "read-only:cursor-default",
     // variant
     variant === "outline" && cn(
-      "border bg-zinc-900 shadow-[inset_0_1px_3px_rgba(0,0,0,0.3)]",
+      "border bg-card shadow-[inset_0_1px_3px_rgba(0,0,0,0.3)]",
       hasError
         ? "border-red-500/70 focus:border-red-500/70 focus:ring-red-500/20"
-        : "border-zinc-800 hover:border-zinc-700 focus:border-emerald-500/70 focus:ring-emerald-500/20",
+        : "border-border hover:border-border focus:border-emerald-500/70 focus:ring-emerald-500/20",
     ),
     variant === "filled" && cn(
-      "border-0 bg-zinc-800",
+      "border-0 bg-muted",
       hasError
         ? "ring-2 ring-red-500/40"
-        : "hover:bg-zinc-700/80 focus:bg-zinc-700 focus:ring-emerald-500/20",
+        : "hover:bg-accent/80 focus:bg-accent focus:ring-emerald-500/20",
     ),
     variant === "ghost" && cn(
       "border-0 bg-transparent shadow-none",
       hasError
         ? "ring-2 ring-red-500/40"
-        : "hover:bg-zinc-800/60 focus:bg-zinc-800/60 focus:ring-emerald-500/20",
+        : "hover:bg-muted/60 focus:bg-muted/60 focus:ring-emerald-500/20",
     ),
   );
 
@@ -71,7 +71,7 @@ export function UIInput({
     <div className="w-full">
       <div className="relative flex items-center">
         {prefixIcon && (
-          <span className="pointer-events-none absolute left-3 flex items-center text-zinc-500">
+          <span className="pointer-events-none absolute left-3 flex items-center text-muted-foreground">
             {prefixIcon}
           </span>
         )}
@@ -85,7 +85,7 @@ export function UIInput({
           {...props}
         />
         {suffixIcon && (
-          <span className="pointer-events-none absolute right-3 flex items-center text-zinc-500">
+          <span className="pointer-events-none absolute right-3 flex items-center text-muted-foreground">
             {suffixIcon}
           </span>
         )}

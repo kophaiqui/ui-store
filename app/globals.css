@@ -51,7 +51,7 @@
 
 :root {
   --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --foreground: oklch(0.12 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -61,7 +61,7 @@
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
+  --muted-foreground: oklch(0.44 0 0);
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
@@ -86,7 +86,7 @@
 
 .dark {
   --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
+  --foreground: oklch(1 0 0);
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
@@ -96,7 +96,7 @@
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
+  --muted-foreground: oklch(0.8 0 0);
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
@@ -127,31 +127,58 @@
   }
   html {
     @apply font-sans;
+    /* Fluid type: rem-based text scales smoothly with viewport width.
+       Calibrated so a 1920px-wide screen resolves to ~16px (today's size),
+       clamped to [14px, 18px] so phones/4K stay sensible. */
+    font-size: clamp(14px, 13px + 0.16vw, 18px);
   }
 }
 
-/* highlight.js custom theme — zinc/violet/amber palette */
+/* highlight.js custom theme — light mode (darker tokens for contrast on white) */
 @layer base {
-  .hljs                { color: #a1a1aa }
-  .hljs-keyword        { color: #818cf8 }
-  .hljs-operator       { color: #818cf8 }
-  .hljs-string         { color: #fbbf24 }
-  .hljs-number         { color: #fb923c }
-  .hljs-literal        { color: #fb923c }
-  .hljs-comment        { color: #52525b }
-  .hljs-title          { color: #38bdf8 }
-  .hljs-type           { color: #34d399 }
-  .hljs-built_in       { color: #34d399 }
-  .hljs-attr           { color: #c4b5fd }
-  .hljs-name           { color: #c4b5fd }
-  .hljs-tag            { color: #52525b }
-  .hljs-variable       { color: #e4e4e7 }
-  .hljs-params         { color: #e4e4e7 }
-  .hljs-punctuation    { color: #52525b }
-  .hljs-property       { color: #c4b5fd }
-  .hljs-symbol         { color: #34d399 }
-  .hljs-title.class_   { color: #34d399 }
-  .hljs-title.function_{ color: #38bdf8 }
-  .hljs-tag            { color: #71717a } /* zinc-500 – lowercase html tags */
-  .hljs-punctuation    { color: #52525b } /* zinc-600 – brackets */
+  .hljs                { color: #3f3f46 }
+  .hljs-keyword        { color: #4f46e5 }
+  .hljs-operator       { color: #4f46e5 }
+  .hljs-string         { color: #b45309 }
+  .hljs-number         { color: #c2410c }
+  .hljs-literal        { color: #c2410c }
+  .hljs-comment        { color: #a1a1aa }
+  .hljs-title          { color: #0284c7 }
+  .hljs-type           { color: #047857 }
+  .hljs-built_in       { color: #047857 }
+  .hljs-attr           { color: #7c3aed }
+  .hljs-name           { color: #7c3aed }
+  .hljs-variable       { color: #3f3f46 }
+  .hljs-params         { color: #3f3f46 }
+  .hljs-punctuation    { color: #71717a }
+  .hljs-property       { color: #7c3aed }
+  .hljs-symbol         { color: #047857 }
+  .hljs-title.class_   { color: #047857 }
+  .hljs-title.function_{ color: #0284c7 }
+  .hljs-tag            { color: #71717a }
+}
+
+/* highlight.js custom theme — dark mode (brighter zinc/violet/amber palette) */
+@layer base {
+  .dark .hljs                { color: #a1a1aa }
+  .dark .hljs-keyword        { color: #818cf8 }
+  .dark .hljs-operator       { color: #818cf8 }
+  .dark .hljs-string         { color: #fbbf24 }
+  .dark .hljs-number         { color: #fb923c }
+  .dark .hljs-literal        { color: #fb923c }
+  .dark .hljs-comment        { color: #52525b }
+  .dark .hljs-title          { color: #38bdf8 }
+  .dark .hljs-type           { color: #34d399 }
+  .dark .hljs-built_in       { color: #34d399 }
+  .dark .hljs-attr           { color: #c4b5fd }
+  .dark .hljs-name           { color: #c4b5fd }
+  .dark .hljs-variable       { color: #e4e4e7 }
+  .dark .hljs-params         { color: #e4e4e7 }
+  .dark .hljs-punctuation    { color: #52525b }
+  .dark .hljs-property       { color: #c4b5fd }
+  .dark .hljs-symbol         { color: #34d399 }
+  .dark .hljs-title.class_   { color: #34d399 }
+  .dark .hljs-title.function_{ color: #38bdf8 }
+  .dark .hljs-tag            { color: #71717a } /* zinc-500 – lowercase html tags */
+  .dark .hljs-punctuation    { color: #52525b } /* zinc-600 – brackets */
 }

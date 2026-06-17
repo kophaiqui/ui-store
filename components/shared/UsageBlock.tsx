@@ -62,56 +62,156 @@ function tokenizeJSX(code: string): Tok[] {
 }
 
 const TT_CLS: Record<TT, string> = {
-  bracket:  "text-zinc-500",
-  tagName:  "text-sky-400",
-  propName: "text-violet-400",
-  eq:       "text-zinc-500",
-  strVal:   "text-amber-400",
-  exprVal:  "text-orange-400",
-  boolProp: "text-emerald-400",
-  text:     "text-zinc-300",
+  bracket:  "text-muted-foreground",
+  tagName:  "text-sky-600 dark:text-sky-400",
+  propName: "text-violet-600 dark:text-violet-400",
+  eq:       "text-muted-foreground",
+  strVal:   "text-amber-600 dark:text-amber-400",
+  exprVal:  "text-orange-600 dark:text-orange-400",
+  boolProp: "text-emerald-600 dark:text-emerald-400",
+  text:     "text-foreground/90",
   space:    "",
 };
 // ─────────────────────────────────────────────────────────────────────────────
 
 type ParsedProps = Record<string, unknown>;
 
+// Sentinel returned when an expression can't be safely turned into a value.
+const BAIL = Symbol("bail");
+
+// Evaluates a JSX expression value (`{ … }`) into a concrete value, but ONLY
+// for inert data: primitives and plain array/object literals (e.g. an `options`
+// array of `{ label, value }`). Anything that could execute or render — JSX
+// (`<svg/>`), function calls, identifiers, template strings — is rejected via a
+// strict character whitelist, so we never evaluate arbitrary code. Usage strings
+// come from the first-party registry, the same trust level as the modules we
+// already `import()`; the whitelist is defense-in-depth on top of that.
+function parseExpr(expr: string): unknown {
+  if (expr === "true") return true;
+  if (expr === "false") return false;
+  if (expr === "undefined") return undefined;
+  if (/^-?\d+(\.\d+)?$/.test(expr)) return Number(expr);
+  if (/^(["']).*\1$/.test(expr)) return expr.slice(1, -1);
+
+  // Data literals only: letters/digits, quotes, whitespace, and the structural
+  // characters of arrays/objects/numbers. No `<`, `(`, `=`, `;`, backtick, etc.
+  if (/^[\w$\s'"{}[\]:,.+-]+$/.test(expr)) {
+    try {
+      return Function(`"use strict";return (${expr});`)();
+    } catch {
+      return BAIL;
+    }
+  }
+  return BAIL;
+}
+
+// Brace/quote-aware attribute parser. Reconstructs primitive and inert-data prop
+// values into real props. Any expression that can't be safely evaluated — most
+// importantly a JSX/ReactNode like `icon={<svg .../>}` — makes the parser bail
+// (return null) so the caller falls back to the code view. Bailing is what
+// prevents leaking garbage props (e.g. a bare `svg`/`width`) onto the real DOM
+// element and rendering leftover markup as literal text.
 function parseAttrs(attrStr: string): ParsedProps | null {
   const props: ParsedProps = {};
-  const tokens = attrStr.match(/[\w-]+=(?:"[^"]*"|{[^}]*})|[\w-]+/g);
-  if (!tokens) return props;
+  const n = attrStr.length;
+  let i = 0;
 
-  for (const token of tokens) {
-    const eqIdx = token.indexOf("=");
-    if (eqIdx === -1) {
-      props[token] = true;
-    } else {
-      const name = token.slice(0, eqIdx);
-      const valStr = token.slice(eqIdx + 1);
-      if (valStr.startsWith('"')) {
-        props[name] = valStr.slice(1, -1);
-      } else if (valStr.startsWith("{")) {
-        const expr = valStr.slice(1, -1).trim();
-        if (expr === "true") props[name] = true;
-        else if (expr === "false") props[name] = false;
-        else if (/^\d+(\.\d+)?$/.test(expr)) props[name] = Number(expr);
-        else return null;
+  while (i < n) {
+    if (/\s/.test(attrStr[i])) { i++; continue; }
+
+    const nameMatch = attrStr.slice(i).match(/^[\w-]+/);
+    if (!nameMatch) return null;
+    const name = nameMatch[0];
+    i += name.length;
+
+    while (i < n && /\s/.test(attrStr[i])) i++;
+
+    // Boolean shorthand: `disabled`, `loading`, …
+    if (attrStr[i] !== "=") {
+      props[name] = true;
+      continue;
+    }
+    i++; // consume "="
+    while (i < n && /\s/.test(attrStr[i])) i++;
+
+    const ch = attrStr[i];
+    if (ch === '"' || ch === "'") {
+      const end = attrStr.indexOf(ch, i + 1);
+      if (end === -1) return null;
+      props[name] = attrStr.slice(i + 1, end);
+      i = end + 1;
+    } else if (ch === "{") {
+      // Walk balanced braces so a JSX value's inner `{}` doesn't terminate early.
+      let depth = 0, j = i;
+      for (; j < n; j++) {
+        if (attrStr[j] === "{") depth++;
+        else if (attrStr[j] === "}" && --depth === 0) { j++; break; }
       }
+      if (depth !== 0) return null;
+      const expr = attrStr.slice(i + 1, j - 1).trim();
+      const val = parseExpr(expr);
+      if (val === BAIL) return null; // JSX/ReactNode or unsafe expr → bail to code view
+      props[name] = val;
+      i = j;
+    } else {
+      return null;
     }
   }
   return props;
 }
 
+// Scans `<UIxxx …>children</UIxxx>` / `<UIxxx … />` instances. The opening tag
+// is walked char-by-char tracking quote and brace nesting so a `>` *inside* a
+// prop value (e.g. inside `icon={<svg …>}`) doesn't prematurely end the tag.
 function parseInstances(code: string): ParsedProps[] | null {
-  const RE = /<UI\w+([^>]*?)(?:>([\s\S]*?)<\/UI\w+>|\s*\/>)/g;
   const results: ParsedProps[] = [];
-  let m: RegExpExecArray | null;
+  const n = code.length;
+  let i = 0;
 
-  while ((m = RE.exec(code)) !== null) {
-    const attrs = parseAttrs(m[1]);
+  while (i < n) {
+    const lt = code.indexOf("<UI", i);
+    if (lt === -1) break;
+
+    const nameMatch = code.slice(lt + 1).match(/^UI\w+/);
+    if (!nameMatch) { i = lt + 1; continue; }
+    const tagName = nameMatch[0];
+
+    let j = lt + 1 + tagName.length;
+    let quote: string | null = null;
+    let brace = 0;
+    let tagEnd = -1;
+    let selfClose = false;
+
+    for (; j < n; j++) {
+      const c = code[j];
+      if (quote) { if (c === quote) quote = null; continue; }
+      if (c === '"' || c === "'") { quote = c; continue; }
+      if (c === "{") { brace++; continue; }
+      if (c === "}") { if (brace > 0) brace--; continue; }
+      if (brace === 0) {
+        if (c === "/" && code[j + 1] === ">") { selfClose = true; tagEnd = j + 2; break; }
+        if (c === ">") { tagEnd = j + 1; break; }
+      }
+    }
+    if (tagEnd === -1) return null;
+
+    const attrStr = code.slice(lt + 1 + tagName.length, tagEnd - (selfClose ? 2 : 1));
+    const attrs = parseAttrs(attrStr);
     if (attrs === null) return null;
-    const children = m[2]?.trim();
-    if (children) attrs.children = children;
+
+    if (selfClose) {
+      i = tagEnd;
+    } else {
+      const close = `</${tagName}>`;
+      const ci = code.indexOf(close, tagEnd);
+      if (ci === -1) return null;
+      const children = code.slice(tagEnd, ci).trim();
+      // Only plain-text children are safe to inject; nested JSX → bail.
+      if (children.includes("<")) return null;
+      if (children) attrs.children = children;
+      i = ci + close.length;
+    }
+
     results.push(attrs);
   }
 
@@ -135,19 +235,19 @@ function LivePreview({
     {
       ssr: false,
       loading: () => (
-        <span className="inline-block h-8 w-16 animate-pulse rounded-md bg-zinc-800" />
+        <span className="inline-block h-8 w-16 animate-pulse rounded-md bg-muted" />
       ),
     }
   );
 
   return (
-    <div className="relative overflow-hidden bg-zinc-950 px-6 py-8">
+    <div className="relative overflow-hidden bg-background px-6 py-8">
       {/* Grid with radial fade — visible at center, transparent at edges */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px)",
+            "linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px)",
           backgroundSize: "28px 28px",
           maskImage:
             "radial-gradient(ellipse 70% 70% at 50% 50%, black 0%, transparent 100%)",
@@ -160,7 +260,7 @@ function LivePreview({
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, rgba(9,9,11,0.85) 100%)",
+            "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, var(--background) 100%)",
         }}
       />
       {/* Content */}
@@ -199,21 +299,21 @@ export function UsageBlock({ label, code, slug, category }: Props) {
   }
 
   return (
-    <div className="overflow-hidden rounded-xl border border-zinc-800">
+    <div className="overflow-hidden rounded-xl border border-border">
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-zinc-800 bg-zinc-900 px-4 py-2.5">
+      <div className="flex items-center justify-between border-b border-border bg-card px-4 py-2.5">
         <div className="flex items-center gap-3">
-          <span className="text-xs font-medium text-zinc-400">{label}</span>
+          <span className="text-xs font-medium text-muted-foreground">{label}</span>
           {showTabs && (
-            <div className="flex items-center rounded-md border border-zinc-700 bg-zinc-800 p-0.5">
+            <div className="flex items-center rounded-md border border-border bg-muted p-0.5">
               {(["preview", "code"] as const).map((t) => (
                 <button
                   key={t}
                   onClick={() => setTab(t)}
-                  className={`rounded px-2.5 py-0.5 text-[11px] font-medium capitalize transition-colors ${
+                  className={`rounded px-2.5 py-0.5 text-[0.6875rem] font-medium capitalize transition-colors ${
                     tab === t
-                      ? "bg-zinc-600 text-zinc-100"
-                      : "text-zinc-500 hover:text-zinc-300"
+                      ? "bg-accent text-foreground"
+                      : "text-muted-foreground hover:text-foreground/90"
                   }`}
                 >
                   {t}
@@ -224,7 +324,7 @@ export function UsageBlock({ label, code, slug, category }: Props) {
         </div>
         <button
           onClick={copy}
-          className="flex items-center gap-1.5 rounded-md border border-zinc-700 bg-zinc-800 px-2.5 py-1 text-xs text-zinc-400 transition-colors hover:border-zinc-600 hover:text-zinc-200"
+          className="flex items-center gap-1.5 rounded-md border border-border bg-muted px-2.5 py-1 text-xs text-muted-foreground transition-colors hover:border-input hover:text-foreground"
         >
           {copied ? (
             <>
@@ -263,7 +363,7 @@ export function UsageBlock({ label, code, slug, category }: Props) {
       {showTabs && tab === "preview" ? (
         <LivePreview slug={slug!} category={category!} instances={instances} />
       ) : (
-        <pre className="overflow-x-auto bg-zinc-950 px-5 py-4 text-[13px] leading-relaxed">
+        <pre className="overflow-x-auto bg-background px-5 py-4 text-[0.8125rem] leading-relaxed">
           <code className="font-mono">
             {tokenizeJSX(code).map((tok, idx) =>
               tok.t === "space" ? tok.v : <span key={idx} className={TT_CLS[tok.t]}>{tok.v}</span>

@@ -13,7 +13,7 @@ function ComingSoon({ label }: { label: string }) {
         Coming soon
       </div>
       <h1 className="text-4xl font-bold tracking-tight">{label}</h1>
-      <p className="max-w-sm text-[15px] text-muted-foreground">
+      <p className="max-w-sm text-[0.9375rem] text-muted-foreground">
         This section is under construction. Check back soon.
       </p>
     </div>

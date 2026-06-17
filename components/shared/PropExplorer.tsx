@@ -17,13 +17,18 @@ function parseEnumValues(typeStr: string): string[] | null {
 
 // "\"solid\"" → "solid" | "false" → false | "62" → 62
 function parseDefaultValue(val: string): unknown {
-  if (val === "false" || val === "undefined") return val === "false" ? false : undefined;
-  if (val === "true") return true;
-  const q = val.match(/^"(.+)"$/);
+  const t = val.trim();
+  if (t === "false" || t === "undefined") return t === "false" ? false : undefined;
+  if (t === "true") return true;
+  const q = t.match(/^"(.+)"$/);
   if (q) return q[1];
-  const n = Number(val);
-  if (!isNaN(n) && val.trim() !== "") return n;
-  return val;
+  const n = Number(t);
+  if (!isNaN(n) && t !== "") return n;
+  // Non-primitive defaults (arrays/objects/ReactNode/none) can't be reconstructed
+  // from a string — leave them undefined so the component's own default applies
+  // instead of spreading a broken string into a prop like `options`.
+  if (t === "—" || t.startsWith("[") || t.startsWith("{") || t.startsWith("<")) return undefined;
+  return t;
 }
 
 function capitalize(s: string) {
@@ -56,7 +61,7 @@ export function PropExplorer({ slug, category, props }: Props) {
     {
       ssr: false,
       loading: () => (
-        <span className="inline-block h-8 w-16 animate-pulse rounded-md bg-zinc-800" />
+        <span className="inline-block h-8 w-16 animate-pulse rounded-md bg-muted" />
       ),
     }
   );
@@ -100,7 +105,7 @@ export function PropExplorer({ slug, category, props }: Props) {
                     <div className="flex items-center gap-2">
                       <span
                         className={cn(
-                          "font-mono text-[13px] font-medium transition-colors",
+                          "font-mono text-[0.8125rem] font-medium transition-colors",
                           isActive ? "text-emerald-400" : "text-foreground"
                         )}
                       >
@@ -127,20 +132,20 @@ export function PropExplorer({ slug, category, props }: Props) {
                     </div>
                   </td>
                   <td className="px-4 py-3">
-                    <code className="rounded-md bg-muted/60 px-1.5 py-0.5 font-mono text-[12px] text-violet-400 dark:text-violet-300">
+                    <code className="rounded-md bg-muted/60 px-1.5 py-0.5 font-mono text-[0.75rem] text-violet-400 dark:text-violet-300">
                       {p.type}
                     </code>
                   </td>
                   <td className="px-4 py-3">
                     {p.default !== "—" && p.default !== "undefined" ? (
-                      <code className="rounded-md bg-muted/60 px-1.5 py-0.5 font-mono text-[12px] text-amber-500 dark:text-amber-400">
+                      <code className="rounded-md bg-muted/60 px-1.5 py-0.5 font-mono text-[0.75rem] text-amber-500 dark:text-amber-400">
                         {p.default}
                       </code>
                     ) : (
                       <span className="text-muted-foreground/40">—</span>
                     )}
                   </td>
-                  <td className="px-4 py-3 text-[13px] text-muted-foreground">
+                  <td className="px-4 py-3 text-[0.8125rem] text-muted-foreground">
                     {p.description}
                   </td>
                 </tr>
@@ -152,12 +157,12 @@ export function PropExplorer({ slug, category, props }: Props) {
 
       {/* Live preview panel */}
       {selected?.values && (
-        <div className="overflow-hidden rounded-xl border border-zinc-800 bg-zinc-950">
-          <div className="flex items-center gap-2.5 border-b border-zinc-800/80 px-5 py-3">
-            <span className="font-mono text-[12px] font-medium text-emerald-400">
+        <div className="overflow-hidden rounded-xl border border-border bg-background">
+          <div className="flex items-center gap-2.5 border-b border-border/80 px-5 py-3">
+            <span className="font-mono text-[0.75rem] font-medium text-emerald-400">
               {selected.name}
             </span>
-            <span className="text-[11px] text-zinc-600">
+            <span className="text-[0.6875rem] text-muted-foreground/70">
               · all values, others at default
             </span>
           </div>
@@ -184,7 +189,7 @@ export function PropExplorer({ slug, category, props }: Props) {
                   <div className="flex items-center justify-center">
                     <Comp {...overrides} />
                   </div>
-                  <span className="font-mono text-[11px] text-zinc-600">{val}</span>
+                  <span className="font-mono text-[0.6875rem] text-muted-foreground/70">{val}</span>
                 </div>
               );
             })}

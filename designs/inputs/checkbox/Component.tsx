@@ -24,17 +24,23 @@ const checkSizeMap = {
 export function UICheckbox({ label, description, size = "md", indeterminate, className, ...props }: Props) {
   const sz = sizeMap[size];
   const check = checkSizeMap[size];
+  const isDisabled = props.disabled;
 
   return (
-    <label className="flex items-start gap-2.5 cursor-pointer select-none group">
+    <label
+      className={cn(
+        "flex items-start gap-2.5 select-none group",
+        isDisabled ? "cursor-not-allowed" : "cursor-pointer",
+      )}
+    >
       <Checkbox.Root
         className={cn(
           "relative flex shrink-0 items-center justify-center",
-          "border border-zinc-700 bg-zinc-900",
+          "border border-border bg-card",
           "transition-all duration-150",
-          "hover:border-zinc-600",
+          "hover:border-input",
           "data-[checked]:border-emerald-500 data-[checked]:bg-emerald-500",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40 focus-visible:ring-offset-1 focus-visible:ring-offset-zinc-950",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40 focus-visible:ring-offset-1 focus-visible:ring-offset-background",
           "disabled:pointer-events-none disabled:opacity-40",
           sz,
           className,
@@ -56,12 +62,17 @@ export function UICheckbox({ label, description, size = "md", indeterminate, cla
       {(label || description) && (
         <div className="flex flex-col gap-0.5 pt-px">
           {label && (
-            <span className="text-sm text-zinc-300 group-hover:text-zinc-100 transition-colors duration-150 leading-none">
+            <span
+              className={cn(
+                "text-sm text-foreground/90 transition-colors duration-150 leading-none",
+                isDisabled ? "opacity-40" : "group-hover:text-foreground",
+              )}
+            >
               {label}
             </span>
           )}
           {description && (
-            <span className="text-xs text-zinc-500 leading-relaxed">{description}</span>
+            <span className="text-xs text-muted-foreground leading-relaxed">{description}</span>
           )}
         </div>
       )}

@@ -25,24 +25,24 @@ export function PropsTable({ props }: Props) {
         <tbody className="divide-y divide-border/40">
           {props.map((p) => (
             <tr key={p.name} className="transition-colors hover:bg-muted/20">
-              <td className="px-4 py-3 font-mono text-[13px] font-medium text-foreground">
+              <td className="px-4 py-3 font-mono text-[0.8125rem] font-medium text-foreground">
                 {p.name}
               </td>
               <td className="px-4 py-3">
-                <code className="rounded-md bg-muted/60 px-1.5 py-0.5 font-mono text-[12px] text-violet-400 dark:text-violet-300">
+                <code className="rounded-md bg-muted/60 px-1.5 py-0.5 font-mono text-[0.75rem] text-violet-400 dark:text-violet-300">
                   {p.type}
                 </code>
               </td>
               <td className="px-4 py-3">
                 {p.default !== "—" ? (
-                  <code className="rounded-md bg-muted/60 px-1.5 py-0.5 font-mono text-[12px] text-amber-500 dark:text-amber-400">
+                  <code className="rounded-md bg-muted/60 px-1.5 py-0.5 font-mono text-[0.75rem] text-amber-500 dark:text-amber-400">
                     {p.default}
                   </code>
                 ) : (
                   <span className="text-muted-foreground/40">—</span>
                 )}
               </td>
-              <td className="px-4 py-3 text-[13px] text-muted-foreground">
+              <td className="px-4 py-3 text-[0.8125rem] text-muted-foreground">
                 {p.description}
               </td>
             </tr>

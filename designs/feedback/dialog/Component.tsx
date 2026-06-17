@@ -19,12 +19,12 @@ export function UIDialog({
     <Dialog.Root>
       <Dialog.Trigger
         className={cn(
-          "inline-flex h-9 items-center justify-center gap-2 rounded-md border border-zinc-700 bg-zinc-900 px-4",
-          "text-sm font-medium text-zinc-100",
+          "inline-flex h-9 items-center justify-center gap-2 rounded-md border border-border bg-card px-4",
+          "text-sm font-medium text-foreground",
           "shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]",
-          "transition-all duration-150 hover:border-zinc-600 hover:bg-zinc-800",
+          "transition-all duration-150 hover:border-input hover:bg-muted",
           "active:scale-[0.97]",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
           className,
         )}
       >
@@ -32,26 +32,26 @@ export function UIDialog({
       </Dialog.Trigger>
 
       <Dialog.Portal>
-        <Dialog.Backdrop className="fixed inset-0 z-40 bg-zinc-950/80 backdrop-blur-sm" />
+        <Dialog.Backdrop className="fixed inset-0 z-40 bg-black/70 backdrop-blur-sm" />
         <Dialog.Popup
           className={cn(
             "fixed left-1/2 top-1/2 z-50 w-full max-w-md -translate-x-1/2 -translate-y-1/2",
-            "rounded-xl border border-zinc-800 bg-zinc-950 p-6",
+            "rounded-xl border border-border bg-background p-6",
             "shadow-[0_24px_64px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.04)]",
           )}
         >
-          <Dialog.Title className="mb-2 text-base font-semibold tracking-tight text-zinc-100">
+          <Dialog.Title className="mb-2 text-base font-semibold tracking-tight text-foreground">
             {title}
           </Dialog.Title>
-          <Dialog.Description className="mb-6 text-sm leading-relaxed text-zinc-400">
+          <Dialog.Description className="mb-6 text-sm leading-relaxed text-muted-foreground">
             {description}
           </Dialog.Description>
 
           <div className="flex items-center justify-end gap-2">
             <Dialog.Close
               className={cn(
-                "inline-flex h-8 items-center rounded-md border border-zinc-700 px-3",
-                "text-sm text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100",
+                "inline-flex h-8 items-center rounded-md border border-border px-3",
+                "text-sm text-muted-foreground hover:bg-muted hover:text-foreground",
                 "transition-all duration-150 focus-visible:outline-none",
               )}
             >
@@ -59,8 +59,8 @@ export function UIDialog({
             </Dialog.Close>
             <Dialog.Close
               className={cn(
-                "inline-flex h-8 items-center rounded-md bg-zinc-100 px-3",
-                "text-sm font-medium text-zinc-950 hover:bg-zinc-200",
+                "inline-flex h-8 items-center rounded-md bg-primary px-3",
+                "text-sm font-medium text-primary-foreground hover:bg-primary/90",
                 "transition-all duration-150 focus-visible:outline-none",
               )}
             >

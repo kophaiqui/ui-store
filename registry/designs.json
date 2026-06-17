@@ -21,7 +21,6 @@
       { "label": "Variants", "code": "<UIButton variant=\"solid\">Solid</UIButton>\n<UIButton variant=\"outline\">Outline</UIButton>\n<UIButton variant=\"ghost\">Ghost</UIButton>\n<UIButton variant=\"soft\">Soft</UIButton>\n<UIButton variant=\"link\">Link</UIButton>\n<UIButton variant=\"destructive\">Destructive</UIButton>" },
       { "label": "Sizes", "code": "<UIButton size=\"sm\">Small</UIButton>\n<UIButton size=\"md\">Medium</UIButton>\n<UIButton size=\"lg\">Large</UIButton>" },
       { "label": "Shapes", "code": "<UIButton shape=\"default\">Default</UIButton>\n<UIButton shape=\"pill\">Pill</UIButton>\n<UIButton shape=\"square\" size=\"md\">A</UIButton>" },
-      { "label": "With icon", "code": "<UIButton icon={<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\"><path d=\"M12 5v14M5 12h14\"/></svg>}>Add item</UIButton>\n<UIButton variant=\"outline\" icon={<svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\"><path d=\"M5 12h14M12 5l7 7-7 7\"/></svg>} iconPosition=\"right\">Next</UIButton>" },
       { "label": "States", "code": "<UIButton loading>Saving…</UIButton>\n<UIButton disabled>Disabled</UIButton>\n<UIButton fullWidth>Full width</UIButton>" }
     ]
   },
@@ -101,12 +100,14 @@
     "preview": true,
     "new": true,
     "props": [
-      { "name": "options", "type": "{ label: string; value: string }[]", "default": "[...]", "description": "Options rendered inside the popup" },
-      { "name": "placeholder", "type": "string", "default": "\"Select an option\"", "description": "Shown when no value is selected" }
+      { "name": "options", "type": "{ label: string; value: string }[]", "default": "—", "description": "Options rendered inside the popup (passed in by the consumer)" },
+      { "name": "placeholder", "type": "string", "default": "\"Select an option\"", "description": "Shown when no value is selected" },
+      { "name": "multiSelect", "type": "boolean", "default": "false", "description": "Allow selecting multiple options; the trigger shows selected labels joined by commas" }
     ],
     "usage": [
-      { "label": "Default", "code": "<UISelect />" },
-      { "label": "Custom options", "code": "<UISelect options={[{ label: 'Red', value: 'red' }, { label: 'Blue', value: 'blue' }]} />" }
+      { "label": "Default", "code": "<UISelect options={[{ label: 'Design System', value: 'ds' }, { label: 'Component Library', value: 'cl' }, { label: 'Style Guide', value: 'sg' }]} />" },
+      { "label": "Custom options", "code": "<UISelect options={[{ label: 'Red', value: 'red' }, { label: 'Blue', value: 'blue' }]} />" },
+      { "label": "Multi-select", "code": "<UISelect multiSelect options={[{ label: 'Design System', value: 'ds' }, { label: 'Component Library', value: 'cl' }, { label: 'Style Guide', value: 'sg' }]} />" }
     ]
   },
 
@@ -121,10 +122,12 @@
       { "name": "defaultValue", "type": "number[]", "default": "[42]", "description": "Initial value of the slider handle" },
       { "name": "min", "type": "number", "default": "0", "description": "Minimum allowed value" },
       { "name": "max", "type": "number", "default": "100", "description": "Maximum allowed value" },
-      { "name": "step", "type": "number", "default": "1", "description": "Increment step between values" }
+      { "name": "step", "type": "number", "default": "1", "description": "Increment step between values" },
+      { "name": "showValue", "type": "boolean", "default": "true", "description": "Show the current value above the track" }
     ],
     "usage": [
       { "label": "Default", "code": "<UISlider />" },
+      { "label": "Without value", "code": "<UISlider showValue={false} />" },
       { "label": "Custom range", "code": "<UISlider min={0} max={10} step={0.5} defaultValue={[4]} />" }
     ]
   },

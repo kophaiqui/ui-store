@@ -29,10 +29,10 @@ export function UISwitch({ label, size = "md", labelPosition = "right", classNam
       className={cn(
         "group relative inline-flex shrink-0 items-center rounded-full",
         "border-2 border-transparent",
-        "bg-zinc-800",
+        "bg-muted",
         "transition-colors duration-200",
         "data-[checked]:bg-emerald-500",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         "disabled:pointer-events-none disabled:opacity-40",
         track,
         className,
@@ -56,7 +56,7 @@ export function UISwitch({ label, size = "md", labelPosition = "right", classNam
   return (
     <label className={cn("flex items-center gap-3 cursor-pointer select-none group", labelPosition === "left" && "flex-row-reverse justify-end")}>
       {switchEl}
-      <span className="text-sm text-zinc-300 group-hover:text-zinc-100 transition-colors duration-150">
+      <span className="text-sm text-foreground/90 group-hover:text-foreground transition-colors duration-150">
         {label}
       </span>
     </label>

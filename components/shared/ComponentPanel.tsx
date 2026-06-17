@@ -51,9 +51,9 @@ export function ComponentPanel({ slug, meta }: Props) {
             ))}
           </div>
           <div className="h-3.5 w-px bg-border/60" />
-          <span className="text-[13px] font-medium">{meta.name}</span>
+          <span className="text-[0.8125rem] font-medium">{meta.name}</span>
           {meta.new && (
-            <span className="rounded-full bg-emerald-500/10 px-1.5 py-0.5 text-[10px] font-medium text-emerald-500">
+            <span className="rounded-full bg-emerald-500/10 px-1.5 py-0.5 text-[0.625rem] font-medium text-emerald-500">
               New
             </span>
           )}
@@ -83,8 +83,31 @@ export function ComponentPanel({ slug, meta }: Props) {
 
       {/* Panel body */}
       {tab === "preview" ? (
-        <div className="flex min-h-[180px] items-center justify-center bg-muted/10 px-8 py-10 dark:bg-muted/5">
-          <Preview />
+        <div className="relative flex min-h-[180px] items-center justify-center overflow-hidden bg-background px-8 py-10">
+          {/* Grid with radial fade — visible at center, transparent at edges */}
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{
+              backgroundImage:
+                "linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px)",
+              backgroundSize: "28px 28px",
+              maskImage:
+                "radial-gradient(ellipse 70% 70% at 50% 50%, black 0%, transparent 100%)",
+              WebkitMaskImage:
+                "radial-gradient(ellipse 70% 70% at 50% 50%, black 0%, transparent 100%)",
+            }}
+          />
+          {/* Edge vignette to blend grid into background */}
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, var(--background) 100%)",
+            }}
+          />
+          <div className="relative">
+            <Preview />
+          </div>
         </div>
       ) : (
         <CodeView slug={slug} category={meta.category} />
@@ -105,7 +128,7 @@ function CodeView({ slug, category }: { slug: string; category: string }) {
 
   return (
     <div className="max-h-[400px] overflow-auto bg-muted/5">
-      <pre className="p-5 text-[12.5px] leading-relaxed">
+      <pre className="p-5 text-[0.78125rem] leading-relaxed">
         <code className="font-mono text-foreground/85">
           {code ?? "Loading…"}
         </code>

@@ -137,13 +137,13 @@ export function DesignViewer({ slug, meta, code }: Props) {
 
       {/* Content */}
       {tab === "preview" ? (
-        <div className="relative flex min-h-[280px] items-center justify-center overflow-hidden bg-zinc-950 px-8 py-12">
+        <div className="relative flex min-h-[280px] items-center justify-center overflow-hidden bg-background px-8 py-12">
           {/* Grid with radial fade */}
           <div
             className="pointer-events-none absolute inset-0"
             style={{
               backgroundImage:
-                "linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px)",
+                "linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px)",
               backgroundSize: "28px 28px",
               maskImage:
                 "radial-gradient(ellipse 70% 70% at 50% 50%, black 0%, transparent 100%)",
@@ -156,7 +156,7 @@ export function DesignViewer({ slug, meta, code }: Props) {
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, rgba(9,9,11,0.85) 100%)",
+                "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, var(--background) 100%)",
             }}
           />
           <div className="relative">
@@ -164,8 +164,8 @@ export function DesignViewer({ slug, meta, code }: Props) {
           </div>
         </div>
       ) : (
-        <div className="relative max-h-[480px] overflow-auto bg-zinc-950">
-          <pre className="p-5 text-[13px] leading-relaxed">
+        <div className="relative max-h-[480px] overflow-auto bg-background">
+          <pre className="p-5 text-[0.8125rem] leading-relaxed">
             <code
               className="hljs font-mono"
               dangerouslySetInnerHTML={{ __html: highlighted }}

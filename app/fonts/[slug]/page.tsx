@@ -27,8 +27,8 @@ export default async function FontPage({ params }: Props) {
         {meta.category} · {meta.license}
       </div>
       <h1 className="mb-1 text-3xl font-bold tracking-tight">{meta.name}</h1>
-      <p className="mb-2 text-[15px] text-muted-foreground">by {meta.designer}</p>
-      <p className="mb-10 text-[15px] text-muted-foreground">{meta.description}</p>
+      <p className="mb-2 text-[0.9375rem] text-muted-foreground">by {meta.designer}</p>
+      <p className="mb-10 text-[0.9375rem] text-muted-foreground">{meta.description}</p>
 
       <FontDemo
         family={meta.family}
