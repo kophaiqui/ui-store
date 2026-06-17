@@ -40,7 +40,7 @@ export function UIInput({
   suffix,
   clearable = false,
   className,
-  onChange,
+  onValueChange,
   value: valueProp,
   defaultValue,
   id: idProp,
@@ -50,19 +50,20 @@ export function UIInput({
   const inputId = idProp ?? (label ? generatedId : undefined);
   const hasError = Boolean(error);
 
+  // Track value internally when clearable so we can show/hide the × button.
   const [internalValue, setInternalValue] = useState(String(defaultValue ?? ""));
   const isControlled = valueProp !== undefined;
   const currentValue = isControlled ? String(valueProp) : internalValue;
   const showClear = clearable && currentValue.length > 0;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!isControlled) setInternalValue(e.target.value);
-    onChange?.(e);
+  const handleValueChange = (value: string) => {
+    if (!isControlled) setInternalValue(value);
+    onValueChange?.(value, {} as never);
   };
 
   const handleClear = () => {
     if (!isControlled) setInternalValue("");
-    onChange?.({ target: { value: "" } } as React.ChangeEvent<HTMLInputElement>);
+    onValueChange?.("", {} as never);
   };
 
   const baseClass = cn(
@@ -101,13 +102,8 @@ export function UIInput({
       id={inputId}
       type={type}
       value={currentValue}
-      onChange={handleChange}
-      className={cn(
-        baseClass,
-        hasPrefix && "pl-8",
-        hasSuffix && "pr-8",
-        className,
-      )}
+      onValueChange={handleValueChange}
+      className={cn(baseClass, hasPrefix && "pl-8", hasSuffix && "pr-8", className)}
       {...props}
     />
   ) : (
@@ -115,13 +111,8 @@ export function UIInput({
       id={inputId}
       type={type}
       defaultValue={defaultValue}
-      onChange={onChange}
-      className={cn(
-        baseClass,
-        hasPrefix && "pl-8",
-        hasSuffix && "pr-8",
-        className,
-      )}
+      onValueChange={onValueChange}
+      className={cn(baseClass, hasPrefix && "pl-8", hasSuffix && "pr-8", className)}
       {...props}
     />
   );
@@ -129,43 +120,20 @@ export function UIInput({
   return (
     <div className="w-full">
       {label && (
-        <label
-          htmlFor={inputId}
-          className="mb-1.5 block text-xs font-medium text-foreground/80"
-        >
+        <label htmlFor={inputId} className="mb-1.5 block text-xs font-medium text-foreground/80">
           {label}
         </label>
       )}
-      {hasPrefix || hasSuffix ? (
-        <div className="relative flex items-center">
-          {prefix && (
-            <span className="pointer-events-none absolute left-3 flex items-center text-muted-foreground text-sm">
-              {prefix}
-            </span>
-          )}
-          {inputEl}
-          {(suffix || showClear) && (
-            <span className="absolute right-3 flex items-center text-muted-foreground">
-              {showClear ? (
-                <button
-                  type="button"
-                  onClick={handleClear}
-                  className="flex items-center justify-center hover:text-foreground transition-colors duration-100 focus:outline-none"
-                  aria-label="Clear"
-                >
-                  <ClearIcon />
-                </button>
-              ) : (
-                suffix
-              )}
-            </span>
-          )}
-        </div>
-      ) : (
-        <div className="relative flex items-center">
-          {inputEl}
-          {showClear && (
-            <span className="absolute right-3 flex items-center text-muted-foreground">
+      <div className="relative flex items-center">
+        {prefix && (
+          <span className="pointer-events-none absolute left-3 flex items-center text-muted-foreground text-sm">
+            {prefix}
+          </span>
+        )}
+        {inputEl}
+        {(suffix || showClear) && (
+          <span className="absolute right-3 flex items-center text-muted-foreground">
+            {showClear ? (
               <button
                 type="button"
                 onClick={handleClear}
@@ -174,10 +142,12 @@ export function UIInput({
               >
                 <ClearIcon />
               </button>
-            </span>
-          )}
-        </div>
-      )}
+            ) : (
+              suffix
+            )}
+          </span>
+        )}
+      </div>
       {typeof error === "string" && error && (
         <p className="mt-1 text-xs text-red-400">{error}</p>
       )}

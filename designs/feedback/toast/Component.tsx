@@ -1,7 +1,5 @@
 "use client";
 import { Toast } from "@base-ui/react/toast";
-import { createToastManager } from "@base-ui/react/toast";
-import { useToastManager } from "@base-ui/react/toast";
 import { cn } from "@/lib/utils";
 
 export type ToastVariant = "default" | "success" | "error" | "warning";
@@ -13,7 +11,7 @@ export interface ToastData {
 }
 
 // Singleton manager — import and call toastManager.add() from anywhere in your app.
-export const toastManager = createToastManager<ToastData>();
+export const toastManager = Toast.createToastManager<ToastData>();
 
 const variantStyles: Record<ToastVariant, { border: string; iconEl: React.ReactNode }> = {
   default: { border: "border-border", iconEl: null },
@@ -48,7 +46,7 @@ const variantStyles: Record<ToastVariant, { border: string; iconEl: React.ReactN
 };
 
 function ToastRegion() {
-  const { toasts } = useToastManager<ToastData>();
+  const { toasts } = Toast.useToastManager<ToastData>();
 
   return (
     <Toast.Viewport
@@ -65,7 +63,7 @@ function ToastRegion() {
         return (
           <Toast.Root
             key={toast.id}
-            {...toast}
+            toast={toast}
             className={cn(
               "flex items-start gap-3 rounded-xl border px-4 py-3",
               "bg-card",
