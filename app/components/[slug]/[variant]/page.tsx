@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getDesign, getAllDesigns } from "@/lib/registry";
+import { getDesign, getAllDesigns, getDesignStyle, getStyle } from "@/lib/registry";
 import { getDesignCode } from "@/lib/getDesignCode";
 import { DesignViewer } from "@/components/shared/DesignViewer";
 import { PropExplorer } from "@/components/shared/PropExplorer";
@@ -29,6 +29,8 @@ export default async function ComponentVariantPage({ params }: Props) {
   if (!meta) notFound();
 
   const code = getDesignCode(slug, meta);
+  const styleId = getDesignStyle(meta);
+  const styleMeta = getStyle(styleId);
 
   return (
     <div className="px-8 py-10 max-w-4xl">
@@ -63,6 +65,18 @@ export default async function ComponentVariantPage({ params }: Props) {
         <span className="rounded-full border border-border/60 px-2.5 py-0.5 text-xs capitalize text-muted-foreground">
           {meta.category}
         </span>
+        {styleMeta && (
+          <Link
+            href={`/style/${styleId}`}
+            className="inline-flex items-center gap-1.5 rounded-full border border-border/60 px-2.5 py-0.5 text-xs text-muted-foreground transition-colors hover:border-border hover:text-foreground"
+          >
+            <span
+              className="h-2 w-2 rounded-full"
+              style={{ backgroundColor: styleMeta.accent }}
+            />
+            {styleMeta.name}
+          </Link>
+        )}
         {meta.new && (
           <span className="rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-xs font-medium text-emerald-500">
             New

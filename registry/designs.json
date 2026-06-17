@@ -2,6 +2,7 @@
   "button": {
     "name": "Button",
     "category": "inputs",
+    "style": "default",
     "tags": ["button", "interactive", "action", "base-ui"],
     "description": "6 variants · 3 sizes · 3 shapes · disabled + loading states. Built on Base UI's Button primitive.",
     "preview": true,
@@ -28,6 +29,7 @@
   "checkbox": {
     "name": "Checkbox",
     "category": "inputs",
+    "style": "default",
     "tags": ["checkbox", "form", "selection", "base-ui"],
     "description": "An accessible checkbox with emerald checked state and optional label. Built on Base UI's Checkbox primitive.",
     "preview": true,
@@ -52,6 +54,7 @@
   "input": {
     "name": "Input",
     "category": "inputs",
+    "style": "default",
     "tags": ["input", "text", "form", "base-ui"],
     "description": "A dark text input with inset shadow, emerald focus ring, and full disabled/read-only state support.",
     "preview": true,
@@ -75,6 +78,7 @@
   "radio-group": {
     "name": "Radio Group",
     "category": "inputs",
+    "style": "default",
     "tags": ["radio", "selection", "form", "base-ui"],
     "description": "An accessible radio group using Base UI Radio + RadioGroup primitives. Emerald accent on selection.",
     "preview": true,
@@ -95,6 +99,7 @@
   "select": {
     "name": "Select",
     "category": "inputs",
+    "style": "default",
     "tags": ["select", "dropdown", "form", "base-ui"],
     "description": "A dark dropdown select with glass-effect popup, highlighted states, and a check mark on the selected item.",
     "preview": true,
@@ -114,6 +119,7 @@
   "slider": {
     "name": "Slider",
     "category": "inputs",
+    "style": "default",
     "tags": ["slider", "range", "form", "base-ui"],
     "description": "A range slider with emerald fill track and a thumb that grows on active. Built on Base UI's Slider primitive.",
     "preview": true,
@@ -135,6 +141,7 @@
   "switch": {
     "name": "Switch",
     "category": "inputs",
+    "style": "default",
     "tags": ["switch", "toggle", "form", "base-ui"],
     "description": "A toggle switch that transitions to emerald when active. Thumb translates smoothly on state change.",
     "preview": true,
@@ -157,6 +164,7 @@
   "avatar": {
     "name": "Avatar",
     "category": "data-display",
+    "style": "default",
     "tags": ["avatar", "user", "image", "base-ui"],
     "description": "Avatar with image support, text fallback, shape, size, and status dot. Built on Base UI's Avatar primitive.",
     "preview": true,
@@ -180,6 +188,7 @@
   "separator": {
     "name": "Separator",
     "category": "data-display",
+    "style": "default",
     "tags": ["separator", "divider", "layout", "base-ui"],
     "description": "A thin 1px rule that divides content. Horizontal (default) splits stacked sections; vertical splits inline items such as nav links.",
     "preview": true,
@@ -196,6 +205,7 @@
   "tabs": {
     "name": "Tabs",
     "category": "data-display",
+    "style": "default",
     "tags": ["tabs", "navigation", "panel", "base-ui"],
     "description": "Tab bar with a sliding emerald underline indicator. Panels swap on selection.",
     "preview": true,
@@ -213,6 +223,7 @@
   "progress": {
     "name": "Progress",
     "category": "data-display",
+    "style": "default",
     "tags": ["progress", "bar", "indicator", "base-ui"],
     "description": "A linear progress bar with optional label and value display. Emerald fill, zinc-800 track.",
     "preview": true,
@@ -231,6 +242,7 @@
   "accordion": {
     "name": "Accordion",
     "category": "data-display",
+    "style": "default",
     "tags": ["accordion", "collapsible", "disclosure", "base-ui"],
     "description": "Collapsible panels with a chevron indicator that rotates on open. Divided by zinc-800 rules.",
     "preview": true,
@@ -247,6 +259,7 @@
   "tooltip": {
     "name": "Tooltip",
     "category": "data-display",
+    "style": "default",
     "tags": ["tooltip", "hover", "overlay", "base-ui"],
     "description": "A dark glass tooltip anchored to its trigger with configurable side placement.",
     "preview": true,
@@ -265,6 +278,7 @@
   "dialog": {
     "name": "Dialog",
     "category": "feedback",
+    "style": "default",
     "tags": ["dialog", "modal", "overlay", "base-ui"],
     "description": "A centered modal dialog with dark glass surface, backdrop blur, and confirm/cancel actions.",
     "preview": true,
@@ -283,6 +297,7 @@
   "popover": {
     "name": "Popover",
     "category": "feedback",
+    "style": "default",
     "tags": ["popover", "anchor", "overlay", "base-ui"],
     "description": "A dark glass popover anchored to its trigger. Includes a close button and description slot.",
     "preview": true,

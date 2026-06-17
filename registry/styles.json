@@ -1,0 +1,44 @@
+{
+  "default": {
+    "name": "Default",
+    "tagline": "Dark, emerald-accented, motion-ready",
+    "description": "The signature look of the library — deep zinc surfaces, emerald accents, soft shadows, and crisp 1px borders. Every component ships in this style today.",
+    "status": "available",
+    "accent": "#10b981"
+  },
+  "glass": {
+    "name": "Glass",
+    "tagline": "Frosted glassmorphism",
+    "description": "Translucent frosted surfaces with backdrop blur, luminous edges, and layered depth floating over colorful backdrops.",
+    "status": "coming-soon",
+    "accent": "#38bdf8"
+  },
+  "minimal": {
+    "name": "Minimal",
+    "tagline": "Quiet, editorial, monochrome",
+    "description": "Hairline borders, generous whitespace, and restrained typography. Nothing on screen but the essentials.",
+    "status": "coming-soon",
+    "accent": "#a1a1aa"
+  },
+  "neobrutalism": {
+    "name": "Neobrutalism",
+    "tagline": "Loud borders, hard shadows",
+    "description": "Thick outlines, blocky offset shadows, and unapologetic primary colors. Interfaces that refuse to be ignored.",
+    "status": "coming-soon",
+    "accent": "#facc15"
+  },
+  "neumorphism": {
+    "name": "Neumorphism",
+    "tagline": "Soft extruded surfaces",
+    "description": "Monochrome panels that appear pressed into or raised out of the background using paired soft shadows.",
+    "status": "coming-soon",
+    "accent": "#8b95a5"
+  },
+  "gradient": {
+    "name": "Gradient",
+    "tagline": "Vibrant, glowing, saturated",
+    "description": "Bold multi-stop gradients, glowing accents, and saturated color that carries the entire interface.",
+    "status": "coming-soon",
+    "accent": "#d946ef"
+  }
+}

@@ -2,6 +2,7 @@ import componentsRegistry from "@/registry/components.json";
 import fontsRegistry from "@/registry/fonts.json";
 import motionRegistry from "@/registry/motion.json";
 import designsRegistry from "@/registry/designs.json";
+import stylesRegistry from "@/registry/styles.json";
 
 export type ComponentMeta = {
   title: string;
@@ -46,12 +47,23 @@ export type UsageExample = {
 export type DesignMeta = {
   name: string;
   category: string;
+  style?: string;
   tags: string[];
   description: string;
   preview: boolean;
   new: boolean;
   props?: PropDef[];
   usage?: UsageExample[];
+};
+
+export type StyleStatus = "available" | "coming-soon";
+
+export type StyleMeta = {
+  name: string;
+  tagline: string;
+  description: string;
+  status: StyleStatus;
+  accent: string;
 };
 
 export function getAllComponents(): Record<string, ComponentMeta> {
@@ -96,4 +108,26 @@ export function getDesignsByCategory(category: string): Record<string, DesignMet
 export function getAllCategories(): string[] {
   const all = getAllDesigns();
   return [...new Set(Object.values(all).map((d) => d.category))];
+}
+
+export const DEFAULT_STYLE = "default";
+
+export function getAllStyles(): Record<string, StyleMeta> {
+  return stylesRegistry as Record<string, StyleMeta>;
+}
+
+export function getStyle(id: string): StyleMeta | null {
+  return (stylesRegistry as Record<string, StyleMeta>)[id] ?? null;
+}
+
+/** The style a design belongs to — defaults to "default" when not declared. */
+export function getDesignStyle(meta: DesignMeta): string {
+  return meta.style ?? DEFAULT_STYLE;
+}
+
+export function getDesignsByStyle(styleId: string): Record<string, DesignMeta> {
+  const all = getAllDesigns();
+  return Object.fromEntries(
+    Object.entries(all).filter(([, meta]) => getDesignStyle(meta) === styleId)
+  );
 }
