@@ -2,11 +2,18 @@
 import { Tabs } from "@base-ui/react/tabs";
 import { cn } from "@/lib/utils";
 
-type TabItem = { label: string; value: string; content: React.ReactNode };
+type TabItem = {
+  label: string;
+  value: string;
+  content: React.ReactNode;
+  icon?: React.ReactNode;
+};
 
 type Props = {
   tabs?: TabItem[];
   defaultValue?: string;
+  fullWidth?: boolean;
+  iconPosition?: "left" | "right";
   className?: string;
 };
 
@@ -17,6 +24,8 @@ export function UITabs({
     { label: "Analytics", value: "analytics", content: "Analytics content goes here." },
   ],
   defaultValue = "overview",
+  fullWidth = false,
+  iconPosition = "left",
   className,
 }: Props) {
   return (
@@ -32,13 +41,21 @@ export function UITabs({
             value={tab.value}
             className={cn(
               "relative px-4 pb-3 pt-1 text-sm font-medium text-muted-foreground",
+              "inline-flex items-center gap-1.5",
               "transition-colors duration-150 hover:text-foreground",
               "data-[selected]:text-foreground",
               "focus-visible:outline-none",
               "cursor-default select-none",
+              fullWidth && "flex-1 justify-center",
             )}
           >
+            {tab.icon && iconPosition === "left" && (
+              <span className="shrink-0">{tab.icon}</span>
+            )}
             {tab.label}
+            {tab.icon && iconPosition === "right" && (
+              <span className="shrink-0">{tab.icon}</span>
+            )}
           </Tabs.Tab>
         ))}
       </Tabs.List>

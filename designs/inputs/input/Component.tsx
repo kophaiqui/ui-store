@@ -1,13 +1,18 @@
 "use client";
+import { useState, useId } from "react";
 import { Input } from "@base-ui/react/input";
 import { cn } from "@/lib/utils";
 
-type Props = Omit<React.ComponentProps<typeof Input>, "size"> & {
+type Props = Omit<React.ComponentProps<typeof Input>, "size" | "prefix"> & {
   variant?: "outline" | "filled" | "ghost";
   size?: "sm" | "md" | "lg";
+  type?: "text" | "email" | "password" | "number" | "search";
   error?: boolean | string;
-  prefixIcon?: React.ReactNode;
-  suffixIcon?: React.ReactNode;
+  label?: string;
+  helperText?: string;
+  prefix?: React.ReactNode;
+  suffix?: React.ReactNode;
+  clearable?: boolean;
 };
 
 const sizeMap = {
@@ -16,18 +21,51 @@ const sizeMap = {
   lg: "h-11 text-base px-4",
 };
 
+function ClearIcon() {
+  return (
+    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden>
+      <path d="M1 1L9 9M9 1L1 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export function UIInput({
   variant = "outline",
   size = "md",
+  type = "text",
   error,
-  prefixIcon,
-  suffixIcon,
+  label,
+  helperText,
+  prefix,
+  suffix,
+  clearable = false,
   className,
+  onChange,
+  value: valueProp,
+  defaultValue,
+  id: idProp,
   ...props
 }: Props) {
+  const generatedId = useId();
+  const inputId = idProp ?? (label ? generatedId : undefined);
   const hasError = Boolean(error);
 
-  const base = cn(
+  const [internalValue, setInternalValue] = useState(String(defaultValue ?? ""));
+  const isControlled = valueProp !== undefined;
+  const currentValue = isControlled ? String(valueProp) : internalValue;
+  const showClear = clearable && currentValue.length > 0;
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!isControlled) setInternalValue(e.target.value);
+    onChange?.(e);
+  };
+
+  const handleClear = () => {
+    if (!isControlled) setInternalValue("");
+    onChange?.({ target: { value: "" } } as React.ChangeEvent<HTMLInputElement>);
+  };
+
+  const baseClass = cn(
     "flex w-full rounded-md",
     sizeMap[size],
     "text-foreground placeholder:text-muted-foreground",
@@ -35,7 +73,6 @@ export function UIInput({
     "focus:outline-none focus:ring-2",
     "disabled:pointer-events-none disabled:opacity-40",
     "read-only:cursor-default",
-    // variant
     variant === "outline" && cn(
       "border bg-card shadow-[inset_0_1px_3px_rgba(0,0,0,0.3)]",
       hasError
@@ -56,42 +93,96 @@ export function UIInput({
     ),
   );
 
-  if (!prefixIcon && !suffixIcon) {
-    return (
-      <div className="w-full">
-        <Input className={cn(base, className)} {...props} />
-        {typeof error === "string" && error && (
-          <p className="mt-1 text-xs text-red-400">{error}</p>
-        )}
-      </div>
-    );
-  }
+  const hasSuffix = suffix || showClear;
+  const hasPrefix = Boolean(prefix);
+
+  const inputEl = clearable ? (
+    <Input
+      id={inputId}
+      type={type}
+      value={currentValue}
+      onChange={handleChange}
+      className={cn(
+        baseClass,
+        hasPrefix && "pl-8",
+        hasSuffix && "pr-8",
+        className,
+      )}
+      {...props}
+    />
+  ) : (
+    <Input
+      id={inputId}
+      type={type}
+      defaultValue={defaultValue}
+      onChange={onChange}
+      className={cn(
+        baseClass,
+        hasPrefix && "pl-8",
+        hasSuffix && "pr-8",
+        className,
+      )}
+      {...props}
+    />
+  );
 
   return (
     <div className="w-full">
-      <div className="relative flex items-center">
-        {prefixIcon && (
-          <span className="pointer-events-none absolute left-3 flex items-center text-muted-foreground">
-            {prefixIcon}
-          </span>
-        )}
-        <Input
-          className={cn(
-            base,
-            prefixIcon && "pl-8",
-            suffixIcon && "pr-8",
-            className,
+      {label && (
+        <label
+          htmlFor={inputId}
+          className="mb-1.5 block text-xs font-medium text-foreground/80"
+        >
+          {label}
+        </label>
+      )}
+      {hasPrefix || hasSuffix ? (
+        <div className="relative flex items-center">
+          {prefix && (
+            <span className="pointer-events-none absolute left-3 flex items-center text-muted-foreground text-sm">
+              {prefix}
+            </span>
           )}
-          {...props}
-        />
-        {suffixIcon && (
-          <span className="pointer-events-none absolute right-3 flex items-center text-muted-foreground">
-            {suffixIcon}
-          </span>
-        )}
-      </div>
+          {inputEl}
+          {(suffix || showClear) && (
+            <span className="absolute right-3 flex items-center text-muted-foreground">
+              {showClear ? (
+                <button
+                  type="button"
+                  onClick={handleClear}
+                  className="flex items-center justify-center hover:text-foreground transition-colors duration-100 focus:outline-none"
+                  aria-label="Clear"
+                >
+                  <ClearIcon />
+                </button>
+              ) : (
+                suffix
+              )}
+            </span>
+          )}
+        </div>
+      ) : (
+        <div className="relative flex items-center">
+          {inputEl}
+          {showClear && (
+            <span className="absolute right-3 flex items-center text-muted-foreground">
+              <button
+                type="button"
+                onClick={handleClear}
+                className="flex items-center justify-center hover:text-foreground transition-colors duration-100 focus:outline-none"
+                aria-label="Clear"
+              >
+                <ClearIcon />
+              </button>
+            </span>
+          )}
+        </div>
+      )}
       {typeof error === "string" && error && (
         <p className="mt-1 text-xs text-red-400">{error}</p>
+      )}
+      {helperText && !error && (
+        <p className="mt-1 text-xs text-muted-foreground">{helperText}</p>
       )}
     </div>
   );

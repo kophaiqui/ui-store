@@ -6,6 +6,10 @@ type Props = {
   trigger?: string;
   title?: string;
   content?: React.ReactNode;
+  arrow?: boolean;
+  width?: number;
+  offset?: number;
+  placement?: "top" | "bottom" | "left" | "right";
   className?: string;
 };
 
@@ -13,6 +17,10 @@ export function UIPopover({
   trigger = "Open Popover",
   title = "Popover",
   content = "This popover is anchored to its trigger. Add any content here.",
+  arrow = false,
+  width,
+  offset = 8,
+  placement = "bottom",
   className,
 }: Props) {
   return (
@@ -32,13 +40,26 @@ export function UIPopover({
       </Popover.Trigger>
 
       <Popover.Portal>
-        <Popover.Positioner sideOffset={8}>
+        <Popover.Positioner sideOffset={arrow ? offset + 4 : offset} side={placement}>
           <Popover.Popup
             className={cn(
-              "z-50 w-72 rounded-xl border border-border bg-background p-4",
+              "z-50 rounded-xl border border-border bg-background p-4",
               "shadow-[0_8px_40px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.04)]",
             )}
+            style={{ width: width ?? 288 }}
           >
+            {arrow && (
+              <Popover.Arrow
+                className={cn(
+                  "data-[side=bottom]:top-[-4px] data-[side=top]:bottom-[-4px]",
+                  "data-[side=left]:right-[-4px] data-[side=right]:left-[-4px]",
+                )}
+              >
+                <svg width="10" height="5" viewBox="0 0 10 5" className="fill-background stroke-border" strokeWidth="1">
+                  <path d="M0 5L5 0L10 5Z" />
+                </svg>
+              </Popover.Arrow>
+            )}
             <div className="mb-1 flex items-center justify-between">
               <Popover.Title className="text-sm font-semibold tracking-tight text-foreground">
                 {title}

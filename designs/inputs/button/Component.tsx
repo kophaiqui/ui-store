@@ -11,11 +11,14 @@ type Props = Omit<React.ComponentProps<typeof Button>, "disabled"> & {
   size?: ButtonSize;
   shape?: ButtonShape;
   loading?: boolean;
+  loadingPosition?: "start" | "center";
   disabled?: boolean;
   icon?: React.ReactNode;
   iconPosition?: "left" | "right";
+  iconOnly?: boolean;
   fullWidth?: boolean;
   type?: "button" | "submit" | "reset";
+  pressed?: boolean;
 };
 
 const sizeMap: Record<ButtonSize, { base: string; square: string; text: string }> = {
@@ -53,9 +56,12 @@ export function UIButton({
   size = "md",
   shape = "default",
   loading = false,
+  loadingPosition = "start",
   disabled = false,
   icon,
   iconPosition = "left",
+  iconOnly = false,
+  pressed,
   fullWidth = false,
   type = "button",
   className,
@@ -63,14 +69,18 @@ export function UIButton({
 }: Props) {
   const s = sizeMap[size];
   const isDisabled = disabled || loading;
+  const effectiveShape = iconOnly ? "square" : shape;
+  const centerLoading = loading && loadingPosition === "center";
+  const startLoading = loading && loadingPosition === "start";
 
-  const leadingIcon = !loading && icon && iconPosition === "left" ? icon : null;
-  const trailingIcon = !loading && icon && iconPosition === "right" ? icon : null;
+  const leadingIcon = !startLoading && !centerLoading && icon && iconPosition === "left" ? icon : null;
+  const trailingIcon = !startLoading && !centerLoading && icon && iconPosition === "right" ? icon : null;
 
   return (
     <Button
       disabled={isDisabled}
       type={type}
+      aria-pressed={pressed}
       className={cn(
         "inline-flex items-center justify-center font-medium whitespace-nowrap",
         "transition-all duration-150 ease-out",
@@ -78,34 +88,38 @@ export function UIButton({
         !isDisabled && "active:scale-[0.97] active:-translate-y-px",
         loading && "cursor-wait",
         fullWidth && "w-full",
-        shape === "default" && "rounded-md",
-        shape === "pill"    && "rounded-full",
-        shape === "square"  && "rounded-md",
-        variant !== "link" && (shape === "square" ? `${s.square} ${s.text}` : `${s.base} ${s.text}`),
+        effectiveShape === "default" && "rounded-md",
+        effectiveShape === "pill"    && "rounded-full",
+        effectiveShape === "square"  && "rounded-md",
+        variant !== "link" && (effectiveShape === "square" ? `${s.square} ${s.text}` : `${s.base} ${s.text}`),
         variant === "link"  && s.text,
         variant === "solid" && cn(
           "bg-primary text-primary-foreground",
           "shadow-[0_1px_2px_rgba(0,0,0,0.4)]",
           !isDisabled && "hover:bg-primary/90 hover:shadow-[0_2px_6px_rgba(0,0,0,0.5)]",
           isDisabled && "opacity-40",
+          pressed === true && "bg-primary/70 shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)]",
           "focus-visible:ring-emerald-500/50",
         ),
         variant === "outline" && cn(
           "border border-border bg-transparent text-foreground",
           !isDisabled && "hover:border-input hover:bg-muted/60",
           isDisabled && "opacity-40",
+          pressed === true && "bg-muted/80 border-input",
           "focus-visible:ring-emerald-500/50",
         ),
         variant === "ghost" && cn(
           "bg-transparent text-muted-foreground",
           !isDisabled && "hover:bg-muted hover:text-foreground",
           isDisabled && "opacity-40",
+          pressed === true && "bg-muted text-foreground",
           "focus-visible:ring-emerald-500/50",
         ),
         variant === "soft" && cn(
           "bg-muted text-foreground",
           !isDisabled && "hover:bg-accent",
           isDisabled && "opacity-40",
+          pressed === true && "bg-accent",
           "focus-visible:ring-emerald-500/50",
         ),
         variant === "link" && cn(
@@ -124,10 +138,16 @@ export function UIButton({
       )}
       {...props}
     >
-      {loading && <Spinner size={spinnerSize[size]} />}
-      {leadingIcon}
-      {children}
-      {trailingIcon}
+      {centerLoading ? (
+        <Spinner size={spinnerSize[size]} />
+      ) : (
+        <>
+          {startLoading && <Spinner size={spinnerSize[size]} />}
+          {leadingIcon}
+          {!iconOnly && children}
+          {trailingIcon}
+        </>
+      )}
     </Button>
   );
 }

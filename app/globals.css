@@ -134,6 +134,11 @@
   }
 }
 
+@keyframes progress-stripe {
+  from { background-position: 16px 0; }
+  to   { background-position: 0 0; }
+}
+
 /* highlight.js custom theme — light mode (darker tokens for contrast on white) */
 @layer base {
   .hljs                { color: #3f3f46 }

@@ -6,8 +6,32 @@ type AccordionItem = { value: string; title: string; content: string };
 
 type Props = {
   items?: AccordionItem[];
+  bordered?: boolean;
+  iconPosition?: "left" | "right";
+  collapsible?: boolean;
   className?: string;
 };
+
+function ChevronIcon() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 14 14"
+      fill="none"
+      aria-hidden
+      className="shrink-0 text-muted-foreground/70 transition-transform duration-200 ease-out group-aria-[expanded=true]:rotate-180"
+    >
+      <path
+        d="M2.5 5L7 9.5L11.5 5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
 
 export function UIAccordion({
   items = [
@@ -30,42 +54,44 @@ export function UIAccordion({
         "Yes. Base UI ships with full ARIA compliance, keyboard navigation, and focus management out of the box.",
     },
   ],
+  bordered = false,
+  iconPosition = "right",
+  collapsible = true,
   className,
 }: Props) {
   return (
-    <Accordion.Root className={cn("w-full divide-y divide-border", className)}>
+    <Accordion.Root
+      className={cn(
+        "w-full divide-y divide-border",
+        bordered && "rounded-lg border border-border overflow-hidden",
+        className,
+      )}
+    >
       {items.map((item) => (
         <Accordion.Item key={item.value} value={item.value}>
           <Accordion.Header>
             <Accordion.Trigger
               className={cn(
-                "group flex w-full items-center justify-between py-4",
+                "group flex w-full items-center py-4",
+                iconPosition === "right" ? "justify-between" : "gap-3 justify-start",
                 "text-sm font-medium text-foreground/90 hover:text-foreground",
                 "transition-colors duration-150",
                 "focus-visible:outline-none",
                 "cursor-default select-none",
+                bordered && "px-4",
               )}
             >
+              {iconPosition === "left" && <ChevronIcon />}
               {item.title}
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 14 14"
-                fill="none"
-                aria-hidden
-                className="shrink-0 text-muted-foreground/70 transition-transform duration-200 ease-out group-aria-[expanded=true]:rotate-180"
-              >
-                <path
-                  d="M2.5 5L7 9.5L11.5 5"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              {iconPosition === "right" && <ChevronIcon />}
             </Accordion.Trigger>
           </Accordion.Header>
-          <Accordion.Panel className="pb-4 text-sm text-muted-foreground leading-relaxed">
+          <Accordion.Panel
+            className={cn(
+              "pb-4 text-sm text-muted-foreground leading-relaxed",
+              bordered && "px-4",
+            )}
+          >
             {item.content}
           </Accordion.Panel>
         </Accordion.Item>

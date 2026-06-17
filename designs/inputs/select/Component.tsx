@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { Select } from "@base-ui/react/select";
 import { cn } from "@/lib/utils";
 
@@ -8,20 +9,46 @@ type Props = {
   options?: Option[];
   placeholder?: string;
   multiSelect?: boolean;
+  clearable?: boolean;
+  loading?: boolean;
+  placement?: "top" | "bottom";
   className?: string;
 };
+
+function Spinner() {
+  return (
+    <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden className="animate-spin shrink-0 text-muted-foreground">
+      <circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.25" />
+      <path d="M8 2a6 6 0 0 1 6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
 
 export function UISelect({
   options = [],
   placeholder = "Select an option",
   multiSelect = false,
+  clearable = false,
+  loading = false,
+  placement = "bottom",
   className,
 }: Props) {
-  const labelOf = (value: string) =>
-    options.find((opt) => opt.value === value)?.label ?? value;
+  const [value, setValue] = useState<string | string[] | null>(null);
+
+  const labelOf = (v: string) => options.find((opt) => opt.value === v)?.label ?? v;
+
+  const hasValue = Array.isArray(value) ? value.length > 0 : value != null && value !== "";
+  const showClear = clearable && hasValue && !loading;
+
+  const handleValueChange = (v: string | string[] | null) => setValue(v);
 
   return (
-    <Select.Root items={options} multiple={multiSelect}>
+    <Select.Root
+      items={options}
+      multiple={multiSelect}
+      value={value}
+      onValueChange={handleValueChange}
+    >
       <Select.Trigger
         className={cn(
           "flex h-9 w-full items-center justify-between gap-2 rounded-md border border-border bg-card px-3",
@@ -34,32 +61,47 @@ export function UISelect({
         )}
       >
         <Select.Value placeholder={<span className="text-muted-foreground">{placeholder}</span>}>
-          {(value: string | string[] | null) => {
-            if (Array.isArray(value)) {
-              if (value.length === 0)
-                return <span className="text-muted-foreground">{placeholder}</span>;
-              return value.map(labelOf).join(", ");
+          {(v: string | string[] | null) => {
+            if (Array.isArray(v)) {
+              if (v.length === 0) return <span className="text-muted-foreground">{placeholder}</span>;
+              return v.map(labelOf).join(", ");
             }
-            if (value == null || value === "")
-              return <span className="text-muted-foreground">{placeholder}</span>;
-            return labelOf(value);
+            if (v == null || v === "") return <span className="text-muted-foreground">{placeholder}</span>;
+            return labelOf(v);
           }}
         </Select.Value>
-        <Select.Icon className="shrink-0 text-muted-foreground">
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
-            <path
-              d="M2.5 4.5L6 8L9.5 4.5"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </Select.Icon>
+        <div className="flex items-center gap-1">
+          {loading && <Spinner />}
+          {showClear && (
+            <button
+              type="button"
+              onClick={(e) => { e.stopPropagation(); setValue(multiSelect ? [] : null); }}
+              className="flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors duration-100 focus:outline-none"
+              aria-label="Clear selection"
+            >
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden>
+                <path d="M1 1L9 9M9 1L1 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              </svg>
+            </button>
+          )}
+          {!loading && (
+            <Select.Icon className="shrink-0 text-muted-foreground">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
+                <path
+                  d="M2.5 4.5L6 8L9.5 4.5"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </Select.Icon>
+          )}
+        </div>
       </Select.Trigger>
 
       <Select.Portal>
-        <Select.Positioner sideOffset={4}>
+        <Select.Positioner sideOffset={4} side={placement}>
           <Select.Popup
             className={cn(
               "z-50 min-w-[var(--anchor-width)] overflow-hidden rounded-lg",
