@@ -181,7 +181,7 @@
     "name": "Separator",
     "category": "data-display",
     "tags": ["separator", "divider", "layout", "base-ui"],
-    "description": "A thin 1px zinc-800 rule. Supports horizontal (default) and vertical orientations.",
+    "description": "A thin 1px rule that divides content. Horizontal (default) splits stacked sections; vertical splits inline items such as nav links.",
     "preview": true,
     "new": true,
     "props": [
