@@ -267,7 +267,8 @@
     "props": [
       { "name": "content", "type": "ReactNode", "default": "\"Tooltip text\"", "description": "Content rendered inside the tooltip popup" },
       { "name": "children", "type": "ReactNode", "default": "\"Hover me\"", "description": "Trigger element that shows the tooltip on hover" },
-      { "name": "side", "type": "\"top\" | \"bottom\" | \"left\" | \"right\"", "default": "\"top\"", "description": "Side of the trigger where the popup appears" }
+      { "name": "side", "type": "\"top\" | \"bottom\" | \"left\" | \"right\"", "default": "\"top\"", "description": "Side of the trigger where the popup appears" },
+      { "name": "delay", "type": "number", "default": "100", "description": "Milliseconds to wait before showing the tooltip on hover" }
     ],
     "usage": [
       { "label": "Default", "code": "<UITooltip content=\"Keyboard shortcut: Cmd+K\">Open palette</UITooltip>" },
