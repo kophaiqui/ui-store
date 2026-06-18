@@ -10,6 +10,7 @@ type Props = React.ComponentProps<typeof RadioGroup> & {
   orientation?: "horizontal" | "vertical";
   size?: "sm" | "md" | "lg";
   disabledOptions?: string[];
+  label?: string;
 };
 
 const radioSizeMap = {
@@ -33,52 +34,63 @@ export function UIRadioGroup({
   orientation = "vertical",
   size = "md",
   disabledOptions = [],
+  label,
   className,
+  required,
   ...props
 }: Props) {
   return (
-    <RadioGroup
-      className={cn(
-        orientation === "vertical" ? "flex flex-col gap-2.5" : "flex flex-row gap-5",
-        className,
+    <div className="flex flex-col gap-2">
+      {label && (
+        <span className="text-xs font-medium text-foreground/80">
+          {label}
+          {required && <span className="ml-1 text-red-400" aria-hidden>*</span>}
+        </span>
       )}
-      {...props}
-    >
-      {options.map((opt) => {
-        const isDisabled = disabledOptions.includes(opt.value);
-        return (
-          <label
-            key={opt.value}
-            className={cn(
-              "flex items-center gap-2.5 select-none group",
-              isDisabled ? "cursor-not-allowed opacity-40" : "cursor-pointer",
-            )}
-          >
-            <Radio.Root
-              value={opt.value}
-              disabled={isDisabled}
+      <RadioGroup
+        required={required}
+        className={cn(
+          orientation === "vertical" ? "flex flex-col gap-2.5" : "flex flex-row gap-5",
+          className,
+        )}
+        {...props}
+      >
+        {options.map((opt) => {
+          const isDisabled = disabledOptions.includes(opt.value);
+          return (
+            <label
+              key={opt.value}
               className={cn(
-                "relative flex shrink-0 items-center justify-center rounded-full",
-                "border border-border bg-card",
-                "transition-all duration-150",
-                "hover:border-input",
-                "data-[checked]:border-emerald-500",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40 focus-visible:ring-offset-1 focus-visible:ring-offset-background",
-                "disabled:pointer-events-none",
-                radioSizeMap[size],
+                "flex items-center gap-2.5 select-none group",
+                isDisabled ? "cursor-not-allowed opacity-40" : "cursor-pointer",
               )}
             >
-              <Radio.Indicator className="flex items-center justify-center w-full h-full">
-                <span className={cn("block rounded-full bg-emerald-500", dotSizeMap[size])} />
-              </Radio.Indicator>
-            </Radio.Root>
-            <span className="text-sm text-foreground/90 group-hover:text-foreground transition-colors duration-150">
-              {opt.label}
-            </span>
-          </label>
-        );
-      })}
-    </RadioGroup>
+              <Radio.Root
+                value={opt.value}
+                disabled={isDisabled}
+                className={cn(
+                  "relative flex shrink-0 items-center justify-center rounded-full",
+                  "border border-border bg-card",
+                  "transition-all duration-150",
+                  "hover:border-input",
+                  "data-[checked]:border-emerald-500",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40 focus-visible:ring-offset-1 focus-visible:ring-offset-background",
+                  "disabled:pointer-events-none",
+                  radioSizeMap[size],
+                )}
+              >
+                <Radio.Indicator className="flex items-center justify-center w-full h-full">
+                  <span className={cn("block rounded-full bg-emerald-500", dotSizeMap[size])} />
+                </Radio.Indicator>
+              </Radio.Root>
+              <span className="text-sm text-foreground/90 group-hover:text-foreground transition-colors duration-150">
+                {opt.label}
+              </span>
+            </label>
+          );
+        })}
+      </RadioGroup>
+    </div>
   );
 }
 

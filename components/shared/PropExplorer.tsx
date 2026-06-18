@@ -40,6 +40,7 @@ function buildCode(
   propType: string,
   values: string[],
   companions: Record<string, string>,
+  noChildren?: boolean,
 ): string {
   const isBool = propType.trim() === "boolean";
   return values.map((val) => {
@@ -48,15 +49,15 @@ function buildCode(
     for (const [k, v] of Object.entries(companions)) {
       if (v === "auto") continue;
       if (v === "true") attrs.push(k);
-      // false companions → omit (default)
+      else if (v !== "false" && v !== "undefined") attrs.push(`${k}="${v}"`);
     }
-    // main prop
     if (isBool) {
       if (val === "true") attrs.push(propName);
     } else {
       attrs.push(`${propName}="${val}"`);
     }
     const attrsStr = attrs.length ? " " + attrs.join(" ") : "";
+    if (noChildren) return `<${componentName}${attrsStr} />`;
     const text = isBool ? "Button" : capitalize(val);
     return `<${componentName}${attrsStr}>${text}</${componentName}>`;
   }).join("\n");
@@ -183,7 +184,7 @@ export function PropExplorer({ slug, category, props, componentName }: Props) {
       {selected?.values && (() => {
         const companions = selected.companions ?? {};
         const compName = componentName ?? ("UI" + slug.split("-").map(capitalize).join(""));
-        const generatedCode = buildCode(compName, selected.name, selected.type, selected.values, companions);
+        const generatedCode = buildCode(compName, selected.name, selected.type, selected.values, companions, selected.noChildren);
 
         return (
           <div className="overflow-hidden rounded-xl border border-border bg-background">
@@ -234,7 +235,7 @@ export function PropExplorer({ slug, category, props, componentName }: Props) {
                     ...parsedCompanions,
                     [selected.name]: propValue,
                   };
-                  if (!isBool) overrides.children = capitalize(val);
+                  if (!isBool && !selected.noChildren) overrides.children = capitalize(val);
 
                   const containerWidth = selected.demoWidth ?? "";
 

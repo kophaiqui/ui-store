@@ -40,6 +40,7 @@ export type PropDef = {
   companions?: Record<string, string>;
   demoWidth?: string;
   valueLabels?: Record<string, string>;
+  noChildren?: boolean;
 };
 
 export type UsageExample = {

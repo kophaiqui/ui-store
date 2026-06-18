@@ -41,14 +41,14 @@
     "props": [
       { "name": "label", "type": "string", "default": "undefined", "description": "Label rendered beside the checkbox" },
       { "name": "description", "type": "string", "default": "undefined", "description": "Secondary help text rendered below the label" },
-      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Controls the checkbox and indicator size" },
-      { "name": "indeterminate", "type": "boolean", "default": "false", "description": "Shows a dash instead of a checkmark; used for partial selection" },
+      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Controls the checkbox and indicator size", "noChildren": true, "companions": { "label": "Accept terms" } },
+      { "name": "indeterminate", "type": "boolean", "default": "false", "description": "Shows a dash instead of a checkmark; used for partial selection", "noChildren": true, "companions": { "label": "Select all", "defaultChecked": "true" } },
       { "name": "checked", "type": "boolean", "default": "undefined", "description": "Controlled checked state — use with onCheckedChange for fully controlled behavior" },
       { "name": "defaultChecked", "type": "boolean", "default": "false", "description": "Initial checked state for uncontrolled use" },
       { "name": "onCheckedChange", "type": "(checked: boolean) => void", "default": "undefined", "description": "Callback fired when checked state changes" },
       { "name": "name", "type": "string", "default": "undefined", "description": "Form field name for native form submission" },
       { "name": "value", "type": "string", "default": "undefined", "description": "Form value submitted when the checkbox is checked" },
-      { "name": "required", "type": "boolean", "default": "false", "description": "Marks the field as required for form validation" },
+      { "name": "required", "type": "boolean", "default": "false", "description": "Marks the field as required for form validation — adds a red asterisk next to the label", "companions": { "label": "I agree to the terms" }, "valueLabels": { "false": "Optional", "true": "Required" } },
       { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables interaction and reduces opacity" }
     ],
     "usage": [
@@ -69,18 +69,18 @@
     "preview": true,
     "new": true,
     "props": [
-      { "name": "variant", "type": "\"outline\" | \"filled\" | \"ghost\"", "default": "\"outline\"", "description": "Surface style — outline adds border, filled uses a background, ghost is borderless" },
-      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Controls input height and font size" },
-      { "name": "type", "type": "\"text\" | \"email\" | \"password\" | \"number\" | \"search\"", "default": "\"text\"", "description": "Native input type — affects keyboard, autofill hints, and browser behaviour" },
+      { "name": "variant", "type": "\"outline\" | \"filled\" | \"ghost\"", "default": "\"outline\"", "description": "Surface style — outline adds border, filled uses a background, ghost is borderless", "noChildren": true, "companions": { "placeholder": "Placeholder" } },
+      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Controls input height and font size", "noChildren": true, "companions": { "placeholder": "Placeholder" } },
+      { "name": "type", "type": "\"text\" | \"email\" | \"password\" | \"number\" | \"search\"", "default": "\"text\"", "description": "Native input type — affects keyboard, autofill hints, and browser behaviour", "noChildren": true },
       { "name": "label", "type": "string", "default": "undefined", "description": "Label rendered above the input; automatically linked via htmlFor" },
       { "name": "helperText", "type": "string", "default": "undefined", "description": "Subtle help text shown below the input (hidden when error is present)" },
       { "name": "prefix", "type": "ReactNode", "default": "undefined", "description": "Content pinned to the left inside the input — icon, currency symbol, or text" },
       { "name": "suffix", "type": "ReactNode", "default": "undefined", "description": "Content pinned to the right inside the input — icon or unit label" },
-      { "name": "clearable", "type": "boolean", "default": "false", "description": "Shows an × button when the input has a value; clicking it clears the field" },
-      { "name": "error", "type": "boolean | string", "default": "false", "description": "Error state — pass a string to show an error message below" },
+      { "name": "clearable", "type": "boolean", "default": "false", "description": "Shows an × button when the input has a value; clicking it clears the field", "noChildren": true, "companions": { "placeholder": "Type something" } },
+      { "name": "error", "type": "boolean | string", "default": "false", "description": "Error state — pass a string to show an error message below", "noChildren": true, "companions": { "placeholder": "Email address" } },
       { "name": "placeholder", "type": "string", "default": "undefined", "description": "Placeholder text shown when empty" },
-      { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables input and reduces opacity" },
-      { "name": "readOnly", "type": "boolean", "default": "false", "description": "Makes the input read-only" }
+      { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables input and reduces opacity", "noChildren": true, "companions": { "placeholder": "Placeholder" } },
+      { "name": "readOnly", "type": "boolean", "default": "false", "description": "Makes the input read-only", "noChildren": true, "companions": { "placeholder": "Placeholder", "defaultValue": "Read-only value" } }
     ],
     "usage": [
       { "label": "Variants", "code": "<UIInput variant=\"outline\" placeholder=\"Outline\" />\n<UIInput variant=\"filled\" placeholder=\"Filled\" />\n<UIInput variant=\"ghost\" placeholder=\"Ghost\" />" },
@@ -102,12 +102,13 @@
     "new": true,
     "props": [
       { "name": "options", "type": "{ label: string; value: string }[]", "default": "[...]", "description": "Array of selectable options" },
-      { "name": "orientation", "type": "\"vertical\" | \"horizontal\"", "default": "\"vertical\"", "description": "Stacks options in a column or row" },
-      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Controls the radio button and dot size" },
+      { "name": "label", "type": "string", "default": "undefined", "description": "Group label rendered above the options" },
+      { "name": "orientation", "type": "\"vertical\" | \"horizontal\"", "default": "\"vertical\"", "description": "Stacks options in a column or row", "noChildren": true },
+      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Controls the radio button and dot size", "noChildren": true },
       { "name": "disabledOptions", "type": "string[]", "default": "[]", "description": "Array of option values that should be rendered as disabled and non-interactive" },
       { "name": "defaultValue", "type": "string", "default": "undefined", "description": "Initially selected value" },
       { "name": "name", "type": "string", "default": "undefined", "description": "Form field name for native form submission" },
-      { "name": "required", "type": "boolean", "default": "false", "description": "Marks the radio group as required" }
+      { "name": "required", "type": "boolean", "default": "false", "description": "Marks the radio group as required — adds a red asterisk next to the group label", "noChildren": true, "companions": { "label": "Notification preference" }, "valueLabels": { "false": "Optional", "true": "Required" } }
     ],
     "usage": [
       { "label": "Default", "code": "<UIRadioGroup options={[{ label: 'A', value: 'a' }, { label: 'B', value: 'b' }]} />" },
@@ -125,12 +126,12 @@
     "preview": true,
     "new": true,
     "props": [
-      { "name": "options", "type": "{ label: string; value: string }[]", "default": "—", "description": "Options rendered inside the popup (passed in by the consumer)" },
+      { "name": "options", "type": "{ label: string; value: string }[]", "default": "[...]", "description": "Options rendered inside the popup — defaults to a built-in sample list when omitted" },
       { "name": "placeholder", "type": "string", "default": "\"Select an option\"", "description": "Shown when no value is selected" },
-      { "name": "multiSelect", "type": "boolean", "default": "false", "description": "Allow selecting multiple options; the trigger shows selected labels joined by commas" },
-      { "name": "clearable", "type": "boolean", "default": "false", "description": "Shows an × button when a value is selected; clicking it clears the selection" },
-      { "name": "loading", "type": "boolean", "default": "false", "description": "Shows a spinner in the trigger; useful while options are being fetched" },
-      { "name": "placement", "type": "\"top\" | \"bottom\"", "default": "\"bottom\"", "description": "Side the popup opens on relative to the trigger" }
+      { "name": "multiSelect", "type": "boolean", "default": "false", "description": "Allow selecting multiple options; the trigger shows selected labels joined by commas", "noChildren": true, "demoWidth": "w-52" },
+      { "name": "clearable", "type": "boolean", "default": "false", "description": "Shows an × button when a value is selected; clicking it clears the selection", "noChildren": true, "demoWidth": "w-52" },
+      { "name": "loading", "type": "boolean", "default": "false", "description": "Shows a spinner in the trigger; useful while options are being fetched", "noChildren": true, "demoWidth": "w-52" },
+      { "name": "placement", "type": "\"top\" | \"bottom\"", "default": "\"bottom\"", "description": "Side the popup opens on relative to the trigger", "noChildren": true, "demoWidth": "w-52" }
     ],
     "usage": [
       { "label": "Default", "code": "<UISelect options={[{ label: 'Design System', value: 'ds' }, { label: 'Component Library', value: 'cl' }, { label: 'Style Guide', value: 'sg' }]} />" },

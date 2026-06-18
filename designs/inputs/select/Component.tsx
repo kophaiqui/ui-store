@@ -25,7 +25,11 @@ function Spinner() {
 }
 
 export function UISelect({
-  options = [],
+  options = [
+    { label: "Design System", value: "ds" },
+    { label: "Component Library", value: "cl" },
+    { label: "Style Guide", value: "sg" },
+  ],
   placeholder = "Select an option",
   multiSelect = false,
   clearable = false,

@@ -21,7 +21,7 @@ const checkSizeMap = {
   lg: { w: 12, h: 9, d: "M1.5 4.5L4.5 7.5L10.5 1.5" },
 };
 
-export function UICheckbox({ label, description, size = "md", indeterminate, className, ...props }: Props) {
+export function UICheckbox({ label, description, size = "md", indeterminate, className, required, ...props }: Props) {
   const sz = sizeMap[size];
   const check = checkSizeMap[size];
   const isDisabled = props.disabled;
@@ -34,6 +34,7 @@ export function UICheckbox({ label, description, size = "md", indeterminate, cla
       )}
     >
       <Checkbox.Root
+        required={required}
         className={cn(
           "relative flex shrink-0 items-center justify-center",
           "border border-border bg-card",
@@ -69,6 +70,7 @@ export function UICheckbox({ label, description, size = "md", indeterminate, cla
               )}
             >
               {label}
+              {required && <span className="ml-1 text-red-400" aria-hidden>*</span>}
             </span>
           )}
           {description && (
