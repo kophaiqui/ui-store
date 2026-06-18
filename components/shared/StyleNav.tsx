@@ -203,8 +203,10 @@ function DetailToc() {
             <button
               onClick={() => scrollTo(id)}
               className={cn(
-                "flex items-center rounded-md px-2 py-1 text-[0.875rem] font-medium capitalize transition-colors",
-                active === id ? "text-violet-400" : "text-muted-foreground hover:text-foreground"
+                "flex items-center py-1 pl-2 text-[0.875rem] capitalize transition-colors border-l-2",
+                active === id
+                  ? "border-violet-500 font-medium text-violet-400"
+                  : "border-transparent font-normal text-muted-foreground hover:text-foreground"
               )}
             >
               {id}

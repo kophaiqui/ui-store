@@ -44,10 +44,10 @@ function ComponentTOC() {
                 document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
               }}
               className={cn(
-                "flex items-center gap-1.5 rounded-md px-2 py-1 text-[0.875rem] font-medium capitalize transition-colors",
+                "flex items-center py-1 pl-2 text-[0.875rem] capitalize transition-colors border-l-2",
                 active === id
-                  ? "font-medium text-violet-400"
-                  : "text-muted-foreground hover:text-foreground"
+                  ? "border-violet-500 font-medium text-violet-400"
+                  : "border-transparent font-normal text-muted-foreground hover:text-foreground"
               )}
             >
               {id}
