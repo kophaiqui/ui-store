@@ -67,7 +67,6 @@ type Props = { slug: string; meta: DesignMeta; code: string };
 
 export function DesignViewer({ slug, meta, code }: Props) {
   const [tab, setTab] = useState<"preview" | "code">("preview");
-  const [copied, setCopied] = useState(false);
 
   const highlighted = useMemo(
     () => fixJSXHighlight(hljs.highlight(code, { language: "typescript" }).value),
@@ -82,82 +81,44 @@ export function DesignViewer({ slug, meta, code }: Props) {
     { ssr: false, loading: () => <div className="h-32 animate-pulse rounded bg-muted/50" /> }
   );
 
-  function copyCode() {
-    navigator.clipboard.writeText(code).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
-  }
-
   return (
     <div className="overflow-hidden rounded-xl border border-border">
-      {/* Tab bar */}
-      <div className="flex items-center justify-between border-b border-border bg-muted/30 px-4 py-2">
-        <div className="flex gap-1">
+      {/* Tab bar — tabs on the right */}
+      <div className="flex items-center justify-end border-b border-border bg-muted/30 px-4 py-2">
+        <div className="flex items-center rounded-md border border-border bg-muted p-0.5">
           {(["preview", "code"] as const).map((t) => (
             <button
               key={t}
               onClick={() => setTab(t)}
               className={cn(
-                "rounded-md px-3 py-1 text-xs font-medium capitalize transition-colors",
+                "rounded px-2.5 py-0.5 text-[0.6875rem] font-medium capitalize transition-colors",
                 tab === t
-                  ? "bg-background text-foreground shadow-sm"
-                  : "text-muted-foreground hover:text-foreground"
+                  ? "bg-accent text-foreground"
+                  : "text-muted-foreground hover:text-foreground/90"
               )}
             >
               {t}
             </button>
           ))}
         </div>
-
-        {tab === "code" && (
-          <button
-            onClick={copyCode}
-            className="flex items-center gap-1.5 rounded-md border border-border/60 bg-background px-2.5 py-1 text-xs text-muted-foreground transition-colors hover:border-border hover:text-foreground"
-          >
-            {copied ? (
-              <>
-                <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
-                Copied
-              </>
-            ) : (
-              <>
-                <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                  <rect x="9" y="9" width="13" height="13" rx="2" />
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                </svg>
-                Copy
-              </>
-            )}
-          </button>
-        )}
       </div>
 
-      {/* Content */}
+      {/* Preview — always mounted */}
       {tab === "preview" ? (
         <div className="relative flex min-h-[280px] items-center justify-center overflow-hidden bg-background px-8 py-12">
-          {/* Grid with radial fade */}
           <div
             className="pointer-events-none absolute inset-0"
             style={{
               backgroundImage:
                 "linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px)",
               backgroundSize: "28px 28px",
-              maskImage:
-                "radial-gradient(ellipse 70% 70% at 50% 50%, black 0%, transparent 100%)",
-              WebkitMaskImage:
-                "radial-gradient(ellipse 70% 70% at 50% 50%, black 0%, transparent 100%)",
+              maskImage: "radial-gradient(ellipse 70% 70% at 50% 50%, black 0%, transparent 100%)",
+              WebkitMaskImage: "radial-gradient(ellipse 70% 70% at 50% 50%, black 0%, transparent 100%)",
             }}
           />
-          {/* Edge vignette */}
           <div
             className="pointer-events-none absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, var(--background) 100%)",
-            }}
+            style={{ background: "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, var(--background) 100%)" }}
           />
           <div className="relative">
             <Preview />

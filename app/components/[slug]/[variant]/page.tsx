@@ -4,7 +4,6 @@ import { getDesign, getAllDesigns, getDesignStyle, getStyle } from "@/lib/regist
 import { getDesignCode } from "@/lib/getDesignCode";
 import { DesignViewer } from "@/components/shared/DesignViewer";
 import { PropExplorer } from "@/components/shared/PropExplorer";
-import { UsageBlock } from "@/components/shared/UsageBlock";
 import type { Metadata } from "next";
 
 type Props = { params: Promise<{ slug: string; variant: string }> };
@@ -95,18 +94,12 @@ export default async function ComponentVariantPage({ params }: Props) {
       {/* Props table with live explorer */}
       {meta.props && meta.props.length > 0 && (
         <Section label="Props">
-          <PropExplorer slug={slug} category={meta.category} props={meta.props} />
-        </Section>
-      )}
-
-      {/* Usage examples */}
-      {meta.usage && meta.usage.length > 0 && (
-        <Section label="Usage">
-          <div className="space-y-3">
-            {meta.usage.map((ex) => (
-              <UsageBlock key={ex.label} label={ex.label} code={ex.code} slug={slug} category={meta.category} />
-            ))}
-          </div>
+          <PropExplorer
+            slug={slug}
+            category={meta.category}
+            props={meta.props}
+            componentName={"UI" + meta.name.replace(/\s+/g, "")}
+          />
         </Section>
       )}
 

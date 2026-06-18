@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import designsRegistry from "@/registry/designs.json";
 
 // ── Component detail page TOC ─────────────────────────────────────────────────
-const DETAIL_SECTIONS = ["preview", "props", "usage", "tags"] as const;
+const DETAIL_SECTIONS = ["preview", "props", "tags"] as const;
 
 function ComponentTOC() {
   const [active, setActive] = useState<string>("preview");
