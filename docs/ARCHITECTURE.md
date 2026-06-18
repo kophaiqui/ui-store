@@ -1,414 +1,190 @@
-# UI Resource Platform Architecture
+# Architecture
 
-## Overview
+## What this is
 
-A static-first platform for:
+A static-first UI component showcase. No database. Content is driven by JSON + source code files. Every component is a self-contained installable file that users can copy directly into their project.
 
-- UI Components
+---
 
-- Design System resources
+## Stack
 
-- Motion / Animation examples
+| Layer | Choice |
+|---|---|
+| Framework | Next.js (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS + `cn()` (tailwind-merge + clsx) |
+| Components | `@base-ui/react` primitives |
+| Registry | JSON flat file (`registry/designs.json`) |
+| Deployment | Vercel (static + SSR) |
 
-- Fonts
+---
 
-- Documentation
+## Folder Structure
 
-- Code snippets
-
-Main principles:
-
-- No database at first
-
-- No asset storage
-
-- Content driven by JSON + code
-
-- Fast SEO pages
-
-- CDN friendly
-
-# Tech Stack
-
-## Framework
-
-- Next.js (App Router)
-
-- TypeScript
-
-## Styling
-
-- Tailwind CSS
-
-- shadcn/ui
-
-## Animation
-
-- Motion
-
-## Content
-
-- MDX
-
-- JSON Registry
-
-## Deployment
-
-- Vercel
-
-## Search
-
-- Algolia / Meilisearch (optional later)
-
-# Folder Structure
-
-app/
-
-├── fonts/
-
-│   └── [slug]/
-
-│
-
-├── components/
-
-│   └── [slug]/
-
-│
-
-├── motion/
-
-│   └── [slug]/
-
-│
-
-└── docs/
-
-components/
-
-├── ui/
-
-│   ├── button/
-
-│   │
-
-│   ├── Button.tsx
-
-│   ├── Demo.tsx
-
-│   ├── variants.ts
-
-│   └── meta.json
-
-│
-
-└── card/
-
-content/
-
-├── docs/
-
-│   ├── button.mdx
-
-│   └── card.mdx
-
-│
-
-├── fonts/
-
-│   ├── inter.json
-
-│   └── geist.json
-
-│
-
-└── motion/
-
-    ├── hover.mdx
-
-    └── transition.mdx
+```
+designs/
+  {category}/           inputs | data-display | feedback
+    {slug}/
+      Component.tsx     the installable component — also the live preview
+      styles/
+        default.ts      StyleConfig type definitions + default Tailwind classes
 
 registry/
+  designs.json          single source of truth for metadata, props, usage examples
 
-├── components.json
+components/
+  layout/               Sidebar, Header, SectionLayout, TableOfContents
+  shared/               DesignCardPreview, DesignViewer, ComponentPanel,
+                        PropExplorer, StyleComponentCard, ...
 
-├── fonts.json
+app/
+  components/
+    layout.tsx          injects Sidebar + TableOfContents
+    page.tsx            overview grid of all components
+    [slug]/
+      [variant]/
+        page.tsx        component detail: preview + props explorer + code
 
-└── motion.json
+lib/
+  registry.ts           reads designs.json, exposes getAllDesigns / getDesignMeta
+  getDesignCode.ts      reads Component.tsx source for the code tab
+  utils.ts              cn() helper
+```
 
-# Component Storage
+---
 
-Components are stored as source code.
+## Component Pattern
 
-Example:
+Every component follows the same three-file pattern:
 
-components/ui/button/
+### `Component.tsx` — installable + preview
 
-Button.tsx
+```tsx
+"use client";
+import { defaultStyle } from "./styles/default";
+import type { ButtonStyleConfig, ButtonVariant } from "./styles/default";
 
-Demo.tsx
+export type { ButtonStyleConfig, ButtonVariant }; // re-export for consumers
 
-meta.json
+type Props = {
+  styleConfig?: ButtonStyleConfig;
+  variant?: ButtonVariant;
+  // ... all other props with defaults
+};
 
-meta.json
-
-{
-
-  "name": "Button",
-
-  "category": "form",
-
-  "tags": [
-
-    "button",
-
-    "interactive"
-
-  ],
-
-  "preview": true
-
+export function UIButton({
+  styleConfig = defaultStyle,
+  variant = "solid",
+  children = "Button",
+  // defaults exist for preview — all are overridable
+}: Props) {
+  // uses styleConfig.variants[variant] for Tailwind classes
 }
 
-The registry is generated from component metadata.
+export { UIButton as default };
+```
 
-components.json
+### `styles/default.ts` — type owner + default classes
 
+```ts
+// Types live HERE, not in Component.tsx
+export type ButtonVariant = "solid" | "outline" | "ghost" | "soft" | "link" | "destructive";
+export type ButtonSize   = "sm" | "md" | "lg";
+
+export type ButtonStyleConfig = {
+  base: string;
+  variants: Record<ButtonVariant, { base: string; hover: string; focus: string }>;
+  sizes: Record<ButtonSize, { base: string; text: string }>;
+  disabled: string;
+};
+
+export const defaultStyle: ButtonStyleConfig = {
+  base: "inline-flex items-center ...",
+  variants: { solid: { base: "bg-primary ...", hover: "...", focus: "..." }, ... },
+  // ...
+};
+```
+
+---
+
+## Key Rules (see AGENTS.md for full detail)
+
+1. **All props are adjustable** — no hardcoded data inside a component. Every string, number, and array must be a prop with a default value.
+
+2. **StyleConfig = style only** — passing a custom `styleConfig` swaps Tailwind classes and nothing else. All props, defaults, and behavior remain identical.
+
+3. **Types live in `styles/default.ts`** — never import from `Component.tsx` inside `styles/default.ts` (circular dependency). `Component.tsx` re-exports types for consumers.
+
+4. **No `Preview.tsx`** — `Component.tsx` IS the preview. All preview surfaces (listing cards, detail viewer, component panels) load `Component.tsx` directly via dynamic import. Default props define what the preview shows.
+
+---
+
+## Registry Shape
+
+`registry/designs.json` drives the entire UI — component listing, detail pages, props explorer, usage examples.
+
+```json
 {
-
   "button": {
-
-    "title": "Button",
-
-    "path": "/components/button"
-
+    "name": "Button",
+    "category": "inputs",
+    "style": "default",
+    "tags": ["button", "interactive", "action"],
+    "description": "6 variants · 3 sizes · 3 shapes ...",
+    "new": true,
+    "props": [
+      {
+        "name": "variant",
+        "type": "\"solid\" | \"outline\" | \"ghost\"",
+        "default": "\"solid\"",
+        "description": "Visual style of the button",
+        "companions": { "icon": "auto" }
+      }
+    ],
+    "usage": [
+      { "label": "Variants", "code": "<UIButton variant=\"outline\">Label</UIButton>" }
+    ]
   }
-
 }
+```
 
-Do not store component code in database.
+**`companions`** — extra props auto-passed alongside a demo prop in PropExplorer (e.g. showing `iconPosition` also passes `icon`).  
+**`_demo` prefix** — props starting with `_` are demo-only; excluded from generated install snippets.
 
-# Documentation
+---
 
-Use MDX.
+## Preview Loading
 
-Example:
+All preview surfaces use `next/dynamic` to load `Component.tsx` client-side:
 
-button.mdx
+```tsx
+const Preview = dynamic(
+  () =>
+    import(`@/designs/${meta.category}/${slug}/Component`)
+      .then((m) => m.default ?? (() => null))
+      .catch(() => () => null),
+  { ssr: false, loading: () => <div className="animate-pulse ..." /> }
+);
+```
 
-Contains:
+Used in: `DesignCardPreview`, `DesignViewer`, `ComponentPanel`, `StyleComponentCard`.
 
-- description
+---
 
-- usage
+## Adding a New Component
 
-- API
+1. Create `designs/{category}/{slug}/Component.tsx` — all props with defaults, `styleConfig` optional.
+2. Create `designs/{category}/{slug}/styles/default.ts` — types + default Tailwind classes.
+3. Add an entry to `registry/designs.json` — name, category, props array, usage examples.
+4. Add a sidebar icon in `components/layout/Sidebar.tsx` under `SLUG_ICONS`.
 
-- examples
+No other files needed. The detail page, listing card, and props explorer are all generated from the registry.
 
-- preview
+---
 
-Build:
+## Performance
 
-MDX -> Static HTML
-
-Advantages:
-
-- SEO friendly
-
-- fast loading
-
-- easy editing
-
-# Font System
-
-Fonts are NOT stored locally.
-
-No:
-
-- S3
-
-- R2
-
-- font storage
-
-- database
-
-Only store font metadata.
-
-fonts.json
-
-{
-
-  "name": "Inter",
-
-  "family": "Inter",
-
-  "category": "sans-serif",
-
-  "weights": [
-
-    400,
-
-    700
-
-  ],
-
-  "license": "OFL",
-
-  "source": {
-
-    "provider": "external",
-
-    "url": "[https://external-font-source.com/inter](https://external-font-source.com/inter)"
-
-  }
-
-}
-
-# Font Loading
-
-Website provides:
-
-- font preview
-
-- metadata
-
-- external download link
-
-Flow:
-
-User
-
- |
-
- |
-
-Font page
-
- |
-
- |
-
-Read JSON
-
- |
-
- |
-
-Render preview
-
- |
-
- |
-
-Redirect external URL
-
-# Preview Strategy
-
-Do not preload all resources.
-
-Use:
-
-- lazy loading
-
-- dynamic import
-
-- intersection observer
-
-Example:
-
-Component card
-
-      |
-
- user scrolls
-
-      |
-
- load preview
-
-# Performance Rules
-
-Avoid:
-
-- loading all components
-
-- loading all fonts
-
-- rendering thousands of animations
-
-Use:
-
-- static generation
-
-- ISR
-
-- CDN caching
-
-- optimized images
-
-# Data Flow
-
-                Source Code
-
-                    |
-
-          ---------------------
-
-          |                   |
-
-     Components             MDX
-
-          |                   |
-
-          ---- Build Process --
-
-                    |
-
-                Next.js
-
-                    |
-
-              JSON Registry
-
-                    |
-
-                Frontend
-
-# Future Expansion
-
-If needed later add:
-
-Database:
-
-- users
-
-- favorites
-
-- collections
-
-- analytics
-
-Search index:
-
-- Algolia
-
-- Meilisearch
-
-# Philosophy
-
-The website is a resource index.
-
-The heavy assets stay external.
-
-The frontend only manages:
-
-- metadata
-
-- previews
-
-- navigation
-
-- discovery
-
+- `ssr: false` on all component previews — avoids hydration issues with portal-based components.
+- No preloading — components load lazily as they appear in viewport.
+- `designs.json` is statically imported — no API calls for metadata.
+- `getDesignCode` reads source files at request time (server component only).
