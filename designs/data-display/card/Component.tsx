@@ -28,7 +28,12 @@ export function UICard({
   clickable = false,
   onClick,
   className,
-  children,
+  children = (
+    <div>
+      <p className="mb-1 text-sm font-semibold text-foreground">Card title</p>
+      <p className="text-xs text-muted-foreground leading-relaxed">A flexible container for grouping related content.</p>
+    </div>
+  ),
 }: Props) {
   const isInteractive = clickable || Boolean(onClick);
 

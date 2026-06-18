@@ -75,9 +75,9 @@ export function DesignViewer({ slug, meta, code }: Props) {
 
   const Preview = dynamic(
     () =>
-      import(`@/designs/${meta.category}/${slug}/Preview`).catch(
-        () => () => null
-      ),
+      import(`@/designs/${meta.category}/${slug}/Component`)
+        .then((m) => m.default ?? (() => null))
+        .catch(() => () => null),
     { ssr: false, loading: () => <div className="h-32 animate-pulse rounded bg-muted/50" /> }
   );
 
