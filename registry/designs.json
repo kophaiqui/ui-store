@@ -153,8 +153,8 @@
       { "name": "min", "type": "number", "default": "0", "description": "Minimum allowed value" },
       { "name": "max", "type": "number", "default": "100", "description": "Maximum allowed value" },
       { "name": "step", "type": "number", "default": "1", "description": "Increment step between values" },
-      { "name": "showValue", "type": "boolean", "default": "true", "description": "Show the current value above the track" },
-      { "name": "orientation", "type": "\"horizontal\" | \"vertical\"", "default": "\"horizontal\"", "description": "Horizontal track (default) or vertical track" },
+      { "name": "showValue", "type": "boolean", "default": "true", "description": "Show the current value above the track", "noChildren": true, "demoWidth": "w-48" },
+      { "name": "orientation", "type": "\"horizontal\" | \"vertical\"", "default": "\"horizontal\"", "description": "Horizontal track (default) or vertical track", "noChildren": true, "demoWidth": "w-48" },
       { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables interaction and reduces opacity" }
     ],
     "usage": [
@@ -174,12 +174,12 @@
     "new": true,
     "props": [
       { "name": "label", "type": "string", "default": "undefined", "description": "Optional label rendered beside the switch" },
-      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Controls track and thumb dimensions" },
-      { "name": "labelPosition", "type": "\"left\" | \"right\"", "default": "\"right\"", "description": "Side the label appears on relative to the switch" },
-      { "name": "loading", "type": "boolean", "default": "false", "description": "Shows a spinner inside the thumb and disables interaction — use while saving the toggle state" },
-      { "name": "checked", "type": "boolean", "default": "undefined", "description": "Controlled on/off state — use with onCheckedChange for fully controlled behavior" },
+      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Controls track and thumb dimensions", "noChildren": true, "companions": { "label": "Option" } },
+      { "name": "labelPosition", "type": "\"left\" | \"right\"", "default": "\"right\"", "description": "Side the label appears on relative to the switch", "noChildren": true, "companions": { "label": "Dark mode" } },
+      { "name": "loading", "type": "boolean", "default": "false", "description": "Shows a spinner inside the thumb and disables interaction — use while saving the toggle state", "noChildren": true, "companions": { "label": "Saving…" }, "valueLabels": { "false": "Idle", "true": "Loading" } },
+      { "name": "checked", "type": "boolean", "default": "undefined", "description": "Controlled on/off state — use with onCheckedChange for fully controlled behavior", "noChildren": true, "companions": { "label": "Enabled" }, "valueLabels": { "false": "Off", "true": "On" } },
       { "name": "defaultChecked", "type": "boolean", "default": "false", "description": "Initial on/off state for uncontrolled use" },
-      { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables interaction" }
+      { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables interaction", "noChildren": true, "companions": { "label": "Option" }, "valueLabels": { "false": "Enabled", "true": "Disabled" } }
     ],
     "usage": [
       { "label": "With label", "code": "<UISwitch label=\"Enable notifications\" />" },
@@ -225,7 +225,7 @@
     "preview": true,
     "new": true,
     "props": [
-      { "name": "orientation", "type": "\"horizontal\" | \"vertical\"", "default": "\"horizontal\"", "description": "Direction of the separator line" }
+      { "name": "orientation", "type": "\"horizontal\" | \"vertical\"", "default": "\"horizontal\"", "description": "Direction of the separator line", "noChildren": true, "demoWidth": "w-64" }
     ],
     "usage": [
       { "label": "Horizontal", "code": "<UISeparator />" },
@@ -244,8 +244,8 @@
     "props": [
       { "name": "tabs", "type": "{ label: string; value: string; content: ReactNode; icon?: ReactNode }[]", "default": "[...]", "description": "Tab definitions — each may include an optional icon" },
       { "name": "defaultValue", "type": "string", "default": "\"overview\"", "description": "Initially active tab value" },
-      { "name": "fullWidth", "type": "boolean", "default": "false", "description": "Stretches tabs to fill the full width of the container evenly" },
-      { "name": "iconPosition", "type": "\"left\" | \"right\"", "default": "\"left\"", "description": "Side the tab icon appears on relative to the label" }
+      { "name": "fullWidth", "type": "boolean", "default": "false", "description": "Stretches tabs to fill the full width of the container evenly", "noChildren": true, "demoWidth": "w-72", "valueLabels": { "false": "Auto", "true": "Full width" } },
+      { "name": "iconPosition", "type": "\"left\" | \"right\"", "default": "\"left\"", "description": "Side the tab icon appears on relative to the label", "noChildren": true, "demoWidth": "w-72" }
     ],
     "usage": [
       { "label": "Default", "code": "<UITabs />" },
@@ -265,9 +265,9 @@
     "props": [
       { "name": "value", "type": "number", "default": "62", "description": "Progress percentage (0–100)" },
       { "name": "label", "type": "string", "default": "undefined", "description": "Optional label shown above the track" },
-      { "name": "showValue", "type": "boolean", "default": "false", "description": "Shows the numeric percentage alongside the label" },
-      { "name": "striped", "type": "boolean", "default": "false", "description": "Adds a diagonal stripe pattern to the fill bar" },
-      { "name": "animated", "type": "boolean", "default": "false", "description": "Animates the stripes — only visible when striped is true" },
+      { "name": "showValue", "type": "boolean", "default": "false", "description": "Shows the numeric percentage alongside the label", "noChildren": true, "companions": { "label": "Upload" }, "demoWidth": "w-48", "valueLabels": { "false": "Hidden", "true": "Shown" } },
+      { "name": "striped", "type": "boolean", "default": "false", "description": "Adds a diagonal stripe pattern to the fill bar", "noChildren": true, "companions": { "value": "62" }, "demoWidth": "w-48", "valueLabels": { "false": "Plain", "true": "Striped" } },
+      { "name": "animated", "type": "boolean", "default": "false", "description": "Animates the stripes — only visible when striped is true", "noChildren": true, "companions": { "value": "62", "striped": "true" }, "demoWidth": "w-48", "valueLabels": { "false": "Static", "true": "Animated" } },
       { "name": "color", "type": "string", "default": "undefined", "description": "Custom CSS color for the fill (e.g. \"#6366f1\" or \"oklch(0.6 0.2 280)\"). Falls back to emerald when unset." }
     ],
     "usage": [
@@ -288,9 +288,9 @@
     "new": true,
     "props": [
       { "name": "items", "type": "{ value: string; title: string; content: string }[]", "default": "[...]", "description": "Array of accordion panels" },
-      { "name": "bordered", "type": "boolean", "default": "false", "description": "Wraps the entire accordion in a rounded border" },
-      { "name": "iconPosition", "type": "\"left\" | \"right\"", "default": "\"right\"", "description": "Side the chevron icon appears on in each row header" },
-      { "name": "collapsible", "type": "boolean", "default": "true", "description": "When true, all panels can be closed simultaneously. When false, one panel is always open." }
+      { "name": "bordered", "type": "boolean", "default": "false", "description": "Wraps the entire accordion in a rounded border", "noChildren": true, "demoWidth": "w-80", "valueLabels": { "false": "Default", "true": "Bordered" } },
+      { "name": "iconPosition", "type": "\"left\" | \"right\"", "default": "\"right\"", "description": "Side the chevron icon appears on in each row header", "noChildren": true, "demoWidth": "w-80" },
+      { "name": "multiple", "type": "boolean", "default": "false", "description": "Allow multiple panels to be open at the same time. When false, opening one closes others.", "noChildren": true, "demoWidth": "w-80", "companions": { "defaultOpen": "1" }, "valueLabels": { "false": "Single open", "true": "Multiple open" } }
     ],
     "usage": [
       { "label": "Default", "code": "<UIAccordion />" },
@@ -314,7 +314,7 @@
       { "name": "side", "type": "\"top\" | \"bottom\" | \"left\" | \"right\"", "default": "\"top\"", "description": "Side of the trigger where the popup appears" },
       { "name": "delay", "type": "number", "default": "100", "description": "Milliseconds to wait before showing the tooltip on hover" },
       { "name": "delayClose", "type": "number", "default": "0", "description": "Milliseconds to wait before hiding the tooltip after the cursor leaves" },
-      { "name": "arrow", "type": "boolean", "default": "false", "description": "Renders a small directional arrow pointing from the popup toward the trigger" },
+      { "name": "arrow", "type": "boolean", "default": "false", "description": "Renders a small directional arrow pointing from the popup toward the trigger", "noChildren": true, "valueLabels": { "false": "No arrow", "true": "With arrow" } },
       { "name": "maxWidth", "type": "number", "default": "undefined", "description": "Maximum width of the tooltip popup in pixels" }
     ],
     "usage": [
@@ -378,22 +378,22 @@
     "category": "data-display",
     "style": "default",
     "tags": ["card", "container", "surface", "layout"],
-    "description": "A flexible surface container for grouping related content. Supports glass, bordered, and hoverable variants.",
+    "description": "A flexible surface container for grouping related content. Supports bordered and hoverable variants.",
     "preview": true,
     "new": true,
     "props": [
-      { "name": "variant", "type": "\"default\" | \"glass\" | \"bordered\"", "default": "\"default\"", "description": "Surface style — default uses card bg + border, glass uses frosted-glass effect, bordered is transparent with a thicker border" },
-      { "name": "padding", "type": "\"none\" | \"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Internal padding of the card" },
-      { "name": "radius", "type": "\"none\" | \"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Corner radius of the card" },
-      { "name": "shadow", "type": "boolean", "default": "false", "description": "Adds a subtle drop shadow beneath the card" },
-      { "name": "hoverable", "type": "boolean", "default": "false", "description": "Adds a lift + shadow effect on hover" },
-      { "name": "clickable", "type": "boolean", "default": "false", "description": "Makes the card interactive — adds cursor-pointer and keyboard focus support" },
+      { "name": "variant", "type": "\"default\" | \"bordered\"", "default": "\"default\"", "description": "Surface style — default uses card bg + border, bordered is transparent with a thicker border", "demoWidth": "w-40" },
+      { "name": "padding", "type": "\"none\" | \"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Internal padding of the card", "demoWidth": "w-36" },
+      { "name": "radius", "type": "\"none\" | \"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Corner radius of the card", "demoWidth": "w-36" },
+      { "name": "shadow", "type": "boolean", "default": "false", "description": "Adds a subtle drop shadow beneath the card", "noChildren": true, "companions": { "children": "Card" }, "demoWidth": "w-32", "valueLabels": { "false": "No shadow", "true": "Shadow" } },
+      { "name": "hoverable", "type": "boolean", "default": "false", "description": "Adds a lift + shadow effect on hover", "noChildren": true, "companions": { "children": "Card" }, "demoWidth": "w-32", "valueLabels": { "false": "Static", "true": "Hoverable" } },
+      { "name": "clickable", "type": "boolean", "default": "false", "description": "Makes the card interactive — adds cursor-pointer and keyboard focus support", "noChildren": true, "companions": { "children": "Card" }, "demoWidth": "w-32", "valueLabels": { "false": "Static", "true": "Clickable" } },
       { "name": "onClick", "type": "() => void", "default": "undefined", "description": "Click handler; also enables clickable styles when provided" },
       { "name": "children", "type": "ReactNode", "default": "undefined", "description": "Content rendered inside the card" }
     ],
     "usage": [
       { "label": "Default", "code": "<UICard><p>Card content.</p></UICard>" },
-      { "label": "Glass", "code": "<UICard variant=\"glass\">Glass card.</UICard>" },
+      { "label": "Bordered", "code": "<UICard variant=\"bordered\"><p>Bordered card.</p></UICard>" },
       { "label": "Hoverable", "code": "<UICard hoverable><p>Hover me.</p></UICard>" },
       { "label": "Clickable", "code": "<UICard clickable onClick={() => alert('Clicked!')}><p>Click me.</p></UICard>" }
     ]
@@ -461,8 +461,10 @@
       { "name": "title", "type": "string", "default": "undefined", "description": "Optional bold heading above the description" },
       { "name": "description", "type": "string", "default": "\"Something happened…\"", "description": "Main body text of the alert" },
       { "name": "icon", "type": "ReactNode", "default": "undefined", "description": "Custom icon — overrides the default variant icon when provided" },
-      { "name": "closable", "type": "boolean", "default": "false", "description": "Shows a dismiss button that hides the alert on click" },
-      { "name": "onClose", "type": "() => void", "default": "undefined", "description": "Callback fired when the dismiss button is clicked" }
+      { "name": "closable", "type": "boolean", "default": "false", "description": "Shows a dismiss button that hides the alert on click", "noChildren": true, "companions": { "description": "Changes saved successfully." }, "valueLabels": { "false": "Persistent", "true": "Dismissible" } },
+      { "name": "onClose", "type": "() => void", "default": "undefined", "description": "Callback fired when the dismiss button is clicked" },
+      { "name": "autoClose", "type": "number", "default": "undefined", "description": "Auto-dismiss after this many milliseconds. Omit to keep the alert until manually closed." },
+      { "name": "showProgress", "type": "boolean", "default": "false", "description": "Shrinking bar at the bottom that shows time remaining until autoClose dismisses the alert", "noChildren": true, "companions": { "autoClose": "8000" }, "valueLabels": { "false": "No bar", "true": "With bar" } }
     ],
     "usage": [
       { "label": "Variants", "code": "<UIAlert variant=\"info\" description=\"Your request is being processed.\" />\n<UIAlert variant=\"success\" description=\"Changes saved successfully.\" />\n<UIAlert variant=\"warning\" description=\"Your plan is almost at its limit.\" />\n<UIAlert variant=\"error\" description=\"Unable to connect to the server.\" />" },
@@ -480,7 +482,8 @@
     "preview": true,
     "new": true,
     "props": [
-      { "name": "timeout", "type": "number", "default": "5000", "description": "Default auto-dismiss delay in milliseconds. Pass 0 to disable auto-dismiss." },
+      { "name": "timeout", "type": "number", "default": "5000", "description": "Default auto-dismiss delay in milliseconds. Pass 0 to require manual close (no auto-dismiss)." },
+      { "name": "showProgress", "type": "boolean", "default": "false", "description": "Shows a shrinking progress bar on every toast indicating time remaining until auto-dismiss", "noChildren": true, "companions": { "_demo": "true", "timeout": "4000" }, "valueLabels": { "false": "No bar", "true": "With bar" } },
       { "name": "limit", "type": "number", "default": "3", "description": "Maximum number of toasts shown at once" },
       { "name": "children", "type": "ReactNode", "default": "undefined", "description": "App content wrapped by the toast provider" }
     ],
@@ -488,7 +491,8 @@
       { "label": "Setup", "code": "// Wrap your app once\n<UIToast>\n  <App />\n</UIToast>" },
       { "label": "Default", "code": "import { toastManager } from '@/designs/feedback/toast/Component';\ntoastManager.add({ data: { title: 'Hello!', description: 'Welcome back.' } });" },
       { "label": "Success", "code": "toastManager.add({ data: { variant: 'success', title: 'Saved', description: 'Your changes are saved.' } });" },
-      { "label": "Error", "code": "toastManager.add({ data: { variant: 'error', title: 'Failed', description: 'Something went wrong.' } });" }
+      { "label": "Error", "code": "toastManager.add({ data: { variant: 'error', title: 'Failed', description: 'Something went wrong.' } });" },
+      { "label": "With progress", "code": "toastManager.add({ data: { variant: 'success', title: 'Saved', description: 'All changes saved.', showProgress: true } });" }
     ]
   },
 
