@@ -1,4 +1,6 @@
-import type { CardVariant, CardPadding, CardRadius } from "../Component";
+export type CardVariant = "default" | "bordered";
+export type CardPadding = "none" | "sm" | "md" | "lg";
+export type CardRadius = "none" | "sm" | "md" | "lg";
 
 export type CardStyleConfig = {
   base: string;

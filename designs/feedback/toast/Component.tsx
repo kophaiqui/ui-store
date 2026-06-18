@@ -3,10 +3,9 @@ import { useState, useEffect } from "react";
 import { Toast } from "@base-ui/react/toast";
 import { cn } from "@/lib/utils";
 import { defaultStyle } from "./styles/default";
-import type { ToastStyleConfig } from "./styles/default";
+import type { ToastStyleConfig, ToastVariant } from "./styles/default";
 
-export type { ToastStyleConfig };
-export type ToastVariant = "default" | "success" | "error" | "warning";
+export type { ToastStyleConfig, ToastVariant };
 
 export interface ToastData {
   title?: string;

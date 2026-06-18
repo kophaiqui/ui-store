@@ -1,10 +1,9 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { defaultStyle } from "./styles/default";
-import type { ChipStyleConfig } from "./styles/default";
+import type { ChipStyleConfig, ChipSize } from "./styles/default";
 
-export type { ChipStyleConfig };
-export type ChipSize = "sm" | "md" | "lg";
+export type { ChipStyleConfig, ChipSize };
 
 type Props = {
   styleConfig?: ChipStyleConfig;

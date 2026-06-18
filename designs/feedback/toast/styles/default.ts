@@ -1,4 +1,4 @@
-import type { ToastVariant } from "../Component";
+export type ToastVariant = "default" | "success" | "error" | "warning";
 
 export type ToastStyleConfig = {
   root: string;

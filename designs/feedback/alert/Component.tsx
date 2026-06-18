@@ -2,10 +2,9 @@
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { defaultStyle } from "./styles/default";
-import type { AlertStyleConfig } from "./styles/default";
+import type { AlertStyleConfig, AlertVariant } from "./styles/default";
 
-export type { AlertStyleConfig };
-export type AlertVariant = "info" | "success" | "warning" | "error";
+export type { AlertStyleConfig, AlertVariant };
 
 type Props = {
   styleConfig?: AlertStyleConfig;

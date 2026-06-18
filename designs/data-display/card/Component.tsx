@@ -1,12 +1,9 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { defaultStyle } from "./styles/default";
-import type { CardStyleConfig } from "./styles/default";
+import type { CardStyleConfig, CardVariant, CardPadding, CardRadius } from "./styles/default";
 
-export type { CardStyleConfig };
-export type CardVariant = "default" | "bordered";
-export type CardPadding = "none" | "sm" | "md" | "lg";
-export type CardRadius = "none" | "sm" | "md" | "lg";
+export type { CardStyleConfig, CardVariant, CardPadding, CardRadius };
 
 type Props = {
   styleConfig?: CardStyleConfig;

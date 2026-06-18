@@ -1,4 +1,6 @@
-import type { BadgeVariant, BadgeColor, BadgeSize } from "../Component";
+export type BadgeVariant = "solid" | "soft" | "outline";
+export type BadgeColor = "default" | "emerald" | "red" | "amber" | "blue" | "violet";
+export type BadgeSize = "sm" | "md" | "lg";
 
 export type BadgeStyleConfig = {
   base: string;

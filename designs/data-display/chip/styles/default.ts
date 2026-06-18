@@ -1,4 +1,4 @@
-import type { ChipSize } from "../Component";
+export type ChipSize = "sm" | "md" | "lg";
 
 export type ChipStyleConfig = {
   base: string;

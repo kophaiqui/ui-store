@@ -1,4 +1,4 @@
-import type { AlertVariant } from "../Component";
+export type AlertVariant = "info" | "success" | "warning" | "error";
 
 export type AlertStyleConfig = {
   base: string;
