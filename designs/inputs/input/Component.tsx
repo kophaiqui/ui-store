@@ -33,6 +33,7 @@ export function UIInput({
   variant = "outline",
   size = "md",
   type = "text",
+  placeholder = "Enter text…",
   error,
   label,
   helperText,
@@ -44,6 +45,7 @@ export function UIInput({
   value: valueProp,
   defaultValue,
   id: idProp,
+  placeholder,
   ...props
 }: Props) {
   const generatedId = useId();
@@ -85,6 +87,7 @@ export function UIInput({
     <Input
       id={inputId}
       type={type}
+      placeholder={placeholder}
       value={currentValue}
       onValueChange={handleValueChange}
       className={inputClass}
@@ -94,6 +97,7 @@ export function UIInput({
     <Input
       id={inputId}
       type={type}
+      placeholder={placeholder}
       defaultValue={defaultValue}
       onValueChange={onValueChange}
       className={inputClass}
