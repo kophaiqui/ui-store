@@ -1,4 +1,4 @@
-import type { SwitchSize } from "../Switch";
+export type SwitchSize = "sm" | "md" | "lg";
 
 export type SwitchStyleConfig = {
   track: string;

@@ -2,11 +2,9 @@
 import { Avatar } from "@base-ui/react/avatar";
 import { cn } from "@/lib/utils";
 import { defaultStyle } from "./styles/default";
-import type { AvatarStyleConfig } from "./styles/default";
+import type { AvatarStyleConfig, AvatarSize, AvatarStatus } from "./styles/default";
 
-export type { AvatarStyleConfig };
-export type AvatarSize = "xs" | "sm" | "md" | "lg" | "xl";
-export type AvatarStatus = "online" | "offline" | "busy";
+export type { AvatarStyleConfig, AvatarSize, AvatarStatus };
 
 type Props = React.ComponentProps<typeof Avatar.Root> & {
   styleConfig?: AvatarStyleConfig;

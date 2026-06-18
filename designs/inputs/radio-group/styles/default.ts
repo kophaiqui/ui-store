@@ -1,4 +1,4 @@
-import type { RadioGroupSize } from "../RadioGroup";
+export type RadioGroupSize = "sm" | "md" | "lg";
 
 export type RadioGroupStyleConfig = {
   root: string;

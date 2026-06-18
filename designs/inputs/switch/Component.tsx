@@ -2,10 +2,9 @@
 import { Switch } from "@base-ui/react/switch";
 import { cn } from "@/lib/utils";
 import { defaultStyle } from "./styles/default";
-import type { SwitchStyleConfig } from "./styles/default";
+import type { SwitchStyleConfig, SwitchSize } from "./styles/default";
 
-export type { SwitchStyleConfig };
-export type SwitchSize = "sm" | "md" | "lg";
+export type { SwitchStyleConfig, SwitchSize };
 
 type Props = React.ComponentProps<typeof Switch.Root> & {
   styleConfig?: SwitchStyleConfig;

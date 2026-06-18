@@ -3,11 +3,9 @@ import { useState, useId } from "react";
 import { Input } from "@base-ui/react/input";
 import { cn } from "@/lib/utils";
 import { defaultStyle } from "./styles/default";
-import type { InputStyleConfig } from "./styles/default";
+import type { InputStyleConfig, InputVariant, InputSize } from "./styles/default";
 
-export type { InputStyleConfig };
-export type InputVariant = "outline" | "filled" | "ghost";
-export type InputSize = "sm" | "md" | "lg";
+export type { InputStyleConfig, InputVariant, InputSize };
 
 type Props = Omit<React.ComponentProps<typeof Input>, "size" | "prefix"> & {
   styleConfig?: InputStyleConfig;

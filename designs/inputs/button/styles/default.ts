@@ -1,4 +1,6 @@
-import type { ButtonVariant, ButtonSize, ButtonShape } from "../Button";
+export type ButtonVariant = "solid" | "outline" | "ghost" | "soft" | "link" | "destructive";
+export type ButtonSize = "sm" | "md" | "lg";
+export type ButtonShape = "default" | "pill" | "square";
 
 export type ButtonStyleConfig = {
   base: string;

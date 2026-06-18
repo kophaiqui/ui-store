@@ -1,4 +1,5 @@
-import type { InputVariant, InputSize } from "../Input";
+export type InputVariant = "outline" | "filled" | "ghost";
+export type InputSize = "sm" | "md" | "lg";
 
 export type InputStyleConfig = {
   base: string;

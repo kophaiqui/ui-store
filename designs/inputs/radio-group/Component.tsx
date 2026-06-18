@@ -3,10 +3,9 @@ import { RadioGroup } from "@base-ui/react/radio-group";
 import { Radio } from "@base-ui/react/radio";
 import { cn } from "@/lib/utils";
 import { defaultStyle } from "./styles/default";
-import type { RadioGroupStyleConfig } from "./styles/default";
+import type { RadioGroupStyleConfig, RadioGroupSize } from "./styles/default";
 
-export type { RadioGroupStyleConfig };
-export type RadioGroupSize = "sm" | "md" | "lg";
+export type { RadioGroupStyleConfig, RadioGroupSize };
 
 type Option = { label: string; value: string };
 

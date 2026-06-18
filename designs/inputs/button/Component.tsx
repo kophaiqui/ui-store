@@ -2,12 +2,9 @@
 import { Button } from "@base-ui/react/button";
 import { cn } from "@/lib/utils";
 import { defaultStyle } from "./styles/default";
-import type { ButtonStyleConfig } from "./styles/default";
+import type { ButtonStyleConfig, ButtonVariant, ButtonSize, ButtonShape } from "./styles/default";
 
-export type { ButtonStyleConfig };
-export type ButtonVariant = "solid" | "outline" | "ghost" | "soft" | "link" | "destructive";
-export type ButtonSize = "sm" | "md" | "lg";
-export type ButtonShape = "default" | "pill" | "square";
+export type { ButtonStyleConfig, ButtonVariant, ButtonSize, ButtonShape };
 
 type Props = Omit<React.ComponentProps<typeof Button>, "disabled"> & {
   styleConfig?: ButtonStyleConfig;

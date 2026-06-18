@@ -1,4 +1,4 @@
-import type { CheckboxSize } from "../Checkbox";
+export type CheckboxSize = "sm" | "md" | "lg";
 
 export type CheckboxStyleConfig = {
   root: string;

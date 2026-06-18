@@ -1,4 +1,5 @@
-import type { AvatarSize, AvatarStatus } from "../Avatar";
+export type AvatarSize = "xs" | "sm" | "md" | "lg" | "xl";
+export type AvatarStatus = "online" | "offline" | "busy";
 
 export type AvatarStyleConfig = {
   root: string;

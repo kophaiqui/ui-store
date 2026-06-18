@@ -2,10 +2,9 @@
 import { Checkbox } from "@base-ui/react/checkbox";
 import { cn } from "@/lib/utils";
 import { defaultStyle } from "./styles/default";
-import type { CheckboxStyleConfig } from "./styles/default";
+import type { CheckboxStyleConfig, CheckboxSize } from "./styles/default";
 
-export type { CheckboxStyleConfig };
-export type CheckboxSize = "sm" | "md" | "lg";
+export type { CheckboxStyleConfig, CheckboxSize };
 
 type Props = React.ComponentProps<typeof Checkbox.Root> & {
   styleConfig?: CheckboxStyleConfig;
