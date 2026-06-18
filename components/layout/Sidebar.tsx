@@ -163,6 +163,67 @@ function AccordionIcon({ className }: IconProps) {
   );
 }
 
+function CardIcon({ className }: IconProps) {
+  return (
+    <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className={className}>
+      <rect x="3" y="4" width="18" height="16" rx="2" />
+      <line x1="3" y1="9" x2="21" y2="9" />
+      <line x1="7" y1="14" x2="17" y2="14" strokeWidth="1.5" />
+    </svg>
+  );
+}
+
+function BadgeIcon({ className }: IconProps) {
+  return (
+    <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className={className}>
+      <rect x="4" y="8" width="16" height="8" rx="4" />
+      <circle cx="9" cy="12" r="1.5" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function ChipIcon({ className }: IconProps) {
+  return (
+    <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className={className}>
+      <rect x="2" y="7" width="20" height="10" rx="5" />
+      <line x1="16" y1="10.5" x2="18" y2="13.5" strokeWidth="1.5" strokeLinecap="round" />
+      <line x1="18" y1="10.5" x2="16" y2="13.5" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function AlertIcon({ className }: IconProps) {
+  return (
+    <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className={className}>
+      <path d="M12 4L21.5 20H2.5L12 4z" strokeLinejoin="round" />
+      <line x1="12" y1="10" x2="12" y2="14" strokeLinecap="round" />
+      <circle cx="12" cy="17" r="0.75" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function ToastIcon({ className }: IconProps) {
+  return (
+    <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className={className}>
+      <rect x="3" y="7" width="18" height="11" rx="2" />
+      <circle cx="7.5" cy="12.5" r="1.5" fill="currentColor" stroke="none" />
+      <line x1="10.5" y1="11" x2="17" y2="11" strokeWidth="1.5" />
+      <line x1="10.5" y1="14" x2="15" y2="14" strokeWidth="1.5" />
+    </svg>
+  );
+}
+
+function DropdownMenuIcon({ className }: IconProps) {
+  return (
+    <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className={className}>
+      <rect x="3" y="3" width="18" height="6" rx="1.5" />
+      <polyline points="8 9 12 13 16 9" strokeWidth="1.8" />
+      <rect x="3" y="13" width="18" height="8" rx="1.5" />
+      <line x1="7" y1="17" x2="17" y2="17" strokeWidth="1.5" />
+    </svg>
+  );
+}
+
 function TooltipIcon({ className }: IconProps) {
   return (
     <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className={className}>
@@ -203,9 +264,15 @@ const SLUG_ICONS: Record<string, (props: IconProps) => React.ReactElement> = {
   tabs: TabsIcon,
   progress: ProgressIcon,
   accordion: AccordionIcon,
+  card: CardIcon,
+  badge: BadgeIcon,
+  chip: ChipIcon,
   tooltip: TooltipIcon,
   dialog: DialogIcon,
   popover: PopoverIcon,
+  alert: AlertIcon,
+  toast: ToastIcon,
+  "dropdown-menu": DropdownMenuIcon,
 };
 
 function getSlug(href: string) {
