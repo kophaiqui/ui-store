@@ -2,7 +2,7 @@
 import { cn } from "@/lib/utils";
 
 type Props = {
-  variant?: "default" | "glass" | "bordered";
+  variant?: "default" | "bordered";
   padding?: "none" | "sm" | "md" | "lg";
   radius?: "none" | "sm" | "md" | "lg";
   shadow?: boolean;
@@ -51,11 +51,6 @@ export function UICard({
         paddingMap[padding],
         radiusMap[radius],
         variant === "default" && "bg-card border border-border/60",
-        variant === "glass" && [
-          "bg-white/5 dark:bg-white/5",
-          "backdrop-blur-md",
-          "border border-white/10",
-        ],
         variant === "bordered" && "bg-transparent border-2 border-border",
         shadow && "shadow-[0_4px_24px_rgba(0,0,0,0.3)]",
         hoverable && "transition-all duration-200 hover:border-border hover:shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:-translate-y-0.5",

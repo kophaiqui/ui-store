@@ -19,9 +19,40 @@ type Props = {
 
 export function UITabs({
   tabs = [
-    { label: "Overview", value: "overview", content: "Overview content goes here." },
-    { label: "Settings", value: "settings", content: "Settings content goes here." },
-    { label: "Analytics", value: "analytics", content: "Analytics content goes here." },
+    {
+      label: "Overview",
+      value: "overview",
+      content: "Overview content goes here.",
+      icon: (
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
+          <rect x="1" y="1" width="4" height="4" rx="1" />
+          <rect x="7" y="1" width="4" height="4" rx="1" />
+          <rect x="1" y="7" width="4" height="4" rx="1" />
+          <rect x="7" y="7" width="4" height="4" rx="1" />
+        </svg>
+      ),
+    },
+    {
+      label: "Settings",
+      value: "settings",
+      content: "Settings content goes here.",
+      icon: (
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
+          <circle cx="6" cy="6" r="2" />
+          <path d="M6 1v1M6 10v1M1 6h1M10 6h1M2.5 2.5l.7.7M8.8 8.8l.7.7M9.5 2.5l-.7.7M3.2 8.8l-.7.7" strokeLinecap="round" />
+        </svg>
+      ),
+    },
+    {
+      label: "Analytics",
+      value: "analytics",
+      content: "Analytics content goes here.",
+      icon: (
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
+          <path d="M1 10L4 7L7 8.5L11 3" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      ),
+    },
   ],
   defaultValue = "overview",
   fullWidth = false,

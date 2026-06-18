@@ -8,7 +8,8 @@ type Props = {
   items?: AccordionItem[];
   bordered?: boolean;
   iconPosition?: "left" | "right";
-  collapsible?: boolean;
+  multiple?: boolean;
+  defaultOpen?: string;
   className?: string;
 };
 
@@ -35,32 +36,21 @@ function ChevronIcon() {
 
 export function UIAccordion({
   items = [
-    {
-      value: "1",
-      title: "What is Base UI?",
-      content:
-        "Base UI is an open-source component library maintained by the MUI team, providing unstyled, accessible primitives for building design systems.",
-    },
-    {
-      value: "2",
-      title: "How does it work with Tailwind?",
-      content:
-        "Base UI components expose data attributes for state — combine them with Tailwind's arbitrary variant syntax to style any interactive state cleanly.",
-    },
-    {
-      value: "3",
-      title: "Is it production ready?",
-      content:
-        "Yes. Base UI ships with full ARIA compliance, keyboard navigation, and focus management out of the box.",
-    },
+    { value: "1", title: "What is Base UI?", content: "Unstyled, accessible primitives built by the MUI team." },
+    { value: "2", title: "Works with Tailwind?", content: "Yes — style any state via data attributes and arbitrary variants." },
+    { value: "3", title: "Production ready?", content: "Ships with full ARIA, keyboard nav, and focus management." },
   ],
   bordered = false,
   iconPosition = "right",
-  collapsible = true,
+  multiple = false,
+  defaultOpen,
   className,
 }: Props) {
+  const defaultValue = defaultOpen ? [defaultOpen] : undefined;
   return (
     <Accordion.Root
+      multiple={multiple}
+      defaultValue={defaultValue}
       className={cn(
         "w-full divide-y divide-border",
         bordered && "rounded-lg border border-border overflow-hidden",

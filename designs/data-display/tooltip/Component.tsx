@@ -55,7 +55,13 @@ export function UITooltip({
                     "data-[side=left]:right-[-4px] data-[side=right]:left-[-4px]",
                   )}
                 >
-                  <svg width="10" height="5" viewBox="0 0 10 5" className="fill-card stroke-border/60" strokeWidth="1">
+                  <svg
+                    width="10"
+                    height="5"
+                    viewBox="0 0 10 5"
+                    className="fill-card stroke-border/60 [[data-side=top]_&]:rotate-180 [[data-side=left]_&]:rotate-90 [[data-side=right]_&]:-rotate-90"
+                    strokeWidth="1"
+                  >
                     <path d="M0 5L5 0L10 5Z" />
                   </svg>
                 </Tooltip.Arrow>
