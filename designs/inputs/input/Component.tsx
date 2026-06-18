@@ -45,7 +45,6 @@ export function UIInput({
   value: valueProp,
   defaultValue,
   id: idProp,
-  placeholder,
   ...props
 }: Props) {
   const generatedId = useId();
