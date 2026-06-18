@@ -9,9 +9,9 @@ type Props = { slug: string; meta: DesignMeta; linkBase?: string; showNew?: bool
 export function DesignCardPreview({ slug, meta, linkBase = "/components", showNew = true }: Props) {
   const Preview = dynamic(
     () =>
-      import(`@/designs/${meta.category}/${slug}/Preview`).catch(
-        () => () => null
-      ),
+      import(`@/designs/${meta.category}/${slug}/Component`)
+        .then((m) => m.default ?? (() => null))
+        .catch(() => () => null),
     { ssr: false, loading: () => <div className="h-24 animate-pulse rounded bg-muted/50" /> }
   );
 
@@ -21,8 +21,27 @@ export function DesignCardPreview({ slug, meta, linkBase = "/components", showNe
       className="group flex flex-col overflow-hidden rounded-xl border border-border/60 bg-card transition-all hover:border-border hover:shadow-md"
     >
       {/* Preview area */}
-      <div className="flex min-h-[160px] items-center justify-center bg-muted/20 px-6 py-8 dark:bg-muted/10">
-        <Preview />
+      <div className="relative flex min-h-[160px] items-center justify-center overflow-hidden bg-background px-6 py-8">
+        {/* Grid bg — fades from center */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            backgroundImage:
+              "linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px)",
+            backgroundSize: "20px 20px",
+            maskImage: "radial-gradient(ellipse 65% 65% at 50% 50%, black 0%, transparent 100%)",
+            WebkitMaskImage: "radial-gradient(ellipse 65% 65% at 50% 50%, black 0%, transparent 100%)",
+          }}
+        />
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background: "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 30%, var(--background) 100%)",
+          }}
+        />
+        <div className="relative pointer-events-none select-none">
+          <Preview />
+        </div>
       </div>
 
       {/* Meta */}
