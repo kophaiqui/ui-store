@@ -14,7 +14,10 @@ type Props = { slug: string; meta: DesignMeta; href?: string };
  */
 export function StyleComponentCard({ slug, meta, href = `/components/${slug}` }: Props) {
   const Preview = dynamic(
-    () => import(`@/designs/${meta.category}/${slug}/Preview`).catch(() => () => null),
+    () =>
+      import(`@/designs/${meta.category}/${slug}/Component`)
+        .then((m) => m.default ?? (() => null))
+        .catch(() => () => null),
     { ssr: false, loading: () => <div className="h-16 w-32 animate-pulse rounded bg-muted/50" /> }
   );
 
