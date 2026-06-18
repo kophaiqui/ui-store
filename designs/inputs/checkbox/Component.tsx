@@ -16,7 +16,7 @@ type Props = React.ComponentProps<typeof Checkbox.Root> & {
 
 export function UICheckbox({
   styleConfig = defaultStyle,
-  label,
+  label = "Accept terms and conditions",
   description,
   size = "md",
   indeterminate,

@@ -152,7 +152,7 @@ export function UIToast({
   timeout = 5000,
   limit = 3,
   showProgress = false,
-  _demo = false,
+  _demo = true,
   children,
 }: Props) {
   if (_demo) {

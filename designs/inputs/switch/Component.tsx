@@ -27,7 +27,7 @@ function Spinner({ size }: { size: number }) {
 
 export function UISwitch({
   styleConfig = defaultStyle,
-  label,
+  label = "Enable notifications",
   size = "md",
   labelPosition = "right",
   loading = false,
