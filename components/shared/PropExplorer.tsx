@@ -2,6 +2,7 @@
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import { cn } from "@/lib/utils";
+import { tokenizeJSX, TT_CLS, GRID_BG } from "@/lib/tokenizeJSX";
 import type { PropDef } from "@/lib/registry";
 
 // "\"solid\" | \"outline\"" → ["solid", "outline"]
@@ -24,9 +25,6 @@ function parseDefaultValue(val: string): unknown {
   if (q) return q[1];
   const n = Number(t);
   if (!isNaN(n) && t !== "") return n;
-  // Non-primitive defaults (arrays/objects/ReactNode/none) can't be reconstructed
-  // from a string — leave them undefined so the component's own default applies
-  // instead of spreading a broken string into a prop like `options`.
   if (t === "—" || t.startsWith("[") || t.startsWith("{") || t.startsWith("<")) return undefined;
   return t;
 }
@@ -35,14 +33,45 @@ function capitalize(s: string) {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
+// Build a multi-line JSX code string showing each value for the given prop.
+function buildCode(
+  componentName: string,
+  propName: string,
+  propType: string,
+  values: string[],
+  companions: Record<string, string>,
+): string {
+  const isBool = propType.trim() === "boolean";
+  return values.map((val) => {
+    const attrs: string[] = [];
+    // companions: include real ones, skip demo-only sentinels ("auto")
+    for (const [k, v] of Object.entries(companions)) {
+      if (v === "auto") continue;
+      if (v === "true") attrs.push(k);
+      // false companions → omit (default)
+    }
+    // main prop
+    if (isBool) {
+      if (val === "true") attrs.push(propName);
+    } else {
+      attrs.push(`${propName}="${val}"`);
+    }
+    const attrsStr = attrs.length ? " " + attrs.join(" ") : "";
+    const text = isBool ? "Button" : capitalize(val);
+    return `<${componentName}${attrsStr}>${text}</${componentName}>`;
+  }).join("\n");
+}
+
 type Props = {
   slug: string;
   category: string;
   props: PropDef[];
+  componentName?: string;
 };
 
-export function PropExplorer({ slug, category, props }: Props) {
+export function PropExplorer({ slug, category, props, componentName }: Props) {
   const [activeProp, setActiveProp] = useState<string | null>(null);
+  const [propTab, setPropTab] = useState<"preview" | "code">("preview");
 
   const enriched = props.map((p) => ({ ...p, values: parseEnumValues(p.type) }));
 
@@ -72,7 +101,7 @@ export function PropExplorer({ slug, category, props }: Props) {
 
   return (
     <div className="space-y-3">
-      {/* Props table — rows with explorable values are clickable */}
+      {/* Props table */}
       <div className="overflow-hidden rounded-xl border border-border/60">
         <table className="w-full text-sm">
           <thead>
@@ -113,14 +142,9 @@ export function PropExplorer({ slug, category, props }: Props) {
                       </span>
                       {isClickable && (
                         <svg
-                          width="9"
-                          height="9"
-                          viewBox="0 0 9 9"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
+                          width="9" height="9" viewBox="0 0 9 9" fill="none"
+                          stroke="currentColor" strokeWidth="1.5"
+                          strokeLinecap="round" strokeLinejoin="round"
                           className={cn(
                             "shrink-0 transition-all duration-200",
                             isActive ? "rotate-90 text-emerald-500" : "text-muted-foreground/40"
@@ -155,47 +179,93 @@ export function PropExplorer({ slug, category, props }: Props) {
         </table>
       </div>
 
-      {/* Live preview panel */}
-      {selected?.values && (
-        <div className="overflow-hidden rounded-xl border border-border bg-background">
-          <div className="flex items-center gap-2.5 border-b border-border/80 px-5 py-3">
-            <span className="font-mono text-[0.75rem] font-medium text-emerald-400">
-              {selected.name}
-            </span>
-            <span className="text-[0.6875rem] text-muted-foreground/70">
-              · all values, others at default
-            </span>
+      {/* Expanded prop panel — always keep both tabs in DOM to avoid flicker on switch */}
+      {selected?.values && (() => {
+        const companions = selected.companions ?? {};
+        const compName = componentName ?? ("UI" + slug.split("-").map(capitalize).join(""));
+        const generatedCode = buildCode(compName, selected.name, selected.type, selected.values, companions);
+
+        return (
+          <div className="overflow-hidden rounded-xl border border-border bg-background">
+            {/* Header: prop name on the left, tab toggle on the right */}
+            <div className="flex items-center justify-between border-b border-border/80 px-5 py-3">
+              <div className="flex items-center gap-2.5">
+                <span className="font-mono text-[0.75rem] font-medium text-emerald-400">
+                  {selected.name}
+                </span>
+                <span className="text-[0.6875rem] text-muted-foreground/70">
+                  · all values, others at default
+                </span>
+              </div>
+              <div className="flex items-center rounded-md border border-border bg-muted p-0.5">
+                {(["preview", "code"] as const).map((t) => (
+                  <button
+                    key={t}
+                    onClick={() => setPropTab(t)}
+                    className={cn(
+                      "rounded px-2.5 py-0.5 text-[0.6875rem] font-medium capitalize transition-colors",
+                      propTab === t
+                        ? "bg-accent text-foreground"
+                        : "text-muted-foreground hover:text-foreground/90"
+                    )}
+                  >
+                    {t}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Preview — always mounted, hidden when on code tab to prevent re-mount flicker */}
+            <div className={propTab === "preview" ? "relative px-8 py-8" : "hidden"}>
+              <div className="pointer-events-none absolute inset-0" style={GRID_BG} />
+              <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, var(--background) 100%)" }} />
+              <div className="relative flex flex-wrap items-end justify-center gap-x-8 gap-y-6">
+                {selected.values.map((val) => {
+                  const isBool = selected.type.trim() === "boolean";
+                  const propValue = val === "true" ? true : val === "false" ? false : val;
+
+                  const parsedCompanions: Record<string, unknown> = {};
+                  for (const [k, v] of Object.entries(companions)) {
+                    parsedCompanions[k] = parseDefaultValue(v) ?? v;
+                  }
+
+                  const overrides: Record<string, unknown> = {
+                    ...defaults,
+                    ...parsedCompanions,
+                    [selected.name]: propValue,
+                  };
+                  if (!isBool) overrides.children = capitalize(val);
+
+                  const containerWidth = selected.demoWidth ?? "";
+
+                  return (
+                    <div key={val} className="flex flex-col items-center gap-2.5">
+                      <div className={cn("flex items-center justify-center", containerWidth)}>
+                        <Comp {...overrides} />
+                      </div>
+                      <span className="font-mono text-[0.6875rem] text-muted-foreground/70">
+                        {selected.valueLabels?.[val] ?? val}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Code — always mounted, hidden when on preview tab */}
+            <pre className={cn(
+              "overflow-x-auto bg-background px-5 py-4 text-[0.8125rem] leading-relaxed",
+              propTab === "code" ? "" : "hidden"
+            )}>
+              <code className="font-mono">
+                {tokenizeJSX(generatedCode).map((tok, idx) =>
+                  tok.t === "space" ? tok.v : <span key={idx} className={TT_CLS[tok.t]}>{tok.v}</span>
+                )}
+              </code>
+            </pre>
           </div>
-
-          <div className="flex flex-wrap items-end justify-center gap-x-8 gap-y-6 px-8 py-8">
-            {selected.values.map((val) => {
-              const isBool = selected.type.trim() === "boolean";
-              const propValue =
-                val === "true" ? true : val === "false" ? false : val;
-
-              const overrides: Record<string, unknown> = {
-                ...defaults,
-                [selected.name]: propValue,
-              };
-
-              // For string enum props, use the capitalized value as button label
-              // so each item is self-identifying at a glance
-              if (!isBool) {
-                overrides.children = capitalize(val);
-              }
-
-              return (
-                <div key={val} className="flex flex-col items-center gap-2.5">
-                  <div className="flex items-center justify-center">
-                    <Comp {...overrides} />
-                  </div>
-                  <span className="font-mono text-[0.6875rem] text-muted-foreground/70">{val}</span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      )}
+        );
+      })()}
     </div>
   );
 }

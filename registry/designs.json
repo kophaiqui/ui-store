@@ -12,13 +12,13 @@
       { "name": "size", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Controls height, padding, and font size" },
       { "name": "shape", "type": "\"default\" | \"pill\" | \"square\"", "default": "\"default\"", "description": "Border radius and aspect ratio" },
       { "name": "icon", "type": "ReactNode", "default": "undefined", "description": "Icon element rendered beside the label" },
-      { "name": "iconPosition", "type": "\"left\" | \"right\"", "default": "\"left\"", "description": "Side the icon appears on" },
-      { "name": "iconOnly", "type": "boolean", "default": "false", "description": "Show only the icon — hides the text label and forces square sizing. Use children for accessible screen-reader text." },
-      { "name": "fullWidth", "type": "boolean", "default": "false", "description": "Stretches button to fill its container" },
+      { "name": "iconPosition", "type": "\"left\" | \"right\"", "default": "\"left\"", "description": "Side the icon appears on", "companions": { "icon": "auto" } },
+      { "name": "iconOnly", "type": "boolean", "default": "false", "description": "Show only the icon — hides the text label and forces square sizing. Use children for accessible screen-reader text.", "companions": { "icon": "auto" } },
+      { "name": "fullWidth", "type": "boolean", "default": "false", "description": "Stretches button to fill its container", "demoWidth": "w-48" },
       { "name": "type", "type": "\"button\" | \"submit\" | \"reset\"", "default": "\"button\"", "description": "Native button type attribute" },
       { "name": "loading", "type": "boolean", "default": "false", "description": "Replaces leading content with a spinner; disables interaction" },
-      { "name": "loadingPosition", "type": "\"start\" | \"center\"", "default": "\"start\"", "description": "Where the spinner appears — start prepends it beside the label, center hides the label and centers the spinner" },
-      { "name": "pressed", "type": "boolean", "default": "undefined", "description": "Toggle state for aria-pressed buttons — applies a depressed visual and sets aria-pressed on the element" },
+      { "name": "loadingPosition", "type": "\"start\" | \"center\"", "default": "\"start\"", "description": "Where the spinner appears — start prepends it beside the label, center hides the label and centers the spinner", "companions": { "loading": "true" } },
+      { "name": "pressed", "type": "boolean", "default": "undefined", "description": "Toggle state for aria-pressed buttons — applies a depressed visual and sets aria-pressed on the element", "valueLabels": { "false": "Default", "true": "Pressed" } },
       { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables interaction and reduces opacity to 40%" }
     ],
     "usage": [

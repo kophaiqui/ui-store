@@ -37,6 +37,9 @@ export type PropDef = {
   type: string;
   default: string;
   description: string;
+  companions?: Record<string, string>;
+  demoWidth?: string;
+  valueLabels?: Record<string, string>;
 };
 
 export type UsageExample = {

@@ -27,6 +27,12 @@ const sizeMap: Record<ButtonSize, { base: string; square: string; text: string }
   lg: { base: "h-11 px-6 gap-2.5", square: "size-11", text: "text-base" },
 };
 
+const AUTO_ICON = (
+  <svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <path d="M3 8h10M9 4l4 4-4 4" />
+  </svg>
+);
+
 const spinnerSize: Record<ButtonSize, number> = { sm: 12, md: 14, lg: 16 };
 
 function Spinner({ size }: { size: number }) {
@@ -58,7 +64,7 @@ export function UIButton({
   loading = false,
   loadingPosition = "start",
   disabled = false,
-  icon,
+  icon: iconProp,
   iconPosition = "left",
   iconOnly = false,
   pressed,
@@ -69,12 +75,19 @@ export function UIButton({
 }: Props) {
   const s = sizeMap[size];
   const isDisabled = disabled || loading;
+  // "square" shape = no border-radius with normal sizing; only iconOnly forces fixed square size
   const effectiveShape = iconOnly ? "square" : shape;
   const centerLoading = loading && loadingPosition === "center";
   const startLoading = loading && loadingPosition === "start";
 
-  const leadingIcon = !startLoading && !centerLoading && icon && iconPosition === "left" ? icon : null;
-  const trailingIcon = !startLoading && !centerLoading && icon && iconPosition === "right" ? icon : null;
+  // "auto" is a sentinel injected by the PropExplorer demo system
+  const icon = iconProp === ("auto" as unknown) ? AUTO_ICON : iconProp;
+  // When iconOnly with no icon provided, show the built-in fallback so the demo is meaningful
+  const resolvedIcon = iconOnly && !icon ? AUTO_ICON : icon;
+
+  const showSpinner = centerLoading || startLoading;
+  const leadingIcon = !showSpinner && resolvedIcon && iconPosition === "left" ? resolvedIcon : null;
+  const trailingIcon = !showSpinner && resolvedIcon && iconPosition === "right" ? resolvedIcon : null;
 
   return (
     <Button
@@ -88,39 +101,55 @@ export function UIButton({
         !isDisabled && "active:scale-[0.97] active:-translate-y-px",
         loading && "cursor-wait",
         fullWidth && "w-full",
+        // border-radius: square = no radius, pill = full, default = md
         effectiveShape === "default" && "rounded-md",
         effectiveShape === "pill"    && "rounded-full",
-        effectiveShape === "square"  && "rounded-md",
-        variant !== "link" && (effectiveShape === "square" ? `${s.square} ${s.text}` : `${s.base} ${s.text}`),
-        variant === "link"  && s.text,
+        effectiveShape === "square"  && "rounded-none",
+        // sizing: iconOnly forces fixed square size; shape="square" keeps normal h/px
+        variant !== "link" && (iconOnly ? `${s.square} ${s.text}` : `${s.base} ${s.text}`),
+        variant === "link" && s.text,
         variant === "solid" && cn(
-          "bg-primary text-primary-foreground",
-          "shadow-[0_1px_2px_rgba(0,0,0,0.4)]",
-          !isDisabled && "hover:bg-primary/90 hover:shadow-[0_2px_6px_rgba(0,0,0,0.5)]",
-          isDisabled && "opacity-40",
-          pressed === true && "bg-primary/70 shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)]",
+          "text-primary-foreground",
           "focus-visible:ring-emerald-500/50",
+          pressed === true
+            ? "bg-primary/80 shadow-inner translate-y-[1px]"
+            : cn(
+                "bg-primary shadow-[0_1px_2px_rgba(0,0,0,0.4)]",
+                !isDisabled && "hover:bg-primary/90 hover:shadow-[0_2px_6px_rgba(0,0,0,0.5)]",
+              ),
+          isDisabled && "opacity-40",
         ),
         variant === "outline" && cn(
-          "border border-border bg-transparent text-foreground",
-          !isDisabled && "hover:border-input hover:bg-muted/60",
-          isDisabled && "opacity-40",
-          pressed === true && "bg-muted/80 border-input",
+          "bg-transparent text-foreground",
           "focus-visible:ring-emerald-500/50",
+          pressed === true
+            ? "border border-primary bg-primary/10"
+            : cn(
+                "border border-border",
+                !isDisabled && "hover:border-input hover:bg-muted/60",
+              ),
+          isDisabled && "opacity-40",
         ),
         variant === "ghost" && cn(
-          "bg-transparent text-muted-foreground",
-          !isDisabled && "hover:bg-muted hover:text-foreground",
-          isDisabled && "opacity-40",
-          pressed === true && "bg-muted text-foreground",
           "focus-visible:ring-emerald-500/50",
+          pressed === true
+            ? "bg-muted text-foreground"
+            : cn(
+                "bg-transparent text-muted-foreground",
+                !isDisabled && "hover:bg-muted hover:text-foreground",
+              ),
+          isDisabled && "opacity-40",
         ),
         variant === "soft" && cn(
-          "bg-muted text-foreground",
-          !isDisabled && "hover:bg-accent",
-          isDisabled && "opacity-40",
-          pressed === true && "bg-accent",
+          "text-foreground",
           "focus-visible:ring-emerald-500/50",
+          pressed === true
+            ? "bg-accent"
+            : cn(
+                "bg-muted",
+                !isDisabled && "hover:bg-accent",
+              ),
+          isDisabled && "opacity-40",
         ),
         variant === "link" && cn(
           "bg-transparent text-foreground/90 underline-offset-4 px-0 rounded-none h-auto",
