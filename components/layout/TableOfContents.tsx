@@ -46,7 +46,7 @@ function ComponentTOC() {
               className={cn(
                 "flex items-center gap-1.5 px-2 py-1 text-[0.875rem] font-medium capitalize transition-colors",
                 active === id
-                  ? "text-violet-400"
+                  ? "text-foreground"
                   : "text-muted-foreground hover:text-foreground"
               )}
             >
@@ -104,7 +104,7 @@ function OverviewTOC() {
                 onClick={() => scrollTo(cat)}
                 className={cn(
                   "mb-1 block text-[0.6875rem] font-semibold uppercase tracking-widest transition-colors",
-                  catActive ? "text-violet-400" : "text-muted-foreground/60 hover:text-muted-foreground"
+                  catActive ? "text-muted-foreground" : "text-muted-foreground/60 hover:text-muted-foreground"
                 )}
               >
                 {cat}
@@ -119,14 +119,14 @@ function OverviewTOC() {
                         className={cn(
                           "flex items-center gap-1.5 py-0.5 text-[0.8125rem] font-medium transition-colors",
                           isActive
-                            ? "font-medium text-violet-400"
+                            ? "font-medium text-foreground"
                             : "text-muted-foreground hover:text-foreground"
                         )}
                       >
                         <span
                           className={cn(
                             "h-1 w-1 shrink-0 rounded-full transition-colors",
-                            isActive ? "bg-violet-500" : "bg-transparent"
+                            isActive ? "bg-foreground/40" : "bg-transparent"
                           )}
                         />
                         {meta.name}

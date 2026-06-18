@@ -153,7 +153,7 @@ function OverviewToc({ sections }: { sections: StyleNavSection[] }) {
                 onClick={() => scrollTo(section.category)}
                 className={cn(
                   "mb-1 block text-[0.6875rem] font-semibold uppercase tracking-widest transition-colors",
-                  catActive ? "text-violet-400" : "text-muted-foreground/60 hover:text-muted-foreground"
+                  catActive ? "text-muted-foreground" : "text-muted-foreground/60 hover:text-muted-foreground"
                 )}
               >
                 {section.category}
@@ -167,13 +167,13 @@ function OverviewToc({ sections }: { sections: StyleNavSection[] }) {
                         onClick={() => scrollTo(item.slug)}
                         className={cn(
                           "flex items-center gap-1.5 py-0.5 text-[0.8125rem] font-medium transition-colors",
-                          isActive ? "text-violet-400" : "text-muted-foreground hover:text-foreground"
+                          isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"
                         )}
                       >
                         <span
                           className={cn(
                             "h-1 w-1 shrink-0 rounded-full transition-colors",
-                            isActive ? "bg-violet-500" : "bg-transparent"
+                            isActive ? "bg-foreground/40" : "bg-transparent"
                           )}
                         />
                         {item.name}
@@ -204,7 +204,7 @@ function DetailToc() {
               onClick={() => scrollTo(id)}
               className={cn(
                 "flex items-center gap-1.5 px-2 py-1 text-[0.875rem] font-medium capitalize transition-colors",
-                active === id ? "text-violet-400" : "text-muted-foreground hover:text-foreground"
+                active === id ? "text-foreground" : "text-muted-foreground hover:text-foreground"
               )}
             >
               {id}
