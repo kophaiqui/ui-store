@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
 type AlertVariant = "info" | "success" | "warning" | "error";
@@ -11,16 +11,19 @@ type Props = {
   icon?: React.ReactNode;
   closable?: boolean;
   onClose?: () => void;
+  autoClose?: number;
+  showProgress?: boolean;
   className?: string;
 };
 
-const variantMap: Record<AlertVariant, { bg: string; border: string; titleColor: string; descColor: string; iconColor: string }> = {
+const variantMap: Record<AlertVariant, { bg: string; border: string; titleColor: string; descColor: string; iconColor: string; progressColor: string }> = {
   info: {
     bg: "bg-blue-500/8",
     border: "border-blue-500/20",
     titleColor: "text-blue-300",
     descColor: "text-blue-300/70",
     iconColor: "text-blue-400",
+    progressColor: "bg-blue-400",
   },
   success: {
     bg: "bg-emerald-500/8",
@@ -28,6 +31,7 @@ const variantMap: Record<AlertVariant, { bg: string; border: string; titleColor:
     titleColor: "text-emerald-300",
     descColor: "text-emerald-300/70",
     iconColor: "text-emerald-400",
+    progressColor: "bg-emerald-400",
   },
   warning: {
     bg: "bg-amber-500/8",
@@ -35,6 +39,7 @@ const variantMap: Record<AlertVariant, { bg: string; border: string; titleColor:
     titleColor: "text-amber-300",
     descColor: "text-amber-300/70",
     iconColor: "text-amber-400",
+    progressColor: "bg-amber-400",
   },
   error: {
     bg: "bg-red-500/8",
@@ -42,6 +47,7 @@ const variantMap: Record<AlertVariant, { bg: string; border: string; titleColor:
     titleColor: "text-red-300",
     descColor: "text-red-300/70",
     iconColor: "text-red-400",
+    progressColor: "bg-red-400",
   },
 };
 
@@ -81,10 +87,29 @@ export function UIAlert({
   icon,
   closable = false,
   onClose,
+  autoClose,
+  showProgress = false,
   className,
 }: Props) {
   const [dismissed, setDismissed] = useState(false);
+  const [progressPct, setProgressPct] = useState(100);
   const v = variantMap[variant];
+
+  useEffect(() => {
+    if (!autoClose) return;
+    const start = Date.now();
+    const interval = setInterval(() => {
+      const elapsed = Date.now() - start;
+      const remaining = Math.max(0, 100 - (elapsed / autoClose) * 100);
+      setProgressPct(remaining);
+      if (elapsed >= autoClose) {
+        clearInterval(interval);
+        setDismissed(true);
+        onClose?.();
+      }
+    }, 50);
+    return () => clearInterval(interval);
+  }, [autoClose, onClose]);
 
   if (dismissed) return null;
 
@@ -99,6 +124,7 @@ export function UIAlert({
     <div
       role="alert"
       className={cn(
+        "relative overflow-hidden",
         "flex items-start gap-3 rounded-lg border px-4 py-3",
         v.bg,
         v.border,
@@ -132,6 +158,12 @@ export function UIAlert({
             <path d="M1 1L9 9M9 1L1 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
           </svg>
         </button>
+      )}
+      {showProgress && autoClose && (
+        <div
+          className={cn("absolute bottom-0 left-0 h-0.5 opacity-50 transition-none", v.progressColor)}
+          style={{ width: `${progressPct}%` }}
+        />
       )}
     </div>
   );

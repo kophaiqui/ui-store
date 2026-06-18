@@ -47,7 +47,7 @@ function buildCode(
     const attrs: string[] = [];
     // companions: include real ones, skip demo-only sentinels ("auto")
     for (const [k, v] of Object.entries(companions)) {
-      if (v === "auto") continue;
+      if (v === "auto" || k.startsWith("_")) continue;
       if (v === "true") attrs.push(k);
       else if (v !== "false" && v !== "undefined") attrs.push(`${k}="${v}"`);
     }
