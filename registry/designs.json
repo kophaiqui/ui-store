@@ -130,8 +130,7 @@
       { "name": "placeholder", "type": "string", "default": "\"Select an option\"", "description": "Shown when no value is selected" },
       { "name": "multiSelect", "type": "boolean", "default": "false", "description": "Allow selecting multiple options; the trigger shows selected labels joined by commas", "noChildren": true, "demoWidth": "w-52" },
       { "name": "clearable", "type": "boolean", "default": "false", "description": "Shows an × button when a value is selected; clicking it clears the selection", "noChildren": true, "demoWidth": "w-52" },
-      { "name": "loading", "type": "boolean", "default": "false", "description": "Shows a spinner in the trigger; useful while options are being fetched", "noChildren": true, "demoWidth": "w-52" },
-      { "name": "placement", "type": "\"top\" | \"bottom\"", "default": "\"bottom\"", "description": "Side the popup opens on relative to the trigger", "noChildren": true, "demoWidth": "w-52" }
+      { "name": "loading", "type": "boolean", "default": "false", "description": "Shows a spinner in the trigger; useful while options are being fetched", "noChildren": true, "demoWidth": "w-52" }
     ],
     "usage": [
       { "label": "Default", "code": "<UISelect options={[{ label: 'Design System', value: 'ds' }, { label: 'Component Library', value: 'cl' }, { label: 'Style Guide', value: 'sg' }]} />" },
