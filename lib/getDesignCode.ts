@@ -14,3 +14,13 @@ export function getDesignCode(slug: string, meta: DesignMeta): string {
     return "// Source not available";
   }
 }
+
+export function getDesignStyleCode(slug: string, meta: DesignMeta): string | null {
+  const stylePath = path.join(process.cwd(), "designs", meta.category, slug, "styles", "default.ts");
+  if (!fs.existsSync(stylePath)) return null;
+  try {
+    return fs.readFileSync(stylePath, "utf-8");
+  } catch {
+    return null;
+  }
+}

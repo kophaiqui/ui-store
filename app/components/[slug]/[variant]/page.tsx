@@ -1,9 +1,10 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getDesign, getAllDesigns, getDesignStyle, getStyle } from "@/lib/registry";
-import { getDesignCode } from "@/lib/getDesignCode";
+import { getDesignCode, getDesignStyleCode } from "@/lib/getDesignCode";
 import { DesignViewer } from "@/components/shared/DesignViewer";
 import { PropExplorer } from "@/components/shared/PropExplorer";
+import { StyleConfigPanel } from "@/components/shared/StyleConfigPanel";
 import type { Metadata } from "next";
 
 type Props = { params: Promise<{ slug: string; variant: string }> };
@@ -28,6 +29,7 @@ export default async function ComponentVariantPage({ params }: Props) {
   if (!meta) notFound();
 
   const code = getDesignCode(slug, meta);
+  const styleCode = getDesignStyleCode(slug, meta);
   const styleId = getDesignStyle(meta);
   const styleMeta = getStyle(styleId);
 
@@ -100,6 +102,13 @@ export default async function ComponentVariantPage({ params }: Props) {
             props={meta.props}
             componentName={"UI" + meta.name.replace(/\s+/g, "")}
           />
+        </Section>
+      )}
+
+      {/* Style config — always shown when styles/default.ts exists */}
+      {styleCode && (
+        <Section label="Customize">
+          <StyleConfigPanel code={styleCode} />
         </Section>
       )}
 
