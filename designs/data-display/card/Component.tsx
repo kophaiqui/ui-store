@@ -1,10 +1,18 @@
 "use client";
 import { cn } from "@/lib/utils";
+import { defaultStyle } from "./styles/default";
+import type { CardStyleConfig } from "./styles/default";
+
+export type { CardStyleConfig };
+export type CardVariant = "default" | "bordered";
+export type CardPadding = "none" | "sm" | "md" | "lg";
+export type CardRadius = "none" | "sm" | "md" | "lg";
 
 type Props = {
-  variant?: "default" | "bordered";
-  padding?: "none" | "sm" | "md" | "lg";
-  radius?: "none" | "sm" | "md" | "lg";
+  styleConfig?: CardStyleConfig;
+  variant?: CardVariant;
+  padding?: CardPadding;
+  radius?: CardRadius;
   shadow?: boolean;
   hoverable?: boolean;
   clickable?: boolean;
@@ -13,21 +21,8 @@ type Props = {
   children?: React.ReactNode;
 };
 
-const paddingMap = {
-  none: "",
-  sm: "p-3",
-  md: "p-5",
-  lg: "p-7",
-};
-
-const radiusMap = {
-  none: "rounded-none",
-  sm: "rounded-md",
-  md: "rounded-xl",
-  lg: "rounded-2xl",
-};
-
 export function UICard({
+  styleConfig = defaultStyle,
   variant = "default",
   padding = "md",
   radius = "md",
@@ -47,14 +42,13 @@ export function UICard({
       onClick={onClick}
       onKeyDown={isInteractive ? (e) => { if (e.key === "Enter" || e.key === " ") onClick?.(); } : undefined}
       className={cn(
-        "w-full",
-        paddingMap[padding],
-        radiusMap[radius],
-        variant === "default" && "bg-card border border-border/60",
-        variant === "bordered" && "bg-transparent border-2 border-border",
-        shadow && "shadow-[0_4px_24px_rgba(0,0,0,0.3)]",
-        hoverable && "transition-all duration-200 hover:border-border hover:shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:-translate-y-0.5",
-        isInteractive && "cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40",
+        styleConfig.base,
+        styleConfig.variants[variant],
+        styleConfig.padding[padding],
+        styleConfig.radius[radius],
+        shadow && styleConfig.shadow,
+        hoverable && styleConfig.hoverable,
+        isInteractive && styleConfig.interactive,
         className,
       )}
     >

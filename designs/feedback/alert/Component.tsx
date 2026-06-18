@@ -1,10 +1,14 @@
 "use client";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import { defaultStyle } from "./styles/default";
+import type { AlertStyleConfig } from "./styles/default";
 
-type AlertVariant = "info" | "success" | "warning" | "error";
+export type { AlertStyleConfig };
+export type AlertVariant = "info" | "success" | "warning" | "error";
 
 type Props = {
+  styleConfig?: AlertStyleConfig;
   variant?: AlertVariant;
   title?: string;
   description?: string;
@@ -14,41 +18,6 @@ type Props = {
   autoClose?: number;
   showProgress?: boolean;
   className?: string;
-};
-
-const variantMap: Record<AlertVariant, { bg: string; border: string; titleColor: string; descColor: string; iconColor: string; progressColor: string }> = {
-  info: {
-    bg: "bg-blue-500/8",
-    border: "border-blue-500/20",
-    titleColor: "text-blue-300",
-    descColor: "text-blue-300/70",
-    iconColor: "text-blue-400",
-    progressColor: "bg-blue-400",
-  },
-  success: {
-    bg: "bg-emerald-500/8",
-    border: "border-emerald-500/20",
-    titleColor: "text-emerald-300",
-    descColor: "text-emerald-300/70",
-    iconColor: "text-emerald-400",
-    progressColor: "bg-emerald-400",
-  },
-  warning: {
-    bg: "bg-amber-500/8",
-    border: "border-amber-500/20",
-    titleColor: "text-amber-300",
-    descColor: "text-amber-300/70",
-    iconColor: "text-amber-400",
-    progressColor: "bg-amber-400",
-  },
-  error: {
-    bg: "bg-red-500/8",
-    border: "border-red-500/20",
-    titleColor: "text-red-300",
-    descColor: "text-red-300/70",
-    iconColor: "text-red-400",
-    progressColor: "bg-red-400",
-  },
 };
 
 const defaultIcons: Record<AlertVariant, React.ReactNode> = {
@@ -81,6 +50,7 @@ const defaultIcons: Record<AlertVariant, React.ReactNode> = {
 };
 
 export function UIAlert({
+  styleConfig = defaultStyle,
   variant = "info",
   title,
   description = "Something happened that you should know about.",
@@ -93,7 +63,7 @@ export function UIAlert({
 }: Props) {
   const [dismissed, setDismissed] = useState(false);
   const [progressPct, setProgressPct] = useState(100);
-  const v = variantMap[variant];
+  const v = styleConfig.variants[variant];
 
   useEffect(() => {
     if (!autoClose) return;
@@ -123,13 +93,7 @@ export function UIAlert({
   return (
     <div
       role="alert"
-      className={cn(
-        "relative overflow-hidden",
-        "flex items-start gap-3 rounded-lg border px-4 py-3",
-        v.bg,
-        v.border,
-        className,
-      )}
+      className={cn(styleConfig.base, v.bg, v.border, className)}
     >
       <span className={cn("mt-0.5 shrink-0", v.iconColor)}>{displayIcon}</span>
       <div className="min-w-0 flex-1">
@@ -147,12 +111,7 @@ export function UIAlert({
           type="button"
           onClick={handleClose}
           aria-label="Dismiss"
-          className={cn(
-            "shrink-0 flex items-center justify-center size-5 rounded",
-            "opacity-60 hover:opacity-100 transition-opacity duration-100",
-            v.iconColor,
-            "focus:outline-none",
-          )}
+          className={cn(styleConfig.closeBtn, v.iconColor)}
         >
           <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden>
             <path d="M1 1L9 9M9 1L1 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />

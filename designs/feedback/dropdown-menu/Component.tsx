@@ -1,6 +1,10 @@
 "use client";
 import { Menu } from "@base-ui/react/menu";
 import { cn } from "@/lib/utils";
+import { defaultStyle } from "./styles/default";
+import type { DropdownMenuStyleConfig } from "./styles/default";
+
+export type { DropdownMenuStyleConfig };
 
 export type MenuItem = {
   label: string;
@@ -12,6 +16,7 @@ export type MenuItem = {
 };
 
 type Props = {
+  styleConfig?: DropdownMenuStyleConfig;
   trigger?: React.ReactNode;
   triggerLabel?: string;
   items?: MenuItem[];
@@ -41,6 +46,7 @@ function ChevronIcon() {
 }
 
 export function UIDropdownMenu({
+  styleConfig = defaultStyle,
   trigger,
   triggerLabel = "Open menu",
   items = DEFAULT_ITEMS,
@@ -50,18 +56,7 @@ export function UIDropdownMenu({
 }: Props) {
   return (
     <Menu.Root>
-      <Menu.Trigger
-        className={cn(
-          "inline-flex h-9 items-center justify-center gap-2 rounded-md border border-border bg-card px-4",
-          "text-sm font-medium text-foreground",
-          "shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]",
-          "transition-all duration-150 hover:border-input hover:bg-muted",
-          "active:scale-[0.97]",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-          "data-[popup-open]:bg-muted",
-          className,
-        )}
-      >
+      <Menu.Trigger className={cn(styleConfig.trigger, className)}>
         {trigger ?? (
           <>
             {triggerLabel}
@@ -72,31 +67,17 @@ export function UIDropdownMenu({
 
       <Menu.Portal>
         <Menu.Positioner sideOffset={4} side={side} align={align}>
-          <Menu.Popup
-            className={cn(
-              "z-50 min-w-[180px] overflow-hidden rounded-lg",
-              "border border-border bg-background py-1",
-              "shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.04)]",
-              "data-[starting-style]:opacity-0 data-[starting-style]:scale-95",
-              "data-[ending-style]:opacity-0 data-[ending-style]:scale-95",
-              "transition-all duration-150 ease-out origin-[var(--transform-origin)]",
-            )}
-          >
+          <Menu.Popup className={styleConfig.popup}>
             {items.map((item, i) => {
               if (item.separator) {
-                return <div key={i} className="my-1 h-px bg-border/60 mx-2" />;
+                return <div key={i} className={styleConfig.separator} />;
               }
               return (
                 <Menu.Item
                   key={i}
                   disabled={item.disabled}
                   className={cn(
-                    "flex h-8 cursor-default select-none items-center gap-2 px-3 text-sm",
-                    "transition-colors duration-100",
-                    "focus-visible:outline-none",
-                    item.danger
-                      ? "text-red-400 data-[highlighted]:bg-red-500/10 data-[highlighted]:text-red-300"
-                      : "text-foreground/90 data-[highlighted]:bg-muted data-[highlighted]:text-foreground",
+                    item.danger ? styleConfig.itemDanger : styleConfig.item,
                     item.disabled && "opacity-40 pointer-events-none",
                   )}
                 >
@@ -107,9 +88,7 @@ export function UIDropdownMenu({
                   )}
                   <span className="flex-1">{item.label}</span>
                   {item.shortcut && (
-                    <kbd className="ml-auto text-[10px] font-mono text-muted-foreground/60">
-                      {item.shortcut}
-                    </kbd>
+                    <kbd className={styleConfig.shortcut}>{item.shortcut}</kbd>
                   )}
                 </Menu.Item>
               );
