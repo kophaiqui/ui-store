@@ -6,11 +6,10 @@ import { Logo } from "@/components/shared/Logo";
 const NAV = [
   { label: "Home", href: "/" },
   { label: "Docs", href: "/docs" },
-  { label: "Style", href: "/style" },
   { label: "Components", href: "/components" },
-  { label: "Font", href: "/fonts" },
-  { label: "Motion", href: "/motion" },
-  { label: "Template", href: "/template" },
+  { label: "Templates", href: "/template" },
+  { label: "Resources", href: "/resources" },
+  { label: "Changelog", href: "/changelog" },
 ];
 
 export default function Header() {

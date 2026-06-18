@@ -1,0 +1,33 @@
+# Introduction
+
+**That One UI** is a component library for React. It is not a package you install — it is a collection of components you copy into your project and own.
+
+## What it is
+
+- **21 components** built on [Base UI](https://base-ui.com) primitives — accessible, unstyled at the core
+- **11 styles per component** via a `styleConfig` prop — swap the visual layer without touching logic
+- **Tailwind CSS** for all styling — works with any Tailwind project out of the box
+- **TypeScript-first** — every component is fully typed, including the style config
+
+## The styleConfig pattern
+
+Every component accepts an optional `styleConfig` prop. The default style ships with the component in `styles/default.ts`. To change the look, pass a different config:
+
+```tsx
+import { UIButton } from "./Button";
+import { glassStyle } from "./styles/glass";
+
+<UIButton styleConfig={glassStyle} variant="solid">
+  Click me
+</UIButton>
+```
+
+The config is a plain object of Tailwind class strings. Swapping it changes every visual detail — colors, borders, shadows, radius — while the component's props, behavior, and accessibility stay exactly the same.
+
+## All props are adjustable
+
+Nothing is hardcoded. Every default value — labels, placeholder text, items arrays — is a prop you can override. Defaults exist only so the component renders meaningfully with zero configuration.
+
+## Built on Base UI
+
+[Base UI](https://base-ui.com) is the headless primitive layer built by the MUI team. It handles ARIA, keyboard navigation, focus management, and accessibility so you don't have to. That One UI adds the visual layer on top.
