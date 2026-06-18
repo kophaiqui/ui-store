@@ -1,10 +1,15 @@
 "use client";
 import { Accordion } from "@base-ui/react/accordion";
 import { cn } from "@/lib/utils";
+import { defaultStyle } from "./styles/default";
+import type { AccordionStyleConfig } from "./styles/default";
+
+export type { AccordionStyleConfig };
 
 type AccordionItem = { value: string; title: string; content: string };
 
 type Props = {
+  styleConfig?: AccordionStyleConfig;
   items?: AccordionItem[];
   bordered?: boolean;
   iconPosition?: "left" | "right";
@@ -23,18 +28,13 @@ function ChevronIcon() {
       aria-hidden
       className="shrink-0 text-muted-foreground/70 transition-transform duration-200 ease-out group-aria-[expanded=true]:rotate-180"
     >
-      <path
-        d="M2.5 5L7 9.5L11.5 5"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+      <path d="M2.5 5L7 9.5L11.5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
 
 export function UIAccordion({
+  styleConfig = defaultStyle,
   items = [
     { value: "1", title: "What is Base UI?", content: "Unstyled, accessible primitives built by the MUI team." },
     { value: "2", title: "Works with Tailwind?", content: "Yes — style any state via data attributes and arbitrary variants." },
@@ -52,7 +52,7 @@ export function UIAccordion({
       multiple={multiple}
       defaultValue={defaultValue}
       className={cn(
-        "w-full divide-y divide-border",
+        styleConfig.root,
         bordered && "rounded-lg border border-border overflow-hidden",
         className,
       )}
@@ -62,12 +62,8 @@ export function UIAccordion({
           <Accordion.Header>
             <Accordion.Trigger
               className={cn(
-                "group flex w-full items-center py-4",
+                styleConfig.trigger,
                 iconPosition === "right" ? "justify-between" : "gap-3 justify-start",
-                "text-sm font-medium text-foreground/90 hover:text-foreground",
-                "transition-colors duration-150",
-                "focus-visible:outline-none",
-                "cursor-default select-none",
                 bordered && "px-4",
               )}
             >
@@ -77,10 +73,7 @@ export function UIAccordion({
             </Accordion.Trigger>
           </Accordion.Header>
           <Accordion.Panel
-            className={cn(
-              "pb-4 text-sm text-muted-foreground leading-relaxed",
-              bordered && "px-4",
-            )}
+            className={cn(styleConfig.panel, bordered && "px-4")}
           >
             {item.content}
           </Accordion.Panel>

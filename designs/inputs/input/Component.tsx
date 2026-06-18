@@ -2,10 +2,17 @@
 import { useState, useId } from "react";
 import { Input } from "@base-ui/react/input";
 import { cn } from "@/lib/utils";
+import { defaultStyle } from "./styles/default";
+import type { InputStyleConfig } from "./styles/default";
+
+export type { InputStyleConfig };
+export type InputVariant = "outline" | "filled" | "ghost";
+export type InputSize = "sm" | "md" | "lg";
 
 type Props = Omit<React.ComponentProps<typeof Input>, "size" | "prefix"> & {
-  variant?: "outline" | "filled" | "ghost";
-  size?: "sm" | "md" | "lg";
+  styleConfig?: InputStyleConfig;
+  variant?: InputVariant;
+  size?: InputSize;
   type?: "text" | "email" | "password" | "number" | "search";
   error?: boolean | string;
   label?: string;
@@ -13,12 +20,6 @@ type Props = Omit<React.ComponentProps<typeof Input>, "size" | "prefix"> & {
   prefix?: React.ReactNode;
   suffix?: React.ReactNode;
   clearable?: boolean;
-};
-
-const sizeMap = {
-  sm: "h-7 text-xs px-2.5",
-  md: "h-9 text-sm px-3",
-  lg: "h-11 text-base px-4",
 };
 
 function ClearIcon() {
@@ -30,6 +31,7 @@ function ClearIcon() {
 }
 
 export function UIInput({
+  styleConfig = defaultStyle,
   variant = "outline",
   size = "md",
   type = "text",
@@ -50,7 +52,6 @@ export function UIInput({
   const inputId = idProp ?? (label ? generatedId : undefined);
   const hasError = Boolean(error);
 
-  // Track value internally when clearable so we can show/hide the × button.
   const [internalValue, setInternalValue] = useState(String(defaultValue ?? ""));
   const isControlled = valueProp !== undefined;
   const currentValue = isControlled ? String(valueProp) : internalValue;
@@ -66,36 +67,21 @@ export function UIInput({
     onValueChange?.("", {} as never);
   };
 
-  const baseClass = cn(
-    "flex w-full rounded-md",
-    sizeMap[size],
-    "text-foreground placeholder:text-muted-foreground",
-    "transition-all duration-150",
-    "focus:outline-none focus:ring-2",
-    "disabled:pointer-events-none disabled:opacity-40",
-    "read-only:cursor-default",
-    variant === "outline" && cn(
-      "border bg-card shadow-[inset_0_1px_3px_rgba(0,0,0,0.3)]",
-      hasError
-        ? "border-red-500/70 focus:border-red-500/70 focus:ring-red-500/20"
-        : "border-border hover:border-border focus:border-emerald-500/70 focus:ring-emerald-500/20",
-    ),
-    variant === "filled" && cn(
-      "border-0 bg-muted",
-      hasError
-        ? "ring-2 ring-red-500/40"
-        : "hover:bg-accent/80 focus:bg-accent focus:ring-emerald-500/20",
-    ),
-    variant === "ghost" && cn(
-      "border-0 bg-transparent shadow-none",
-      hasError
-        ? "ring-2 ring-red-500/40"
-        : "hover:bg-muted/60 focus:bg-muted/60 focus:ring-emerald-500/20",
-    ),
-  );
-
   const hasSuffix = suffix || showClear;
   const hasPrefix = Boolean(prefix);
+
+  const variantStyle = hasError
+    ? styleConfig.variants[variant].error
+    : styleConfig.variants[variant].base;
+
+  const inputClass = cn(
+    styleConfig.base,
+    styleConfig.sizes[size],
+    variantStyle,
+    hasPrefix && "pl-8",
+    hasSuffix && "pr-8",
+    className,
+  );
 
   const inputEl = clearable ? (
     <Input
@@ -103,7 +89,7 @@ export function UIInput({
       type={type}
       value={currentValue}
       onValueChange={handleValueChange}
-      className={cn(baseClass, hasPrefix && "pl-8", hasSuffix && "pr-8", className)}
+      className={inputClass}
       {...props}
     />
   ) : (
@@ -112,7 +98,7 @@ export function UIInput({
       type={type}
       defaultValue={defaultValue}
       onValueChange={onValueChange}
-      className={cn(baseClass, hasPrefix && "pl-8", hasSuffix && "pr-8", className)}
+      className={inputClass}
       {...props}
     />
   );
@@ -126,13 +112,13 @@ export function UIInput({
       )}
       <div className="relative flex items-center">
         {prefix && (
-          <span className="pointer-events-none absolute left-3 flex items-center text-muted-foreground text-sm">
+          <span className={cn("pointer-events-none absolute left-3 text-sm", styleConfig.icon)}>
             {prefix}
           </span>
         )}
         {inputEl}
         {(suffix || showClear) && (
-          <span className="absolute right-3 flex items-center text-muted-foreground">
+          <span className={cn("absolute right-3", styleConfig.icon)}>
             {showClear ? (
               <button
                 type="button"
@@ -149,7 +135,7 @@ export function UIInput({
         )}
       </div>
       {typeof error === "string" && error && (
-        <p className="mt-1 text-xs text-red-400">{error}</p>
+        <p className={cn("mt-1", styleConfig.errorText)}>{error}</p>
       )}
       {helperText && !error && (
         <p className="mt-1 text-xs text-muted-foreground">{helperText}</p>

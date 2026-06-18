@@ -2,10 +2,15 @@
 import { useState } from "react";
 import { Select } from "@base-ui/react/select";
 import { cn } from "@/lib/utils";
+import { defaultStyle } from "./styles/default";
+import type { SelectStyleConfig } from "./styles/default";
+
+export type { SelectStyleConfig };
 
 type Option = { label: string; value: string };
 
 type Props = {
+  styleConfig?: SelectStyleConfig;
   options?: Option[];
   placeholder?: string;
   multiSelect?: boolean;
@@ -40,6 +45,7 @@ function ChevronIcon() {
 }
 
 export function UISelect({
+  styleConfig = defaultStyle,
   options = [
     { label: "Design System", value: "ds" },
     { label: "Component Library", value: "cl" },
@@ -58,18 +64,16 @@ export function UISelect({
   const hasValue = Array.isArray(value) ? value.length > 0 : value != null && value !== "";
   const showClear = clearable && hasValue && !loading;
 
-  const handleValueChange = (v: string | string[] | null) => setValue(v);
-
   const renderValue = (v: string | string[] | null) => {
     if (Array.isArray(v)) {
-      if (v.length === 0) return <span className="text-muted-foreground">{placeholder}</span>;
+      if (v.length === 0) return <span className={styleConfig.placeholder}>{placeholder}</span>;
       const labels = v.map(labelOf);
       const display = labels.length > 2
         ? `${labels.slice(0, 2).join(", ")} +${labels.length - 2}`
         : labels.join(", ");
       return display;
     }
-    if (v == null || v === "") return <span className="text-muted-foreground">{placeholder}</span>;
+    if (v == null || v === "") return <span className={styleConfig.placeholder}>{placeholder}</span>;
     return labelOf(v);
   };
 
@@ -84,27 +88,16 @@ export function UISelect({
       items={options}
       multiple={multiSelect}
       value={value}
-      onValueChange={handleValueChange}
+      onValueChange={setValue}
     >
-      <Select.Trigger
-        className={cn(
-          "flex h-9 w-full items-center justify-between gap-2 rounded-md border border-border bg-card px-3",
-          "text-sm text-foreground",
-          "shadow-[inset_0_1px_3px_rgba(0,0,0,0.3)]",
-          "transition-all duration-150 hover:border-border",
-          "focus:outline-none focus:border-emerald-500/70 focus:ring-2 focus:ring-emerald-500/20",
-          "disabled:pointer-events-none disabled:opacity-40",
-          className,
-        )}
-      >
+      <Select.Trigger className={cn(styleConfig.trigger, className)}>
         <span className="min-w-0 flex-1 truncate text-left">
-          <Select.Value placeholder={<span className="text-muted-foreground">{placeholder}</span>}>
+          <Select.Value placeholder={<span className={styleConfig.placeholder}>{placeholder}</span>}>
             {renderValue}
           </Select.Value>
         </span>
         <div className="flex shrink-0 items-center gap-1">
           {loading && <Spinner />}
-          {/* span instead of button to avoid button-in-button — intercepts pointerdown so the trigger doesn't toggle */}
           {!loading && showClear && (
             <span
               role="button"
@@ -112,13 +105,13 @@ export function UISelect({
               aria-label="Clear selection"
               onPointerDown={handleClear}
               onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && handleClear(e)}
-              className="flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors duration-100 cursor-pointer"
+              className="flex items-center justify-center hover:text-foreground transition-colors duration-100 cursor-pointer"
             >
               <ClearIcon />
             </span>
           )}
           {!loading && (
-            <Select.Icon className="shrink-0 text-muted-foreground">
+            <Select.Icon className={styleConfig.icon}>
               <ChevronIcon />
             </Select.Icon>
           )}
@@ -127,24 +120,9 @@ export function UISelect({
 
       <Select.Portal>
         <Select.Positioner sideOffset={4}>
-          <Select.Popup
-            className={cn(
-              "z-50 min-w-[var(--anchor-width)] overflow-hidden rounded-lg",
-              "border border-border bg-background py-1",
-              "shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.04)]",
-            )}
-          >
+          <Select.Popup className={styleConfig.popup}>
             {options.map((opt) => (
-              <Select.Item
-                key={opt.value}
-                value={opt.value}
-                className={cn(
-                  "flex h-8 cursor-default select-none items-center px-3 text-sm text-foreground/90",
-                  "transition-colors duration-100",
-                  "data-[highlighted]:bg-muted data-[highlighted]:text-foreground",
-                  "data-[selected]:text-emerald-400",
-                )}
-              >
+              <Select.Item key={opt.value} value={opt.value} className={styleConfig.item}>
                 <Select.ItemText>{opt.label}</Select.ItemText>
                 <Select.ItemIndicator className="ml-auto pl-2">
                   <svg width="10" height="7" viewBox="0 0 10 7" fill="none" aria-hidden>

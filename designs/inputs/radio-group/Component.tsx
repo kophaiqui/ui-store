@@ -2,30 +2,25 @@
 import { RadioGroup } from "@base-ui/react/radio-group";
 import { Radio } from "@base-ui/react/radio";
 import { cn } from "@/lib/utils";
+import { defaultStyle } from "./styles/default";
+import type { RadioGroupStyleConfig } from "./styles/default";
+
+export type { RadioGroupStyleConfig };
+export type RadioGroupSize = "sm" | "md" | "lg";
 
 type Option = { label: string; value: string };
 
 type Props = React.ComponentProps<typeof RadioGroup> & {
+  styleConfig?: RadioGroupStyleConfig;
   options?: Option[];
   orientation?: "horizontal" | "vertical";
-  size?: "sm" | "md" | "lg";
+  size?: RadioGroupSize;
   disabledOptions?: string[];
   label?: string;
 };
 
-const radioSizeMap = {
-  sm: "size-[14px]",
-  md: "size-[18px]",
-  lg: "size-[22px]",
-};
-
-const dotSizeMap = {
-  sm: "size-[6px]",
-  md: "size-[8px]",
-  lg: "size-[10px]",
-};
-
 export function UIRadioGroup({
+  styleConfig = defaultStyle,
   options = [
     { label: "Option A", value: "a" },
     { label: "Option B", value: "b" },
@@ -68,24 +63,13 @@ export function UIRadioGroup({
               <Radio.Root
                 value={opt.value}
                 disabled={isDisabled}
-                className={cn(
-                  "relative flex shrink-0 items-center justify-center rounded-full",
-                  "border border-border bg-card",
-                  "transition-all duration-150",
-                  "hover:border-input",
-                  "data-[checked]:border-emerald-500",
-                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40 focus-visible:ring-offset-1 focus-visible:ring-offset-background",
-                  "disabled:pointer-events-none",
-                  radioSizeMap[size],
-                )}
+                className={cn(styleConfig.root, styleConfig.sizes[size])}
               >
                 <Radio.Indicator className="flex items-center justify-center w-full h-full">
-                  <span className={cn("block rounded-full bg-emerald-500", dotSizeMap[size])} />
+                  <span className={cn("block rounded-full", styleConfig.dot, styleConfig.dotSizes[size])} />
                 </Radio.Indicator>
               </Radio.Root>
-              <span className="text-sm text-foreground/90 group-hover:text-foreground transition-colors duration-150">
-                {opt.label}
-              </span>
+              <span className={styleConfig.label}>{opt.label}</span>
             </label>
           );
         })}

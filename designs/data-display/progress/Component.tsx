@@ -1,8 +1,13 @@
 "use client";
 import { Progress } from "@base-ui/react/progress";
 import { cn } from "@/lib/utils";
+import { defaultStyle } from "./styles/default";
+import type { ProgressStyleConfig } from "./styles/default";
+
+export type { ProgressStyleConfig };
 
 type Props = Omit<React.ComponentProps<typeof Progress.Root>, "value"> & {
+  styleConfig?: ProgressStyleConfig;
   value?: number;
   label?: string;
   showValue?: boolean;
@@ -12,6 +17,7 @@ type Props = Omit<React.ComponentProps<typeof Progress.Root>, "value"> & {
 };
 
 export function UIProgress({
+  styleConfig = defaultStyle,
   value = 62,
   label,
   showValue = false,
@@ -21,7 +27,9 @@ export function UIProgress({
   className,
   ...props
 }: Props) {
-  const fillStyle = color ? { backgroundColor: color, width: `${value}%` } : { width: `${value}%` };
+  const fillStyle = color
+    ? { backgroundColor: color, width: `${value}%` }
+    : { width: `${value}%` };
 
   return (
     <Progress.Root
@@ -31,19 +39,16 @@ export function UIProgress({
     >
       {(label || showValue) && (
         <div className="flex items-center justify-between">
-          {label && (
-            <span className="text-xs font-medium text-muted-foreground">{label}</span>
-          )}
-          {showValue && (
-            <span className="text-xs font-mono text-muted-foreground">{value}%</span>
-          )}
+          {label && <span className={styleConfig.label}>{label}</span>}
+          {showValue && <span className={styleConfig.value}>{value}%</span>}
         </div>
       )}
-      <Progress.Track className="relative h-1.5 w-full overflow-hidden rounded-full bg-muted">
+      <Progress.Track className={styleConfig.track}>
         <Progress.Indicator
           className={cn(
-            "absolute inset-y-0 left-0 rounded-full transition-all duration-500 ease-out",
-            !color && "bg-emerald-500/80",
+            styleConfig.indicator,
+            // when a custom color is provided, clear the default bg so inline style takes effect
+            color && "bg-transparent",
             striped && [
               "bg-[length:16px_16px]",
               !color && "bg-[linear-gradient(45deg,rgba(255,255,255,.15)_25%,transparent_25%,transparent_50%,rgba(255,255,255,.15)_50%,rgba(255,255,255,.15)_75%,transparent_75%,transparent)]",

@@ -1,38 +1,23 @@
 "use client";
 import { Avatar } from "@base-ui/react/avatar";
 import { cn } from "@/lib/utils";
+import { defaultStyle } from "./styles/default";
+import type { AvatarStyleConfig } from "./styles/default";
+
+export type { AvatarStyleConfig };
+export type AvatarSize = "xs" | "sm" | "md" | "lg" | "xl";
+export type AvatarStatus = "online" | "offline" | "busy";
 
 type Props = React.ComponentProps<typeof Avatar.Root> & {
+  styleConfig?: AvatarStyleConfig;
   src?: string;
   alt?: string;
   fallback?: string;
   fallbackType?: "text" | "icon";
-  size?: "xs" | "sm" | "md" | "lg" | "xl";
+  size?: AvatarSize;
   shape?: "circle" | "square";
-  status?: "online" | "offline" | "busy";
+  status?: AvatarStatus;
   bordered?: boolean;
-};
-
-const sizeMap = {
-  xs: { root: "size-6", text: "text-[0.5625rem]" },
-  sm: { root: "size-8", text: "text-[0.625rem]" },
-  md: { root: "size-10", text: "text-xs" },
-  lg: { root: "size-12", text: "text-sm" },
-  xl: { root: "size-16", text: "text-base" },
-};
-
-const statusMap = {
-  online: "bg-emerald-500",
-  offline: "bg-muted-foreground",
-  busy:   "bg-red-500",
-};
-
-const statusSizeMap = {
-  xs: "size-[7px] ring-[1.5px]",
-  sm: "size-[9px] ring-2",
-  md: "size-[10px] ring-2",
-  lg: "size-3 ring-2",
-  xl: "size-3.5 ring-2",
 };
 
 function UserIcon({ className }: { className?: string }) {
@@ -44,6 +29,7 @@ function UserIcon({ className }: { className?: string }) {
 }
 
 export function UIAvatar({
+  styleConfig = defaultStyle,
   src,
   alt = "Avatar",
   fallback = "AB",
@@ -55,19 +41,18 @@ export function UIAvatar({
   className,
   ...props
 }: Props) {
-  const { root, text } = sizeMap[size];
+  const { root, text } = styleConfig.sizes[size];
+  const shapeClass = shape === "circle" ? styleConfig.shapes.circle : styleConfig.shapes.square;
 
   return (
     <div className="relative inline-flex shrink-0">
       <Avatar.Root
         className={cn(
-          "relative inline-flex items-center justify-center overflow-hidden",
-          "bg-muted",
-          bordered
-            ? "ring-2 ring-emerald-500/60"
-            : "border border-border/60 ring-2 ring-card",
-          shape === "circle" ? "rounded-full" : "rounded-md",
+          styleConfig.root,
+          shapeClass,
           root,
+          // bordered prop overrides the default ring-card with an accent ring
+          bordered && "ring-2 ring-emerald-500/60",
           className,
         )}
         {...props}
@@ -80,14 +65,11 @@ export function UIAvatar({
           />
         )}
         <Avatar.Fallback
-          className={cn(
-            "flex h-full w-full items-center justify-center font-medium tracking-wide text-foreground/90 bg-muted",
-            text,
-          )}
+          className={cn(styleConfig.fallback, text)}
           delay={0}
         >
           {fallbackType === "icon" ? (
-            <UserIcon className={cn("w-[55%] h-[55%] text-foreground/60")} />
+            <UserIcon className="w-[55%] h-[55%] text-foreground/60" />
           ) : (
             fallback
           )}
@@ -97,9 +79,9 @@ export function UIAvatar({
       {status && (
         <span
           className={cn(
-            "absolute bottom-0 right-0 rounded-full ring-background",
-            statusMap[status],
-            statusSizeMap[size],
+            "absolute bottom-0 right-0 rounded-full",
+            styleConfig.status[status],
+            styleConfig.statusSizes[size],
           )}
           aria-label={status}
         />

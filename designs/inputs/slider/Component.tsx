@@ -1,12 +1,18 @@
 "use client";
 import { Slider } from "@base-ui/react/slider";
 import { cn } from "@/lib/utils";
+import { defaultStyle } from "./styles/default";
+import type { SliderStyleConfig } from "./styles/default";
+
+export type { SliderStyleConfig };
 
 type Props = React.ComponentProps<typeof Slider.Root> & {
+  styleConfig?: SliderStyleConfig;
   showValue?: boolean;
 };
 
 export function UISlider({
+  styleConfig = defaultStyle,
   defaultValue = [42],
   showValue = true,
   orientation,
@@ -31,19 +37,20 @@ export function UISlider({
         </div>
       )}
       <Slider.Control className={cn("flex items-center", isVertical ? "h-full px-3 flex-col" : "py-3 w-full")}>
-        <Slider.Track className={cn("relative rounded-full bg-muted", isVertical ? "w-1.5 h-full" : "h-1.5 w-full")}>
-          <Slider.Indicator className={cn("absolute rounded-full bg-emerald-500/80", isVertical ? "bottom-0 left-0 right-0" : "h-full")} />
-          <Slider.Thumb
+        <Slider.Track
+          className={cn(
+            styleConfig.track,
+            // orientation overrides: vertical flips w/h
+            isVertical && "w-1.5 h-full",
+          )}
+        >
+          <Slider.Indicator
             className={cn(
-              "block size-[18px] rounded-full",
-              "border-2 border-emerald-500 bg-background",
-              "shadow-[0_0_0_3px_rgba(16,185,129,0.15)]",
-              "transition-[box-shadow,transform] duration-100",
-              "hover:shadow-[0_0_0_5px_rgba(16,185,129,0.2)]",
-              "active:scale-110",
-              "focus-visible:outline-none focus-visible:shadow-[0_0_0_5px_rgba(16,185,129,0.3)]",
+              styleConfig.indicator,
+              isVertical && "bottom-0 left-0 right-0 h-auto w-auto",
             )}
           />
+          <Slider.Thumb className={styleConfig.thumb} />
         </Slider.Track>
       </Slider.Control>
     </Slider.Root>
