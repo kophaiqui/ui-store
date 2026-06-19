@@ -1,9 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
+import { createHmac } from "crypto";
+
+function verify(secret: string, rawBody: string, signature: string): boolean {
+  const expected = createHmac("sha1", secret).update(rawBody).digest("hex");
+  return expected === signature;
+}
 
 export async function POST(req: NextRequest) {
-  const body = await req.json();
+  const rawBody = await req.text();
+  const signature = req.headers.get("x-vercel-signature") ?? "";
 
-  const type = body.type;          // "deployment.succeeded" | "deployment.error" etc.
+  if (!verify(process.env.VERCEL_WEBHOOK_SECRET!, rawBody, signature)) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const body = JSON.parse(rawBody);
+  const type = body.type;
   const url  = body.deployment?.url ?? "";
   const name = body.projectMeta?.name ?? "that-one-ui";
 
