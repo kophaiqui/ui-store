@@ -57,39 +57,35 @@ export default function HomePage() {
 
             {/* Left: text */}
             <div>
-              <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 dark:border-emerald-400/30 bg-emerald-500/[0.07] dark:bg-emerald-400/[0.08] px-3.5 py-1.5 text-xs font-medium text-emerald-700 dark:text-emerald-400">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400" />
-                {total} components · open source · free
+              <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-violet-500/30 dark:border-violet-400/30 bg-violet-500/[0.07] dark:bg-violet-400/[0.08] px-3.5 py-1.5 text-xs font-medium text-violet-700 dark:text-violet-400">
+                <span className="h-1.5 w-1.5 rounded-full bg-violet-500 dark:bg-violet-400" />
+                {total} components · 11 styles · one API
               </div>
 
               <h1 className="mb-6 text-[3.25rem] font-bold leading-[1.04] tracking-tight sm:text-6xl lg:text-[4rem]">
                 UI components<br />
-                that work{" "}
                 <span className="text-violet-700 dark:text-violet-400">
-                  on arrival
+                  with a different soul.
                 </span>
               </h1>
 
-              <p className="mb-8 max-w-[46ch] text-[1.0625rem] leading-relaxed text-muted-foreground">
-                A curated library built on Base UI. Every component ships with a{" "}
-                <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-[0.8125rem] text-violet-700 dark:text-violet-400">
-                  styleConfig
-                </code>{" "}
-                — swap the entire visual layer without touching props or logic.
+              <p className="mb-8 max-w-[42ch] text-[1.0625rem] leading-relaxed text-muted-foreground">
+                One component. Multiple visual worlds.<br />
+                Change the style, not the code.
               </p>
 
               <div className="flex flex-wrap gap-3">
                 <Link
-                  href="/components"
+                  href="/style"
                   className="rounded-lg bg-blue-600 dark:bg-blue-500 px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-blue-700 dark:hover:bg-blue-400 active:scale-[0.98]"
                 >
-                  Browse components
+                  Explore styles
                 </Link>
                 <Link
-                  href="/docs"
+                  href="/components"
                   className="rounded-lg border border-border/70 px-5 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:border-border hover:text-foreground"
                 >
-                  Documentation
+                  Browse components
                 </Link>
               </div>
 
@@ -105,7 +101,7 @@ export default function HomePage() {
                 </span>
                 <span className="flex items-center gap-2">
                   <span className="h-px w-5 bg-emerald-500/60 dark:bg-emerald-400/60" />
-                  copy-paste ready
+                  one API
                 </span>
               </div>
             </div>

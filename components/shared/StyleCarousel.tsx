@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
-import { motion } from "motion/react";
+import { motion, useMotionValue, animate } from "motion/react";
 import { StyleDemo } from "@/components/shared/StyleDemo";
 
 const CARD_W = 248;
@@ -14,50 +14,41 @@ type Props = { styleIds: string[] };
 export function StyleCarousel({ styleIds }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const pausedRef = useRef(false);
-  const [offset, setOffset] = useState(0);
-  const [animated, setAnimated] = useState(true);
-  const [visibleCount, setVisibleCount] = useState(5);
+  const animatingRef = useRef(false);
+  const x = useMotionValue(0);
+  const loopWidth = styleIds.length * STEP;
 
-  // Duplicated items for seamless looping
+  // Items doubled for seamless wrap
   const items = [...styleIds, ...styleIds];
-  const loopAt = styleIds.length;
 
-  useEffect(() => {
-    const update = () => {
-      if (!containerRef.current) return;
-      const w = containerRef.current.offsetWidth;
-      setVisibleCount(Math.max(1, Math.floor((w + GAP) / STEP)));
-    };
-    update();
-    const ro = new ResizeObserver(update);
-    if (containerRef.current) ro.observe(containerRef.current);
-    return () => ro.disconnect();
-  }, []);
+  const step = useCallback(async (dir: 1 | -1) => {
+    if (animatingRef.current) return;
+    animatingRef.current = true;
 
+    const from = x.get();
+    const to = from - dir * STEP;
+
+    await animate(x, to, { type: "spring", stiffness: 200, damping: 30, restDelta: 0.5 });
+
+    // Seamless loop: after settling, silently reset position
+    const settled = x.get();
+    if (settled <= -loopWidth) x.set(settled + loopWidth);
+    else if (settled >= loopWidth) x.set(settled - loopWidth);
+
+    animatingRef.current = false;
+  }, [x, loopWidth]);
+
+  // Auto-advance
   useEffect(() => {
     const id = setInterval(() => {
-      if (pausedRef.current) return;
-      setOffset((o) => {
-        const next = o + 1;
-        if (next >= loopAt) {
-          // jump back to 0 without animation then let next tick advance
-          setAnimated(false);
-          setTimeout(() => {
-            setOffset(0);
-            setAnimated(true);
-          }, 0);
-          return o;
-        }
-        return next;
-      });
-    }, 2800);
+      if (!pausedRef.current) step(1);
+    }, 2600);
     return () => clearInterval(id);
-  }, [loopAt]);
+  }, [step]);
 
   const go = (dir: 1 | -1) => {
     pausedRef.current = true;
-    setAnimated(true);
-    setOffset((o) => Math.max(0, Math.min(loopAt - 1, o + dir)));
+    step(dir);
     setTimeout(() => { pausedRef.current = false; }, 5000);
   };
 
@@ -68,12 +59,7 @@ export function StyleCarousel({ styleIds }: Props) {
       onMouseEnter={() => { pausedRef.current = true; }}
       onMouseLeave={() => { pausedRef.current = false; }}
     >
-      <motion.div
-        className="flex"
-        style={{ gap: GAP }}
-        animate={{ x: -offset * STEP }}
-        transition={animated ? { type: "spring", stiffness: 180, damping: 28 } : { duration: 0 }}
-      >
+      <motion.div className="flex" style={{ gap: GAP, x }}>
         {items.map((id, i) => (
           <Link
             key={i}
@@ -86,17 +72,15 @@ export function StyleCarousel({ styleIds }: Props) {
         ))}
       </motion.div>
 
-      {offset > 0 && (
-        <button
-          onClick={() => go(-1)}
-          className="absolute left-2 top-1/2 -translate-y-1/2 z-10 flex h-8 w-8 items-center justify-center rounded-full border border-border/60 bg-card shadow-md opacity-0 group-hover:opacity-100 transition-opacity"
-          aria-label="Previous"
-        >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
-        </button>
-      )}
+      <button
+        onClick={() => go(-1)}
+        className="absolute left-2 top-1/2 -translate-y-1/2 z-10 flex h-8 w-8 items-center justify-center rounded-full border border-border/60 bg-card shadow-md opacity-0 group-hover:opacity-100 transition-opacity"
+        aria-label="Previous"
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="15 18 9 12 15 6" />
+        </svg>
+      </button>
 
       <button
         onClick={() => go(1)}
