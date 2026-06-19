@@ -59,7 +59,7 @@ export default function HomePage() {
             <div>
               <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-violet-500/30 dark:border-violet-400/30 bg-violet-500/[0.07] dark:bg-violet-400/[0.08] px-3.5 py-1.5 text-xs font-medium text-violet-700 dark:text-violet-400">
                 <span className="h-1.5 w-1.5 rounded-full bg-violet-500 dark:bg-violet-400" />
-                {total} components · 11 styles · one API
+                {total} components · 11 styles
               </div>
 
               <h1 className="mb-6 text-[3.25rem] font-bold leading-[1.04] tracking-tight sm:text-6xl lg:text-[4rem]">
@@ -92,16 +92,12 @@ export default function HomePage() {
               {/* Stat row */}
               <div className="mt-10 flex flex-wrap items-center gap-5 text-xs text-muted-foreground/60">
                 <span className="flex items-center gap-2">
-                  <span className="h-px w-5 bg-violet-500/60 dark:bg-violet-400/60" />
+                  <span className="h-px w-5 bg-violet-700 dark:bg-violet-300" />
                   {total} components
                 </span>
                 <span className="flex items-center gap-2">
-                  <span className="h-px w-5 bg-blue-500/60 dark:bg-blue-400/60" />
+                  <span className="h-px w-5 bg-blue-700 dark:bg-blue-300" />
                   11 styles
-                </span>
-                <span className="flex items-center gap-2">
-                  <span className="h-px w-5 bg-emerald-500/60 dark:bg-emerald-400/60" />
-                  one API
                 </span>
               </div>
             </div>
