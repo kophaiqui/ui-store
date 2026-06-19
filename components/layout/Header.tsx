@@ -4,12 +4,13 @@ import { NavLink } from "@/components/layout/NavLink";
 import { Logo } from "@/components/shared/Logo";
 
 const NAV = [
-  { label: "Home", href: "/" },
-  { label: "Docs", href: "/docs" },
+  { label: "Home",       href: "/"           },
+  { label: "Documents",  href: "/documents"  },
   { label: "Components", href: "/components" },
-  { label: "Templates", href: "/template" },
-  { label: "Resources", href: "/resources" },
-  { label: "Changelog", href: "/changelog" },
+  { label: "Styles",     href: "/style"      },
+  { label: "Typography", href: "/fonts"      },
+  { label: "Motion",     href: "/motion"     },
+  { label: "Templates",  href: "/template"   },
 ];
 
 export default function Header() {
