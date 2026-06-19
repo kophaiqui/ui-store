@@ -1,19 +1,29 @@
 import Link from "next/link";
-import { getAllDesigns, getAllCategories } from "@/lib/registry";
+import { getAllDesigns, getAllStyles } from "@/lib/registry";
 import { DesignCardPreview } from "@/components/shared/DesignCardPreview";
+import { HeroShowcase } from "@/components/shared/HeroShowcase";
+import { StyleCarousel } from "@/components/shared/StyleCarousel";
 
 const SHOWCASE_SLUGS = ["button", "select", "tabs", "accordion", "card", "badge", "toast", "checkbox"];
 
-const PILLARS = [
+type Accent = "neutral" | "purple" | "blue" | "green";
+
+const FEATURES: { accent: Accent; label: string; title: string; body: string }[] = [
   {
+    accent: "purple",
+    label: "Files",
     title: "Copy and paste",
-    body: "Every component is a single self-contained file. Pick one, drop it in your project, done.",
+    body: "Every component is a single self-contained file. Pick one, drop it in your project—done.",
   },
   {
+    accent: "blue",
+    label: "Styles",
     title: "Style it your way",
-    body: "Each component ships with a styleConfig — swap the whole visual layer without touching logic or props.",
+    body: "Each component ships with a styleConfig. Swap the whole visual layer without touching props or logic.",
   },
   {
+    accent: "green",
+    label: "Props",
     title: "All props, no limits",
     body: "Nothing is hardcoded. Every string, color, and behavior is a prop with a sensible default you can override.",
   },
@@ -26,125 +36,202 @@ export default function HomePage() {
     const meta = designs[slug];
     return meta ? [[slug, meta] as const] : [];
   });
+  const styles = getAllStyles();
+  const styleEntries = Object.entries(styles).sort(([a], [b]) =>
+    a === "default" ? -1 : b === "default" ? 1 : 0
+  );
 
   return (
     <>
-      {/* Hero */}
-      <section className="relative overflow-hidden border-b border-border/40 px-6 py-28 sm:py-40">
+      {/* ── Hero ──────────────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden border-b border-border/40 px-6 pt-20 pb-24 lg:pt-28 lg:pb-32">
+        {/* Ambient color blobs */}
         <div className="pointer-events-none absolute inset-0 -z-10">
-          <div className="absolute left-1/2 top-0 -translate-x-1/2 h-[600px] w-[900px] rounded-full bg-violet-500/8 blur-[140px]" />
+          <div className="absolute -top-40 left-[8%] h-[560px] w-[560px] rounded-full bg-violet-500/[0.09] dark:bg-violet-400/[0.1] blur-[100px]" />
+          <div className="absolute top-16 right-[5%] h-[380px] w-[380px] rounded-full bg-blue-500/[0.07] dark:bg-blue-400/[0.09] blur-[80px]" />
+          <div className="absolute bottom-0 left-[38%] h-[280px] w-[420px] rounded-full bg-emerald-500/[0.06] dark:bg-emerald-400/[0.07] blur-[70px]" />
         </div>
 
-        <div className="mx-auto max-w-3xl text-center">
-          <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/30 px-3 py-1 text-xs text-muted-foreground">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-            {total} components · 11 styles · open source
-          </div>
+        <div className="mx-auto max-w-7xl">
+          <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-[1fr_480px]">
 
-          <h1 className="mb-5 text-[3.25rem] font-bold leading-[1.1] tracking-tight sm:text-7xl">
-            The UI library you
-            <br />
-            <span className="bg-gradient-to-r from-violet-400 via-violet-300 to-indigo-400 bg-clip-text text-transparent">
-              keep coming back to
-            </span>
-          </h1>
+            {/* Left: text */}
+            <div>
+              <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 dark:border-emerald-400/30 bg-emerald-500/[0.07] dark:bg-emerald-400/[0.08] px-3.5 py-1.5 text-xs font-medium text-emerald-700 dark:text-emerald-400">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400" />
+                {total} components · open source · free
+              </div>
 
-          <p className="mx-auto mb-10 max-w-md text-[1.0625rem] leading-relaxed text-muted-foreground">
-            Accessible components built on Base UI. Each one ships with a styleConfig so you can change the look without touching the logic.
-          </p>
+              <h1 className="mb-6 text-[3.25rem] font-bold leading-[1.04] tracking-tight sm:text-6xl lg:text-[4rem]">
+                UI components<br />
+                that work{" "}
+                <span className="text-violet-700 dark:text-violet-400">
+                  on arrival
+                </span>
+              </h1>
 
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            <Link
-              href="/components"
-              className="rounded-lg bg-foreground px-6 py-2.5 text-sm font-semibold text-background transition-opacity hover:opacity-80"
-            >
-              Browse components
-            </Link>
-            <Link
-              href="/docs"
-              className="rounded-lg border border-border/60 px-6 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:border-border hover:text-foreground"
-            >
-              Read the docs
-            </Link>
-          </div>
-        </div>
-      </section>
+              <p className="mb-8 max-w-[46ch] text-[1.0625rem] leading-relaxed text-muted-foreground">
+                A curated library built on Base UI. Every component ships with a{" "}
+                <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-[0.8125rem] text-violet-700 dark:text-violet-400">
+                  styleConfig
+                </code>{" "}
+                — swap the entire visual layer without touching props or logic.
+              </p>
 
-      {/* Three pillars */}
-      <section className="border-b border-border/40 px-6 py-16">
-        <div className="mx-auto max-w-5xl grid gap-px rounded-xl border border-border/60 overflow-hidden sm:grid-cols-3">
-          {PILLARS.map((p) => (
-            <div key={p.title} className="bg-card px-7 py-8">
-              <p className="mb-2 text-sm font-semibold text-foreground">{p.title}</p>
-              <p className="text-sm leading-relaxed text-muted-foreground">{p.body}</p>
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  href="/components"
+                  className="rounded-lg bg-blue-600 dark:bg-blue-500 px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-blue-700 dark:hover:bg-blue-400 active:scale-[0.98]"
+                >
+                  Browse components
+                </Link>
+                <Link
+                  href="/docs"
+                  className="rounded-lg border border-border/70 px-5 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:border-border hover:text-foreground"
+                >
+                  Documentation
+                </Link>
+              </div>
+
+              {/* Stat row */}
+              <div className="mt-10 flex flex-wrap items-center gap-5 text-xs text-muted-foreground/60">
+                <span className="flex items-center gap-2">
+                  <span className="h-px w-5 bg-violet-500/60 dark:bg-violet-400/60" />
+                  {total} components
+                </span>
+                <span className="flex items-center gap-2">
+                  <span className="h-px w-5 bg-blue-500/60 dark:bg-blue-400/60" />
+                  11 styles
+                </span>
+                <span className="flex items-center gap-2">
+                  <span className="h-px w-5 bg-emerald-500/60 dark:bg-emerald-400/60" />
+                  copy-paste ready
+                </span>
+              </div>
             </div>
-          ))}
+
+            {/* Right: live component showcase */}
+            <HeroShowcase />
+          </div>
         </div>
       </section>
 
-      {/* Component showcase */}
+      {/* ── Feature pillars ──────────────────────────────────────────── */}
+      <section className="border-b border-border/40 px-6 py-0">
+        <div className="mx-auto max-w-5xl">
+          <div className="grid grid-cols-1 divide-y divide-border/50 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+            {FEATURES.map((f) => {
+              const dotClass: Record<Accent, string> = {
+                neutral: "bg-muted-foreground/40",
+                purple:  "bg-violet-600 dark:bg-violet-400",
+                blue:    "bg-blue-600 dark:bg-blue-400",
+                green:   "bg-emerald-600 dark:bg-emerald-400",
+              };
+              const labelClass: Record<Accent, string> = {
+                neutral: "text-muted-foreground bg-muted",
+                purple:  "text-violet-700 dark:text-violet-400 bg-violet-500/10 dark:bg-violet-400/15",
+                blue:    "text-blue-700 dark:text-blue-400 bg-blue-500/10 dark:bg-blue-400/15",
+                green:   "text-emerald-700 dark:text-emerald-400 bg-emerald-500/10 dark:bg-emerald-400/15",
+              };
+              return (
+                <div key={f.title} className="px-8 py-10 first:pl-0 last:pr-0">
+                  <div className="mb-4 flex items-center gap-2">
+                    <div className={`h-1.5 w-1.5 rounded-full ${dotClass[f.accent]}`} />
+                    <span className={`rounded px-1.5 py-0.5 text-[0.5625rem] font-semibold uppercase tracking-wider ${labelClass[f.accent]}`}>
+                      {f.label}
+                    </span>
+                  </div>
+                  <p className="mb-2 text-[0.9375rem] font-semibold text-foreground">{f.title}</p>
+                  <p className="text-sm leading-relaxed text-muted-foreground">{f.body}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Component showcase ───────────────────────────────────────── */}
       <section className="px-6 py-20">
         <div className="mx-auto max-w-7xl">
-          <div className="mb-3 flex items-end justify-between">
+          <div className="mb-10 flex items-end justify-between">
             <div>
-              <p className="mb-1 text-[0.6875rem] font-semibold uppercase tracking-widest text-muted-foreground/50">Library</p>
+              <p className="mb-1 text-[0.6875rem] font-semibold uppercase tracking-widest text-muted-foreground/40">
+                Library
+              </p>
               <h2 className="text-2xl font-semibold tracking-tight">Built and ready</h2>
             </div>
-            <Link href="/components" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
-              All {total} components →
+            <Link
+              href="/components"
+              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+            >
+              All {total} →
             </Link>
           </div>
+
           <p className="mb-10 max-w-md text-sm text-muted-foreground">
             Each component works out of the box. Hover any card to see its name and category.
           </p>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {showcase.map(([slug, meta]) => (
-              <DesignCardPreview key={slug} slug={slug} meta={meta} />
+              <DesignCardPreview key={slug} slug={slug} meta={meta} showNew={false} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* Style system teaser */}
-      <section className="border-t border-border/40 px-6 py-20">
-        <div className="mx-auto max-w-5xl">
-          <div className="rounded-2xl border border-border/60 bg-card px-10 py-14 text-center">
-            <p className="mb-2 text-[0.6875rem] font-semibold uppercase tracking-widest text-muted-foreground/50">Style system</p>
-            <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
-              11 styles.{" "}
-              <span className="text-muted-foreground/60">One component.</span>
-            </h2>
-            <p className="mx-auto mb-8 max-w-sm text-[0.9375rem] text-muted-foreground">
-              Every component supports a <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-violet-400">styleConfig</code> prop. Swap from default to glass, neobrutalism, terminal, or 7 others — same component, different character.
-            </p>
+      {/* ── Style system teaser ──────────────────────────────────────── */}
+      <section className="border-t border-border/40 px-6 py-20 bg-muted/20 dark:bg-muted/10">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-10 flex items-end justify-between">
+            <div>
+              <p className="mb-1 text-[0.6875rem] font-semibold uppercase tracking-widest text-muted-foreground/40">
+                Style system
+              </p>
+              <h2 className="text-2xl font-semibold tracking-tight">
+                11 styles.{" "}
+                <span className="text-muted-foreground/40">One component.</span>
+              </h2>
+            </div>
             <Link
               href="/style"
-              className="inline-flex rounded-lg border border-border/60 px-5 py-2 text-sm font-medium text-muted-foreground transition-colors hover:border-border hover:text-foreground"
+              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
             >
-              Explore styles →
+              Explore all →
             </Link>
           </div>
+
+          <p className="mb-10 max-w-[52ch] text-sm text-muted-foreground">
+            Import a different{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-[0.8125rem] text-violet-700 dark:text-violet-400">
+              styleConfig
+            </code>{" "}
+            to change the entire visual character — glass, terminal, neobrutalism, and more.
+          </p>
+
+          <StyleCarousel styleIds={styleEntries.map(([id]) => id)} />
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="border-t border-border/40 px-6 py-20">
-        <div className="mx-auto max-w-xl text-center">
-          <h2 className="mb-3 text-2xl font-semibold tracking-tight">Start building</h2>
-          <p className="mb-7 text-[0.9375rem] text-muted-foreground">
-            New components added regularly. Everything is open source.
+      {/* ── CTA band ─────────────────────────────────────────────────── */}
+      <section className="border-t border-border/40 px-6 py-24">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
+            Start building
+          </h2>
+          <p className="mb-8 text-[0.9375rem] text-muted-foreground">
+            New components ship regularly. Everything is open source and free to use.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Link
               href="/components"
-              className="rounded-lg bg-foreground px-6 py-2.5 text-sm font-semibold text-background transition-opacity hover:opacity-80"
+              className="rounded-lg bg-blue-600 dark:bg-blue-500 px-6 py-2.5 text-sm font-semibold text-white transition-all hover:bg-blue-700 dark:hover:bg-blue-400 active:scale-[0.98]"
             >
               Browse the library
             </Link>
             <Link
               href="/docs"
-              className="rounded-lg border border-border/60 px-6 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:border-border hover:text-foreground"
+              className="rounded-lg border border-border/70 px-6 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:border-border hover:text-foreground"
             >
               Documentation
             </Link>
