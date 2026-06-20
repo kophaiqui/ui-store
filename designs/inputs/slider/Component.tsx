@@ -25,8 +25,8 @@ export function UISlider({
       defaultValue={defaultValue}
       orientation={orientation}
       className={cn(
-        "touch-none",
-        isVertical ? "h-36 flex-col" : "w-full",
+        "touch-none flex",
+        isVertical ? "h-36 flex-col" : "w-full flex-col",
         className,
       )}
       {...props}

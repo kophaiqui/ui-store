@@ -155,7 +155,7 @@
       { "name": "step", "type": "number", "default": "1", "description": "Increment step between values" },
       { "name": "showValue", "type": "boolean", "default": "true", "description": "Show the current value above the track", "noChildren": true, "demoWidth": "w-48" },
       { "name": "orientation", "type": "\"horizontal\" | \"vertical\"", "default": "\"horizontal\"", "description": "Horizontal track (default) or vertical track", "noChildren": true, "demoWidth": "w-48" },
-      { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables interaction and reduces opacity" }
+      { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables interaction and reduces opacity", "noChildren": true, "demoWidth": "w-48" }
     ],
     "usage": [
       { "label": "Default", "code": "<UISlider />" },
