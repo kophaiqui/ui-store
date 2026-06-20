@@ -516,5 +516,447 @@
       { "label": "Custom items", "code": "<UIDropdownMenu items={[{ label: 'Profile' }, { label: 'Settings', shortcut: '⌘,' }, { separator: true, label: '' }, { label: 'Log out', danger: true }]} />" },
       { "label": "Custom trigger", "code": "<UIDropdownMenu trigger={<button>⋮</button>} items={[{ label: 'Edit' }, { label: 'Delete', danger: true }]} />" }
     ]
+  },
+
+  "textarea": {
+    "name": "Textarea",
+    "category": "inputs",
+    "style": "default",
+    "tags": ["textarea", "input", "form", "multi-line"],
+    "description": "Multi-line text input with label, description, error/helper text, resize control, size variants, and a loading overlay.",
+    "preview": true,
+    "new": true,
+    "props": [
+      { "name": "label", "type": "string", "default": "\"Message\"", "description": "Label rendered above the textarea" },
+      { "name": "description", "type": "string", "default": "undefined", "description": "Secondary help text below the label" },
+      { "name": "placeholder", "type": "string", "default": "undefined", "description": "Placeholder shown when empty" },
+      { "name": "rows", "type": "number", "default": "4", "description": "Number of visible text rows" },
+      { "name": "resize", "type": "\"none\" | \"vertical\" | \"horizontal\" | \"both\"", "default": "\"vertical\"", "description": "CSS resize direction", "noChildren": true, "demoWidth": "w-64" },
+      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Controls padding and font size", "noChildren": true, "demoWidth": "w-64" },
+      { "name": "error", "type": "string", "default": "undefined", "description": "Error message shown below — replaces helperText when present", "noChildren": true, "demoWidth": "w-64" },
+      { "name": "helperText", "type": "string", "default": "undefined", "description": "Subtle help text below the textarea (hidden when error is present)" },
+      { "name": "loading", "type": "boolean", "default": "false", "description": "Shows a spinner overlay and disables interaction", "noChildren": true, "demoWidth": "w-64", "valueLabels": { "false": "Idle", "true": "Loading" } },
+      { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables interaction and reduces opacity", "noChildren": true, "demoWidth": "w-64", "valueLabels": { "false": "Enabled", "true": "Disabled" } },
+      { "name": "readOnly", "type": "boolean", "default": "false", "description": "Makes the textarea read-only" },
+      { "name": "required", "type": "boolean", "default": "false", "description": "Marks the field as required — adds a red asterisk to the label" },
+      { "name": "maxLength", "type": "number", "default": "undefined", "description": "Maximum character count" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<UITextarea />" },
+      { "label": "With description", "code": "<UITextarea label=\"Feedback\" description=\"Tell us what you think.\" placeholder=\"Your thoughts…\" />" },
+      { "label": "Error state", "code": "<UITextarea label=\"Message\" error=\"Message is required\" />" },
+      { "label": "Sizes", "code": "<UITextarea size=\"sm\" label=\"Small\" />\n<UITextarea size=\"md\" label=\"Medium\" />\n<UITextarea size=\"lg\" label=\"Large\" />" },
+      { "label": "Loading", "code": "<UITextarea loading label=\"Sending…\" />" }
+    ]
+  },
+
+  "radio": {
+    "name": "Radio",
+    "category": "inputs",
+    "style": "default",
+    "tags": ["radio", "selection", "form", "base-ui"],
+    "description": "A single radio button with optional label and description. Built on Base UI's Radio primitive.",
+    "preview": true,
+    "new": true,
+    "props": [
+      { "name": "label", "type": "string", "default": "\"Option A\"", "description": "Label rendered beside the radio" },
+      { "name": "description", "type": "string", "default": "undefined", "description": "Secondary help text below the label" },
+      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Controls the radio button and dot size", "noChildren": true, "companions": { "label": "Option" } },
+      { "name": "checked", "type": "boolean", "default": "undefined", "description": "Controlled checked state" },
+      { "name": "defaultChecked", "type": "boolean", "default": "false", "description": "Initial checked state for uncontrolled use" },
+      { "name": "loading", "type": "boolean", "default": "false", "description": "Replaces the radio with a spinner while state is saving", "noChildren": true, "companions": { "label": "Saving…" }, "valueLabels": { "false": "Idle", "true": "Loading" } },
+      { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables interaction", "noChildren": true, "companions": { "label": "Option" }, "valueLabels": { "false": "Enabled", "true": "Disabled" } }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<UIRadio label=\"Option A\" />" },
+      { "label": "With description", "code": "<UIRadio label=\"Pro plan\" description=\"$29/month, unlimited access.\" />" },
+      { "label": "Sizes", "code": "<UIRadio size=\"sm\" label=\"Small\" />\n<UIRadio size=\"md\" label=\"Medium\" />\n<UIRadio size=\"lg\" label=\"Large\" />" },
+      { "label": "Disabled", "code": "<UIRadio disabled label=\"Unavailable\" />" }
+    ]
+  },
+
+  "combobox": {
+    "name": "Combobox",
+    "category": "inputs",
+    "style": "default",
+    "tags": ["combobox", "autocomplete", "select", "search", "base-ui"],
+    "description": "A searchable selection input with multi-select, chip display, clear button, and loading state. Built on Base UI Combobox.",
+    "preview": true,
+    "new": true,
+    "props": [
+      { "name": "options", "type": "{ label: string; value: string; disabled?: boolean }[]", "default": "[...]", "description": "Selectable options rendered in the popup" },
+      { "name": "placeholder", "type": "string", "default": "\"Search…\"", "description": "Input placeholder" },
+      { "name": "multiple", "type": "boolean", "default": "false", "description": "Allow selecting multiple options, displayed as chips", "noChildren": true, "demoWidth": "w-64", "valueLabels": { "false": "Single", "true": "Multi" } },
+      { "name": "clearable", "type": "boolean", "default": "false", "description": "Shows an × button to clear the current selection", "noChildren": true, "demoWidth": "w-64", "valueLabels": { "false": "No clear", "true": "Clearable" } },
+      { "name": "loading", "type": "boolean", "default": "false", "description": "Shows a spinner — use while options are fetching", "noChildren": true, "demoWidth": "w-64", "valueLabels": { "false": "Idle", "true": "Loading" } },
+      { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables interaction", "noChildren": true, "demoWidth": "w-64", "valueLabels": { "false": "Enabled", "true": "Disabled" } },
+      { "name": "label", "type": "string", "default": "undefined", "description": "Label rendered above the combobox" },
+      { "name": "error", "type": "string", "default": "undefined", "description": "Error message shown below" },
+      { "name": "emptyMessage", "type": "string", "default": "\"No options\"", "description": "Shown when the options list is empty" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<UICombobox />" },
+      { "label": "Clearable", "code": "<UICombobox clearable placeholder=\"Pick one…\" />" },
+      { "label": "Multi-select", "code": "<UICombobox multiple clearable placeholder=\"Pick many…\" />" },
+      { "label": "With label", "code": "<UICombobox label=\"Framework\" placeholder=\"Select framework…\" />" },
+      { "label": "Loading", "code": "<UICombobox loading placeholder=\"Loading options…\" options={[]} />" }
+    ]
+  },
+
+  "date-picker": {
+    "name": "Date Picker",
+    "category": "inputs",
+    "style": "default",
+    "tags": ["date", "calendar", "picker", "popover"],
+    "description": "A date selection input with a calendar popup. Supports single, range, and multi-date selection with min/max constraints.",
+    "preview": true,
+    "new": true,
+    "props": [
+      { "name": "placeholder", "type": "string", "default": "\"Pick a date\"", "description": "Shown when no date is selected" },
+      { "name": "range", "type": "boolean", "default": "false", "description": "Enable date range selection — click start then end date", "noChildren": true, "demoWidth": "w-64", "valueLabels": { "false": "Single", "true": "Range" } },
+      { "name": "multiple", "type": "boolean", "default": "false", "description": "Allow toggling multiple individual dates", "noChildren": true, "demoWidth": "w-64", "valueLabels": { "false": "Single", "true": "Multi" } },
+      { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables the trigger and calendar interaction", "noChildren": true, "demoWidth": "w-64", "valueLabels": { "false": "Enabled", "true": "Disabled" } },
+      { "name": "label", "type": "string", "default": "undefined", "description": "Label rendered above the trigger" },
+      { "name": "error", "type": "string", "default": "undefined", "description": "Error message shown below" },
+      { "name": "locale", "type": "string", "default": "\"en-US\"", "description": "BCP 47 locale used to format displayed dates" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<UIDatePicker />" },
+      { "label": "With label", "code": "<UIDatePicker label=\"Start date\" placeholder=\"Select date…\" />" },
+      { "label": "Range", "code": "<UIDatePicker range placeholder=\"Select range…\" />" },
+      { "label": "Multi", "code": "<UIDatePicker multiple placeholder=\"Select dates…\" />" }
+    ]
+  },
+
+  "field": {
+    "name": "Field",
+    "category": "inputs",
+    "style": "default",
+    "tags": ["field", "form", "wrapper", "label", "base-ui"],
+    "description": "A form field wrapper providing label, description, and error with accessibility linking. Built on Base UI's Field primitive.",
+    "preview": true,
+    "new": true,
+    "props": [
+      { "name": "label", "type": "string", "default": "\"Label\"", "description": "Field label linked to the control via htmlFor" },
+      { "name": "description", "type": "string", "default": "undefined", "description": "Help text below the label" },
+      { "name": "error", "type": "string", "default": "undefined", "description": "Error message shown below the control" },
+      { "name": "required", "type": "boolean", "default": "false", "description": "Marks the field required — adds a red asterisk to the label", "noChildren": true, "valueLabels": { "false": "Optional", "true": "Required" } },
+      { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables the control", "noChildren": true, "valueLabels": { "false": "Enabled", "true": "Disabled" } },
+      { "name": "loading", "type": "boolean", "default": "false", "description": "Shows a spinner beside the label while the field value is being saved", "noChildren": true, "valueLabels": { "false": "Idle", "true": "Loading" } },
+      { "name": "orientation", "type": "\"vertical\" | \"horizontal\"", "default": "\"vertical\"", "description": "Stack label above or place it beside the control", "noChildren": true }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<UIField label=\"Email\" description=\"We'll never share your email.\" />" },
+      { "label": "Error", "code": "<UIField label=\"Username\" error=\"Username is already taken\" />" },
+      { "label": "Required", "code": "<UIField label=\"Name\" required />" },
+      { "label": "Horizontal", "code": "<UIField label=\"Email\" orientation=\"horizontal\" />" }
+    ]
+  },
+
+  "table": {
+    "name": "Table",
+    "category": "data-display",
+    "style": "default",
+    "tags": ["table", "data", "list", "grid"],
+    "description": "A basic data table with local sorting, row selection, loading skeletons, and empty state support.",
+    "preview": true,
+    "new": true,
+    "props": [
+      { "name": "columns", "type": "Column[]", "default": "[...]", "description": "Column definitions: { key, header, accessor?, sortable?, width? }" },
+      { "name": "data", "type": "Record<string, unknown>[]", "default": "[...]", "description": "Row data array" },
+      { "name": "caption", "type": "string", "default": "undefined", "description": "Table caption rendered above" },
+      { "name": "sortable", "type": "boolean", "default": "false", "description": "Enable sorting on all columns", "noChildren": true, "valueLabels": { "false": "Static", "true": "Sortable" } },
+      { "name": "selectable", "type": "boolean", "default": "false", "description": "Show checkboxes for row selection", "noChildren": true, "valueLabels": { "false": "No selection", "true": "Selectable" } },
+      { "name": "loading", "type": "boolean", "default": "false", "description": "Replace rows with animated skeleton cells", "noChildren": true, "valueLabels": { "false": "Loaded", "true": "Loading" } }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<UITable />" },
+      { "label": "Sortable", "code": "<UITable sortable />" },
+      { "label": "Selectable", "code": "<UITable selectable />" },
+      { "label": "Loading", "code": "<UITable loading />" }
+    ]
+  },
+
+  "data-table": {
+    "name": "Data Table",
+    "category": "data-display",
+    "style": "default",
+    "tags": ["table", "data", "pagination", "search", "sort", "filter"],
+    "description": "Advanced table with search, sorting, pagination, column visibility toggle, and row selection — all in one component.",
+    "preview": true,
+    "new": true,
+    "props": [
+      { "name": "columns", "type": "Column[]", "default": "[...]", "description": "Column definitions — each can be sortable, filterable, and togglable" },
+      { "name": "data", "type": "Record<string, unknown>[]", "default": "[...]", "description": "Row data array" },
+      { "name": "search", "type": "boolean", "default": "true", "description": "Show a search input that filters all string fields", "noChildren": true, "valueLabels": { "false": "No search", "true": "Searchable" } },
+      { "name": "sorting", "type": "boolean", "default": "true", "description": "Enable column header click to sort", "noChildren": true, "valueLabels": { "false": "No sort", "true": "Sortable" } },
+      { "name": "pagination", "type": "boolean", "default": "true", "description": "Show prev/next/page number controls below the table", "noChildren": true, "valueLabels": { "false": "No pages", "true": "Paginated" } },
+      { "name": "selection", "type": "boolean", "default": "false", "description": "Show checkboxes for multi-row selection", "noChildren": true, "valueLabels": { "false": "No selection", "true": "Selectable" } },
+      { "name": "columnVisibility", "type": "boolean", "default": "false", "description": "Show a column toggle dropdown in the toolbar", "noChildren": true, "valueLabels": { "false": "Fixed", "true": "Togglable" } },
+      { "name": "loading", "type": "boolean", "default": "false", "description": "Show skeleton rows while data is loading", "noChildren": true, "valueLabels": { "false": "Loaded", "true": "Loading" } },
+      { "name": "pageSize", "type": "number", "default": "10", "description": "Rows per page" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<UIDataTable />" },
+      { "label": "With selection", "code": "<UIDataTable selection />" },
+      { "label": "Column visibility", "code": "<UIDataTable columnVisibility />" },
+      { "label": "Loading", "code": "<UIDataTable loading />" }
+    ]
+  },
+
+  "skeleton": {
+    "name": "Skeleton",
+    "category": "data-display",
+    "style": "default",
+    "tags": ["skeleton", "loading", "placeholder"],
+    "description": "A loading placeholder that mimics content shape. Supports rect, circle, line, and text shapes with pulse or wave animation.",
+    "preview": true,
+    "new": true,
+    "props": [
+      { "name": "shape", "type": "\"rect\" | \"circle\" | \"line\" | \"text\"", "default": "\"rect\"", "description": "Skeleton shape — text auto-varies widths to simulate paragraph lines", "noChildren": true, "demoWidth": "w-48" },
+      { "name": "animation", "type": "\"pulse\" | \"wave\" | \"none\"", "default": "\"pulse\"", "description": "Animation style", "noChildren": true, "demoWidth": "w-48" },
+      { "name": "count", "type": "number", "default": "1", "description": "Number of skeleton items to render stacked" },
+      { "name": "width", "type": "string | number", "default": "\"100%\"", "description": "Width — CSS string or pixel number" },
+      { "name": "height", "type": "string | number", "default": "\"1rem\"", "description": "Height — CSS string or pixel number" },
+      { "name": "loading", "type": "boolean", "default": "true", "description": "When false, renders children instead of the skeleton", "noChildren": true, "valueLabels": { "false": "Loaded", "true": "Loading" } }
+    ],
+    "usage": [
+      { "label": "Text lines", "code": "<UISkeleton shape=\"text\" count={3} height=\"0.875rem\" />" },
+      { "label": "Avatar", "code": "<UISkeleton shape=\"circle\" height=\"40px\" width=\"40px\" />" },
+      { "label": "Card", "code": "<UISkeleton shape=\"rect\" height=\"120px\" />" },
+      { "label": "Loaded", "code": "<UISkeleton loading={false}>Content loaded</UISkeleton>" }
+    ]
+  },
+
+  "empty": {
+    "name": "Empty",
+    "category": "data-display",
+    "style": "default",
+    "tags": ["empty", "state", "placeholder", "no-data"],
+    "description": "An empty state panel with an icon, title, description, and optional action buttons.",
+    "preview": true,
+    "new": true,
+    "props": [
+      { "name": "title", "type": "string", "default": "\"Nothing here yet\"", "description": "Primary heading" },
+      { "name": "description", "type": "string", "default": "\"Add your first item to get started.\"", "description": "Supporting text below the title" },
+      { "name": "icon", "type": "ReactNode", "default": "undefined", "description": "Custom icon — replaces the default inbox SVG" },
+      { "name": "action", "type": "ReactNode", "default": "undefined", "description": "Primary action element (e.g. a button)" },
+      { "name": "secondaryAction", "type": "ReactNode", "default": "undefined", "description": "Secondary action element" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<UIEmpty />" },
+      { "label": "With action", "code": "<UIEmpty title=\"No components\" description=\"Create your first component.\" action={<button>Create</button>} />" },
+      { "label": "Custom title", "code": "<UIEmpty title=\"No results\" description=\"Try a different search.\" />" }
+    ]
+  },
+
+  "alert-dialog": {
+    "name": "Alert Dialog",
+    "category": "feedback",
+    "style": "default",
+    "tags": ["alert-dialog", "confirmation", "modal", "destructive", "base-ui"],
+    "description": "A blocking confirmation dialog. Supports destructive mode, loading state on the confirm button, and size variants.",
+    "preview": true,
+    "new": true,
+    "props": [
+      { "name": "trigger", "type": "ReactNode", "default": "\"Open\"", "description": "Element that opens the dialog" },
+      { "name": "title", "type": "string", "default": "\"Are you sure?\"", "description": "Dialog heading" },
+      { "name": "description", "type": "string", "default": "\"This action cannot be undone.\"", "description": "Body text" },
+      { "name": "confirmText", "type": "string", "default": "\"Confirm\"", "description": "Label on the confirm button" },
+      { "name": "cancelText", "type": "string", "default": "\"Cancel\"", "description": "Label on the cancel button" },
+      { "name": "destructive", "type": "boolean", "default": "false", "description": "Colors the confirm button red to signal a dangerous action", "noChildren": true, "valueLabels": { "false": "Default", "true": "Destructive" } },
+      { "name": "loading", "type": "boolean", "default": "false", "description": "Shows a spinner on the confirm button and disables it", "noChildren": true, "valueLabels": { "false": "Idle", "true": "Loading" } },
+      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Width of the dialog popup", "noChildren": true }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<UIAlertDialog />" },
+      { "label": "Destructive", "code": "<UIAlertDialog destructive confirmText=\"Delete\" title=\"Delete item\" description=\"This will permanently remove the item.\" />" },
+      { "label": "Loading", "code": "<UIAlertDialog loading confirmText=\"Deleting…\" />" }
+    ]
+  },
+
+  "sonner": {
+    "name": "Sonner",
+    "category": "feedback",
+    "style": "default",
+    "tags": ["toast", "notification", "sonner", "base-ui"],
+    "description": "A toast notification system with type variants, position control, action buttons, and dismiss support. Built on Base UI Toast.",
+    "preview": true,
+    "new": true,
+    "props": [
+      { "name": "message", "type": "string", "default": "\"Notification sent\"", "description": "Toast body text" },
+      { "name": "title", "type": "string", "default": "undefined", "description": "Optional bold heading above the message" },
+      { "name": "type", "type": "\"default\" | \"success\" | \"error\" | \"warning\" | \"info\"", "default": "\"default\"", "description": "Determines the icon and border accent color", "noChildren": true, "demoWidth": "w-36" },
+      { "name": "duration", "type": "number", "default": "4000", "description": "Auto-dismiss delay in milliseconds" },
+      { "name": "position", "type": "\"top-left\" | \"top-center\" | \"top-right\" | \"bottom-left\" | \"bottom-center\" | \"bottom-right\"", "default": "\"bottom-right\"", "description": "Corner the toast stack appears in", "noChildren": true, "demoWidth": "w-48" },
+      { "name": "dismissible", "type": "boolean", "default": "true", "description": "Show a close button on each toast" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<UISonner message=\"Changes saved.\" />" },
+      { "label": "Success", "code": "<UISonner type=\"success\" title=\"Saved\" message=\"All changes saved successfully.\" />" },
+      { "label": "Error", "code": "<UISonner type=\"error\" title=\"Failed\" message=\"Something went wrong.\" />" },
+      { "label": "Top center", "code": "<UISonner position=\"top-center\" message=\"Syncing…\" />" }
+    ]
+  },
+
+  "spinner": {
+    "name": "Spinner",
+    "category": "feedback",
+    "style": "default",
+    "tags": ["spinner", "loading", "indicator"],
+    "description": "A circular loading indicator in five sizes. Disappears when loading is false.",
+    "preview": true,
+    "new": true,
+    "props": [
+      { "name": "size", "type": "\"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\"", "default": "\"md\"", "description": "Diameter of the spinner", "noChildren": true },
+      { "name": "label", "type": "string", "default": "undefined", "description": "Optional text shown beside the spinner" },
+      { "name": "loading", "type": "boolean", "default": "true", "description": "When false, renders nothing", "noChildren": true, "valueLabels": { "false": "Done", "true": "Loading" } },
+      { "name": "ariaLabel", "type": "string", "default": "\"Loading\"", "description": "Accessible label for screen readers" }
+    ],
+    "usage": [
+      { "label": "Sizes", "code": "<UISpinner size=\"xs\" />\n<UISpinner size=\"sm\" />\n<UISpinner size=\"md\" />\n<UISpinner size=\"lg\" />\n<UISpinner size=\"xl\" />" },
+      { "label": "With label", "code": "<UISpinner label=\"Loading data…\" />" },
+      { "label": "Hidden when done", "code": "<UISpinner loading={false} />" }
+    ]
+  },
+
+  "drawer": {
+    "name": "Drawer",
+    "category": "feedback",
+    "style": "default",
+    "tags": ["drawer", "panel", "overlay", "slide", "base-ui"],
+    "description": "A swipe-dismissible temporary side or bottom panel with title, description, and loading state. Built on Base UI Drawer.",
+    "preview": true,
+    "new": true,
+    "props": [
+      { "name": "trigger", "type": "ReactNode", "default": "\"Open Drawer\"", "description": "Element that triggers the drawer" },
+      { "name": "title", "type": "string", "default": "\"Drawer\"", "description": "Heading inside the drawer" },
+      { "name": "description", "type": "string", "default": "undefined", "description": "Subheading below the title" },
+      { "name": "position", "type": "\"left\" | \"right\" | \"top\" | \"bottom\"", "default": "\"right\"", "description": "Side the drawer slides in from", "noChildren": true },
+      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\" | \"full\"", "default": "\"md\"", "description": "Width (horizontal) or height (vertical) of the panel", "noChildren": true },
+      { "name": "dismissible", "type": "boolean", "default": "true", "description": "Allow closing by clicking the backdrop or pressing Escape" },
+      { "name": "overlay", "type": "boolean", "default": "true", "description": "Show a backdrop behind the drawer" },
+      { "name": "loading", "type": "boolean", "default": "false", "description": "Show a spinner centered in the content area", "noChildren": true, "valueLabels": { "false": "Loaded", "true": "Loading" } }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<UIDrawer />" },
+      { "label": "Left side", "code": "<UIDrawer position=\"left\" title=\"Navigation\" />" },
+      { "label": "Bottom", "code": "<UIDrawer position=\"bottom\" title=\"Options\" />" },
+      { "label": "Loading", "code": "<UIDrawer loading title=\"Loading…\" />" }
+    ]
+  },
+
+  "sheet": {
+    "name": "Sheet",
+    "category": "feedback",
+    "style": "default",
+    "tags": ["sheet", "panel", "sidebar", "overlay", "base-ui"],
+    "description": "A persistent side panel that slides in from any edge. Unlike Drawer, it uses the Dialog primitive — no swipe dismiss.",
+    "preview": true,
+    "new": true,
+    "props": [
+      { "name": "trigger", "type": "ReactNode", "default": "\"Open Sheet\"", "description": "Element that opens the sheet" },
+      { "name": "title", "type": "string", "default": "\"Sheet\"", "description": "Heading inside the sheet header" },
+      { "name": "description", "type": "string", "default": "undefined", "description": "Subheading below the title" },
+      { "name": "side", "type": "\"left\" | \"right\" | \"top\" | \"bottom\"", "default": "\"right\"", "description": "Edge the sheet slides in from", "noChildren": true },
+      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\" | \"full\"", "default": "\"md\"", "description": "Width (horizontal) or height (vertical) of the panel", "noChildren": true },
+      { "name": "closeButton", "type": "boolean", "default": "true", "description": "Show an × close button in the header", "noChildren": true, "valueLabels": { "false": "Hidden", "true": "Shown" } },
+      { "name": "loading", "type": "boolean", "default": "false", "description": "Show a spinner in the content area", "noChildren": true, "valueLabels": { "false": "Loaded", "true": "Loading" } }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<UISheet />" },
+      { "label": "Left side", "code": "<UISheet side=\"left\" title=\"Menu\" />" },
+      { "label": "Large", "code": "<UISheet size=\"lg\" title=\"Details\" />" },
+      { "label": "No close button", "code": "<UISheet closeButton={false} title=\"Locked panel\" />" }
+    ]
+  },
+
+  "sidebar": {
+    "name": "Sidebar",
+    "category": "navigation",
+    "style": "default",
+    "tags": ["sidebar", "navigation", "menu", "nav"],
+    "description": "An application navigation sidebar with collapse support, nested items, badges, and active state tracking.",
+    "preview": true,
+    "new": true,
+    "props": [
+      { "name": "items", "type": "SidebarItem[]", "default": "[...]", "description": "Navigation items: { key, label, icon?, href?, badge?, disabled?, children? }" },
+      { "name": "collapsible", "type": "boolean", "default": "true", "description": "Show a collapse toggle button at the bottom of the sidebar" },
+      { "name": "defaultCollapsed", "type": "boolean", "default": "false", "description": "Start collapsed (icon-only mode)", "noChildren": true, "valueLabels": { "false": "Expanded", "true": "Collapsed" } },
+      { "name": "activeItem", "type": "string", "default": "undefined", "description": "Key of the currently active item (controlled)" },
+      { "name": "header", "type": "ReactNode", "default": "undefined", "description": "Content rendered at the top of the sidebar" },
+      { "name": "footer", "type": "ReactNode", "default": "undefined", "description": "Content rendered at the bottom before the collapse button" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<UISidebar />" },
+      { "label": "Collapsed", "code": "<UISidebar defaultCollapsed />" },
+      { "label": "Not collapsible", "code": "<UISidebar collapsible={false} />" }
+    ]
+  },
+
+  "breadcrumb": {
+    "name": "Breadcrumb",
+    "category": "navigation",
+    "style": "default",
+    "tags": ["breadcrumb", "navigation", "hierarchy", "path"],
+    "description": "A page hierarchy trail with configurable separator, ellipsis truncation for long paths, and aria-current on the last item.",
+    "preview": true,
+    "new": true,
+    "props": [
+      { "name": "items", "type": "{ label: string; href?: string; icon?: ReactNode }[]", "default": "[...]", "description": "Breadcrumb trail items — last item is treated as current page" },
+      { "name": "separator", "type": "ReactNode", "default": "\"/\"", "description": "Separator rendered between items" },
+      { "name": "maxItems", "type": "number", "default": "undefined", "description": "Collapse middle items into … when the trail exceeds this count; click to expand" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<UIBreadcrumb />" },
+      { "label": "Custom separator", "code": "<UIBreadcrumb separator=\"›\" items={[{ label: 'Home', href: '/' }, { label: 'Docs', href: '/docs' }, { label: 'Components' }]} />" },
+      { "label": "Truncated", "code": "<UIBreadcrumb maxItems={2} items={[{ label: 'Home', href: '/' }, { label: 'Components', href: '/components' }, { label: 'Inputs', href: '/inputs' }, { label: 'Breadcrumb' }]} />" }
+    ]
+  },
+
+  "command": {
+    "name": "Command",
+    "category": "navigation",
+    "style": "default",
+    "tags": ["command", "search", "keyboard", "palette"],
+    "description": "A keyboard-driven command palette with grouped commands, fuzzy search, arrow-key navigation, and a global ⌘K shortcut.",
+    "preview": true,
+    "new": true,
+    "props": [
+      { "name": "groups", "type": "CommandGroup[]", "default": "[...]", "description": "Command groups: { heading?, items: { key, label, description?, icon?, shortcut?, disabled? }[] }" },
+      { "name": "placeholder", "type": "string", "default": "\"Type a command…\"", "description": "Search input placeholder" },
+      { "name": "shortcut", "type": "string", "default": "\"⌘K\"", "description": "Display label for the keyboard shortcut (shown on trigger). ⌘K is always registered." },
+      { "name": "emptyMessage", "type": "string", "default": "\"No commands found\"", "description": "Shown when search yields no results" },
+      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Max width of the palette popup" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<UICommand />" },
+      { "label": "Custom groups", "code": "<UICommand groups={[{ heading: 'Pages', items: [{ key: 'home', label: 'Home' }, { key: 'about', label: 'About' }] }]} />" },
+      { "label": "Large", "code": "<UICommand size=\"lg\" />" }
+    ]
+  },
+
+  "pagination": {
+    "name": "Pagination",
+    "category": "navigation",
+    "style": "default",
+    "tags": ["pagination", "navigation", "pages"],
+    "description": "A page navigation control with smart ellipsis, first/last shortcuts, and size variants. Controlled and uncontrolled.",
+    "preview": true,
+    "new": true,
+    "props": [
+      { "name": "totalPages", "type": "number", "default": "10", "description": "Total number of pages" },
+      { "name": "defaultPage", "type": "number", "default": "1", "description": "Initial page for uncontrolled use" },
+      { "name": "siblingCount", "type": "number", "default": "1", "description": "Pages shown on each side of the current page before an ellipsis appears" },
+      { "name": "showFirstLast", "type": "boolean", "default": "true", "description": "Show ⟪ / ⟫ jump-to-first and jump-to-last buttons", "noChildren": true, "valueLabels": { "false": "Hidden", "true": "Shown" } },
+      { "name": "disabled", "type": "boolean", "default": "false", "description": "Disable all buttons", "noChildren": true, "valueLabels": { "false": "Enabled", "true": "Disabled" } },
+      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Button height and font size", "noChildren": true }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<UIPagination />" },
+      { "label": "No first/last", "code": "<UIPagination showFirstLast={false} />" },
+      { "label": "Sizes", "code": "<UIPagination size=\"sm\" />\n<UIPagination size=\"md\" />\n<UIPagination size=\"lg\" />" },
+      { "label": "More siblings", "code": "<UIPagination siblingCount={2} totalPages={20} />" }
+    ]
   }
 }
