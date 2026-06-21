@@ -120,7 +120,7 @@ export function DesignViewer({ slug, meta, code }: Props) {
             className="pointer-events-none absolute inset-0"
             style={{ background: "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, var(--background) 100%)" }}
           />
-          <div className="relative flex w-full items-center justify-center">
+          <div className={cn("relative flex items-center justify-center", meta.previewClass ?? "w-full")}>
             <Preview />
           </div>
         </div>

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import { cn } from "@/lib/utils";
 import type { DesignMeta } from "@/lib/registry";
 
 type Props = { slug: string; meta: DesignMeta; linkBase?: string; showNew?: boolean };
@@ -39,7 +40,7 @@ export function DesignCardPreview({ slug, meta, linkBase = "/components", showNe
             background: "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 30%, var(--background) 100%)",
           }}
         />
-        <div className="relative pointer-events-none select-none">
+        <div className={cn("relative pointer-events-none select-none", meta.previewClass)}>
           <Preview />
         </div>
       </div>

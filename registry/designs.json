@@ -68,6 +68,7 @@
     "description": "A dark text input with inset shadow, emerald focus ring, and full disabled/read-only state support.",
     "preview": true,
     "new": true,
+    "previewClass": "w-72",
     "props": [
       { "name": "variant", "type": "\"outline\" | \"filled\" | \"ghost\"", "default": "\"outline\"", "description": "Surface style — outline adds border, filled uses a background, ghost is borderless", "noChildren": true, "companions": { "placeholder": "Placeholder" } },
       { "name": "size", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Controls input height and font size", "noChildren": true, "companions": { "placeholder": "Placeholder" } },
@@ -125,18 +126,17 @@
     "description": "A dark dropdown select with glass-effect popup, highlighted states, and a check mark on the selected item.",
     "preview": true,
     "new": true,
+    "previewClass": "w-56",
     "props": [
       { "name": "options", "type": "{ label: string; value: string }[]", "default": "[...]", "description": "Options rendered inside the popup — defaults to a built-in sample list when omitted" },
       { "name": "placeholder", "type": "string", "default": "\"Select an option\"", "description": "Shown when no value is selected" },
-      { "name": "multiSelect", "type": "boolean", "default": "false", "description": "Allow selecting multiple options; the trigger shows selected labels joined by commas", "noChildren": true, "demoWidth": "w-52" },
       { "name": "clearable", "type": "boolean", "default": "false", "description": "Shows an × button when a value is selected; clicking it clears the selection", "noChildren": true, "demoWidth": "w-52" },
       { "name": "loading", "type": "boolean", "default": "false", "description": "Shows a spinner in the trigger; useful while options are being fetched", "noChildren": true, "demoWidth": "w-52" }
     ],
     "usage": [
       { "label": "Default", "code": "<UISelect options={[{ label: 'Design System', value: 'ds' }, { label: 'Component Library', value: 'cl' }, { label: 'Style Guide', value: 'sg' }]} />" },
       { "label": "Clearable", "code": "<UISelect clearable options={[{ label: 'Option A', value: 'a' }, { label: 'Option B', value: 'b' }]} />" },
-      { "label": "Loading", "code": "<UISelect loading placeholder=\"Loading options…\" options={[]} />" },
-      { "label": "Multi-select", "code": "<UISelect multiSelect clearable options={[{ label: 'Design System', value: 'ds' }, { label: 'Component Library', value: 'cl' }, { label: 'Style Guide', value: 'sg' }]} />" }
+      { "label": "Loading", "code": "<UISelect loading placeholder=\"Loading options…\" options={[]} />" }
     ]
   },
 
@@ -148,6 +148,7 @@
     "description": "A range slider with emerald fill track and a thumb that grows on active. Built on Base UI's Slider primitive.",
     "preview": true,
     "new": true,
+    "previewClass": "w-64",
     "props": [
       { "name": "defaultValue", "type": "number[]", "default": "[42]", "description": "Initial value of the slider handle" },
       { "name": "min", "type": "number", "default": "0", "description": "Minimum allowed value" },
@@ -224,6 +225,7 @@
     "description": "A thin 1px rule that divides content. Horizontal (default) splits stacked sections; vertical splits inline items such as nav links.",
     "preview": true,
     "new": true,
+    "previewClass": "w-64",
     "props": [
       { "name": "orientation", "type": "\"horizontal\" | \"vertical\"", "default": "\"horizontal\"", "description": "Direction of the separator line", "noChildren": true, "demoWidth": "w-64" }
     ],
@@ -241,6 +243,7 @@
     "description": "Tab bar with a sliding emerald underline indicator. Panels swap on selection.",
     "preview": true,
     "new": true,
+    "previewClass": "w-80",
     "props": [
       { "name": "tabs", "type": "{ label: string; value: string; content: ReactNode; icon?: ReactNode }[]", "default": "[...]", "description": "Tab definitions — each may include an optional icon" },
       { "name": "defaultValue", "type": "string", "default": "\"overview\"", "description": "Initially active tab value" },
@@ -262,6 +265,7 @@
     "description": "A linear progress bar with optional label and value display. Emerald fill, zinc-800 track.",
     "preview": true,
     "new": true,
+    "previewClass": "w-64",
     "props": [
       { "name": "value", "type": "number", "default": "62", "description": "Progress percentage (0–100)" },
       { "name": "label", "type": "string", "default": "undefined", "description": "Optional label shown above the track" },
@@ -286,6 +290,7 @@
     "description": "Collapsible panels with a chevron indicator that rotates on open. Divided by zinc-800 rules.",
     "preview": true,
     "new": true,
+    "previewClass": "w-80",
     "props": [
       { "name": "items", "type": "{ value: string; title: string; content: string }[]", "default": "[...]", "description": "Array of accordion panels" },
       { "name": "bordered", "type": "boolean", "default": "false", "description": "Wraps the entire accordion in a rounded border", "noChildren": true, "demoWidth": "w-80", "valueLabels": { "false": "Default", "true": "Bordered" } },
@@ -526,6 +531,7 @@
     "description": "Multi-line text input with label, description, error/helper text, resize control, size variants, and a loading overlay.",
     "preview": true,
     "new": true,
+    "previewClass": "w-72",
     "props": [
       { "name": "label", "type": "string", "default": "\"Message\"", "description": "Label rendered above the textarea" },
       { "name": "description", "type": "string", "default": "undefined", "description": "Secondary help text below the label" },
@@ -583,6 +589,7 @@
     "description": "A searchable selection input with multi-select, chip display, clear button, and loading state. Built on Base UI Combobox.",
     "preview": true,
     "new": true,
+    "previewClass": "w-64",
     "props": [
       { "name": "options", "type": "{ label: string; value: string; disabled?: boolean }[]", "default": "[...]", "description": "Selectable options rendered in the popup" },
       { "name": "placeholder", "type": "string", "default": "\"Search…\"", "description": "Input placeholder" },
@@ -611,6 +618,7 @@
     "description": "A date selection input with a calendar popup. Supports single, range, and multi-date selection with min/max constraints.",
     "preview": true,
     "new": true,
+    "previewClass": "w-56",
     "props": [
       { "name": "placeholder", "type": "string", "default": "\"Pick a date\"", "description": "Shown when no date is selected" },
       { "name": "range", "type": "boolean", "default": "false", "description": "Enable date range selection — click start then end date", "noChildren": true, "demoWidth": "w-64", "valueLabels": { "false": "Single", "true": "Range" } },
@@ -636,6 +644,7 @@
     "description": "A form field wrapper providing label, description, and error with accessibility linking. Built on Base UI's Field primitive.",
     "preview": true,
     "new": true,
+    "previewClass": "w-72",
     "props": [
       { "name": "label", "type": "string", "default": "\"Label\"", "description": "Field label linked to the control via htmlFor" },
       { "name": "description", "type": "string", "default": "undefined", "description": "Help text below the label" },

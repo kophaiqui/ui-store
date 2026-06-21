@@ -56,6 +56,7 @@ export type DesignMeta = {
   description: string;
   preview: boolean;
   new: boolean;
+  previewClass?: string;
   props?: PropDef[];
   usage?: UsageExample[];
 };
