@@ -132,7 +132,11 @@ export function getDesignStyle(meta: DesignMeta): string {
 
 export function getDesignsByStyle(styleId: string): Record<string, DesignMeta> {
   const all = getAllDesigns();
-  return Object.fromEntries(
-    Object.entries(all).filter(([, meta]) => getDesignStyle(meta) === styleId)
-  );
+  if (styleId === DEFAULT_STYLE) {
+    return Object.fromEntries(
+      Object.entries(all).filter(([, meta]) => getDesignStyle(meta) === styleId)
+    );
+  }
+  // Non-default styles support all designs via styleConfig prop
+  return all;
 }

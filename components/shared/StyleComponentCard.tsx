@@ -4,7 +4,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import type { DesignMeta } from "@/lib/registry";
 
-type Props = { slug: string; meta: DesignMeta; href?: string };
+type Props = { slug: string; meta: DesignMeta; href?: string; styleConfig?: Record<string, unknown> };
 
 /**
  * A live, interactive component card for the style gallery.
@@ -12,8 +12,8 @@ type Props = { slug: string; meta: DesignMeta; href?: string };
  * inside stays fully interactive (open the accordion, drag the slider, …)
  * without routing away. A subtle "Open" link still leads to the full page.
  */
-export function StyleComponentCard({ slug, meta, href = `/components/${slug}` }: Props) {
-  const Preview = dynamic(
+export function StyleComponentCard({ slug, meta, href = `/components/${slug}`, styleConfig }: Props) {
+  const Preview = dynamic<Record<string, unknown>>(
     () =>
       import(`@/designs/${meta.category}/${slug}/Component`)
         .then((m) => m.default ?? (() => null))
@@ -25,27 +25,21 @@ export function StyleComponentCard({ slug, meta, href = `/components/${slug}` }:
     <div className="group flex flex-col overflow-hidden rounded-xl border border-border/60 bg-card transition-colors hover:border-border">
       {/* Live preview with grid background — fixed height keeps every card aligned */}
       <div className="relative h-[240px] overflow-auto border-b border-border/60 bg-background">
-        {/* Grid with radial fade */}
+        {/* Dot grid */}
         <div
           className="pointer-events-none absolute inset-0"
           style={{
-            backgroundImage:
-              "linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px)",
-            backgroundSize: "28px 28px",
-            maskImage: "radial-gradient(ellipse 70% 70% at 50% 50%, black 0%, transparent 100%)",
-            WebkitMaskImage: "radial-gradient(ellipse 70% 70% at 50% 50%, black 0%, transparent 100%)",
+            backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.045) 1px, transparent 1px)",
+            backgroundSize: "18px 18px",
           }}
         />
         {/* Edge vignette */}
         <div
           className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, var(--background) 100%)",
-          }}
+          style={{ background: "radial-gradient(ellipse 75% 75% at 50% 50%, transparent 30%, rgba(0,0,0,0.32) 100%)" }}
         />
         <div className="relative flex min-h-full items-center justify-center px-6 py-8">
-          <Preview />
+          <Preview {...(styleConfig ? { styleConfig } : {})} />
         </div>
       </div>
 

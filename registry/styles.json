@@ -10,14 +10,14 @@
     "name": "Glass",
     "tagline": "Frosted glassmorphism",
     "description": "Translucent frosted surfaces with backdrop blur, luminous edges, and layered depth floating over colorful backdrops.",
-    "status": "coming-soon",
+    "status": "available",
     "accent": "#38bdf8"
   },
   "minimal": {
     "name": "Minimal",
     "tagline": "Quiet, editorial, monochrome",
     "description": "Hairline borders, generous whitespace, and restrained typography. Nothing on screen but the essentials.",
-    "status": "coming-soon",
+    "status": "available",
     "accent": "#a1a1aa"
   },
   "neobrutalism": {

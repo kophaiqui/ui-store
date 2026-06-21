@@ -44,6 +44,16 @@ export default async function StyleComponentPage({ params }: Props) {
 
   const code = getDesignCode(slug, meta);
 
+  let styleConfig: Record<string, unknown> | undefined;
+  if (style !== "default") {
+    try {
+      const mod = await import(`@/designs/${meta.category}/${slug}/styles/${style}`);
+      styleConfig = mod[`${style}Style`] as Record<string, unknown> | undefined;
+    } catch {
+      // style file missing — fall back to default
+    }
+  }
+
   return (
     <div className="max-w-4xl px-8 py-10">
       {/* Breadcrumb */}
@@ -83,7 +93,7 @@ export default async function StyleComponentPage({ params }: Props) {
       </p>
 
       <Section label="Preview">
-        <DesignViewer slug={slug} meta={meta} code={code} />
+        <DesignViewer slug={slug} meta={meta} code={code} styleConfig={styleConfig} />
       </Section>
 
       {meta.props && meta.props.length > 0 && (
@@ -93,6 +103,7 @@ export default async function StyleComponentPage({ params }: Props) {
             category={meta.category}
             props={meta.props}
             componentName={"UI" + meta.name.replace(/\s+/g, "")}
+            styleConfig={styleConfig}
           />
         </Section>
       )}

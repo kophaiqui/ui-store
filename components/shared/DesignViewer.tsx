@@ -63,9 +63,9 @@ function fixJSXHighlight(html: string): string {
     .join("");
 }
 
-type Props = { slug: string; meta: DesignMeta; code: string };
+type Props = { slug: string; meta: DesignMeta; code: string; styleConfig?: Record<string, unknown> };
 
-export function DesignViewer({ slug, meta, code }: Props) {
+export function DesignViewer({ slug, meta, code, styleConfig }: Props) {
   const [tab, setTab] = useState<"preview" | "code">("preview");
 
   const highlighted = useMemo(
@@ -73,7 +73,7 @@ export function DesignViewer({ slug, meta, code }: Props) {
     [code]
   );
 
-  const Preview = dynamic(
+  const Preview = dynamic<Record<string, unknown>>(
     () =>
       import(`@/designs/${meta.category}/${slug}/Component`)
         .then((m) => m.default ?? (() => null))
@@ -120,7 +120,7 @@ export function DesignViewer({ slug, meta, code }: Props) {
             style={{ background: "radial-gradient(ellipse 75% 75% at 50% 50%, transparent 30%, rgba(0,0,0,0.32) 100%)" }}
           />
           <div className={cn("relative flex items-center justify-center", meta.previewClass ?? "w-full")}>
-            <Preview />
+            <Preview {...(styleConfig ? { styleConfig } : {})} />
           </div>
         </div>
       ) : (

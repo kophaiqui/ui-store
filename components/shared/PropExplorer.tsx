@@ -68,9 +68,10 @@ type Props = {
   category: string;
   props: PropDef[];
   componentName?: string;
+  styleConfig?: Record<string, unknown>;
 };
 
-export function PropExplorer({ slug, category, props, componentName }: Props) {
+export function PropExplorer({ slug, category, props, componentName, styleConfig }: Props) {
   const [activeProp, setActiveProp] = useState<string | null>(null);
   const [propTab, setPropTab] = useState<"preview" | "code">("preview");
 
@@ -234,6 +235,7 @@ export function PropExplorer({ slug, category, props, componentName }: Props) {
                     ...defaults,
                     ...parsedCompanions,
                     [selected.name]: propValue,
+                    ...(styleConfig ? { styleConfig } : {}),
                   };
                   if (!isBool && !selected.noChildren) overrides.children = capitalize(val);
 

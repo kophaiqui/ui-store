@@ -38,6 +38,20 @@ export default async function StyleDetailPage({ params }: Props) {
   );
   const total = Object.keys(designs).length;
 
+  // Load all style configs in parallel so cards render with the correct style
+  const styleConfigEntries = await Promise.all(
+    Object.entries(designs).map(async ([slug, m]) => {
+      if (style === "default") return [slug, undefined] as const;
+      try {
+        const mod = await import(`@/designs/${m.category}/${slug}/styles/${style}`);
+        return [slug, mod[`${style}Style`] as Record<string, unknown>] as const;
+      } catch {
+        return [slug, undefined] as const;
+      }
+    })
+  );
+  const styleConfigMap = Object.fromEntries(styleConfigEntries);
+
   return (
     <div className="px-8 py-10">
       <Breadcrumb name={meta.name} />
@@ -60,7 +74,12 @@ export default async function StyleDetailPage({ params }: Props) {
             <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
               {items.map(([slug, m]) => (
                 <div key={slug} id={slug} className="scroll-mt-24">
-                  <StyleComponentCard slug={slug} meta={m} href={`/style/${style}/${slug}`} />
+                  <StyleComponentCard
+                    slug={slug}
+                    meta={m}
+                    href={`/style/${style}/${slug}`}
+                    styleConfig={styleConfigMap[slug]}
+                  />
                 </div>
               ))}
             </div>
