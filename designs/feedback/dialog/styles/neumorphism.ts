@@ -1,0 +1,12 @@
+import type { DialogStyleConfig } from "./default";
+export type { DialogStyleConfig };
+
+export const neumorphismStyle: DialogStyleConfig = {
+  trigger: "inline-flex h-9 items-center justify-center gap-2 rounded-2xl bg-[#e8ecf1] px-4 text-sm font-semibold text-slate-700 shadow-[4px_4px_8px_rgba(163,177,198,0.5),-4px_-4px_8px_rgba(255,255,255,0.7)] transition-all duration-200 hover:shadow-[2px_2px_5px_rgba(163,177,198,0.4),-2px_-2px_5px_rgba(255,255,255,0.6)] active:shadow-[inset_2px_2px_5px_rgba(163,177,198,0.5),inset_-2px_-2px_5px_rgba(255,255,255,0.7)] focus-visible:outline-none",
+  backdrop: "fixed inset-0 z-40 bg-[#e8ecf1]/60 backdrop-blur-sm",
+  popup: "fixed left-1/2 top-1/2 z-50 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-3xl bg-[#e8ecf1] p-6 shadow-[12px_12px_24px_rgba(163,177,198,0.6),-12px_-12px_24px_rgba(255,255,255,0.8)]",
+  title: "mb-2 text-base font-semibold tracking-tight text-slate-800",
+  description: "mb-6 text-sm leading-relaxed text-slate-500",
+  cancelBtn: "inline-flex h-8 items-center rounded-xl bg-[#e8ecf1] px-3 text-sm font-medium text-slate-600 shadow-[3px_3px_6px_rgba(163,177,198,0.5),-3px_-3px_6px_rgba(255,255,255,0.7)] hover:shadow-[1px_1px_3px_rgba(163,177,198,0.4),-1px_-1px_3px_rgba(255,255,255,0.6)] active:shadow-[inset_2px_2px_5px_rgba(163,177,198,0.5),inset_-2px_-2px_5px_rgba(255,255,255,0.7)] transition-all duration-150 focus-visible:outline-none",
+  confirmBtn: "inline-flex h-8 items-center rounded-xl bg-[#e8ecf1] px-3 text-sm font-semibold text-blue-600 shadow-[3px_3px_6px_rgba(163,177,198,0.5),-3px_-3px_6px_rgba(255,255,255,0.7)] hover:shadow-[1px_1px_3px_rgba(163,177,198,0.4),-1px_-1px_3px_rgba(255,255,255,0.6)] active:shadow-[inset_2px_2px_5px_rgba(163,177,198,0.5),inset_-2px_-2px_5px_rgba(255,255,255,0.7)] transition-all duration-150 focus-visible:outline-none",
+};
