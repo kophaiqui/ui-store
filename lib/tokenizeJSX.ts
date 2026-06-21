@@ -70,9 +70,6 @@ export const TT_CLS: Record<TT, string> = {
 };
 
 export const GRID_BG: React.CSSProperties = {
-  backgroundImage:
-    "linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px)",
-  backgroundSize: "28px 28px",
-  maskImage: "radial-gradient(ellipse 70% 70% at 50% 50%, black 0%, transparent 100%)",
-  WebkitMaskImage: "radial-gradient(ellipse 70% 70% at 50% 50%, black 0%, transparent 100%)",
+  backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.045) 1px, transparent 1px)",
+  backgroundSize: "18px 18px",
 };

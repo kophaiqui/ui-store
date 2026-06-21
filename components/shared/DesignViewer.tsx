@@ -105,20 +105,19 @@ export function DesignViewer({ slug, meta, code }: Props) {
 
       {/* Preview — always mounted */}
       {tab === "preview" ? (
-        <div className="relative flex min-h-[280px] items-center justify-center overflow-hidden bg-background px-8 py-12">
+        <div className="relative flex min-h-[280px] items-center justify-center overflow-hidden bg-card px-8 py-12">
+          {/* Dot grid */}
           <div
             className="pointer-events-none absolute inset-0"
             style={{
-              backgroundImage:
-                "linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px)",
-              backgroundSize: "28px 28px",
-              maskImage: "radial-gradient(ellipse 70% 70% at 50% 50%, black 0%, transparent 100%)",
-              WebkitMaskImage: "radial-gradient(ellipse 70% 70% at 50% 50%, black 0%, transparent 100%)",
+              backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.045) 1px, transparent 1px)",
+              backgroundSize: "18px 18px",
             }}
           />
+          {/* Edge vignette — darkens corners, stages the component */}
           <div
             className="pointer-events-none absolute inset-0"
-            style={{ background: "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, var(--background) 100%)" }}
+            style={{ background: "radial-gradient(ellipse 75% 75% at 50% 50%, transparent 30%, rgba(0,0,0,0.32) 100%)" }}
           />
           <div className={cn("relative flex items-center justify-center", meta.previewClass ?? "w-full")}>
             <Preview />

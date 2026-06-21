@@ -86,27 +86,17 @@ export function ComponentPanel({ slug, meta }: Props) {
 
       {/* Panel body */}
       {tab === "preview" ? (
-        <div className="relative flex min-h-[180px] items-center justify-center overflow-hidden bg-background px-8 py-10">
-          {/* Grid with radial fade — visible at center, transparent at edges */}
+        <div className="relative flex min-h-[180px] items-center justify-center overflow-hidden bg-card px-8 py-10">
           <div
             className="pointer-events-none absolute inset-0"
             style={{
-              backgroundImage:
-                "linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px)",
-              backgroundSize: "28px 28px",
-              maskImage:
-                "radial-gradient(ellipse 70% 70% at 50% 50%, black 0%, transparent 100%)",
-              WebkitMaskImage:
-                "radial-gradient(ellipse 70% 70% at 50% 50%, black 0%, transparent 100%)",
+              backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.045) 1px, transparent 1px)",
+              backgroundSize: "18px 18px",
             }}
           />
-          {/* Edge vignette to blend grid into background */}
           <div
             className="pointer-events-none absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, var(--background) 100%)",
-            }}
+            style={{ background: "radial-gradient(ellipse 75% 75% at 50% 50%, transparent 30%, rgba(0,0,0,0.32) 100%)" }}
           />
           <div className="relative">
             <Preview />

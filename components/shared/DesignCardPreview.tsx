@@ -22,23 +22,19 @@ export function DesignCardPreview({ slug, meta, linkBase = "/components", showNe
       className="group flex flex-col overflow-hidden rounded-xl border border-border/60 bg-card shadow-[0_2px_12px_rgba(0,0,0,0.08)] dark:shadow-[0_2px_16px_rgba(0,0,0,0.4)] transition-all hover:border-border hover:shadow-[0_6px_24px_rgba(0,0,0,0.13)] dark:hover:shadow-[0_6px_28px_rgba(0,0,0,0.6)]"
     >
       {/* Preview area */}
-      <div className="relative flex h-[160px] shrink-0 items-center justify-center overflow-hidden bg-background px-6 py-8">
-        {/* Grid bg — fades from center */}
+      <div className="relative flex h-[160px] shrink-0 items-center justify-center overflow-hidden bg-card px-6 py-8">
+        {/* Dot grid */}
         <div
           className="pointer-events-none absolute inset-0"
           style={{
-            backgroundImage:
-              "linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px)",
-            backgroundSize: "20px 20px",
-            maskImage: "radial-gradient(ellipse 65% 65% at 50% 50%, black 0%, transparent 100%)",
-            WebkitMaskImage: "radial-gradient(ellipse 65% 65% at 50% 50%, black 0%, transparent 100%)",
+            backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.045) 1px, transparent 1px)",
+            backgroundSize: "16px 16px",
           }}
         />
+        {/* Edge vignette */}
         <div
           className="pointer-events-none absolute inset-0"
-          style={{
-            background: "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 30%, var(--background) 100%)",
-          }}
+          style={{ background: "radial-gradient(ellipse 70% 70% at 50% 50%, transparent 20%, rgba(0,0,0,0.35) 100%)" }}
         />
         <div className={cn("relative pointer-events-none select-none", meta.previewClass)}>
           <Preview />
