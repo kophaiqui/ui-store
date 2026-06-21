@@ -86,7 +86,7 @@ export function UIField({
           {children ?? <DefaultInput id={id} name={name} disabled={loading || disabled} />}
         </Field.Control>
         {error && (
-          <Field.Error className={styleConfig.error} forceShow>
+          <Field.Error className={styleConfig.error} match>
             {error}
           </Field.Error>
         )}

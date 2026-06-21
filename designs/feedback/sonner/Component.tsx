@@ -62,7 +62,7 @@ function CloseIcon() {
   );
 }
 
-function ToastItem({ toast, styleConfig }: { toast: Toast.ToastObject<ToastData>; styleConfig: SonnerStyleConfig }) {
+function ToastItem({ toast, styleConfig }: { toast: Toast.Root.ToastObject<ToastData>; styleConfig: SonnerStyleConfig }) {
   const type = toast.data?.type ?? "default";
   return (
     <Toast.Root
