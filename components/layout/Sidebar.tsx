@@ -251,6 +251,189 @@ function PopoverIcon({ className }: IconProps) {
   );
 }
 
+function TextareaIcon({ className }: IconProps) {
+  return (
+    <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className={className}>
+      <rect x="2" y="3" width="20" height="18" rx="2" />
+      <line x1="6" y1="8" x2="18" y2="8" strokeWidth="1.5" />
+      <line x1="6" y1="12" x2="18" y2="12" strokeWidth="1.5" />
+      <line x1="6" y1="16" x2="13" y2="16" strokeWidth="1.5" />
+    </svg>
+  );
+}
+
+function RadioIcon({ className }: IconProps) {
+  return (
+    <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className={className}>
+      <circle cx="12" cy="12" r="9" />
+      <circle cx="12" cy="12" r="3.5" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function ComboboxIcon({ className }: IconProps) {
+  return (
+    <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className={className}>
+      <rect x="2" y="5" width="20" height="14" rx="2" />
+      <line x1="6" y1="12" x2="12" y2="12" strokeWidth="1.5" />
+      <polyline points="15 9 18 12 15 15" strokeWidth="1.8" />
+    </svg>
+  );
+}
+
+function DatePickerIcon({ className }: IconProps) {
+  return (
+    <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className={className}>
+      <rect x="3" y="5" width="18" height="16" rx="2" />
+      <line x1="3" y1="10" x2="21" y2="10" />
+      <line x1="8" y1="3" x2="8" y2="7" />
+      <line x1="16" y1="3" x2="16" y2="7" />
+      <circle cx="12" cy="15" r="1.5" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function FieldIcon({ className }: IconProps) {
+  return (
+    <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className={className}>
+      <rect x="2" y="8" width="20" height="10" rx="2" />
+      <line x1="2" y1="5" x2="10" y2="5" strokeWidth="1.5" />
+      <line x1="6" y1="13" x2="10" y2="13" strokeWidth="1.5" />
+      <line x1="10" y1="11" x2="10" y2="15" strokeWidth="1.5" />
+    </svg>
+  );
+}
+
+function TableIcon({ className }: IconProps) {
+  return (
+    <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className={className}>
+      <rect x="2" y="3" width="20" height="18" rx="2" />
+      <line x1="2" y1="9" x2="22" y2="9" />
+      <line x1="2" y1="15" x2="22" y2="15" />
+      <line x1="9" y1="9" x2="9" y2="21" />
+    </svg>
+  );
+}
+
+function DataTableIcon({ className }: IconProps) {
+  return (
+    <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className={className}>
+      <rect x="2" y="3" width="20" height="18" rx="2" />
+      <line x1="2" y1="9" x2="22" y2="9" />
+      <line x1="2" y1="15" x2="22" y2="15" />
+      <line x1="8" y1="9" x2="8" y2="21" />
+      <line x1="15" y1="9" x2="15" y2="21" />
+    </svg>
+  );
+}
+
+
+function EmptyIcon({ className }: IconProps) {
+  return (
+    <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className={className}>
+      <rect x="3" y="3" width="18" height="18" rx="2" strokeDasharray="3 2" />
+      <line x1="9" y1="12" x2="15" y2="12" strokeWidth="1.5" />
+    </svg>
+  );
+}
+
+function AlertDialogIcon({ className }: IconProps) {
+  return (
+    <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className={className}>
+      <rect x="3" y="4" width="18" height="16" rx="2" />
+      <line x1="3" y1="9" x2="21" y2="9" />
+      <line x1="12" y1="13" x2="12" y2="16" strokeLinecap="round" />
+      <circle cx="12" cy="12.5" r="0.6" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function SonnerIcon({ className }: IconProps) {
+  return (
+    <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className={className}>
+      <rect x="3" y="13" width="18" height="8" rx="2" />
+      <circle cx="7.5" cy="17" r="1.5" fill="currentColor" stroke="none" />
+      <line x1="10.5" y1="15.5" x2="17" y2="15.5" strokeWidth="1.5" />
+      <line x1="10.5" y1="18.5" x2="15" y2="18.5" strokeWidth="1.5" />
+      <line x1="12" y1="4" x2="12" y2="9" strokeWidth="1.5" strokeLinecap="round" />
+      <line x1="8" y1="5.5" x2="10" y2="7.5" strokeWidth="1.5" strokeLinecap="round" />
+      <line x1="16" y1="5.5" x2="14" y2="7.5" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function SpinnerIcon({ className }: IconProps) {
+  return (
+    <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className={className}>
+      <circle cx="12" cy="12" r="9" strokeOpacity="0.25" />
+      <path d="M12 3a9 9 0 0 1 9 9" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function DrawerIcon({ className }: IconProps) {
+  return (
+    <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className={className}>
+      <rect x="2" y="3" width="22" height="18" rx="2" />
+      <line x1="15" y1="3" x2="15" y2="21" />
+    </svg>
+  );
+}
+
+function SheetIcon({ className }: IconProps) {
+  return (
+    <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className={className}>
+      <rect x="2" y="3" width="22" height="18" rx="2" />
+      <line x1="17" y1="3" x2="17" y2="21" />
+      <line x1="20" y1="8" x2="20" y2="16" strokeOpacity="0.4" />
+    </svg>
+  );
+}
+
+function SidebarNavIcon({ className }: IconProps) {
+  return (
+    <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className={className}>
+      <rect x="2" y="3" width="20" height="18" rx="2" />
+      <line x1="9" y1="3" x2="9" y2="21" />
+      <line x1="12" y1="8" x2="20" y2="8" strokeWidth="1.5" strokeOpacity="0.5" />
+      <line x1="12" y1="12" x2="20" y2="12" strokeWidth="1.5" strokeOpacity="0.5" />
+    </svg>
+  );
+}
+
+function BreadcrumbIcon({ className }: IconProps) {
+  return (
+    <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className={className}>
+      <line x1="2" y1="12" x2="22" y2="12" strokeWidth="1.5" />
+      <circle cx="5" cy="12" r="2" fill="currentColor" stroke="none" />
+      <polyline points="11 9 14 12 11 15" strokeWidth="1.8" />
+      <circle cx="18" cy="12" r="2" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function CommandIcon({ className }: IconProps) {
+  return (
+    <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className={className}>
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <line x1="3" y1="9" x2="21" y2="9" />
+      <line x1="7" y1="9" x2="7" y2="21" strokeWidth="1.5" strokeOpacity="0.5" />
+      <line x1="7" y1="14" x2="17" y2="14" strokeWidth="1.5" />
+    </svg>
+  );
+}
+
+function PaginationIcon({ className }: IconProps) {
+  return (
+    <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className={className}>
+      <rect x="2" y="8" width="4" height="8" rx="1" />
+      <rect x="8" y="8" width="4" height="8" rx="1" fill="currentColor" stroke="none" />
+      <rect x="14" y="8" width="4" height="8" rx="1" />
+      <rect x="20" y="8" width="3" height="8" rx="1" />
+    </svg>
+  );
+}
+
 const SLUG_ICONS: Record<string, (props: IconProps) => React.ReactElement> = {
   button: ButtonIcon,
   checkbox: CheckboxIcon,
@@ -273,6 +456,24 @@ const SLUG_ICONS: Record<string, (props: IconProps) => React.ReactElement> = {
   alert: AlertIcon,
   toast: ToastIcon,
   "dropdown-menu": DropdownMenuIcon,
+  textarea: TextareaIcon,
+  radio: RadioIcon,
+  combobox: ComboboxIcon,
+  "date-picker": DatePickerIcon,
+  field: FieldIcon,
+  table: TableIcon,
+  "data-table": DataTableIcon,
+
+  empty: EmptyIcon,
+  "alert-dialog": AlertDialogIcon,
+  sonner: SonnerIcon,
+  spinner: SpinnerIcon,
+  drawer: DrawerIcon,
+  sheet: SheetIcon,
+  sidebar: SidebarNavIcon,
+  breadcrumb: BreadcrumbIcon,
+  command: CommandIcon,
+  pagination: PaginationIcon,
 };
 
 function getSlug(href: string) {

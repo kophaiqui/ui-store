@@ -3,969 +3,3250 @@
     "name": "Button",
     "category": "inputs",
     "style": "default",
-    "tags": ["button", "interactive", "action", "base-ui"],
-    "description": "6 variants · 3 sizes · 3 shapes · disabled + loading states. Built on Base UI's Button primitive.",
+    "tags": [
+      "button",
+      "interactive",
+      "action",
+      "base-ui"
+    ],
+    "description": "6 variants \u00b7 3 sizes \u00b7 3 shapes \u00b7 disabled + loading states. Built on Base UI's Button primitive.",
     "preview": true,
     "new": true,
     "props": [
-      { "name": "variant", "type": "\"solid\" | \"outline\" | \"ghost\" | \"soft\" | \"link\" | \"destructive\"", "default": "\"solid\"", "description": "Visual style of the button" },
-      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Controls height, padding, and font size" },
-      { "name": "shape", "type": "\"default\" | \"pill\" | \"square\"", "default": "\"default\"", "description": "Border radius and aspect ratio" },
-      { "name": "icon", "type": "ReactNode", "default": "undefined", "description": "Icon element rendered beside the label" },
-      { "name": "iconPosition", "type": "\"left\" | \"right\"", "default": "\"left\"", "description": "Side the icon appears on", "companions": { "icon": "auto" } },
-      { "name": "iconOnly", "type": "boolean", "default": "false", "description": "Show only the icon — hides the text label and forces square sizing. Use children for accessible screen-reader text.", "companions": { "icon": "auto" } },
-      { "name": "fullWidth", "type": "boolean", "default": "false", "description": "Stretches button to fill its container", "demoWidth": "w-48" },
-      { "name": "type", "type": "\"button\" | \"submit\" | \"reset\"", "default": "\"button\"", "description": "Native button type attribute" },
-      { "name": "loading", "type": "boolean", "default": "false", "description": "Replaces leading content with a spinner; disables interaction" },
-      { "name": "loadingPosition", "type": "\"start\" | \"center\"", "default": "\"start\"", "description": "Where the spinner appears — start prepends it beside the label, center hides the label and centers the spinner", "companions": { "loading": "true" } },
-      { "name": "pressed", "type": "boolean", "default": "undefined", "description": "Toggle state for aria-pressed buttons — applies a depressed visual and sets aria-pressed on the element", "valueLabels": { "false": "Default", "true": "Pressed" } },
-      { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables interaction and reduces opacity to 40%" }
+      {
+        "name": "variant",
+        "type": "\"solid\" | \"outline\" | \"ghost\" | \"soft\" | \"link\" | \"destructive\"",
+        "default": "\"solid\"",
+        "description": "Visual style of the button"
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\" | \"lg\"",
+        "default": "\"md\"",
+        "description": "Controls height, padding, and font size"
+      },
+      {
+        "name": "shape",
+        "type": "\"default\" | \"pill\" | \"square\"",
+        "default": "\"default\"",
+        "description": "Border radius and aspect ratio"
+      },
+      {
+        "name": "icon",
+        "type": "ReactNode",
+        "default": "undefined",
+        "description": "Icon element rendered beside the label"
+      },
+      {
+        "name": "iconPosition",
+        "type": "\"left\" | \"right\"",
+        "default": "\"left\"",
+        "description": "Side the icon appears on",
+        "companions": {
+          "icon": "auto"
+        }
+      },
+      {
+        "name": "iconOnly",
+        "type": "boolean",
+        "default": "false",
+        "description": "Show only the icon \u2014 hides the text label and forces square sizing. Use children for accessible screen-reader text.",
+        "companions": {
+          "icon": "auto"
+        }
+      },
+      {
+        "name": "fullWidth",
+        "type": "boolean",
+        "default": "false",
+        "description": "Stretches button to fill its container",
+        "demoWidth": "w-48"
+      },
+      {
+        "name": "type",
+        "type": "\"button\" | \"submit\" | \"reset\"",
+        "default": "\"button\"",
+        "description": "Native button type attribute"
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "default": "false",
+        "description": "Replaces leading content with a spinner; disables interaction"
+      },
+      {
+        "name": "loadingPosition",
+        "type": "\"start\" | \"center\"",
+        "default": "\"start\"",
+        "description": "Where the spinner appears \u2014 start prepends it beside the label, center hides the label and centers the spinner",
+        "companions": {
+          "loading": "true"
+        }
+      },
+      {
+        "name": "pressed",
+        "type": "boolean",
+        "default": "undefined",
+        "description": "Toggle state for aria-pressed buttons \u2014 applies a depressed visual and sets aria-pressed on the element",
+        "valueLabels": {
+          "false": "Default",
+          "true": "Pressed"
+        }
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "default": "false",
+        "description": "Disables interaction and reduces opacity to 40%"
+      }
     ],
     "usage": [
-      { "label": "Variants", "code": "<UIButton variant=\"solid\">Solid</UIButton>\n<UIButton variant=\"outline\">Outline</UIButton>\n<UIButton variant=\"ghost\">Ghost</UIButton>\n<UIButton variant=\"soft\">Soft</UIButton>\n<UIButton variant=\"link\">Link</UIButton>\n<UIButton variant=\"destructive\">Destructive</UIButton>" },
-      { "label": "Sizes", "code": "<UIButton size=\"sm\">Small</UIButton>\n<UIButton size=\"md\">Medium</UIButton>\n<UIButton size=\"lg\">Large</UIButton>" },
-      { "label": "Shapes", "code": "<UIButton shape=\"default\">Default</UIButton>\n<UIButton shape=\"pill\">Pill</UIButton>\n<UIButton shape=\"square\" size=\"md\">A</UIButton>" },
-      { "label": "States", "code": "<UIButton loading>Saving…</UIButton>\n<UIButton loading loadingPosition=\"center\">Saving…</UIButton>\n<UIButton disabled>Disabled</UIButton>\n<UIButton fullWidth>Full width</UIButton>" },
-      { "label": "Pressed", "code": "<UIButton pressed={true} variant=\"outline\">Bold</UIButton>" }
+      {
+        "label": "Variants",
+        "code": "<UIButton variant=\"solid\">Solid</UIButton>\n<UIButton variant=\"outline\">Outline</UIButton>\n<UIButton variant=\"ghost\">Ghost</UIButton>\n<UIButton variant=\"soft\">Soft</UIButton>\n<UIButton variant=\"link\">Link</UIButton>\n<UIButton variant=\"destructive\">Destructive</UIButton>"
+      },
+      {
+        "label": "Sizes",
+        "code": "<UIButton size=\"sm\">Small</UIButton>\n<UIButton size=\"md\">Medium</UIButton>\n<UIButton size=\"lg\">Large</UIButton>"
+      },
+      {
+        "label": "Shapes",
+        "code": "<UIButton shape=\"default\">Default</UIButton>\n<UIButton shape=\"pill\">Pill</UIButton>\n<UIButton shape=\"square\" size=\"md\">A</UIButton>"
+      },
+      {
+        "label": "States",
+        "code": "<UIButton loading>Saving\u2026</UIButton>\n<UIButton loading loadingPosition=\"center\">Saving\u2026</UIButton>\n<UIButton disabled>Disabled</UIButton>\n<UIButton fullWidth>Full width</UIButton>"
+      },
+      {
+        "label": "Pressed",
+        "code": "<UIButton pressed={true} variant=\"outline\">Bold</UIButton>"
+      }
     ]
   },
-
   "checkbox": {
     "name": "Checkbox",
     "category": "inputs",
     "style": "default",
-    "tags": ["checkbox", "form", "selection", "base-ui"],
+    "tags": [
+      "checkbox",
+      "form",
+      "selection",
+      "base-ui"
+    ],
     "description": "An accessible checkbox with emerald checked state and optional label. Built on Base UI's Checkbox primitive.",
     "preview": true,
     "new": true,
     "props": [
-      { "name": "label", "type": "string", "default": "undefined", "description": "Label rendered beside the checkbox" },
-      { "name": "description", "type": "string", "default": "undefined", "description": "Secondary help text rendered below the label" },
-      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Controls the checkbox and indicator size", "noChildren": true, "companions": { "label": "Accept terms" } },
-      { "name": "indeterminate", "type": "boolean", "default": "false", "description": "Shows a dash instead of a checkmark; used for partial selection", "noChildren": true, "companions": { "label": "Select all", "defaultChecked": "true" } },
-      { "name": "checked", "type": "boolean", "default": "undefined", "description": "Controlled checked state — use with onCheckedChange for fully controlled behavior" },
-      { "name": "defaultChecked", "type": "boolean", "default": "false", "description": "Initial checked state for uncontrolled use" },
-      { "name": "onCheckedChange", "type": "(checked: boolean) => void", "default": "undefined", "description": "Callback fired when checked state changes" },
-      { "name": "name", "type": "string", "default": "undefined", "description": "Form field name for native form submission" },
-      { "name": "value", "type": "string", "default": "undefined", "description": "Form value submitted when the checkbox is checked" },
-      { "name": "required", "type": "boolean", "default": "false", "description": "Marks the field as required for form validation — adds a red asterisk next to the label", "companions": { "label": "I agree to the terms" }, "valueLabels": { "false": "Optional", "true": "Required" } },
-      { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables interaction and reduces opacity" }
+      {
+        "name": "label",
+        "type": "string",
+        "default": "undefined",
+        "description": "Label rendered beside the checkbox"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "default": "undefined",
+        "description": "Secondary help text rendered below the label"
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\" | \"lg\"",
+        "default": "\"md\"",
+        "description": "Controls the checkbox and indicator size",
+        "noChildren": true,
+        "companions": {
+          "label": "Accept terms"
+        }
+      },
+      {
+        "name": "indeterminate",
+        "type": "boolean",
+        "default": "false",
+        "description": "Shows a dash instead of a checkmark; used for partial selection",
+        "noChildren": true,
+        "companions": {
+          "label": "Select all",
+          "defaultChecked": "true"
+        }
+      },
+      {
+        "name": "checked",
+        "type": "boolean",
+        "default": "undefined",
+        "description": "Controlled checked state \u2014 use with onCheckedChange for fully controlled behavior"
+      },
+      {
+        "name": "defaultChecked",
+        "type": "boolean",
+        "default": "false",
+        "description": "Initial checked state for uncontrolled use"
+      },
+      {
+        "name": "onCheckedChange",
+        "type": "(checked: boolean) => void",
+        "default": "undefined",
+        "description": "Callback fired when checked state changes"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "default": "undefined",
+        "description": "Form field name for native form submission"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "default": "undefined",
+        "description": "Form value submitted when the checkbox is checked"
+      },
+      {
+        "name": "required",
+        "type": "boolean",
+        "default": "false",
+        "description": "Marks the field as required for form validation \u2014 adds a red asterisk next to the label",
+        "companions": {
+          "label": "I agree to the terms"
+        },
+        "valueLabels": {
+          "false": "Optional",
+          "true": "Required"
+        }
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "default": "false",
+        "description": "Disables interaction and reduces opacity"
+      }
     ],
     "usage": [
-      { "label": "With label", "code": "<UICheckbox label=\"Accept terms\" />" },
-      { "label": "With description", "code": "<UICheckbox label=\"Marketing emails\" description=\"Receive updates about new components and features.\" />" },
-      { "label": "Sizes", "code": "<UICheckbox size=\"sm\" label=\"Small\" />\n<UICheckbox size=\"md\" label=\"Medium\" />\n<UICheckbox size=\"lg\" label=\"Large\" />" },
-      { "label": "Indeterminate", "code": "<UICheckbox indeterminate defaultChecked label=\"Select all\" />" },
-      { "label": "Disabled", "code": "<UICheckbox label=\"Locked\" disabled />" }
+      {
+        "label": "With label",
+        "code": "<UICheckbox label=\"Accept terms\" />"
+      },
+      {
+        "label": "With description",
+        "code": "<UICheckbox label=\"Marketing emails\" description=\"Receive updates about new components and features.\" />"
+      },
+      {
+        "label": "Sizes",
+        "code": "<UICheckbox size=\"sm\" label=\"Small\" />\n<UICheckbox size=\"md\" label=\"Medium\" />\n<UICheckbox size=\"lg\" label=\"Large\" />"
+      },
+      {
+        "label": "Indeterminate",
+        "code": "<UICheckbox indeterminate defaultChecked label=\"Select all\" />"
+      },
+      {
+        "label": "Disabled",
+        "code": "<UICheckbox label=\"Locked\" disabled />"
+      }
     ]
   },
-
   "input": {
     "name": "Input",
     "category": "inputs",
     "style": "default",
-    "tags": ["input", "text", "form", "base-ui"],
+    "tags": [
+      "input",
+      "text",
+      "form",
+      "base-ui"
+    ],
     "description": "A dark text input with inset shadow, emerald focus ring, and full disabled/read-only state support.",
     "preview": true,
     "new": true,
     "previewClass": "w-72",
     "props": [
-      { "name": "variant", "type": "\"outline\" | \"filled\" | \"ghost\"", "default": "\"outline\"", "description": "Surface style — outline adds border, filled uses a background, ghost is borderless", "noChildren": true, "companions": { "placeholder": "Placeholder" } },
-      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Controls input height and font size", "noChildren": true, "companions": { "placeholder": "Placeholder" } },
-      { "name": "type", "type": "\"text\" | \"email\" | \"password\" | \"number\" | \"search\"", "default": "\"text\"", "description": "Native input type — affects keyboard, autofill hints, and browser behaviour", "noChildren": true },
-      { "name": "label", "type": "string", "default": "undefined", "description": "Label rendered above the input; automatically linked via htmlFor" },
-      { "name": "helperText", "type": "string", "default": "undefined", "description": "Subtle help text shown below the input (hidden when error is present)" },
-      { "name": "prefix", "type": "ReactNode", "default": "undefined", "description": "Content pinned to the left inside the input — icon, currency symbol, or text" },
-      { "name": "suffix", "type": "ReactNode", "default": "undefined", "description": "Content pinned to the right inside the input — icon or unit label" },
-      { "name": "clearable", "type": "boolean", "default": "false", "description": "Shows an × button when the input has a value; clicking it clears the field", "noChildren": true, "companions": { "placeholder": "Type something" } },
-      { "name": "error", "type": "boolean | string", "default": "false", "description": "Error state — pass a string to show an error message below", "noChildren": true, "companions": { "placeholder": "Email address" } },
-      { "name": "placeholder", "type": "string", "default": "undefined", "description": "Placeholder text shown when empty" },
-      { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables input and reduces opacity", "noChildren": true, "companions": { "placeholder": "Placeholder" } },
-      { "name": "readOnly", "type": "boolean", "default": "false", "description": "Makes the input read-only", "noChildren": true, "companions": { "placeholder": "Placeholder", "defaultValue": "Read-only value" } }
+      {
+        "name": "variant",
+        "type": "\"outline\" | \"filled\" | \"ghost\"",
+        "default": "\"outline\"",
+        "description": "Surface style \u2014 outline adds border, filled uses a background, ghost is borderless",
+        "noChildren": true,
+        "companions": {
+          "placeholder": "Placeholder"
+        }
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\" | \"lg\"",
+        "default": "\"md\"",
+        "description": "Controls input height and font size",
+        "noChildren": true,
+        "companions": {
+          "placeholder": "Placeholder"
+        }
+      },
+      {
+        "name": "type",
+        "type": "\"text\" | \"email\" | \"password\" | \"number\" | \"search\"",
+        "default": "\"text\"",
+        "description": "Native input type \u2014 affects keyboard, autofill hints, and browser behaviour",
+        "noChildren": true
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "undefined",
+        "description": "Label rendered above the input; automatically linked via htmlFor"
+      },
+      {
+        "name": "helperText",
+        "type": "string",
+        "default": "undefined",
+        "description": "Subtle help text shown below the input (hidden when error is present)"
+      },
+      {
+        "name": "prefix",
+        "type": "ReactNode",
+        "default": "undefined",
+        "description": "Content pinned to the left inside the input \u2014 icon, currency symbol, or text"
+      },
+      {
+        "name": "suffix",
+        "type": "ReactNode",
+        "default": "undefined",
+        "description": "Content pinned to the right inside the input \u2014 icon or unit label"
+      },
+      {
+        "name": "clearable",
+        "type": "boolean",
+        "default": "false",
+        "description": "Shows an \u00d7 button when the input has a value; clicking it clears the field",
+        "noChildren": true,
+        "companions": {
+          "placeholder": "Type something"
+        }
+      },
+      {
+        "name": "error",
+        "type": "boolean | string",
+        "default": "false",
+        "description": "Error state \u2014 pass a string to show an error message below",
+        "noChildren": true,
+        "companions": {
+          "placeholder": "Email address"
+        }
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "default": "undefined",
+        "description": "Placeholder text shown when empty"
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "default": "false",
+        "description": "Disables input and reduces opacity",
+        "noChildren": true,
+        "companions": {
+          "placeholder": "Placeholder"
+        }
+      },
+      {
+        "name": "readOnly",
+        "type": "boolean",
+        "default": "false",
+        "description": "Makes the input read-only",
+        "noChildren": true,
+        "companions": {
+          "placeholder": "Placeholder",
+          "defaultValue": "Read-only value"
+        }
+      }
     ],
     "usage": [
-      { "label": "Variants", "code": "<UIInput variant=\"outline\" placeholder=\"Outline\" />\n<UIInput variant=\"filled\" placeholder=\"Filled\" />\n<UIInput variant=\"ghost\" placeholder=\"Ghost\" />" },
-      { "label": "Types", "code": "<UIInput type=\"email\" placeholder=\"you@example.com\" />\n<UIInput type=\"password\" placeholder=\"Password\" />\n<UIInput type=\"search\" placeholder=\"Search…\" clearable />" },
-      { "label": "With label & helper", "code": "<UIInput label=\"Email\" helperText=\"We'll never share your email.\" placeholder=\"you@example.com\" />" },
-      { "label": "Prefix & suffix", "code": "<UIInput prefix=\"$\" placeholder=\"0.00\" />\n<UIInput suffix=\"px\" placeholder=\"16\" />" },
-      { "label": "Error", "code": "<UIInput error=\"Email is required\" placeholder=\"Email\" />" },
-      { "label": "Clearable", "code": "<UIInput clearable placeholder=\"Type something…\" />" }
+      {
+        "label": "Variants",
+        "code": "<UIInput variant=\"outline\" placeholder=\"Outline\" />\n<UIInput variant=\"filled\" placeholder=\"Filled\" />\n<UIInput variant=\"ghost\" placeholder=\"Ghost\" />"
+      },
+      {
+        "label": "Types",
+        "code": "<UIInput type=\"email\" placeholder=\"you@example.com\" />\n<UIInput type=\"password\" placeholder=\"Password\" />\n<UIInput type=\"search\" placeholder=\"Search\u2026\" clearable />"
+      },
+      {
+        "label": "With label & helper",
+        "code": "<UIInput label=\"Email\" helperText=\"We'll never share your email.\" placeholder=\"you@example.com\" />"
+      },
+      {
+        "label": "Prefix & suffix",
+        "code": "<UIInput prefix=\"$\" placeholder=\"0.00\" />\n<UIInput suffix=\"px\" placeholder=\"16\" />"
+      },
+      {
+        "label": "Error",
+        "code": "<UIInput error=\"Email is required\" placeholder=\"Email\" />"
+      },
+      {
+        "label": "Clearable",
+        "code": "<UIInput clearable placeholder=\"Type something\u2026\" />"
+      }
     ]
   },
-
   "radio-group": {
     "name": "Radio Group",
     "category": "inputs",
     "style": "default",
-    "tags": ["radio", "selection", "form", "base-ui"],
+    "tags": [
+      "radio",
+      "selection",
+      "form",
+      "base-ui"
+    ],
     "description": "An accessible radio group using Base UI Radio + RadioGroup primitives. Emerald accent on selection.",
     "preview": true,
     "new": true,
     "props": [
-      { "name": "options", "type": "{ label: string; value: string }[]", "default": "[...]", "description": "Array of selectable options" },
-      { "name": "label", "type": "string", "default": "undefined", "description": "Group label rendered above the options" },
-      { "name": "orientation", "type": "\"vertical\" | \"horizontal\"", "default": "\"vertical\"", "description": "Stacks options in a column or row", "noChildren": true },
-      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Controls the radio button and dot size", "noChildren": true },
-      { "name": "disabledOptions", "type": "string[]", "default": "[]", "description": "Array of option values that should be rendered as disabled and non-interactive" },
-      { "name": "defaultValue", "type": "string", "default": "undefined", "description": "Initially selected value" },
-      { "name": "name", "type": "string", "default": "undefined", "description": "Form field name for native form submission" },
-      { "name": "required", "type": "boolean", "default": "false", "description": "Marks the radio group as required — adds a red asterisk next to the group label", "noChildren": true, "companions": { "label": "Notification preference" }, "valueLabels": { "false": "Optional", "true": "Required" } }
+      {
+        "name": "options",
+        "type": "{ label: string; value: string }[]",
+        "default": "[...]",
+        "description": "Array of selectable options"
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "undefined",
+        "description": "Group label rendered above the options"
+      },
+      {
+        "name": "orientation",
+        "type": "\"vertical\" | \"horizontal\"",
+        "default": "\"vertical\"",
+        "description": "Stacks options in a column or row",
+        "noChildren": true
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\" | \"lg\"",
+        "default": "\"md\"",
+        "description": "Controls the radio button and dot size",
+        "noChildren": true
+      },
+      {
+        "name": "disabledOptions",
+        "type": "string[]",
+        "default": "[]",
+        "description": "Array of option values that should be rendered as disabled and non-interactive"
+      },
+      {
+        "name": "defaultValue",
+        "type": "string",
+        "default": "undefined",
+        "description": "Initially selected value"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "default": "undefined",
+        "description": "Form field name for native form submission"
+      },
+      {
+        "name": "required",
+        "type": "boolean",
+        "default": "false",
+        "description": "Marks the radio group as required \u2014 adds a red asterisk next to the group label",
+        "noChildren": true,
+        "companions": {
+          "label": "Notification preference"
+        },
+        "valueLabels": {
+          "false": "Optional",
+          "true": "Required"
+        }
+      }
     ],
     "usage": [
-      { "label": "Default", "code": "<UIRadioGroup options={[{ label: 'A', value: 'a' }, { label: 'B', value: 'b' }]} />" },
-      { "label": "Horizontal", "code": "<UIRadioGroup orientation=\"horizontal\" options={[{ label: 'Yes', value: 'yes' }, { label: 'No', value: 'no' }]} />" },
-      { "label": "Disabled options", "code": "<UIRadioGroup disabledOptions={['b']} options={[{ label: 'Option A', value: 'a' }, { label: 'Option B (disabled)', value: 'b' }, { label: 'Option C', value: 'c' }]} />" }
+      {
+        "label": "Default",
+        "code": "<UIRadioGroup options={[{ label: 'A', value: 'a' }, { label: 'B', value: 'b' }]} />"
+      },
+      {
+        "label": "Horizontal",
+        "code": "<UIRadioGroup orientation=\"horizontal\" options={[{ label: 'Yes', value: 'yes' }, { label: 'No', value: 'no' }]} />"
+      },
+      {
+        "label": "Disabled options",
+        "code": "<UIRadioGroup disabledOptions={['b']} options={[{ label: 'Option A', value: 'a' }, { label: 'Option B (disabled)', value: 'b' }, { label: 'Option C', value: 'c' }]} />"
+      }
     ]
   },
-
   "select": {
     "name": "Select",
     "category": "inputs",
     "style": "default",
-    "tags": ["select", "dropdown", "form", "base-ui"],
+    "tags": [
+      "select",
+      "dropdown",
+      "form",
+      "base-ui"
+    ],
     "description": "A dark dropdown select with glass-effect popup, highlighted states, and a check mark on the selected item.",
     "preview": true,
     "new": true,
     "previewClass": "w-56",
     "props": [
-      { "name": "options", "type": "{ label: string; value: string }[]", "default": "[...]", "description": "Options rendered inside the popup — defaults to a built-in sample list when omitted" },
-      { "name": "placeholder", "type": "string", "default": "\"Select an option\"", "description": "Shown when no value is selected" },
-      { "name": "clearable", "type": "boolean", "default": "false", "description": "Shows an × button when a value is selected; clicking it clears the selection", "noChildren": true, "demoWidth": "w-52" },
-      { "name": "loading", "type": "boolean", "default": "false", "description": "Shows a spinner in the trigger; useful while options are being fetched", "noChildren": true, "demoWidth": "w-52" }
+      {
+        "name": "options",
+        "type": "{ label: string; value: string }[]",
+        "default": "[...]",
+        "description": "Options rendered inside the popup \u2014 defaults to a built-in sample list when omitted"
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "default": "\"Select an option\"",
+        "description": "Shown when no value is selected"
+      },
+      {
+        "name": "clearable",
+        "type": "boolean",
+        "default": "false",
+        "description": "Shows an \u00d7 button when a value is selected; clicking it clears the selection",
+        "noChildren": true,
+        "demoWidth": "w-52"
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "default": "false",
+        "description": "Shows a spinner in the trigger; useful while options are being fetched",
+        "noChildren": true,
+        "demoWidth": "w-52"
+      }
     ],
     "usage": [
-      { "label": "Default", "code": "<UISelect options={[{ label: 'Design System', value: 'ds' }, { label: 'Component Library', value: 'cl' }, { label: 'Style Guide', value: 'sg' }]} />" },
-      { "label": "Clearable", "code": "<UISelect clearable options={[{ label: 'Option A', value: 'a' }, { label: 'Option B', value: 'b' }]} />" },
-      { "label": "Loading", "code": "<UISelect loading placeholder=\"Loading options…\" options={[]} />" }
+      {
+        "label": "Default",
+        "code": "<UISelect options={[{ label: 'Design System', value: 'ds' }, { label: 'Component Library', value: 'cl' }, { label: 'Style Guide', value: 'sg' }]} />"
+      },
+      {
+        "label": "Clearable",
+        "code": "<UISelect clearable options={[{ label: 'Option A', value: 'a' }, { label: 'Option B', value: 'b' }]} />"
+      },
+      {
+        "label": "Loading",
+        "code": "<UISelect loading placeholder=\"Loading options\u2026\" options={[]} />"
+      }
     ]
   },
-
   "slider": {
     "name": "Slider",
     "category": "inputs",
     "style": "default",
-    "tags": ["slider", "range", "form", "base-ui"],
+    "tags": [
+      "slider",
+      "range",
+      "form",
+      "base-ui"
+    ],
     "description": "A range slider with emerald fill track and a thumb that grows on active. Built on Base UI's Slider primitive.",
     "preview": true,
     "new": true,
     "previewClass": "w-64",
     "props": [
-      { "name": "defaultValue", "type": "number[]", "default": "[42]", "description": "Initial value of the slider handle" },
-      { "name": "min", "type": "number", "default": "0", "description": "Minimum allowed value" },
-      { "name": "max", "type": "number", "default": "100", "description": "Maximum allowed value" },
-      { "name": "step", "type": "number", "default": "1", "description": "Increment step between values" },
-      { "name": "showValue", "type": "boolean", "default": "true", "description": "Show the current value above the track", "noChildren": true, "demoWidth": "w-48" },
-      { "name": "orientation", "type": "\"horizontal\" | \"vertical\"", "default": "\"horizontal\"", "description": "Horizontal track (default) or vertical track", "noChildren": true, "demoWidth": "w-48" },
-      { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables interaction and reduces opacity", "noChildren": true, "demoWidth": "w-48" }
+      {
+        "name": "defaultValue",
+        "type": "number[]",
+        "default": "[42]",
+        "description": "Initial value of the slider handle"
+      },
+      {
+        "name": "min",
+        "type": "number",
+        "default": "0",
+        "description": "Minimum allowed value"
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "default": "100",
+        "description": "Maximum allowed value"
+      },
+      {
+        "name": "step",
+        "type": "number",
+        "default": "1",
+        "description": "Increment step between values"
+      },
+      {
+        "name": "showValue",
+        "type": "boolean",
+        "default": "true",
+        "description": "Show the current value above the track",
+        "noChildren": true,
+        "demoWidth": "w-48"
+      },
+      {
+        "name": "orientation",
+        "type": "\"horizontal\" | \"vertical\"",
+        "default": "\"horizontal\"",
+        "description": "Horizontal track (default) or vertical track",
+        "noChildren": true,
+        "demoWidth": "w-48"
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "default": "false",
+        "description": "Disables interaction and reduces opacity",
+        "noChildren": true,
+        "demoWidth": "w-48"
+      }
     ],
     "usage": [
-      { "label": "Default", "code": "<UISlider />" },
-      { "label": "Without value", "code": "<UISlider showValue={false} />" },
-      { "label": "Custom range", "code": "<UISlider min={0} max={10} step={0.5} defaultValue={[4]} />" }
+      {
+        "label": "Default",
+        "code": "<UISlider />"
+      },
+      {
+        "label": "Without value",
+        "code": "<UISlider showValue={false} />"
+      },
+      {
+        "label": "Custom range",
+        "code": "<UISlider min={0} max={10} step={0.5} defaultValue={[4]} />"
+      }
     ]
   },
-
   "switch": {
     "name": "Switch",
     "category": "inputs",
     "style": "default",
-    "tags": ["switch", "toggle", "form", "base-ui"],
+    "tags": [
+      "switch",
+      "toggle",
+      "form",
+      "base-ui"
+    ],
     "description": "A toggle switch that transitions to emerald when active. Thumb translates smoothly on state change.",
     "preview": true,
     "new": true,
     "props": [
-      { "name": "label", "type": "string", "default": "undefined", "description": "Optional label rendered beside the switch" },
-      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Controls track and thumb dimensions", "noChildren": true, "companions": { "label": "Option" } },
-      { "name": "labelPosition", "type": "\"left\" | \"right\"", "default": "\"right\"", "description": "Side the label appears on relative to the switch", "noChildren": true, "companions": { "label": "Dark mode" } },
-      { "name": "loading", "type": "boolean", "default": "false", "description": "Shows a spinner inside the thumb and disables interaction — use while saving the toggle state", "noChildren": true, "companions": { "label": "Saving…" }, "valueLabels": { "false": "Idle", "true": "Loading" } },
-      { "name": "checked", "type": "boolean", "default": "undefined", "description": "Controlled on/off state — use with onCheckedChange for fully controlled behavior", "noChildren": true, "companions": { "label": "Enabled" }, "valueLabels": { "false": "Off", "true": "On" } },
-      { "name": "defaultChecked", "type": "boolean", "default": "false", "description": "Initial on/off state for uncontrolled use" },
-      { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables interaction", "noChildren": true, "companions": { "label": "Option" }, "valueLabels": { "false": "Enabled", "true": "Disabled" } }
+      {
+        "name": "label",
+        "type": "string",
+        "default": "undefined",
+        "description": "Optional label rendered beside the switch"
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\" | \"lg\"",
+        "default": "\"md\"",
+        "description": "Controls track and thumb dimensions",
+        "noChildren": true,
+        "companions": {
+          "label": "Option"
+        }
+      },
+      {
+        "name": "labelPosition",
+        "type": "\"left\" | \"right\"",
+        "default": "\"right\"",
+        "description": "Side the label appears on relative to the switch",
+        "noChildren": true,
+        "companions": {
+          "label": "Dark mode"
+        }
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "default": "false",
+        "description": "Shows a spinner inside the thumb and disables interaction \u2014 use while saving the toggle state",
+        "noChildren": true,
+        "companions": {
+          "label": "Saving\u2026"
+        },
+        "valueLabels": {
+          "false": "Idle",
+          "true": "Loading"
+        }
+      },
+      {
+        "name": "checked",
+        "type": "boolean",
+        "default": "undefined",
+        "description": "Controlled on/off state \u2014 use with onCheckedChange for fully controlled behavior",
+        "noChildren": true,
+        "companions": {
+          "label": "Enabled"
+        },
+        "valueLabels": {
+          "false": "Off",
+          "true": "On"
+        }
+      },
+      {
+        "name": "defaultChecked",
+        "type": "boolean",
+        "default": "false",
+        "description": "Initial on/off state for uncontrolled use"
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "default": "false",
+        "description": "Disables interaction",
+        "noChildren": true,
+        "companions": {
+          "label": "Option"
+        },
+        "valueLabels": {
+          "false": "Enabled",
+          "true": "Disabled"
+        }
+      }
     ],
     "usage": [
-      { "label": "With label", "code": "<UISwitch label=\"Enable notifications\" />" },
-      { "label": "Sizes", "code": "<UISwitch size=\"sm\" label=\"Small\" />\n<UISwitch size=\"md\" label=\"Medium\" />\n<UISwitch size=\"lg\" label=\"Large\" />" },
-      { "label": "Label left", "code": "<UISwitch label=\"Dark mode\" labelPosition=\"left\" />" },
-      { "label": "Loading", "code": "<UISwitch loading label=\"Saving…\" />" },
-      { "label": "On by default", "code": "<UISwitch defaultChecked label=\"Active\" />" }
+      {
+        "label": "With label",
+        "code": "<UISwitch label=\"Enable notifications\" />"
+      },
+      {
+        "label": "Sizes",
+        "code": "<UISwitch size=\"sm\" label=\"Small\" />\n<UISwitch size=\"md\" label=\"Medium\" />\n<UISwitch size=\"lg\" label=\"Large\" />"
+      },
+      {
+        "label": "Label left",
+        "code": "<UISwitch label=\"Dark mode\" labelPosition=\"left\" />"
+      },
+      {
+        "label": "Loading",
+        "code": "<UISwitch loading label=\"Saving\u2026\" />"
+      },
+      {
+        "label": "On by default",
+        "code": "<UISwitch defaultChecked label=\"Active\" />"
+      }
     ]
   },
-
   "avatar": {
     "name": "Avatar",
     "category": "data-display",
     "style": "default",
-    "tags": ["avatar", "user", "image", "base-ui"],
+    "tags": [
+      "avatar",
+      "user",
+      "image",
+      "base-ui"
+    ],
     "description": "Avatar with image support, text fallback, shape, size, and status dot. Built on Base UI's Avatar primitive.",
     "preview": true,
     "new": true,
     "props": [
-      { "name": "src", "type": "string", "default": "undefined", "description": "Image URL — shows fallback if missing or broken" },
-      { "name": "alt", "type": "string", "default": "\"Avatar\"", "description": "Alt text for the image" },
-      { "name": "fallback", "type": "string", "default": "\"AB\"", "description": "Initials shown when image is absent (used when fallbackType is \"text\")" },
-      { "name": "fallbackType", "type": "\"text\" | \"icon\"", "default": "\"text\"", "description": "Fallback content style — text shows initials, icon shows a generic user silhouette" },
-      { "name": "size", "type": "\"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\"", "default": "\"md\"", "description": "Avatar diameter" },
-      { "name": "shape", "type": "\"circle\" | \"square\"", "default": "\"circle\"", "description": "Rounded circle or square with rounded corners" },
-      { "name": "status", "type": "\"online\" | \"offline\" | \"busy\"", "default": "undefined", "description": "Status indicator dot — green, grey, or red" },
-      { "name": "bordered", "type": "boolean", "default": "false", "description": "Adds an emerald accent ring around the avatar" }
+      {
+        "name": "src",
+        "type": "string",
+        "default": "undefined",
+        "description": "Image URL \u2014 shows fallback if missing or broken"
+      },
+      {
+        "name": "alt",
+        "type": "string",
+        "default": "\"Avatar\"",
+        "description": "Alt text for the image"
+      },
+      {
+        "name": "fallback",
+        "type": "string",
+        "default": "\"AB\"",
+        "description": "Initials shown when image is absent (used when fallbackType is \"text\")"
+      },
+      {
+        "name": "fallbackType",
+        "type": "\"text\" | \"icon\"",
+        "default": "\"text\"",
+        "description": "Fallback content style \u2014 text shows initials, icon shows a generic user silhouette"
+      },
+      {
+        "name": "size",
+        "type": "\"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\"",
+        "default": "\"md\"",
+        "description": "Avatar diameter"
+      },
+      {
+        "name": "shape",
+        "type": "\"circle\" | \"square\"",
+        "default": "\"circle\"",
+        "description": "Rounded circle or square with rounded corners"
+      },
+      {
+        "name": "status",
+        "type": "\"online\" | \"offline\" | \"busy\"",
+        "default": "undefined",
+        "description": "Status indicator dot \u2014 green, grey, or red"
+      },
+      {
+        "name": "bordered",
+        "type": "boolean",
+        "default": "false",
+        "description": "Adds an emerald accent ring around the avatar"
+      }
     ],
     "usage": [
-      { "label": "Sizes", "code": "<UIAvatar size=\"xs\" fallback=\"XS\" />\n<UIAvatar size=\"sm\" fallback=\"SM\" />\n<UIAvatar size=\"md\" fallback=\"MD\" />\n<UIAvatar size=\"lg\" fallback=\"LG\" />\n<UIAvatar size=\"xl\" fallback=\"XL\" />" },
-      { "label": "Shape", "code": "<UIAvatar shape=\"circle\" fallback=\"KQ\" />\n<UIAvatar shape=\"square\" fallback=\"KQ\" />" },
-      { "label": "Status", "code": "<UIAvatar fallback=\"ON\" status=\"online\" />\n<UIAvatar fallback=\"OF\" status=\"offline\" />\n<UIAvatar fallback=\"BZ\" status=\"busy\" />" },
-      { "label": "Bordered & icon fallback", "code": "<UIAvatar bordered fallback=\"AB\" />\n<UIAvatar fallbackType=\"icon\" />" }
+      {
+        "label": "Sizes",
+        "code": "<UIAvatar size=\"xs\" fallback=\"XS\" />\n<UIAvatar size=\"sm\" fallback=\"SM\" />\n<UIAvatar size=\"md\" fallback=\"MD\" />\n<UIAvatar size=\"lg\" fallback=\"LG\" />\n<UIAvatar size=\"xl\" fallback=\"XL\" />"
+      },
+      {
+        "label": "Shape",
+        "code": "<UIAvatar shape=\"circle\" fallback=\"KQ\" />\n<UIAvatar shape=\"square\" fallback=\"KQ\" />"
+      },
+      {
+        "label": "Status",
+        "code": "<UIAvatar fallback=\"ON\" status=\"online\" />\n<UIAvatar fallback=\"OF\" status=\"offline\" />\n<UIAvatar fallback=\"BZ\" status=\"busy\" />"
+      },
+      {
+        "label": "Bordered & icon fallback",
+        "code": "<UIAvatar bordered fallback=\"AB\" />\n<UIAvatar fallbackType=\"icon\" />"
+      }
     ]
   },
-
   "separator": {
     "name": "Separator",
     "category": "data-display",
     "style": "default",
-    "tags": ["separator", "divider", "layout", "base-ui"],
+    "tags": [
+      "separator",
+      "divider",
+      "layout",
+      "base-ui"
+    ],
     "description": "A thin 1px rule that divides content. Horizontal (default) splits stacked sections; vertical splits inline items such as nav links.",
     "preview": true,
     "new": true,
     "previewClass": "w-64",
     "props": [
-      { "name": "orientation", "type": "\"horizontal\" | \"vertical\"", "default": "\"horizontal\"", "description": "Direction of the separator line", "noChildren": true, "demoWidth": "w-64" }
+      {
+        "name": "orientation",
+        "type": "\"horizontal\" | \"vertical\"",
+        "default": "\"horizontal\"",
+        "description": "Direction of the separator line",
+        "noChildren": true,
+        "demoWidth": "w-64"
+      }
     ],
     "usage": [
-      { "label": "Horizontal", "code": "<UISeparator />" },
-      { "label": "Vertical", "code": "<div className=\"flex h-10 items-center gap-4\"><span>Left</span><UISeparator orientation=\"vertical\" /><span>Right</span></div>" }
+      {
+        "label": "Horizontal",
+        "code": "<UISeparator />"
+      },
+      {
+        "label": "Vertical",
+        "code": "<div className=\"flex h-10 items-center gap-4\"><span>Left</span><UISeparator orientation=\"vertical\" /><span>Right</span></div>"
+      }
     ]
   },
-
   "tabs": {
     "name": "Tabs",
     "category": "data-display",
     "style": "default",
-    "tags": ["tabs", "navigation", "panel", "base-ui"],
+    "tags": [
+      "tabs",
+      "navigation",
+      "panel",
+      "base-ui"
+    ],
     "description": "Tab bar with a sliding emerald underline indicator. Panels swap on selection.",
     "preview": true,
     "new": true,
     "previewClass": "w-80",
     "props": [
-      { "name": "tabs", "type": "{ label: string; value: string; content: ReactNode; icon?: ReactNode }[]", "default": "[...]", "description": "Tab definitions — each may include an optional icon" },
-      { "name": "defaultValue", "type": "string", "default": "\"overview\"", "description": "Initially active tab value" },
-      { "name": "fullWidth", "type": "boolean", "default": "false", "description": "Stretches tabs to fill the full width of the container evenly", "noChildren": true, "demoWidth": "w-72", "valueLabels": { "false": "Auto", "true": "Full width" } },
-      { "name": "iconPosition", "type": "\"left\" | \"right\"", "default": "\"left\"", "description": "Side the tab icon appears on relative to the label", "noChildren": true, "demoWidth": "w-72" }
+      {
+        "name": "tabs",
+        "type": "{ label: string; value: string; content: ReactNode; icon?: ReactNode }[]",
+        "default": "[...]",
+        "description": "Tab definitions \u2014 each may include an optional icon"
+      },
+      {
+        "name": "defaultValue",
+        "type": "string",
+        "default": "\"overview\"",
+        "description": "Initially active tab value"
+      },
+      {
+        "name": "fullWidth",
+        "type": "boolean",
+        "default": "false",
+        "description": "Stretches tabs to fill the full width of the container evenly",
+        "noChildren": true,
+        "demoWidth": "w-72",
+        "valueLabels": {
+          "false": "Auto",
+          "true": "Full width"
+        }
+      },
+      {
+        "name": "iconPosition",
+        "type": "\"left\" | \"right\"",
+        "default": "\"left\"",
+        "description": "Side the tab icon appears on relative to the label",
+        "noChildren": true,
+        "demoWidth": "w-72"
+      }
     ],
     "usage": [
-      { "label": "Default", "code": "<UITabs />" },
-      { "label": "Full width", "code": "<UITabs fullWidth tabs={[{ label: 'Code', value: 'code', content: 'Code panel.' }, { label: 'Preview', value: 'preview', content: 'Preview panel.' }]} />" },
-      { "label": "Custom tabs", "code": "<UITabs tabs={[{ label: 'Code', value: 'code', content: 'Code panel.' }, { label: 'Preview', value: 'preview', content: 'Preview panel.' }]} />" }
+      {
+        "label": "Default",
+        "code": "<UITabs />"
+      },
+      {
+        "label": "Full width",
+        "code": "<UITabs fullWidth tabs={[{ label: 'Code', value: 'code', content: 'Code panel.' }, { label: 'Preview', value: 'preview', content: 'Preview panel.' }]} />"
+      },
+      {
+        "label": "Custom tabs",
+        "code": "<UITabs tabs={[{ label: 'Code', value: 'code', content: 'Code panel.' }, { label: 'Preview', value: 'preview', content: 'Preview panel.' }]} />"
+      }
     ]
   },
-
   "progress": {
     "name": "Progress",
     "category": "data-display",
     "style": "default",
-    "tags": ["progress", "bar", "indicator", "base-ui"],
+    "tags": [
+      "progress",
+      "bar",
+      "indicator",
+      "base-ui"
+    ],
     "description": "A linear progress bar with optional label and value display. Emerald fill, zinc-800 track.",
     "preview": true,
     "new": true,
     "previewClass": "w-64",
     "props": [
-      { "name": "value", "type": "number", "default": "62", "description": "Progress percentage (0–100)" },
-      { "name": "label", "type": "string", "default": "undefined", "description": "Optional label shown above the track" },
-      { "name": "showValue", "type": "boolean", "default": "false", "description": "Shows the numeric percentage alongside the label", "noChildren": true, "companions": { "label": "Upload" }, "demoWidth": "w-48", "valueLabels": { "false": "Hidden", "true": "Shown" } },
-      { "name": "striped", "type": "boolean", "default": "false", "description": "Adds a diagonal stripe pattern to the fill bar", "noChildren": true, "companions": { "value": "62" }, "demoWidth": "w-48", "valueLabels": { "false": "Plain", "true": "Striped" } },
-      { "name": "animated", "type": "boolean", "default": "false", "description": "Animates the stripes — only visible when striped is true", "noChildren": true, "companions": { "value": "62", "striped": "true" }, "demoWidth": "w-48", "valueLabels": { "false": "Static", "true": "Animated" } },
-      { "name": "color", "type": "string", "default": "undefined", "description": "Custom CSS color for the fill (e.g. \"#6366f1\" or \"oklch(0.6 0.2 280)\"). Falls back to emerald when unset." }
+      {
+        "name": "value",
+        "type": "number",
+        "default": "62",
+        "description": "Progress percentage (0\u2013100)"
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "undefined",
+        "description": "Optional label shown above the track"
+      },
+      {
+        "name": "showValue",
+        "type": "boolean",
+        "default": "false",
+        "description": "Shows the numeric percentage alongside the label",
+        "noChildren": true,
+        "companions": {
+          "label": "Upload"
+        },
+        "demoWidth": "w-48",
+        "valueLabels": {
+          "false": "Hidden",
+          "true": "Shown"
+        }
+      },
+      {
+        "name": "striped",
+        "type": "boolean",
+        "default": "false",
+        "description": "Adds a diagonal stripe pattern to the fill bar",
+        "noChildren": true,
+        "companions": {
+          "value": "62"
+        },
+        "demoWidth": "w-48",
+        "valueLabels": {
+          "false": "Plain",
+          "true": "Striped"
+        }
+      },
+      {
+        "name": "animated",
+        "type": "boolean",
+        "default": "false",
+        "description": "Animates the stripes \u2014 only visible when striped is true",
+        "noChildren": true,
+        "companions": {
+          "value": "62",
+          "striped": "true"
+        },
+        "demoWidth": "w-48",
+        "valueLabels": {
+          "false": "Static",
+          "true": "Animated"
+        }
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "default": "undefined",
+        "description": "Custom CSS color for the fill (e.g. \"#6366f1\" or \"oklch(0.6 0.2 280)\"). Falls back to emerald when unset."
+      }
     ],
     "usage": [
-      { "label": "Default", "code": "<UIProgress value={62} />" },
-      { "label": "With label", "code": "<UIProgress value={38} label=\"Upload progress\" showValue />" },
-      { "label": "Striped & animated", "code": "<UIProgress value={55} striped animated label=\"Processing\" />" },
-      { "label": "Custom color", "code": "<UIProgress value={72} color=\"#6366f1\" label=\"Storage\" showValue />" }
+      {
+        "label": "Default",
+        "code": "<UIProgress value={62} />"
+      },
+      {
+        "label": "With label",
+        "code": "<UIProgress value={38} label=\"Upload progress\" showValue />"
+      },
+      {
+        "label": "Striped & animated",
+        "code": "<UIProgress value={55} striped animated label=\"Processing\" />"
+      },
+      {
+        "label": "Custom color",
+        "code": "<UIProgress value={72} color=\"#6366f1\" label=\"Storage\" showValue />"
+      }
     ]
   },
-
   "accordion": {
     "name": "Accordion",
     "category": "data-display",
     "style": "default",
-    "tags": ["accordion", "collapsible", "disclosure", "base-ui"],
+    "tags": [
+      "accordion",
+      "collapsible",
+      "disclosure",
+      "base-ui"
+    ],
     "description": "Collapsible panels with a chevron indicator that rotates on open. Divided by zinc-800 rules.",
     "preview": true,
     "new": true,
     "previewClass": "w-80",
     "props": [
-      { "name": "items", "type": "{ value: string; title: string; content: string }[]", "default": "[...]", "description": "Array of accordion panels" },
-      { "name": "bordered", "type": "boolean", "default": "false", "description": "Wraps the entire accordion in a rounded border", "noChildren": true, "demoWidth": "w-80", "valueLabels": { "false": "Default", "true": "Bordered" } },
-      { "name": "iconPosition", "type": "\"left\" | \"right\"", "default": "\"right\"", "description": "Side the chevron icon appears on in each row header", "noChildren": true, "demoWidth": "w-80" },
-      { "name": "multiple", "type": "boolean", "default": "false", "description": "Allow multiple panels to be open at the same time. When false, opening one closes others.", "noChildren": true, "demoWidth": "w-80", "companions": { "defaultOpen": "1" }, "valueLabels": { "false": "Single open", "true": "Multiple open" } }
+      {
+        "name": "items",
+        "type": "{ value: string; title: string; content: string }[]",
+        "default": "[...]",
+        "description": "Array of accordion panels"
+      },
+      {
+        "name": "bordered",
+        "type": "boolean",
+        "default": "false",
+        "description": "Wraps the entire accordion in a rounded border",
+        "noChildren": true,
+        "demoWidth": "w-80",
+        "valueLabels": {
+          "false": "Default",
+          "true": "Bordered"
+        }
+      },
+      {
+        "name": "iconPosition",
+        "type": "\"left\" | \"right\"",
+        "default": "\"right\"",
+        "description": "Side the chevron icon appears on in each row header",
+        "noChildren": true,
+        "demoWidth": "w-80"
+      },
+      {
+        "name": "multiple",
+        "type": "boolean",
+        "default": "false",
+        "description": "Allow multiple panels to be open at the same time. When false, opening one closes others.",
+        "noChildren": true,
+        "demoWidth": "w-80",
+        "companions": {
+          "defaultOpen": "1"
+        },
+        "valueLabels": {
+          "false": "Single open",
+          "true": "Multiple open"
+        }
+      }
     ],
     "usage": [
-      { "label": "Default", "code": "<UIAccordion />" },
-      { "label": "Bordered", "code": "<UIAccordion bordered />" },
-      { "label": "Icon left", "code": "<UIAccordion iconPosition=\"left\" />" },
-      { "label": "Custom items", "code": "<UIAccordion items={[{ value: '1', title: 'Question', content: 'Answer.' }]} />" }
+      {
+        "label": "Default",
+        "code": "<UIAccordion />"
+      },
+      {
+        "label": "Bordered",
+        "code": "<UIAccordion bordered />"
+      },
+      {
+        "label": "Icon left",
+        "code": "<UIAccordion iconPosition=\"left\" />"
+      },
+      {
+        "label": "Custom items",
+        "code": "<UIAccordion items={[{ value: '1', title: 'Question', content: 'Answer.' }]} />"
+      }
     ]
   },
-
   "tooltip": {
     "name": "Tooltip",
     "category": "data-display",
     "style": "default",
-    "tags": ["tooltip", "hover", "overlay", "base-ui"],
+    "tags": [
+      "tooltip",
+      "hover",
+      "overlay",
+      "base-ui"
+    ],
     "description": "A dark glass tooltip anchored to its trigger with configurable side placement.",
     "preview": true,
     "new": true,
     "props": [
-      { "name": "content", "type": "ReactNode", "default": "\"Tooltip text\"", "description": "Content rendered inside the tooltip popup" },
-      { "name": "children", "type": "ReactNode", "default": "\"Hover me\"", "description": "Trigger element that shows the tooltip on hover" },
-      { "name": "side", "type": "\"top\" | \"bottom\" | \"left\" | \"right\"", "default": "\"top\"", "description": "Side of the trigger where the popup appears" },
-      { "name": "delay", "type": "number", "default": "100", "description": "Milliseconds to wait before showing the tooltip on hover" },
-      { "name": "delayClose", "type": "number", "default": "0", "description": "Milliseconds to wait before hiding the tooltip after the cursor leaves" },
-      { "name": "arrow", "type": "boolean", "default": "false", "description": "Renders a small directional arrow pointing from the popup toward the trigger", "noChildren": true, "valueLabels": { "false": "No arrow", "true": "With arrow" } },
-      { "name": "maxWidth", "type": "number", "default": "undefined", "description": "Maximum width of the tooltip popup in pixels" }
+      {
+        "name": "content",
+        "type": "ReactNode",
+        "default": "\"Tooltip text\"",
+        "description": "Content rendered inside the tooltip popup"
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "default": "\"Hover me\"",
+        "description": "Trigger element that shows the tooltip on hover"
+      },
+      {
+        "name": "side",
+        "type": "\"top\" | \"bottom\" | \"left\" | \"right\"",
+        "default": "\"top\"",
+        "description": "Side of the trigger where the popup appears"
+      },
+      {
+        "name": "delay",
+        "type": "number",
+        "default": "100",
+        "description": "Milliseconds to wait before showing the tooltip on hover"
+      },
+      {
+        "name": "delayClose",
+        "type": "number",
+        "default": "0",
+        "description": "Milliseconds to wait before hiding the tooltip after the cursor leaves"
+      },
+      {
+        "name": "arrow",
+        "type": "boolean",
+        "default": "false",
+        "description": "Renders a small directional arrow pointing from the popup toward the trigger",
+        "noChildren": true,
+        "valueLabels": {
+          "false": "No arrow",
+          "true": "With arrow"
+        }
+      },
+      {
+        "name": "maxWidth",
+        "type": "number",
+        "default": "undefined",
+        "description": "Maximum width of the tooltip popup in pixels"
+      }
     ],
     "usage": [
-      { "label": "Default", "code": "<UITooltip content=\"Keyboard shortcut: Cmd+K\">Open palette</UITooltip>" },
-      { "label": "With arrow", "code": "<UITooltip arrow side=\"bottom\" content=\"Saved\">Save</UITooltip>" },
-      { "label": "Max width", "code": "<UITooltip maxWidth={160} content=\"This tooltip wraps long content at the specified max width.\">Long tooltip</UITooltip>" }
+      {
+        "label": "Default",
+        "code": "<UITooltip content=\"Keyboard shortcut: Cmd+K\">Open palette</UITooltip>"
+      },
+      {
+        "label": "With arrow",
+        "code": "<UITooltip arrow side=\"bottom\" content=\"Saved\">Save</UITooltip>"
+      },
+      {
+        "label": "Max width",
+        "code": "<UITooltip maxWidth={160} content=\"This tooltip wraps long content at the specified max width.\">Long tooltip</UITooltip>"
+      }
     ]
   },
-
   "dialog": {
     "name": "Dialog",
     "category": "feedback",
     "style": "default",
-    "tags": ["dialog", "modal", "overlay", "base-ui"],
+    "tags": [
+      "dialog",
+      "modal",
+      "overlay",
+      "base-ui"
+    ],
     "description": "A centered modal dialog with dark glass surface, backdrop blur, and confirm/cancel actions.",
     "preview": true,
     "new": true,
     "props": [
-      { "name": "trigger", "type": "string", "default": "\"Open Dialog\"", "description": "Text rendered on the trigger button" },
-      { "name": "title", "type": "string", "default": "\"Confirm action\"", "description": "Dialog heading" },
-      { "name": "description", "type": "string", "default": "\"...\"", "description": "Body text shown below the heading" },
-      { "name": "showCloseButton", "type": "boolean", "default": "false", "description": "Renders an × button in the top-right corner of the dialog header" },
-      { "name": "closeOnOutsideClick", "type": "boolean", "default": "false", "description": "Closes the dialog when the user clicks outside the popup" },
-      { "name": "footer", "type": "ReactNode", "default": "undefined", "description": "Custom footer content — replaces the default Cancel / Confirm button pair when provided" }
+      {
+        "name": "trigger",
+        "type": "string",
+        "default": "\"Open Dialog\"",
+        "description": "Text rendered on the trigger button"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "default": "\"Confirm action\"",
+        "description": "Dialog heading"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "default": "\"...\"",
+        "description": "Body text shown below the heading"
+      },
+      {
+        "name": "showCloseButton",
+        "type": "boolean",
+        "default": "false",
+        "description": "Renders an \u00d7 button in the top-right corner of the dialog header"
+      },
+      {
+        "name": "closeOnOutsideClick",
+        "type": "boolean",
+        "default": "false",
+        "description": "Closes the dialog when the user clicks outside the popup"
+      },
+      {
+        "name": "footer",
+        "type": "ReactNode",
+        "default": "undefined",
+        "description": "Custom footer content \u2014 replaces the default Cancel / Confirm button pair when provided"
+      }
     ],
     "usage": [
-      { "label": "Default", "code": "<UIDialog />" },
-      { "label": "With close button", "code": "<UIDialog showCloseButton />" },
-      { "label": "Outside click closes", "code": "<UIDialog closeOnOutsideClick trigger=\"Click outside to close\" />" },
-      { "label": "Custom content", "code": "<UIDialog trigger=\"Delete\" title=\"Delete item\" description=\"This cannot be undone.\" />" }
+      {
+        "label": "Default",
+        "code": "<UIDialog />"
+      },
+      {
+        "label": "With close button",
+        "code": "<UIDialog showCloseButton />"
+      },
+      {
+        "label": "Outside click closes",
+        "code": "<UIDialog closeOnOutsideClick trigger=\"Click outside to close\" />"
+      },
+      {
+        "label": "Custom content",
+        "code": "<UIDialog trigger=\"Delete\" title=\"Delete item\" description=\"This cannot be undone.\" />"
+      }
     ]
   },
-
   "popover": {
     "name": "Popover",
     "category": "feedback",
     "style": "default",
-    "tags": ["popover", "anchor", "overlay", "base-ui"],
+    "tags": [
+      "popover",
+      "anchor",
+      "overlay",
+      "base-ui"
+    ],
     "description": "A dark glass popover anchored to its trigger. Includes a close button and description slot.",
     "preview": true,
     "new": true,
     "props": [
-      { "name": "trigger", "type": "string", "default": "\"Open Popover\"", "description": "Text rendered on the trigger button" },
-      { "name": "title", "type": "string", "default": "\"Popover\"", "description": "Popover heading" },
-      { "name": "content", "type": "ReactNode", "default": "\"...\"", "description": "Body content inside the popover" },
-      { "name": "arrow", "type": "boolean", "default": "false", "description": "Renders a small directional arrow pointing from the popup toward the trigger" },
-      { "name": "width", "type": "number", "default": "288", "description": "Width of the popover in pixels" },
-      { "name": "offset", "type": "number", "default": "8", "description": "Gap in pixels between the trigger and the popup" },
-      { "name": "placement", "type": "\"top\" | \"bottom\" | \"left\" | \"right\"", "default": "\"bottom\"", "description": "Side the popup opens on relative to the trigger" }
+      {
+        "name": "trigger",
+        "type": "string",
+        "default": "\"Open Popover\"",
+        "description": "Text rendered on the trigger button"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "default": "\"Popover\"",
+        "description": "Popover heading"
+      },
+      {
+        "name": "content",
+        "type": "ReactNode",
+        "default": "\"...\"",
+        "description": "Body content inside the popover"
+      },
+      {
+        "name": "arrow",
+        "type": "boolean",
+        "default": "false",
+        "description": "Renders a small directional arrow pointing from the popup toward the trigger"
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "default": "288",
+        "description": "Width of the popover in pixels"
+      },
+      {
+        "name": "offset",
+        "type": "number",
+        "default": "8",
+        "description": "Gap in pixels between the trigger and the popup"
+      },
+      {
+        "name": "placement",
+        "type": "\"top\" | \"bottom\" | \"left\" | \"right\"",
+        "default": "\"bottom\"",
+        "description": "Side the popup opens on relative to the trigger"
+      }
     ],
     "usage": [
-      { "label": "Default", "code": "<UIPopover />" },
-      { "label": "With arrow", "code": "<UIPopover arrow />" },
-      { "label": "Top placement", "code": "<UIPopover placement=\"top\" />" },
-      { "label": "Custom content", "code": "<UIPopover title=\"Filters\" content=\"Adjust your display filters here.\" />" }
+      {
+        "label": "Default",
+        "code": "<UIPopover />"
+      },
+      {
+        "label": "With arrow",
+        "code": "<UIPopover arrow />"
+      },
+      {
+        "label": "Top placement",
+        "code": "<UIPopover placement=\"top\" />"
+      },
+      {
+        "label": "Custom content",
+        "code": "<UIPopover title=\"Filters\" content=\"Adjust your display filters here.\" />"
+      }
     ]
   },
-
   "card": {
     "name": "Card",
     "category": "data-display",
     "style": "default",
-    "tags": ["card", "container", "surface", "layout"],
+    "tags": [
+      "card",
+      "container",
+      "surface",
+      "layout"
+    ],
     "description": "A flexible surface container for grouping related content. Supports bordered and hoverable variants.",
     "preview": true,
     "new": true,
     "props": [
-      { "name": "variant", "type": "\"default\" | \"bordered\"", "default": "\"default\"", "description": "Surface style — default uses card bg + border, bordered is transparent with a thicker border", "demoWidth": "w-40" },
-      { "name": "padding", "type": "\"none\" | \"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Internal padding of the card", "demoWidth": "w-36" },
-      { "name": "radius", "type": "\"none\" | \"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Corner radius of the card", "demoWidth": "w-36" },
-      { "name": "shadow", "type": "boolean", "default": "false", "description": "Adds a subtle drop shadow beneath the card", "noChildren": true, "companions": { "children": "Card" }, "demoWidth": "w-32", "valueLabels": { "false": "No shadow", "true": "Shadow" } },
-      { "name": "hoverable", "type": "boolean", "default": "false", "description": "Adds a lift + shadow effect on hover", "noChildren": true, "companions": { "children": "Card" }, "demoWidth": "w-32", "valueLabels": { "false": "Static", "true": "Hoverable" } },
-      { "name": "clickable", "type": "boolean", "default": "false", "description": "Makes the card interactive — adds cursor-pointer and keyboard focus support", "noChildren": true, "companions": { "children": "Card" }, "demoWidth": "w-32", "valueLabels": { "false": "Static", "true": "Clickable" } },
-      { "name": "onClick", "type": "() => void", "default": "undefined", "description": "Click handler; also enables clickable styles when provided" },
-      { "name": "children", "type": "ReactNode", "default": "undefined", "description": "Content rendered inside the card" }
+      {
+        "name": "variant",
+        "type": "\"default\" | \"bordered\"",
+        "default": "\"default\"",
+        "description": "Surface style \u2014 default uses card bg + border, bordered is transparent with a thicker border",
+        "demoWidth": "w-40"
+      },
+      {
+        "name": "padding",
+        "type": "\"none\" | \"sm\" | \"md\" | \"lg\"",
+        "default": "\"md\"",
+        "description": "Internal padding of the card",
+        "demoWidth": "w-36"
+      },
+      {
+        "name": "radius",
+        "type": "\"none\" | \"sm\" | \"md\" | \"lg\"",
+        "default": "\"md\"",
+        "description": "Corner radius of the card",
+        "demoWidth": "w-36"
+      },
+      {
+        "name": "shadow",
+        "type": "boolean",
+        "default": "false",
+        "description": "Adds a subtle drop shadow beneath the card",
+        "noChildren": true,
+        "companions": {
+          "children": "Card"
+        },
+        "demoWidth": "w-32",
+        "valueLabels": {
+          "false": "No shadow",
+          "true": "Shadow"
+        }
+      },
+      {
+        "name": "hoverable",
+        "type": "boolean",
+        "default": "false",
+        "description": "Adds a lift + shadow effect on hover",
+        "noChildren": true,
+        "companions": {
+          "children": "Card"
+        },
+        "demoWidth": "w-32",
+        "valueLabels": {
+          "false": "Static",
+          "true": "Hoverable"
+        }
+      },
+      {
+        "name": "clickable",
+        "type": "boolean",
+        "default": "false",
+        "description": "Makes the card interactive \u2014 adds cursor-pointer and keyboard focus support",
+        "noChildren": true,
+        "companions": {
+          "children": "Card"
+        },
+        "demoWidth": "w-32",
+        "valueLabels": {
+          "false": "Static",
+          "true": "Clickable"
+        }
+      },
+      {
+        "name": "onClick",
+        "type": "() => void",
+        "default": "undefined",
+        "description": "Click handler; also enables clickable styles when provided"
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "default": "undefined",
+        "description": "Content rendered inside the card"
+      }
     ],
     "usage": [
-      { "label": "Default", "code": "<UICard><p>Card content.</p></UICard>" },
-      { "label": "Bordered", "code": "<UICard variant=\"bordered\"><p>Bordered card.</p></UICard>" },
-      { "label": "Hoverable", "code": "<UICard hoverable><p>Hover me.</p></UICard>" },
-      { "label": "Clickable", "code": "<UICard clickable onClick={() => alert('Clicked!')}><p>Click me.</p></UICard>" }
+      {
+        "label": "Default",
+        "code": "<UICard><p>Card content.</p></UICard>"
+      },
+      {
+        "label": "Bordered",
+        "code": "<UICard variant=\"bordered\"><p>Bordered card.</p></UICard>"
+      },
+      {
+        "label": "Hoverable",
+        "code": "<UICard hoverable><p>Hover me.</p></UICard>"
+      },
+      {
+        "label": "Clickable",
+        "code": "<UICard clickable onClick={() => alert('Clicked!')}><p>Click me.</p></UICard>"
+      }
     ]
   },
-
   "badge": {
     "name": "Badge",
     "category": "data-display",
     "style": "default",
-    "tags": ["badge", "label", "status", "tag"],
+    "tags": [
+      "badge",
+      "label",
+      "status",
+      "tag"
+    ],
     "description": "A compact label for status indicators, counts, or metadata. Supports solid, soft, and outline styles across six colors.",
     "preview": true,
     "new": true,
     "props": [
-      { "name": "variant", "type": "\"solid\" | \"soft\" | \"outline\"", "default": "\"soft\"", "description": "Fill style of the badge" },
-      { "name": "color", "type": "\"default\" | \"emerald\" | \"red\" | \"amber\" | \"blue\" | \"violet\"", "default": "\"default\"", "description": "Color palette applied to the badge" },
-      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Controls badge height and text size" },
-      { "name": "dot", "type": "boolean", "default": "false", "description": "Prepends a small colored dot — useful for status indicators" },
-      { "name": "rounded", "type": "boolean", "default": "false", "description": "Uses fully rounded (pill) corners instead of the default rounded-md" },
-      { "name": "icon", "type": "ReactNode", "default": "undefined", "description": "Icon rendered before the label (ignored when dot is true)" },
-      { "name": "children", "type": "ReactNode", "default": "\"Badge\"", "description": "Badge label text" }
+      {
+        "name": "variant",
+        "type": "\"solid\" | \"soft\" | \"outline\"",
+        "default": "\"soft\"",
+        "description": "Fill style of the badge"
+      },
+      {
+        "name": "color",
+        "type": "\"default\" | \"emerald\" | \"red\" | \"amber\" | \"blue\" | \"violet\"",
+        "default": "\"default\"",
+        "description": "Color palette applied to the badge"
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\" | \"lg\"",
+        "default": "\"md\"",
+        "description": "Controls badge height and text size"
+      },
+      {
+        "name": "dot",
+        "type": "boolean",
+        "default": "false",
+        "description": "Prepends a small colored dot \u2014 useful for status indicators"
+      },
+      {
+        "name": "rounded",
+        "type": "boolean",
+        "default": "false",
+        "description": "Uses fully rounded (pill) corners instead of the default rounded-md"
+      },
+      {
+        "name": "icon",
+        "type": "ReactNode",
+        "default": "undefined",
+        "description": "Icon rendered before the label (ignored when dot is true)"
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "default": "\"Badge\"",
+        "description": "Badge label text"
+      }
     ],
     "usage": [
-      { "label": "Colors", "code": "<UIBadge color=\"emerald\">Active</UIBadge>\n<UIBadge color=\"red\">Error</UIBadge>\n<UIBadge color=\"amber\">Warning</UIBadge>\n<UIBadge color=\"blue\">Info</UIBadge>" },
-      { "label": "Variants", "code": "<UIBadge variant=\"solid\">Solid</UIBadge>\n<UIBadge variant=\"soft\">Soft</UIBadge>\n<UIBadge variant=\"outline\">Outline</UIBadge>" },
-      { "label": "With dot", "code": "<UIBadge dot color=\"emerald\">Online</UIBadge>\n<UIBadge dot color=\"red\">Offline</UIBadge>" },
-      { "label": "Pill", "code": "<UIBadge rounded color=\"blue\">New</UIBadge>" }
+      {
+        "label": "Colors",
+        "code": "<UIBadge color=\"emerald\">Active</UIBadge>\n<UIBadge color=\"red\">Error</UIBadge>\n<UIBadge color=\"amber\">Warning</UIBadge>\n<UIBadge color=\"blue\">Info</UIBadge>"
+      },
+      {
+        "label": "Variants",
+        "code": "<UIBadge variant=\"solid\">Solid</UIBadge>\n<UIBadge variant=\"soft\">Soft</UIBadge>\n<UIBadge variant=\"outline\">Outline</UIBadge>"
+      },
+      {
+        "label": "With dot",
+        "code": "<UIBadge dot color=\"emerald\">Online</UIBadge>\n<UIBadge dot color=\"red\">Offline</UIBadge>"
+      },
+      {
+        "label": "Pill",
+        "code": "<UIBadge rounded color=\"blue\">New</UIBadge>"
+      }
     ]
   },
-
   "chip": {
     "name": "Chip",
     "category": "data-display",
     "style": "default",
-    "tags": ["chip", "tag", "filter", "selection"],
+    "tags": [
+      "chip",
+      "tag",
+      "filter",
+      "selection"
+    ],
     "description": "An interactive filter or selection token. Supports selected state and a removable dismiss button.",
     "preview": true,
     "new": true,
     "props": [
-      { "name": "selected", "type": "boolean", "default": "false", "description": "Highlights the chip with the emerald accent to indicate active selection" },
-      { "name": "removable", "type": "boolean", "default": "false", "description": "Renders an × button on the right that calls onRemove when clicked" },
-      { "name": "onRemove", "type": "() => void", "default": "undefined", "description": "Callback fired when the remove button is clicked" },
-      { "name": "onClick", "type": "() => void", "default": "undefined", "description": "Click handler — also enables button role and keyboard support" },
-      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Controls chip height, padding, and text size" },
-      { "name": "icon", "type": "ReactNode", "default": "undefined", "description": "Icon rendered before the label" },
-      { "name": "children", "type": "ReactNode", "default": "\"Chip\"", "description": "Chip label text" }
+      {
+        "name": "selected",
+        "type": "boolean",
+        "default": "false",
+        "description": "Highlights the chip with the emerald accent to indicate active selection"
+      },
+      {
+        "name": "removable",
+        "type": "boolean",
+        "default": "false",
+        "description": "Renders an \u00d7 button on the right that calls onRemove when clicked"
+      },
+      {
+        "name": "onRemove",
+        "type": "() => void",
+        "default": "undefined",
+        "description": "Callback fired when the remove button is clicked"
+      },
+      {
+        "name": "onClick",
+        "type": "() => void",
+        "default": "undefined",
+        "description": "Click handler \u2014 also enables button role and keyboard support"
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\" | \"lg\"",
+        "default": "\"md\"",
+        "description": "Controls chip height, padding, and text size"
+      },
+      {
+        "name": "icon",
+        "type": "ReactNode",
+        "default": "undefined",
+        "description": "Icon rendered before the label"
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "default": "\"Chip\"",
+        "description": "Chip label text"
+      }
     ],
     "usage": [
-      { "label": "Filter chips", "code": "<UIChip selected>Design</UIChip>\n<UIChip>Tailwind</UIChip>\n<UIChip>React</UIChip>" },
-      { "label": "Removable", "code": "<UIChip removable onRemove={() => {}}>TypeScript</UIChip>" },
-      { "label": "Sizes", "code": "<UIChip size=\"sm\">Small</UIChip>\n<UIChip size=\"md\">Medium</UIChip>\n<UIChip size=\"lg\">Large</UIChip>" }
+      {
+        "label": "Filter chips",
+        "code": "<UIChip selected>Design</UIChip>\n<UIChip>Tailwind</UIChip>\n<UIChip>React</UIChip>"
+      },
+      {
+        "label": "Removable",
+        "code": "<UIChip removable onRemove={() => {}}>TypeScript</UIChip>"
+      },
+      {
+        "label": "Sizes",
+        "code": "<UIChip size=\"sm\">Small</UIChip>\n<UIChip size=\"md\">Medium</UIChip>\n<UIChip size=\"lg\">Large</UIChip>"
+      }
     ]
   },
-
   "alert": {
     "name": "Alert",
     "category": "feedback",
     "style": "default",
-    "tags": ["alert", "message", "notification", "status"],
+    "tags": [
+      "alert",
+      "message",
+      "notification",
+      "status"
+    ],
     "description": "An inline status message in four severity levels: info, success, warning, and error. Optionally dismissible.",
     "preview": true,
     "new": true,
     "props": [
-      { "name": "variant", "type": "\"info\" | \"success\" | \"warning\" | \"error\"", "default": "\"info\"", "description": "Determines the color scheme and default icon" },
-      { "name": "title", "type": "string", "default": "undefined", "description": "Optional bold heading above the description" },
-      { "name": "description", "type": "string", "default": "\"Something happened…\"", "description": "Main body text of the alert" },
-      { "name": "icon", "type": "ReactNode", "default": "undefined", "description": "Custom icon — overrides the default variant icon when provided" },
-      { "name": "closable", "type": "boolean", "default": "false", "description": "Shows a dismiss button that hides the alert on click", "noChildren": true, "companions": { "description": "Changes saved successfully." }, "valueLabels": { "false": "Persistent", "true": "Dismissible" } },
-      { "name": "onClose", "type": "() => void", "default": "undefined", "description": "Callback fired when the dismiss button is clicked" },
-      { "name": "autoClose", "type": "number", "default": "undefined", "description": "Auto-dismiss after this many milliseconds. Omit to keep the alert until manually closed." },
-      { "name": "showProgress", "type": "boolean", "default": "false", "description": "Shrinking bar at the bottom that shows time remaining until autoClose dismisses the alert", "noChildren": true, "companions": { "autoClose": "8000" }, "valueLabels": { "false": "No bar", "true": "With bar" } }
+      {
+        "name": "variant",
+        "type": "\"info\" | \"success\" | \"warning\" | \"error\"",
+        "default": "\"info\"",
+        "description": "Determines the color scheme and default icon"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "default": "undefined",
+        "description": "Optional bold heading above the description"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "default": "\"Something happened\u2026\"",
+        "description": "Main body text of the alert"
+      },
+      {
+        "name": "icon",
+        "type": "ReactNode",
+        "default": "undefined",
+        "description": "Custom icon \u2014 overrides the default variant icon when provided"
+      },
+      {
+        "name": "closable",
+        "type": "boolean",
+        "default": "false",
+        "description": "Shows a dismiss button that hides the alert on click",
+        "noChildren": true,
+        "companions": {
+          "description": "Changes saved successfully."
+        },
+        "valueLabels": {
+          "false": "Persistent",
+          "true": "Dismissible"
+        }
+      },
+      {
+        "name": "onClose",
+        "type": "() => void",
+        "default": "undefined",
+        "description": "Callback fired when the dismiss button is clicked"
+      },
+      {
+        "name": "autoClose",
+        "type": "number",
+        "default": "undefined",
+        "description": "Auto-dismiss after this many milliseconds. Omit to keep the alert until manually closed."
+      },
+      {
+        "name": "showProgress",
+        "type": "boolean",
+        "default": "false",
+        "description": "Shrinking bar at the bottom that shows time remaining until autoClose dismisses the alert",
+        "noChildren": true,
+        "companions": {
+          "autoClose": "8000"
+        },
+        "valueLabels": {
+          "false": "No bar",
+          "true": "With bar"
+        }
+      }
     ],
     "usage": [
-      { "label": "Variants", "code": "<UIAlert variant=\"info\" description=\"Your request is being processed.\" />\n<UIAlert variant=\"success\" description=\"Changes saved successfully.\" />\n<UIAlert variant=\"warning\" description=\"Your plan is almost at its limit.\" />\n<UIAlert variant=\"error\" description=\"Unable to connect to the server.\" />" },
-      { "label": "With title", "code": "<UIAlert variant=\"error\" title=\"Upload failed\" description=\"The file exceeds the 10 MB size limit.\" />" },
-      { "label": "Dismissible", "code": "<UIAlert variant=\"success\" title=\"Done!\" description=\"All changes saved.\" closable />" }
+      {
+        "label": "Variants",
+        "code": "<UIAlert variant=\"info\" description=\"Your request is being processed.\" />\n<UIAlert variant=\"success\" description=\"Changes saved successfully.\" />\n<UIAlert variant=\"warning\" description=\"Your plan is almost at its limit.\" />\n<UIAlert variant=\"error\" description=\"Unable to connect to the server.\" />"
+      },
+      {
+        "label": "With title",
+        "code": "<UIAlert variant=\"error\" title=\"Upload failed\" description=\"The file exceeds the 10 MB size limit.\" />"
+      },
+      {
+        "label": "Dismissible",
+        "code": "<UIAlert variant=\"success\" title=\"Done!\" description=\"All changes saved.\" closable />"
+      }
     ]
   },
-
   "toast": {
     "name": "Toast",
     "category": "feedback",
     "style": "default",
-    "tags": ["toast", "notification", "snackbar", "base-ui"],
+    "tags": [
+      "toast",
+      "notification",
+      "snackbar",
+      "base-ui"
+    ],
     "description": "Transient notifications that slide in from the corner. Uses Base UI Toast with a global toastManager for triggering outside React.",
     "preview": true,
     "new": true,
     "props": [
-      { "name": "timeout", "type": "number", "default": "5000", "description": "Default auto-dismiss delay in milliseconds. Pass 0 to require manual close (no auto-dismiss)." },
-      { "name": "showProgress", "type": "boolean", "default": "false", "description": "Shows a shrinking progress bar on every toast indicating time remaining until auto-dismiss", "noChildren": true, "companions": { "_demo": "true", "timeout": "4000" }, "valueLabels": { "false": "No bar", "true": "With bar" } },
-      { "name": "limit", "type": "number", "default": "3", "description": "Maximum number of toasts shown at once" },
-      { "name": "children", "type": "ReactNode", "default": "undefined", "description": "App content wrapped by the toast provider" }
+      {
+        "name": "timeout",
+        "type": "number",
+        "default": "5000",
+        "description": "Default auto-dismiss delay in milliseconds. Pass 0 to require manual close (no auto-dismiss)."
+      },
+      {
+        "name": "showProgress",
+        "type": "boolean",
+        "default": "false",
+        "description": "Shows a shrinking progress bar on every toast indicating time remaining until auto-dismiss",
+        "noChildren": true,
+        "companions": {
+          "_demo": "true",
+          "timeout": "4000"
+        },
+        "valueLabels": {
+          "false": "No bar",
+          "true": "With bar"
+        }
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "default": "3",
+        "description": "Maximum number of toasts shown at once"
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "default": "undefined",
+        "description": "App content wrapped by the toast provider"
+      }
     ],
     "usage": [
-      { "label": "Setup", "code": "// Wrap your app once\n<UIToast>\n  <App />\n</UIToast>" },
-      { "label": "Default", "code": "import { toastManager } from '@/designs/feedback/toast/Component';\ntoastManager.add({ data: { title: 'Hello!', description: 'Welcome back.' } });" },
-      { "label": "Success", "code": "toastManager.add({ data: { variant: 'success', title: 'Saved', description: 'Your changes are saved.' } });" },
-      { "label": "Error", "code": "toastManager.add({ data: { variant: 'error', title: 'Failed', description: 'Something went wrong.' } });" },
-      { "label": "With progress", "code": "toastManager.add({ data: { variant: 'success', title: 'Saved', description: 'All changes saved.', showProgress: true } });" }
+      {
+        "label": "Setup",
+        "code": "// Wrap your app once\n<UIToast>\n  <App />\n</UIToast>"
+      },
+      {
+        "label": "Default",
+        "code": "import { toastManager } from '@/designs/feedback/toast/Component';\ntoastManager.add({ data: { title: 'Hello!', description: 'Welcome back.' } });"
+      },
+      {
+        "label": "Success",
+        "code": "toastManager.add({ data: { variant: 'success', title: 'Saved', description: 'Your changes are saved.' } });"
+      },
+      {
+        "label": "Error",
+        "code": "toastManager.add({ data: { variant: 'error', title: 'Failed', description: 'Something went wrong.' } });"
+      },
+      {
+        "label": "With progress",
+        "code": "toastManager.add({ data: { variant: 'success', title: 'Saved', description: 'All changes saved.', showProgress: true } });"
+      }
     ]
   },
-
   "dropdown-menu": {
     "name": "Dropdown Menu",
     "category": "feedback",
     "style": "default",
-    "tags": ["menu", "dropdown", "context-menu", "base-ui"],
+    "tags": [
+      "menu",
+      "dropdown",
+      "context-menu",
+      "base-ui"
+    ],
     "description": "A keyboard-navigable dropdown menu with icons, keyboard shortcuts, separators, and a danger style. Built on Base UI Menu primitive.",
     "preview": true,
     "new": true,
     "props": [
-      { "name": "triggerLabel", "type": "string", "default": "\"Open menu\"", "description": "Text label on the default trigger button" },
-      { "name": "trigger", "type": "ReactNode", "default": "undefined", "description": "Custom trigger element — replaces the default trigger button when provided" },
-      { "name": "items", "type": "MenuItem[]", "default": "[...]", "description": "Array of menu items. Each item: { label, icon?, shortcut?, disabled?, danger?, separator? }" },
-      { "name": "align", "type": "\"start\" | \"center\" | \"end\"", "default": "\"start\"", "description": "Horizontal alignment of the popup relative to the trigger" },
-      { "name": "side", "type": "\"top\" | \"bottom\" | \"left\" | \"right\"", "default": "\"bottom\"", "description": "Side the popup opens on relative to the trigger" }
+      {
+        "name": "triggerLabel",
+        "type": "string",
+        "default": "\"Open menu\"",
+        "description": "Text label on the default trigger button"
+      },
+      {
+        "name": "trigger",
+        "type": "ReactNode",
+        "default": "undefined",
+        "description": "Custom trigger element \u2014 replaces the default trigger button when provided"
+      },
+      {
+        "name": "items",
+        "type": "MenuItem[]",
+        "default": "[...]",
+        "description": "Array of menu items. Each item: { label, icon?, shortcut?, disabled?, danger?, separator? }"
+      },
+      {
+        "name": "align",
+        "type": "\"start\" | \"center\" | \"end\"",
+        "default": "\"start\"",
+        "description": "Horizontal alignment of the popup relative to the trigger"
+      },
+      {
+        "name": "side",
+        "type": "\"top\" | \"bottom\" | \"left\" | \"right\"",
+        "default": "\"bottom\"",
+        "description": "Side the popup opens on relative to the trigger"
+      }
     ],
     "usage": [
-      { "label": "Default", "code": "<UIDropdownMenu />" },
-      { "label": "Custom items", "code": "<UIDropdownMenu items={[{ label: 'Profile' }, { label: 'Settings', shortcut: '⌘,' }, { separator: true, label: '' }, { label: 'Log out', danger: true }]} />" },
-      { "label": "Custom trigger", "code": "<UIDropdownMenu trigger={<button>⋮</button>} items={[{ label: 'Edit' }, { label: 'Delete', danger: true }]} />" }
+      {
+        "label": "Default",
+        "code": "<UIDropdownMenu />"
+      },
+      {
+        "label": "Custom items",
+        "code": "<UIDropdownMenu items={[{ label: 'Profile' }, { label: 'Settings', shortcut: '\u2318,' }, { separator: true, label: '' }, { label: 'Log out', danger: true }]} />"
+      },
+      {
+        "label": "Custom trigger",
+        "code": "<UIDropdownMenu trigger={<button>\u22ee</button>} items={[{ label: 'Edit' }, { label: 'Delete', danger: true }]} />"
+      }
     ]
   },
-
   "textarea": {
     "name": "Textarea",
     "category": "inputs",
     "style": "default",
-    "tags": ["textarea", "input", "form", "multi-line"],
+    "tags": [
+      "textarea",
+      "input",
+      "form",
+      "multi-line"
+    ],
     "description": "Multi-line text input with label, description, error/helper text, resize control, size variants, and a loading overlay.",
     "preview": true,
     "new": true,
     "previewClass": "w-72",
     "props": [
-      { "name": "label", "type": "string", "default": "\"Message\"", "description": "Label rendered above the textarea" },
-      { "name": "description", "type": "string", "default": "undefined", "description": "Secondary help text below the label" },
-      { "name": "placeholder", "type": "string", "default": "undefined", "description": "Placeholder shown when empty" },
-      { "name": "rows", "type": "number", "default": "4", "description": "Number of visible text rows" },
-      { "name": "resize", "type": "\"none\" | \"vertical\" | \"horizontal\" | \"both\"", "default": "\"vertical\"", "description": "CSS resize direction", "noChildren": true, "demoWidth": "w-64" },
-      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Controls padding and font size", "noChildren": true, "demoWidth": "w-64" },
-      { "name": "error", "type": "string", "default": "undefined", "description": "Error message shown below — replaces helperText when present", "noChildren": true, "demoWidth": "w-64" },
-      { "name": "helperText", "type": "string", "default": "undefined", "description": "Subtle help text below the textarea (hidden when error is present)" },
-      { "name": "loading", "type": "boolean", "default": "false", "description": "Shows a spinner overlay and disables interaction", "noChildren": true, "demoWidth": "w-64", "valueLabels": { "false": "Idle", "true": "Loading" } },
-      { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables interaction and reduces opacity", "noChildren": true, "demoWidth": "w-64", "valueLabels": { "false": "Enabled", "true": "Disabled" } },
-      { "name": "readOnly", "type": "boolean", "default": "false", "description": "Makes the textarea read-only" },
-      { "name": "required", "type": "boolean", "default": "false", "description": "Marks the field as required — adds a red asterisk to the label" },
-      { "name": "maxLength", "type": "number", "default": "undefined", "description": "Maximum character count" }
+      {
+        "name": "label",
+        "type": "string",
+        "default": "\"Message\"",
+        "description": "Label rendered above the textarea"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "default": "undefined",
+        "description": "Secondary help text below the label"
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "default": "undefined",
+        "description": "Placeholder shown when empty"
+      },
+      {
+        "name": "rows",
+        "type": "number",
+        "default": "4",
+        "description": "Number of visible text rows"
+      },
+      {
+        "name": "resize",
+        "type": "\"none\" | \"vertical\" | \"horizontal\" | \"both\"",
+        "default": "\"vertical\"",
+        "description": "CSS resize direction",
+        "noChildren": true,
+        "demoWidth": "w-64"
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\" | \"lg\"",
+        "default": "\"md\"",
+        "description": "Controls padding and font size",
+        "noChildren": true,
+        "demoWidth": "w-64"
+      },
+      {
+        "name": "error",
+        "type": "string",
+        "default": "undefined",
+        "description": "Error message shown below \u2014 replaces helperText when present",
+        "noChildren": true,
+        "demoWidth": "w-64"
+      },
+      {
+        "name": "helperText",
+        "type": "string",
+        "default": "undefined",
+        "description": "Subtle help text below the textarea (hidden when error is present)"
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "default": "false",
+        "description": "Shows a spinner overlay and disables interaction",
+        "noChildren": true,
+        "demoWidth": "w-64",
+        "valueLabels": {
+          "false": "Idle",
+          "true": "Loading"
+        }
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "default": "false",
+        "description": "Disables interaction and reduces opacity",
+        "noChildren": true,
+        "demoWidth": "w-64",
+        "valueLabels": {
+          "false": "Enabled",
+          "true": "Disabled"
+        }
+      },
+      {
+        "name": "readOnly",
+        "type": "boolean",
+        "default": "false",
+        "description": "Makes the textarea read-only"
+      },
+      {
+        "name": "required",
+        "type": "boolean",
+        "default": "false",
+        "description": "Marks the field as required \u2014 adds a red asterisk to the label"
+      },
+      {
+        "name": "maxLength",
+        "type": "number",
+        "default": "undefined",
+        "description": "Maximum character count"
+      }
     ],
     "usage": [
-      { "label": "Default", "code": "<UITextarea />" },
-      { "label": "With description", "code": "<UITextarea label=\"Feedback\" description=\"Tell us what you think.\" placeholder=\"Your thoughts…\" />" },
-      { "label": "Error state", "code": "<UITextarea label=\"Message\" error=\"Message is required\" />" },
-      { "label": "Sizes", "code": "<UITextarea size=\"sm\" label=\"Small\" />\n<UITextarea size=\"md\" label=\"Medium\" />\n<UITextarea size=\"lg\" label=\"Large\" />" },
-      { "label": "Loading", "code": "<UITextarea loading label=\"Sending…\" />" }
+      {
+        "label": "Default",
+        "code": "<UITextarea />"
+      },
+      {
+        "label": "With description",
+        "code": "<UITextarea label=\"Feedback\" description=\"Tell us what you think.\" placeholder=\"Your thoughts\u2026\" />"
+      },
+      {
+        "label": "Error state",
+        "code": "<UITextarea label=\"Message\" error=\"Message is required\" />"
+      },
+      {
+        "label": "Sizes",
+        "code": "<UITextarea size=\"sm\" label=\"Small\" />\n<UITextarea size=\"md\" label=\"Medium\" />\n<UITextarea size=\"lg\" label=\"Large\" />"
+      },
+      {
+        "label": "Loading",
+        "code": "<UITextarea loading label=\"Sending\u2026\" />"
+      }
     ]
   },
-
   "radio": {
     "name": "Radio",
     "category": "inputs",
     "style": "default",
-    "tags": ["radio", "selection", "form", "base-ui"],
+    "tags": [
+      "radio",
+      "selection",
+      "form",
+      "base-ui"
+    ],
     "description": "A single radio button with optional label and description. Built on Base UI's Radio primitive.",
     "preview": true,
     "new": true,
     "props": [
-      { "name": "label", "type": "string", "default": "\"Option A\"", "description": "Label rendered beside the radio" },
-      { "name": "description", "type": "string", "default": "undefined", "description": "Secondary help text below the label" },
-      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Controls the radio button and dot size", "noChildren": true, "companions": { "label": "Option" } },
-      { "name": "checked", "type": "boolean", "default": "undefined", "description": "Controlled checked state" },
-      { "name": "defaultChecked", "type": "boolean", "default": "false", "description": "Initial checked state for uncontrolled use" },
-      { "name": "loading", "type": "boolean", "default": "false", "description": "Replaces the radio with a spinner while state is saving", "noChildren": true, "companions": { "label": "Saving…" }, "valueLabels": { "false": "Idle", "true": "Loading" } },
-      { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables interaction", "noChildren": true, "companions": { "label": "Option" }, "valueLabels": { "false": "Enabled", "true": "Disabled" } }
+      {
+        "name": "label",
+        "type": "string",
+        "default": "\"Option A\"",
+        "description": "Label rendered beside the radio"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "default": "undefined",
+        "description": "Secondary help text below the label"
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\" | \"lg\"",
+        "default": "\"md\"",
+        "description": "Controls the radio button and dot size",
+        "noChildren": true,
+        "companions": {
+          "label": "Option"
+        }
+      },
+      {
+        "name": "checked",
+        "type": "boolean",
+        "default": "undefined",
+        "description": "Controlled checked state"
+      },
+      {
+        "name": "defaultChecked",
+        "type": "boolean",
+        "default": "false",
+        "description": "Initial checked state for uncontrolled use"
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "default": "false",
+        "description": "Replaces the radio with a spinner while state is saving",
+        "noChildren": true,
+        "companions": {
+          "label": "Saving\u2026"
+        },
+        "valueLabels": {
+          "false": "Idle",
+          "true": "Loading"
+        }
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "default": "false",
+        "description": "Disables interaction",
+        "noChildren": true,
+        "companions": {
+          "label": "Option"
+        },
+        "valueLabels": {
+          "false": "Enabled",
+          "true": "Disabled"
+        }
+      }
     ],
     "usage": [
-      { "label": "Default", "code": "<UIRadio label=\"Option A\" />" },
-      { "label": "With description", "code": "<UIRadio label=\"Pro plan\" description=\"$29/month, unlimited access.\" />" },
-      { "label": "Sizes", "code": "<UIRadio size=\"sm\" label=\"Small\" />\n<UIRadio size=\"md\" label=\"Medium\" />\n<UIRadio size=\"lg\" label=\"Large\" />" },
-      { "label": "Disabled", "code": "<UIRadio disabled label=\"Unavailable\" />" }
+      {
+        "label": "Default",
+        "code": "<UIRadio label=\"Option A\" />"
+      },
+      {
+        "label": "With description",
+        "code": "<UIRadio label=\"Pro plan\" description=\"$29/month, unlimited access.\" />"
+      },
+      {
+        "label": "Sizes",
+        "code": "<UIRadio size=\"sm\" label=\"Small\" />\n<UIRadio size=\"md\" label=\"Medium\" />\n<UIRadio size=\"lg\" label=\"Large\" />"
+      },
+      {
+        "label": "Disabled",
+        "code": "<UIRadio disabled label=\"Unavailable\" />"
+      }
     ]
   },
-
   "combobox": {
     "name": "Combobox",
     "category": "inputs",
     "style": "default",
-    "tags": ["combobox", "autocomplete", "select", "search", "base-ui"],
+    "tags": [
+      "combobox",
+      "autocomplete",
+      "select",
+      "search",
+      "base-ui"
+    ],
     "description": "A searchable selection input with multi-select, chip display, clear button, and loading state. Built on Base UI Combobox.",
     "preview": true,
     "new": true,
     "previewClass": "w-64",
     "props": [
-      { "name": "options", "type": "{ label: string; value: string; disabled?: boolean }[]", "default": "[...]", "description": "Selectable options rendered in the popup" },
-      { "name": "placeholder", "type": "string", "default": "\"Search…\"", "description": "Input placeholder" },
-      { "name": "multiple", "type": "boolean", "default": "false", "description": "Allow selecting multiple options, displayed as chips", "noChildren": true, "demoWidth": "w-64", "valueLabels": { "false": "Single", "true": "Multi" } },
-      { "name": "clearable", "type": "boolean", "default": "false", "description": "Shows an × button to clear the current selection", "noChildren": true, "demoWidth": "w-64", "valueLabels": { "false": "No clear", "true": "Clearable" } },
-      { "name": "loading", "type": "boolean", "default": "false", "description": "Shows a spinner — use while options are fetching", "noChildren": true, "demoWidth": "w-64", "valueLabels": { "false": "Idle", "true": "Loading" } },
-      { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables interaction", "noChildren": true, "demoWidth": "w-64", "valueLabels": { "false": "Enabled", "true": "Disabled" } },
-      { "name": "label", "type": "string", "default": "undefined", "description": "Label rendered above the combobox" },
-      { "name": "error", "type": "string", "default": "undefined", "description": "Error message shown below" },
-      { "name": "emptyMessage", "type": "string", "default": "\"No options\"", "description": "Shown when the options list is empty" }
+      {
+        "name": "options",
+        "type": "{ label: string; value: string; disabled?: boolean }[]",
+        "default": "[...]",
+        "description": "Selectable options rendered in the popup"
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "default": "\"Search\u2026\"",
+        "description": "Input placeholder"
+      },
+      {
+        "name": "multiple",
+        "type": "boolean",
+        "default": "false",
+        "description": "Allow selecting multiple options, displayed as chips",
+        "noChildren": true,
+        "demoWidth": "w-64",
+        "valueLabels": {
+          "false": "Single",
+          "true": "Multi"
+        }
+      },
+      {
+        "name": "clearable",
+        "type": "boolean",
+        "default": "false",
+        "description": "Shows an \u00d7 button to clear the current selection",
+        "noChildren": true,
+        "demoWidth": "w-64",
+        "valueLabels": {
+          "false": "No clear",
+          "true": "Clearable"
+        }
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "default": "false",
+        "description": "Shows a spinner \u2014 use while options are fetching",
+        "noChildren": true,
+        "demoWidth": "w-64",
+        "valueLabels": {
+          "false": "Idle",
+          "true": "Loading"
+        }
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "default": "false",
+        "description": "Disables interaction",
+        "noChildren": true,
+        "demoWidth": "w-64",
+        "valueLabels": {
+          "false": "Enabled",
+          "true": "Disabled"
+        }
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "undefined",
+        "description": "Label rendered above the combobox"
+      },
+      {
+        "name": "error",
+        "type": "string",
+        "default": "undefined",
+        "description": "Error message shown below"
+      },
+      {
+        "name": "emptyMessage",
+        "type": "string",
+        "default": "\"No options\"",
+        "description": "Shown when the options list is empty"
+      }
     ],
     "usage": [
-      { "label": "Default", "code": "<UICombobox />" },
-      { "label": "Clearable", "code": "<UICombobox clearable placeholder=\"Pick one…\" />" },
-      { "label": "Multi-select", "code": "<UICombobox multiple clearable placeholder=\"Pick many…\" />" },
-      { "label": "With label", "code": "<UICombobox label=\"Framework\" placeholder=\"Select framework…\" />" },
-      { "label": "Loading", "code": "<UICombobox loading placeholder=\"Loading options…\" options={[]} />" }
+      {
+        "label": "Default",
+        "code": "<UICombobox />"
+      },
+      {
+        "label": "Clearable",
+        "code": "<UICombobox clearable placeholder=\"Pick one\u2026\" />"
+      },
+      {
+        "label": "Multi-select",
+        "code": "<UICombobox multiple clearable placeholder=\"Pick many\u2026\" />"
+      },
+      {
+        "label": "With label",
+        "code": "<UICombobox label=\"Framework\" placeholder=\"Select framework\u2026\" />"
+      },
+      {
+        "label": "Loading",
+        "code": "<UICombobox loading placeholder=\"Loading options\u2026\" options={[]} />"
+      }
     ]
   },
-
   "date-picker": {
     "name": "Date Picker",
     "category": "inputs",
     "style": "default",
-    "tags": ["date", "calendar", "picker", "popover"],
+    "tags": [
+      "date",
+      "calendar",
+      "picker",
+      "popover"
+    ],
     "description": "A date selection input with a calendar popup. Supports single, range, and multi-date selection with min/max constraints.",
     "preview": true,
     "new": true,
     "previewClass": "w-56",
     "props": [
-      { "name": "placeholder", "type": "string", "default": "\"Pick a date\"", "description": "Shown when no date is selected" },
-      { "name": "range", "type": "boolean", "default": "false", "description": "Enable date range selection — click start then end date", "noChildren": true, "demoWidth": "w-64", "valueLabels": { "false": "Single", "true": "Range" } },
-      { "name": "multiple", "type": "boolean", "default": "false", "description": "Allow toggling multiple individual dates", "noChildren": true, "demoWidth": "w-64", "valueLabels": { "false": "Single", "true": "Multi" } },
-      { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables the trigger and calendar interaction", "noChildren": true, "demoWidth": "w-64", "valueLabels": { "false": "Enabled", "true": "Disabled" } },
-      { "name": "label", "type": "string", "default": "undefined", "description": "Label rendered above the trigger" },
-      { "name": "error", "type": "string", "default": "undefined", "description": "Error message shown below" },
-      { "name": "locale", "type": "string", "default": "\"en-US\"", "description": "BCP 47 locale used to format displayed dates" }
+      {
+        "name": "placeholder",
+        "type": "string",
+        "default": "\"Pick a date\"",
+        "description": "Shown when no date is selected"
+      },
+      {
+        "name": "range",
+        "type": "boolean",
+        "default": "false",
+        "description": "Enable date range selection \u2014 click start then end date",
+        "noChildren": true,
+        "demoWidth": "w-64",
+        "valueLabels": {
+          "false": "Single",
+          "true": "Range"
+        }
+      },
+      {
+        "name": "multiple",
+        "type": "boolean",
+        "default": "false",
+        "description": "Allow toggling multiple individual dates",
+        "noChildren": true,
+        "demoWidth": "w-64",
+        "valueLabels": {
+          "false": "Single",
+          "true": "Multi"
+        }
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "default": "false",
+        "description": "Disables the trigger and calendar interaction",
+        "noChildren": true,
+        "demoWidth": "w-64",
+        "valueLabels": {
+          "false": "Enabled",
+          "true": "Disabled"
+        }
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "undefined",
+        "description": "Label rendered above the trigger"
+      },
+      {
+        "name": "error",
+        "type": "string",
+        "default": "undefined",
+        "description": "Error message shown below"
+      },
+      {
+        "name": "locale",
+        "type": "string",
+        "default": "\"en-US\"",
+        "description": "BCP 47 locale used to format displayed dates"
+      }
     ],
     "usage": [
-      { "label": "Default", "code": "<UIDatePicker />" },
-      { "label": "With label", "code": "<UIDatePicker label=\"Start date\" placeholder=\"Select date…\" />" },
-      { "label": "Range", "code": "<UIDatePicker range placeholder=\"Select range…\" />" },
-      { "label": "Multi", "code": "<UIDatePicker multiple placeholder=\"Select dates…\" />" }
+      {
+        "label": "Default",
+        "code": "<UIDatePicker />"
+      },
+      {
+        "label": "With label",
+        "code": "<UIDatePicker label=\"Start date\" placeholder=\"Select date\u2026\" />"
+      },
+      {
+        "label": "Range",
+        "code": "<UIDatePicker range placeholder=\"Select range\u2026\" />"
+      },
+      {
+        "label": "Multi",
+        "code": "<UIDatePicker multiple placeholder=\"Select dates\u2026\" />"
+      }
     ]
   },
-
   "field": {
     "name": "Field",
     "category": "inputs",
     "style": "default",
-    "tags": ["field", "form", "wrapper", "label", "base-ui"],
+    "tags": [
+      "field",
+      "form",
+      "wrapper",
+      "label",
+      "base-ui"
+    ],
     "description": "A form field wrapper providing label, description, and error with accessibility linking. Built on Base UI's Field primitive.",
     "preview": true,
     "new": true,
     "previewClass": "w-72",
     "props": [
-      { "name": "label", "type": "string", "default": "\"Label\"", "description": "Field label linked to the control via htmlFor" },
-      { "name": "description", "type": "string", "default": "undefined", "description": "Help text below the label" },
-      { "name": "error", "type": "string", "default": "undefined", "description": "Error message shown below the control" },
-      { "name": "required", "type": "boolean", "default": "false", "description": "Marks the field required — adds a red asterisk to the label", "noChildren": true, "valueLabels": { "false": "Optional", "true": "Required" } },
-      { "name": "disabled", "type": "boolean", "default": "false", "description": "Disables the control", "noChildren": true, "valueLabels": { "false": "Enabled", "true": "Disabled" } },
-      { "name": "loading", "type": "boolean", "default": "false", "description": "Shows a spinner beside the label while the field value is being saved", "noChildren": true, "valueLabels": { "false": "Idle", "true": "Loading" } },
-      { "name": "orientation", "type": "\"vertical\" | \"horizontal\"", "default": "\"vertical\"", "description": "Stack label above or place it beside the control", "noChildren": true }
+      {
+        "name": "label",
+        "type": "string",
+        "default": "\"Label\"",
+        "description": "Field label linked to the control via htmlFor"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "default": "undefined",
+        "description": "Help text below the label"
+      },
+      {
+        "name": "error",
+        "type": "string",
+        "default": "undefined",
+        "description": "Error message shown below the control"
+      },
+      {
+        "name": "required",
+        "type": "boolean",
+        "default": "false",
+        "description": "Marks the field required \u2014 adds a red asterisk to the label",
+        "noChildren": true,
+        "valueLabels": {
+          "false": "Optional",
+          "true": "Required"
+        }
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "default": "false",
+        "description": "Disables the control",
+        "noChildren": true,
+        "valueLabels": {
+          "false": "Enabled",
+          "true": "Disabled"
+        }
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "default": "false",
+        "description": "Shows a spinner beside the label while the field value is being saved",
+        "noChildren": true,
+        "valueLabels": {
+          "false": "Idle",
+          "true": "Loading"
+        }
+      },
+      {
+        "name": "orientation",
+        "type": "\"vertical\" | \"horizontal\"",
+        "default": "\"vertical\"",
+        "description": "Stack label above or place it beside the control",
+        "noChildren": true
+      }
     ],
     "usage": [
-      { "label": "Default", "code": "<UIField label=\"Email\" description=\"We'll never share your email.\" />" },
-      { "label": "Error", "code": "<UIField label=\"Username\" error=\"Username is already taken\" />" },
-      { "label": "Required", "code": "<UIField label=\"Name\" required />" },
-      { "label": "Horizontal", "code": "<UIField label=\"Email\" orientation=\"horizontal\" />" }
+      {
+        "label": "Default",
+        "code": "<UIField label=\"Email\" description=\"We'll never share your email.\" />"
+      },
+      {
+        "label": "Error",
+        "code": "<UIField label=\"Username\" error=\"Username is already taken\" />"
+      },
+      {
+        "label": "Required",
+        "code": "<UIField label=\"Name\" required />"
+      },
+      {
+        "label": "Horizontal",
+        "code": "<UIField label=\"Email\" orientation=\"horizontal\" />"
+      }
     ]
   },
-
   "table": {
     "name": "Table",
     "category": "data-display",
     "style": "default",
-    "tags": ["table", "data", "list", "grid"],
+    "tags": [
+      "table",
+      "data",
+      "list",
+      "grid"
+    ],
     "description": "A basic data table with local sorting, row selection, loading skeletons, and empty state support.",
     "preview": true,
     "new": true,
     "props": [
-      { "name": "columns", "type": "Column[]", "default": "[...]", "description": "Column definitions: { key, header, accessor?, sortable?, width? }" },
-      { "name": "data", "type": "Record<string, unknown>[]", "default": "[...]", "description": "Row data array" },
-      { "name": "caption", "type": "string", "default": "undefined", "description": "Table caption rendered above" },
-      { "name": "sortable", "type": "boolean", "default": "false", "description": "Enable sorting on all columns", "noChildren": true, "valueLabels": { "false": "Static", "true": "Sortable" } },
-      { "name": "selectable", "type": "boolean", "default": "false", "description": "Show checkboxes for row selection", "noChildren": true, "valueLabels": { "false": "No selection", "true": "Selectable" } },
-      { "name": "loading", "type": "boolean", "default": "false", "description": "Replace rows with animated skeleton cells", "noChildren": true, "valueLabels": { "false": "Loaded", "true": "Loading" } }
+      {
+        "name": "columns",
+        "type": "Column[]",
+        "default": "[...]",
+        "description": "Column definitions: { key, header, accessor?, sortable?, width? }"
+      },
+      {
+        "name": "data",
+        "type": "Record<string, unknown>[]",
+        "default": "[...]",
+        "description": "Row data array"
+      },
+      {
+        "name": "caption",
+        "type": "string",
+        "default": "undefined",
+        "description": "Table caption rendered above"
+      },
+      {
+        "name": "sortable",
+        "type": "boolean",
+        "default": "false",
+        "description": "Enable sorting on all columns",
+        "noChildren": true,
+        "valueLabels": {
+          "false": "Static",
+          "true": "Sortable"
+        }
+      },
+      {
+        "name": "selectable",
+        "type": "boolean",
+        "default": "false",
+        "description": "Show checkboxes for row selection",
+        "noChildren": true,
+        "valueLabels": {
+          "false": "No selection",
+          "true": "Selectable"
+        }
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "default": "false",
+        "description": "Replace rows with animated skeleton cells",
+        "noChildren": true,
+        "valueLabels": {
+          "false": "Loaded",
+          "true": "Loading"
+        }
+      }
     ],
     "usage": [
-      { "label": "Default", "code": "<UITable />" },
-      { "label": "Sortable", "code": "<UITable sortable />" },
-      { "label": "Selectable", "code": "<UITable selectable />" },
-      { "label": "Loading", "code": "<UITable loading />" }
+      {
+        "label": "Default",
+        "code": "<UITable />"
+      },
+      {
+        "label": "Sortable",
+        "code": "<UITable sortable />"
+      },
+      {
+        "label": "Selectable",
+        "code": "<UITable selectable />"
+      },
+      {
+        "label": "Loading",
+        "code": "<UITable loading />"
+      }
     ]
   },
-
   "data-table": {
     "name": "Data Table",
     "category": "data-display",
     "style": "default",
-    "tags": ["table", "data", "pagination", "search", "sort", "filter"],
-    "description": "Advanced table with search, sorting, pagination, column visibility toggle, and row selection — all in one component.",
+    "tags": [
+      "table",
+      "data",
+      "pagination",
+      "search",
+      "sort",
+      "filter"
+    ],
+    "description": "Advanced table with search, sorting, pagination, column visibility toggle, and row selection \u2014 all in one component.",
     "preview": true,
     "new": true,
     "props": [
-      { "name": "columns", "type": "Column[]", "default": "[...]", "description": "Column definitions — each can be sortable, filterable, and togglable" },
-      { "name": "data", "type": "Record<string, unknown>[]", "default": "[...]", "description": "Row data array" },
-      { "name": "search", "type": "boolean", "default": "true", "description": "Show a search input that filters all string fields", "noChildren": true, "valueLabels": { "false": "No search", "true": "Searchable" } },
-      { "name": "sorting", "type": "boolean", "default": "true", "description": "Enable column header click to sort", "noChildren": true, "valueLabels": { "false": "No sort", "true": "Sortable" } },
-      { "name": "pagination", "type": "boolean", "default": "true", "description": "Show prev/next/page number controls below the table", "noChildren": true, "valueLabels": { "false": "No pages", "true": "Paginated" } },
-      { "name": "selection", "type": "boolean", "default": "false", "description": "Show checkboxes for multi-row selection", "noChildren": true, "valueLabels": { "false": "No selection", "true": "Selectable" } },
-      { "name": "columnVisibility", "type": "boolean", "default": "false", "description": "Show a column toggle dropdown in the toolbar", "noChildren": true, "valueLabels": { "false": "Fixed", "true": "Togglable" } },
-      { "name": "loading", "type": "boolean", "default": "false", "description": "Show skeleton rows while data is loading", "noChildren": true, "valueLabels": { "false": "Loaded", "true": "Loading" } },
-      { "name": "pageSize", "type": "number", "default": "10", "description": "Rows per page" }
+      {
+        "name": "columns",
+        "type": "Column[]",
+        "default": "[...]",
+        "description": "Column definitions \u2014 each can be sortable, filterable, and togglable"
+      },
+      {
+        "name": "data",
+        "type": "Record<string, unknown>[]",
+        "default": "[...]",
+        "description": "Row data array"
+      },
+      {
+        "name": "search",
+        "type": "boolean",
+        "default": "true",
+        "description": "Show a search input that filters all string fields",
+        "noChildren": true,
+        "valueLabels": {
+          "false": "No search",
+          "true": "Searchable"
+        }
+      },
+      {
+        "name": "sorting",
+        "type": "boolean",
+        "default": "true",
+        "description": "Enable column header click to sort",
+        "noChildren": true,
+        "valueLabels": {
+          "false": "No sort",
+          "true": "Sortable"
+        }
+      },
+      {
+        "name": "pagination",
+        "type": "boolean",
+        "default": "true",
+        "description": "Show prev/next/page number controls below the table",
+        "noChildren": true,
+        "valueLabels": {
+          "false": "No pages",
+          "true": "Paginated"
+        }
+      },
+      {
+        "name": "selection",
+        "type": "boolean",
+        "default": "false",
+        "description": "Show checkboxes for multi-row selection",
+        "noChildren": true,
+        "valueLabels": {
+          "false": "No selection",
+          "true": "Selectable"
+        }
+      },
+      {
+        "name": "columnVisibility",
+        "type": "boolean",
+        "default": "false",
+        "description": "Show a column toggle dropdown in the toolbar",
+        "noChildren": true,
+        "valueLabels": {
+          "false": "Fixed",
+          "true": "Togglable"
+        }
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "default": "false",
+        "description": "Show skeleton rows while data is loading",
+        "noChildren": true,
+        "valueLabels": {
+          "false": "Loaded",
+          "true": "Loading"
+        }
+      },
+      {
+        "name": "pageSize",
+        "type": "number",
+        "default": "10",
+        "description": "Rows per page"
+      }
     ],
     "usage": [
-      { "label": "Default", "code": "<UIDataTable />" },
-      { "label": "With selection", "code": "<UIDataTable selection />" },
-      { "label": "Column visibility", "code": "<UIDataTable columnVisibility />" },
-      { "label": "Loading", "code": "<UIDataTable loading />" }
+      {
+        "label": "Default",
+        "code": "<UIDataTable />"
+      },
+      {
+        "label": "With selection",
+        "code": "<UIDataTable selection />"
+      },
+      {
+        "label": "Column visibility",
+        "code": "<UIDataTable columnVisibility />"
+      },
+      {
+        "label": "Loading",
+        "code": "<UIDataTable loading />"
+      }
     ]
   },
-
-  "skeleton": {
-    "name": "Skeleton",
-    "category": "data-display",
-    "style": "default",
-    "tags": ["skeleton", "loading", "placeholder"],
-    "description": "A loading placeholder that mimics content shape. Supports rect, circle, line, and text shapes with pulse or wave animation.",
-    "preview": true,
-    "new": true,
-    "props": [
-      { "name": "shape", "type": "\"rect\" | \"circle\" | \"line\" | \"text\"", "default": "\"rect\"", "description": "Skeleton shape — text auto-varies widths to simulate paragraph lines", "noChildren": true, "demoWidth": "w-48" },
-      { "name": "animation", "type": "\"pulse\" | \"wave\" | \"none\"", "default": "\"pulse\"", "description": "Animation style", "noChildren": true, "demoWidth": "w-48" },
-      { "name": "count", "type": "number", "default": "1", "description": "Number of skeleton items to render stacked" },
-      { "name": "width", "type": "string | number", "default": "\"100%\"", "description": "Width — CSS string or pixel number" },
-      { "name": "height", "type": "string | number", "default": "\"1rem\"", "description": "Height — CSS string or pixel number" },
-      { "name": "loading", "type": "boolean", "default": "true", "description": "When false, renders children instead of the skeleton", "noChildren": true, "valueLabels": { "false": "Loaded", "true": "Loading" } }
-    ],
-    "usage": [
-      { "label": "Text lines", "code": "<UISkeleton shape=\"text\" count={3} height=\"0.875rem\" />" },
-      { "label": "Avatar", "code": "<UISkeleton shape=\"circle\" height=\"40px\" width=\"40px\" />" },
-      { "label": "Card", "code": "<UISkeleton shape=\"rect\" height=\"120px\" />" },
-      { "label": "Loaded", "code": "<UISkeleton loading={false}>Content loaded</UISkeleton>" }
-    ]
-  },
-
   "empty": {
     "name": "Empty",
     "category": "data-display",
     "style": "default",
-    "tags": ["empty", "state", "placeholder", "no-data"],
+    "tags": [
+      "empty",
+      "state",
+      "placeholder",
+      "no-data"
+    ],
     "description": "An empty state panel with an icon, title, description, and optional action buttons.",
     "preview": true,
     "new": true,
     "props": [
-      { "name": "title", "type": "string", "default": "\"Nothing here yet\"", "description": "Primary heading" },
-      { "name": "description", "type": "string", "default": "\"Add your first item to get started.\"", "description": "Supporting text below the title" },
-      { "name": "icon", "type": "ReactNode", "default": "undefined", "description": "Custom icon — replaces the default inbox SVG" },
-      { "name": "action", "type": "ReactNode", "default": "undefined", "description": "Primary action element (e.g. a button)" },
-      { "name": "secondaryAction", "type": "ReactNode", "default": "undefined", "description": "Secondary action element" }
+      {
+        "name": "title",
+        "type": "string",
+        "default": "\"Nothing here yet\"",
+        "description": "Primary heading"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "default": "\"Add your first item to get started.\"",
+        "description": "Supporting text below the title"
+      },
+      {
+        "name": "icon",
+        "type": "ReactNode",
+        "default": "undefined",
+        "description": "Custom icon \u2014 replaces the default inbox SVG"
+      },
+      {
+        "name": "action",
+        "type": "ReactNode",
+        "default": "undefined",
+        "description": "Primary action element (e.g. a button)"
+      },
+      {
+        "name": "secondaryAction",
+        "type": "ReactNode",
+        "default": "undefined",
+        "description": "Secondary action element"
+      }
     ],
     "usage": [
-      { "label": "Default", "code": "<UIEmpty />" },
-      { "label": "With action", "code": "<UIEmpty title=\"No components\" description=\"Create your first component.\" action={<button>Create</button>} />" },
-      { "label": "Custom title", "code": "<UIEmpty title=\"No results\" description=\"Try a different search.\" />" }
+      {
+        "label": "Default",
+        "code": "<UIEmpty />"
+      },
+      {
+        "label": "With action",
+        "code": "<UIEmpty title=\"No components\" description=\"Create your first component.\" action={<button>Create</button>} />"
+      },
+      {
+        "label": "Custom title",
+        "code": "<UIEmpty title=\"No results\" description=\"Try a different search.\" />"
+      }
     ]
   },
-
   "alert-dialog": {
     "name": "Alert Dialog",
     "category": "feedback",
     "style": "default",
-    "tags": ["alert-dialog", "confirmation", "modal", "destructive", "base-ui"],
+    "tags": [
+      "alert-dialog",
+      "confirmation",
+      "modal",
+      "destructive",
+      "base-ui"
+    ],
     "description": "A blocking confirmation dialog. Supports destructive mode, loading state on the confirm button, and size variants.",
     "preview": true,
     "new": true,
     "props": [
-      { "name": "trigger", "type": "ReactNode", "default": "\"Open\"", "description": "Element that opens the dialog" },
-      { "name": "title", "type": "string", "default": "\"Are you sure?\"", "description": "Dialog heading" },
-      { "name": "description", "type": "string", "default": "\"This action cannot be undone.\"", "description": "Body text" },
-      { "name": "confirmText", "type": "string", "default": "\"Confirm\"", "description": "Label on the confirm button" },
-      { "name": "cancelText", "type": "string", "default": "\"Cancel\"", "description": "Label on the cancel button" },
-      { "name": "destructive", "type": "boolean", "default": "false", "description": "Colors the confirm button red to signal a dangerous action", "noChildren": true, "valueLabels": { "false": "Default", "true": "Destructive" } },
-      { "name": "loading", "type": "boolean", "default": "false", "description": "Shows a spinner on the confirm button and disables it", "noChildren": true, "valueLabels": { "false": "Idle", "true": "Loading" } },
-      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Width of the dialog popup", "noChildren": true }
+      {
+        "name": "trigger",
+        "type": "ReactNode",
+        "default": "\"Open\"",
+        "description": "Element that opens the dialog"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "default": "\"Are you sure?\"",
+        "description": "Dialog heading"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "default": "\"This action cannot be undone.\"",
+        "description": "Body text"
+      },
+      {
+        "name": "confirmText",
+        "type": "string",
+        "default": "\"Confirm\"",
+        "description": "Label on the confirm button"
+      },
+      {
+        "name": "cancelText",
+        "type": "string",
+        "default": "\"Cancel\"",
+        "description": "Label on the cancel button"
+      },
+      {
+        "name": "destructive",
+        "type": "boolean",
+        "default": "false",
+        "description": "Colors the confirm button red to signal a dangerous action",
+        "noChildren": true,
+        "valueLabels": {
+          "false": "Default",
+          "true": "Destructive"
+        }
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "default": "false",
+        "description": "Shows a spinner on the confirm button and disables it",
+        "noChildren": true,
+        "valueLabels": {
+          "false": "Idle",
+          "true": "Loading"
+        }
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\" | \"lg\"",
+        "default": "\"md\"",
+        "description": "Width of the dialog popup",
+        "noChildren": true
+      }
     ],
     "usage": [
-      { "label": "Default", "code": "<UIAlertDialog />" },
-      { "label": "Destructive", "code": "<UIAlertDialog destructive confirmText=\"Delete\" title=\"Delete item\" description=\"This will permanently remove the item.\" />" },
-      { "label": "Loading", "code": "<UIAlertDialog loading confirmText=\"Deleting…\" />" }
+      {
+        "label": "Default",
+        "code": "<UIAlertDialog />"
+      },
+      {
+        "label": "Destructive",
+        "code": "<UIAlertDialog destructive confirmText=\"Delete\" title=\"Delete item\" description=\"This will permanently remove the item.\" />"
+      },
+      {
+        "label": "Loading",
+        "code": "<UIAlertDialog loading confirmText=\"Deleting\u2026\" />"
+      }
     ]
   },
-
   "sonner": {
     "name": "Sonner",
     "category": "feedback",
     "style": "default",
-    "tags": ["toast", "notification", "sonner", "base-ui"],
+    "tags": [
+      "toast",
+      "notification",
+      "sonner",
+      "base-ui"
+    ],
     "description": "A toast notification system with type variants, position control, action buttons, and dismiss support. Built on Base UI Toast.",
     "preview": true,
     "new": true,
     "props": [
-      { "name": "message", "type": "string", "default": "\"Notification sent\"", "description": "Toast body text" },
-      { "name": "title", "type": "string", "default": "undefined", "description": "Optional bold heading above the message" },
-      { "name": "type", "type": "\"default\" | \"success\" | \"error\" | \"warning\" | \"info\"", "default": "\"default\"", "description": "Determines the icon and border accent color", "noChildren": true, "demoWidth": "w-36" },
-      { "name": "duration", "type": "number", "default": "4000", "description": "Auto-dismiss delay in milliseconds" },
-      { "name": "position", "type": "\"top-left\" | \"top-center\" | \"top-right\" | \"bottom-left\" | \"bottom-center\" | \"bottom-right\"", "default": "\"bottom-right\"", "description": "Corner the toast stack appears in", "noChildren": true, "demoWidth": "w-48" },
-      { "name": "dismissible", "type": "boolean", "default": "true", "description": "Show a close button on each toast" }
+      {
+        "name": "message",
+        "type": "string",
+        "default": "\"Notification sent\"",
+        "description": "Toast body text"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "default": "undefined",
+        "description": "Optional bold heading above the message"
+      },
+      {
+        "name": "type",
+        "type": "\"default\" | \"success\" | \"error\" | \"warning\" | \"info\"",
+        "default": "\"default\"",
+        "description": "Determines the icon and border accent color",
+        "noChildren": true,
+        "demoWidth": "w-36"
+      },
+      {
+        "name": "duration",
+        "type": "number",
+        "default": "4000",
+        "description": "Auto-dismiss delay in milliseconds"
+      },
+      {
+        "name": "position",
+        "type": "\"top-left\" | \"top-center\" | \"top-right\" | \"bottom-left\" | \"bottom-center\" | \"bottom-right\"",
+        "default": "\"bottom-right\"",
+        "description": "Corner the toast stack appears in",
+        "noChildren": true,
+        "demoWidth": "w-48"
+      },
+      {
+        "name": "dismissible",
+        "type": "boolean",
+        "default": "true",
+        "description": "Show a close button on each toast"
+      }
     ],
     "usage": [
-      { "label": "Default", "code": "<UISonner message=\"Changes saved.\" />" },
-      { "label": "Success", "code": "<UISonner type=\"success\" title=\"Saved\" message=\"All changes saved successfully.\" />" },
-      { "label": "Error", "code": "<UISonner type=\"error\" title=\"Failed\" message=\"Something went wrong.\" />" },
-      { "label": "Top center", "code": "<UISonner position=\"top-center\" message=\"Syncing…\" />" }
+      {
+        "label": "Default",
+        "code": "<UISonner message=\"Changes saved.\" />"
+      },
+      {
+        "label": "Success",
+        "code": "<UISonner type=\"success\" title=\"Saved\" message=\"All changes saved successfully.\" />"
+      },
+      {
+        "label": "Error",
+        "code": "<UISonner type=\"error\" title=\"Failed\" message=\"Something went wrong.\" />"
+      },
+      {
+        "label": "Top center",
+        "code": "<UISonner position=\"top-center\" message=\"Syncing\u2026\" />"
+      }
     ]
   },
-
   "spinner": {
     "name": "Spinner",
     "category": "feedback",
     "style": "default",
-    "tags": ["spinner", "loading", "indicator"],
+    "tags": [
+      "spinner",
+      "loading",
+      "indicator"
+    ],
     "description": "A circular loading indicator in five sizes. Disappears when loading is false.",
     "preview": true,
     "new": true,
     "props": [
-      { "name": "size", "type": "\"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\"", "default": "\"md\"", "description": "Diameter of the spinner", "noChildren": true },
-      { "name": "label", "type": "string", "default": "undefined", "description": "Optional text shown beside the spinner" },
-      { "name": "loading", "type": "boolean", "default": "true", "description": "When false, renders nothing", "noChildren": true, "valueLabels": { "false": "Done", "true": "Loading" } },
-      { "name": "ariaLabel", "type": "string", "default": "\"Loading\"", "description": "Accessible label for screen readers" }
+      {
+        "name": "size",
+        "type": "\"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\"",
+        "default": "\"md\"",
+        "description": "Diameter of the spinner",
+        "noChildren": true
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "default": "undefined",
+        "description": "Optional text shown beside the spinner"
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "default": "true",
+        "description": "When false, renders nothing",
+        "noChildren": true,
+        "valueLabels": {
+          "false": "Done",
+          "true": "Loading"
+        }
+      },
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "default": "\"Loading\"",
+        "description": "Accessible label for screen readers"
+      }
     ],
     "usage": [
-      { "label": "Sizes", "code": "<UISpinner size=\"xs\" />\n<UISpinner size=\"sm\" />\n<UISpinner size=\"md\" />\n<UISpinner size=\"lg\" />\n<UISpinner size=\"xl\" />" },
-      { "label": "With label", "code": "<UISpinner label=\"Loading data…\" />" },
-      { "label": "Hidden when done", "code": "<UISpinner loading={false} />" }
+      {
+        "label": "Sizes",
+        "code": "<UISpinner size=\"xs\" />\n<UISpinner size=\"sm\" />\n<UISpinner size=\"md\" />\n<UISpinner size=\"lg\" />\n<UISpinner size=\"xl\" />"
+      },
+      {
+        "label": "With label",
+        "code": "<UISpinner label=\"Loading data\u2026\" />"
+      },
+      {
+        "label": "Hidden when done",
+        "code": "<UISpinner loading={false} />"
+      }
     ]
   },
-
   "drawer": {
     "name": "Drawer",
     "category": "feedback",
     "style": "default",
-    "tags": ["drawer", "panel", "overlay", "slide", "base-ui"],
+    "tags": [
+      "drawer",
+      "panel",
+      "overlay",
+      "slide",
+      "base-ui"
+    ],
     "description": "A swipe-dismissible temporary side or bottom panel with title, description, and loading state. Built on Base UI Drawer.",
     "preview": true,
     "new": true,
     "props": [
-      { "name": "trigger", "type": "ReactNode", "default": "\"Open Drawer\"", "description": "Element that triggers the drawer" },
-      { "name": "title", "type": "string", "default": "\"Drawer\"", "description": "Heading inside the drawer" },
-      { "name": "description", "type": "string", "default": "undefined", "description": "Subheading below the title" },
-      { "name": "position", "type": "\"left\" | \"right\" | \"top\" | \"bottom\"", "default": "\"right\"", "description": "Side the drawer slides in from", "noChildren": true },
-      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\" | \"full\"", "default": "\"md\"", "description": "Width (horizontal) or height (vertical) of the panel", "noChildren": true },
-      { "name": "dismissible", "type": "boolean", "default": "true", "description": "Allow closing by clicking the backdrop or pressing Escape" },
-      { "name": "overlay", "type": "boolean", "default": "true", "description": "Show a backdrop behind the drawer" },
-      { "name": "loading", "type": "boolean", "default": "false", "description": "Show a spinner centered in the content area", "noChildren": true, "valueLabels": { "false": "Loaded", "true": "Loading" } }
+      {
+        "name": "trigger",
+        "type": "ReactNode",
+        "default": "\"Open Drawer\"",
+        "description": "Element that triggers the drawer"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "default": "\"Drawer\"",
+        "description": "Heading inside the drawer"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "default": "undefined",
+        "description": "Subheading below the title"
+      },
+      {
+        "name": "position",
+        "type": "\"left\" | \"right\" | \"top\" | \"bottom\"",
+        "default": "\"right\"",
+        "description": "Side the drawer slides in from",
+        "noChildren": true
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\" | \"lg\" | \"full\"",
+        "default": "\"md\"",
+        "description": "Width (horizontal) or height (vertical) of the panel",
+        "noChildren": true
+      },
+      {
+        "name": "dismissible",
+        "type": "boolean",
+        "default": "true",
+        "description": "Allow closing by clicking the backdrop or pressing Escape"
+      },
+      {
+        "name": "overlay",
+        "type": "boolean",
+        "default": "true",
+        "description": "Show a backdrop behind the drawer"
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "default": "false",
+        "description": "Show a spinner centered in the content area",
+        "noChildren": true,
+        "valueLabels": {
+          "false": "Loaded",
+          "true": "Loading"
+        }
+      }
     ],
     "usage": [
-      { "label": "Default", "code": "<UIDrawer />" },
-      { "label": "Left side", "code": "<UIDrawer position=\"left\" title=\"Navigation\" />" },
-      { "label": "Bottom", "code": "<UIDrawer position=\"bottom\" title=\"Options\" />" },
-      { "label": "Loading", "code": "<UIDrawer loading title=\"Loading…\" />" }
+      {
+        "label": "Default",
+        "code": "<UIDrawer />"
+      },
+      {
+        "label": "Left side",
+        "code": "<UIDrawer position=\"left\" title=\"Navigation\" />"
+      },
+      {
+        "label": "Bottom",
+        "code": "<UIDrawer position=\"bottom\" title=\"Options\" />"
+      },
+      {
+        "label": "Loading",
+        "code": "<UIDrawer loading title=\"Loading\u2026\" />"
+      }
     ]
   },
-
   "sheet": {
     "name": "Sheet",
     "category": "feedback",
     "style": "default",
-    "tags": ["sheet", "panel", "sidebar", "overlay", "base-ui"],
-    "description": "A persistent side panel that slides in from any edge. Unlike Drawer, it uses the Dialog primitive — no swipe dismiss.",
+    "tags": [
+      "sheet",
+      "panel",
+      "sidebar",
+      "overlay",
+      "base-ui"
+    ],
+    "description": "A persistent side panel that slides in from any edge. Unlike Drawer, it uses the Dialog primitive \u2014 no swipe dismiss.",
     "preview": true,
     "new": true,
     "props": [
-      { "name": "trigger", "type": "ReactNode", "default": "\"Open Sheet\"", "description": "Element that opens the sheet" },
-      { "name": "title", "type": "string", "default": "\"Sheet\"", "description": "Heading inside the sheet header" },
-      { "name": "description", "type": "string", "default": "undefined", "description": "Subheading below the title" },
-      { "name": "side", "type": "\"left\" | \"right\" | \"top\" | \"bottom\"", "default": "\"right\"", "description": "Edge the sheet slides in from", "noChildren": true },
-      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\" | \"full\"", "default": "\"md\"", "description": "Width (horizontal) or height (vertical) of the panel", "noChildren": true },
-      { "name": "closeButton", "type": "boolean", "default": "true", "description": "Show an × close button in the header", "noChildren": true, "valueLabels": { "false": "Hidden", "true": "Shown" } },
-      { "name": "loading", "type": "boolean", "default": "false", "description": "Show a spinner in the content area", "noChildren": true, "valueLabels": { "false": "Loaded", "true": "Loading" } }
+      {
+        "name": "trigger",
+        "type": "ReactNode",
+        "default": "\"Open Sheet\"",
+        "description": "Element that opens the sheet"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "default": "\"Sheet\"",
+        "description": "Heading inside the sheet header"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "default": "undefined",
+        "description": "Subheading below the title"
+      },
+      {
+        "name": "side",
+        "type": "\"left\" | \"right\" | \"top\" | \"bottom\"",
+        "default": "\"right\"",
+        "description": "Edge the sheet slides in from",
+        "noChildren": true
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\" | \"lg\" | \"full\"",
+        "default": "\"md\"",
+        "description": "Width (horizontal) or height (vertical) of the panel",
+        "noChildren": true
+      },
+      {
+        "name": "closeButton",
+        "type": "boolean",
+        "default": "true",
+        "description": "Show an \u00d7 close button in the header",
+        "noChildren": true,
+        "valueLabels": {
+          "false": "Hidden",
+          "true": "Shown"
+        }
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "default": "false",
+        "description": "Show a spinner in the content area",
+        "noChildren": true,
+        "valueLabels": {
+          "false": "Loaded",
+          "true": "Loading"
+        }
+      }
     ],
     "usage": [
-      { "label": "Default", "code": "<UISheet />" },
-      { "label": "Left side", "code": "<UISheet side=\"left\" title=\"Menu\" />" },
-      { "label": "Large", "code": "<UISheet size=\"lg\" title=\"Details\" />" },
-      { "label": "No close button", "code": "<UISheet closeButton={false} title=\"Locked panel\" />" }
+      {
+        "label": "Default",
+        "code": "<UISheet />"
+      },
+      {
+        "label": "Left side",
+        "code": "<UISheet side=\"left\" title=\"Menu\" />"
+      },
+      {
+        "label": "Large",
+        "code": "<UISheet size=\"lg\" title=\"Details\" />"
+      },
+      {
+        "label": "No close button",
+        "code": "<UISheet closeButton={false} title=\"Locked panel\" />"
+      }
     ]
   },
-
   "sidebar": {
     "name": "Sidebar",
     "category": "navigation",
     "style": "default",
-    "tags": ["sidebar", "navigation", "menu", "nav"],
+    "tags": [
+      "sidebar",
+      "navigation",
+      "menu",
+      "nav"
+    ],
     "description": "An application navigation sidebar with collapse support, nested items, badges, and active state tracking.",
     "preview": true,
     "new": true,
     "props": [
-      { "name": "items", "type": "SidebarItem[]", "default": "[...]", "description": "Navigation items: { key, label, icon?, href?, badge?, disabled?, children? }" },
-      { "name": "collapsible", "type": "boolean", "default": "true", "description": "Show a collapse toggle button at the bottom of the sidebar" },
-      { "name": "defaultCollapsed", "type": "boolean", "default": "false", "description": "Start collapsed (icon-only mode)", "noChildren": true, "valueLabels": { "false": "Expanded", "true": "Collapsed" } },
-      { "name": "activeItem", "type": "string", "default": "undefined", "description": "Key of the currently active item (controlled)" },
-      { "name": "header", "type": "ReactNode", "default": "undefined", "description": "Content rendered at the top of the sidebar" },
-      { "name": "footer", "type": "ReactNode", "default": "undefined", "description": "Content rendered at the bottom before the collapse button" }
+      {
+        "name": "items",
+        "type": "SidebarItem[]",
+        "default": "[...]",
+        "description": "Navigation items: { key, label, icon?, href?, badge?, disabled?, children? }"
+      },
+      {
+        "name": "collapsible",
+        "type": "boolean",
+        "default": "true",
+        "description": "Show a collapse toggle button at the bottom of the sidebar"
+      },
+      {
+        "name": "defaultCollapsed",
+        "type": "boolean",
+        "default": "false",
+        "description": "Start collapsed (icon-only mode)",
+        "noChildren": true,
+        "valueLabels": {
+          "false": "Expanded",
+          "true": "Collapsed"
+        }
+      },
+      {
+        "name": "activeItem",
+        "type": "string",
+        "default": "undefined",
+        "description": "Key of the currently active item (controlled)"
+      },
+      {
+        "name": "header",
+        "type": "ReactNode",
+        "default": "undefined",
+        "description": "Content rendered at the top of the sidebar"
+      },
+      {
+        "name": "footer",
+        "type": "ReactNode",
+        "default": "undefined",
+        "description": "Content rendered at the bottom before the collapse button"
+      }
     ],
     "usage": [
-      { "label": "Default", "code": "<UISidebar />" },
-      { "label": "Collapsed", "code": "<UISidebar defaultCollapsed />" },
-      { "label": "Not collapsible", "code": "<UISidebar collapsible={false} />" }
+      {
+        "label": "Default",
+        "code": "<UISidebar />"
+      },
+      {
+        "label": "Collapsed",
+        "code": "<UISidebar defaultCollapsed />"
+      },
+      {
+        "label": "Not collapsible",
+        "code": "<UISidebar collapsible={false} />"
+      }
     ]
   },
-
   "breadcrumb": {
     "name": "Breadcrumb",
     "category": "navigation",
     "style": "default",
-    "tags": ["breadcrumb", "navigation", "hierarchy", "path"],
+    "tags": [
+      "breadcrumb",
+      "navigation",
+      "hierarchy",
+      "path"
+    ],
     "description": "A page hierarchy trail with configurable separator, ellipsis truncation for long paths, and aria-current on the last item.",
     "preview": true,
     "new": true,
     "props": [
-      { "name": "items", "type": "{ label: string; href?: string; icon?: ReactNode }[]", "default": "[...]", "description": "Breadcrumb trail items — last item is treated as current page" },
-      { "name": "separator", "type": "ReactNode", "default": "\"/\"", "description": "Separator rendered between items" },
-      { "name": "maxItems", "type": "number", "default": "undefined", "description": "Collapse middle items into … when the trail exceeds this count; click to expand" }
+      {
+        "name": "items",
+        "type": "{ label: string; href?: string; icon?: ReactNode }[]",
+        "default": "[...]",
+        "description": "Breadcrumb trail items \u2014 last item is treated as current page"
+      },
+      {
+        "name": "separator",
+        "type": "ReactNode",
+        "default": "\"/\"",
+        "description": "Separator rendered between items"
+      },
+      {
+        "name": "maxItems",
+        "type": "number",
+        "default": "undefined",
+        "description": "Collapse middle items into \u2026 when the trail exceeds this count; click to expand"
+      }
     ],
     "usage": [
-      { "label": "Default", "code": "<UIBreadcrumb />" },
-      { "label": "Custom separator", "code": "<UIBreadcrumb separator=\"›\" items={[{ label: 'Home', href: '/' }, { label: 'Docs', href: '/docs' }, { label: 'Components' }]} />" },
-      { "label": "Truncated", "code": "<UIBreadcrumb maxItems={2} items={[{ label: 'Home', href: '/' }, { label: 'Components', href: '/components' }, { label: 'Inputs', href: '/inputs' }, { label: 'Breadcrumb' }]} />" }
+      {
+        "label": "Default",
+        "code": "<UIBreadcrumb />"
+      },
+      {
+        "label": "Custom separator",
+        "code": "<UIBreadcrumb separator=\"\u203a\" items={[{ label: 'Home', href: '/' }, { label: 'Docs', href: '/docs' }, { label: 'Components' }]} />"
+      },
+      {
+        "label": "Truncated",
+        "code": "<UIBreadcrumb maxItems={2} items={[{ label: 'Home', href: '/' }, { label: 'Components', href: '/components' }, { label: 'Inputs', href: '/inputs' }, { label: 'Breadcrumb' }]} />"
+      }
     ]
   },
-
   "command": {
     "name": "Command",
     "category": "navigation",
     "style": "default",
-    "tags": ["command", "search", "keyboard", "palette"],
-    "description": "A keyboard-driven command palette with grouped commands, fuzzy search, arrow-key navigation, and a global ⌘K shortcut.",
+    "tags": [
+      "command",
+      "search",
+      "keyboard",
+      "palette"
+    ],
+    "description": "A keyboard-driven command palette with grouped commands, fuzzy search, arrow-key navigation, and a global \u2318K shortcut.",
     "preview": true,
     "new": true,
     "props": [
-      { "name": "groups", "type": "CommandGroup[]", "default": "[...]", "description": "Command groups: { heading?, items: { key, label, description?, icon?, shortcut?, disabled? }[] }" },
-      { "name": "placeholder", "type": "string", "default": "\"Type a command…\"", "description": "Search input placeholder" },
-      { "name": "shortcut", "type": "string", "default": "\"⌘K\"", "description": "Display label for the keyboard shortcut (shown on trigger). ⌘K is always registered." },
-      { "name": "emptyMessage", "type": "string", "default": "\"No commands found\"", "description": "Shown when search yields no results" },
-      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Max width of the palette popup" }
+      {
+        "name": "groups",
+        "type": "CommandGroup[]",
+        "default": "[...]",
+        "description": "Command groups: { heading?, items: { key, label, description?, icon?, shortcut?, disabled? }[] }"
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "default": "\"Type a command\u2026\"",
+        "description": "Search input placeholder"
+      },
+      {
+        "name": "shortcut",
+        "type": "string",
+        "default": "\"\u2318K\"",
+        "description": "Display label for the keyboard shortcut (shown on trigger). \u2318K is always registered."
+      },
+      {
+        "name": "emptyMessage",
+        "type": "string",
+        "default": "\"No commands found\"",
+        "description": "Shown when search yields no results"
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\" | \"lg\"",
+        "default": "\"md\"",
+        "description": "Max width of the palette popup"
+      }
     ],
     "usage": [
-      { "label": "Default", "code": "<UICommand />" },
-      { "label": "Custom groups", "code": "<UICommand groups={[{ heading: 'Pages', items: [{ key: 'home', label: 'Home' }, { key: 'about', label: 'About' }] }]} />" },
-      { "label": "Large", "code": "<UICommand size=\"lg\" />" }
+      {
+        "label": "Default",
+        "code": "<UICommand />"
+      },
+      {
+        "label": "Custom groups",
+        "code": "<UICommand groups={[{ heading: 'Pages', items: [{ key: 'home', label: 'Home' }, { key: 'about', label: 'About' }] }]} />"
+      },
+      {
+        "label": "Large",
+        "code": "<UICommand size=\"lg\" />"
+      }
     ]
   },
-
   "pagination": {
     "name": "Pagination",
     "category": "navigation",
     "style": "default",
-    "tags": ["pagination", "navigation", "pages"],
+    "tags": [
+      "pagination",
+      "navigation",
+      "pages"
+    ],
     "description": "A page navigation control with smart ellipsis, first/last shortcuts, and size variants. Controlled and uncontrolled.",
     "preview": true,
     "new": true,
     "props": [
-      { "name": "totalPages", "type": "number", "default": "10", "description": "Total number of pages" },
-      { "name": "defaultPage", "type": "number", "default": "1", "description": "Initial page for uncontrolled use" },
-      { "name": "siblingCount", "type": "number", "default": "1", "description": "Pages shown on each side of the current page before an ellipsis appears" },
-      { "name": "showFirstLast", "type": "boolean", "default": "true", "description": "Show ⟪ / ⟫ jump-to-first and jump-to-last buttons", "noChildren": true, "valueLabels": { "false": "Hidden", "true": "Shown" } },
-      { "name": "disabled", "type": "boolean", "default": "false", "description": "Disable all buttons", "noChildren": true, "valueLabels": { "false": "Enabled", "true": "Disabled" } },
-      { "name": "size", "type": "\"sm\" | \"md\" | \"lg\"", "default": "\"md\"", "description": "Button height and font size", "noChildren": true }
+      {
+        "name": "totalPages",
+        "type": "number",
+        "default": "10",
+        "description": "Total number of pages"
+      },
+      {
+        "name": "defaultPage",
+        "type": "number",
+        "default": "1",
+        "description": "Initial page for uncontrolled use"
+      },
+      {
+        "name": "siblingCount",
+        "type": "number",
+        "default": "1",
+        "description": "Pages shown on each side of the current page before an ellipsis appears"
+      },
+      {
+        "name": "showFirstLast",
+        "type": "boolean",
+        "default": "true",
+        "description": "Show \u27ea / \u27eb jump-to-first and jump-to-last buttons",
+        "noChildren": true,
+        "valueLabels": {
+          "false": "Hidden",
+          "true": "Shown"
+        }
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "default": "false",
+        "description": "Disable all buttons",
+        "noChildren": true,
+        "valueLabels": {
+          "false": "Enabled",
+          "true": "Disabled"
+        }
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\" | \"lg\"",
+        "default": "\"md\"",
+        "description": "Button height and font size",
+        "noChildren": true
+      }
     ],
     "usage": [
-      { "label": "Default", "code": "<UIPagination />" },
-      { "label": "No first/last", "code": "<UIPagination showFirstLast={false} />" },
-      { "label": "Sizes", "code": "<UIPagination size=\"sm\" />\n<UIPagination size=\"md\" />\n<UIPagination size=\"lg\" />" },
-      { "label": "More siblings", "code": "<UIPagination siblingCount={2} totalPages={20} />" }
+      {
+        "label": "Default",
+        "code": "<UIPagination />"
+      },
+      {
+        "label": "No first/last",
+        "code": "<UIPagination showFirstLast={false} />"
+      },
+      {
+        "label": "Sizes",
+        "code": "<UIPagination size=\"sm\" />\n<UIPagination size=\"md\" />\n<UIPagination size=\"lg\" />"
+      },
+      {
+        "label": "More siblings",
+        "code": "<UIPagination siblingCount={2} totalPages={20} />"
+      }
     ]
   }
 }
