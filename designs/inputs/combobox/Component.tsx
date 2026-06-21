@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import { Combobox } from "@base-ui/react/combobox";
 import { cn } from "@/lib/utils";
 import { defaultStyle } from "./styles/default";
@@ -21,7 +22,6 @@ type Props = {
   open?: boolean;
   defaultOpen?: boolean;
   emptyMessage?: string;
-  noResultsMessage?: string;
   label?: string;
   description?: string;
   error?: string;
@@ -83,8 +83,7 @@ export function UICombobox({
   clearable = false,
   open,
   defaultOpen,
-  emptyMessage = "No options",
-  noResultsMessage = "No results",
+  emptyMessage = "No results",
   label,
   description,
   error,
@@ -93,6 +92,21 @@ export function UICombobox({
   onSearch,
   className,
 }: Props) {
+  const isControlled = value !== undefined;
+  const [internalSelected, setInternalSelected] = React.useState<string[]>(
+    Array.isArray(defaultValue) ? defaultValue : [],
+  );
+  const selectedChips = isControlled
+    ? (Array.isArray(value) ? value : [])
+    : internalSelected;
+
+  function handleChange(val: string | string[] | null) {
+    if (multiple && !isControlled) {
+      setInternalSelected(Array.isArray(val) ? val : []);
+    }
+    onChange?.(val);
+  }
+
   return (
     <div className={cn("flex flex-col gap-1.5", className)}>
       {(label || description) && (
@@ -103,9 +117,14 @@ export function UICombobox({
       )}
       <Combobox.Root
         items={options}
+        itemToStringLabel={(item) => {
+          if (item && typeof item === "object" && "label" in item) return (item as Option).label;
+          if (typeof item === "string") return options.find((o) => o.value === item)?.label ?? item;
+          return String(item ?? "");
+        }}
         value={value as string & string[]}
         defaultValue={defaultValue as string & string[]}
-        onValueChange={onChange as (v: string & string[] | null) => void}
+        onValueChange={(val) => handleChange(val as string | string[] | null)}
         open={open}
         defaultOpen={defaultOpen}
         onOpenChange={onOpenChange}
@@ -113,23 +132,22 @@ export function UICombobox({
         disabled={loading || disabled}
         aria-invalid={!!error}
       >
-        <Combobox.Trigger className={cn(styleConfig.trigger, error && "border-red-500 focus-within:ring-red-500/40")}>
+        <Combobox.Trigger render={<div />} nativeButton={false} className={cn(styleConfig.trigger, error && "border-red-500 focus-within:ring-red-500/40")}>
           <div className={styleConfig.inputGroup}>
             {multiple && (
               <Combobox.Chips className="contents">
-                {(chips: unknown[]) =>
-                  chips.map((chip: unknown) => {
-                    const c = chip as { value: string; label: string };
-                    return (
-                      <Combobox.Chip key={c.value} value={c.value} className={styleConfig.chip}>
-                        {c.label}
-                        <Combobox.ChipRemove className={styleConfig.chipRemove} aria-label={`Remove ${c.label}`}>
-                          <XIcon size={8} />
-                        </Combobox.ChipRemove>
-                      </Combobox.Chip>
-                    );
-                  })
-                }
+                {selectedChips.map((val) => {
+                  const opt = options.find((o) => o.value === val);
+                  const chipLabel = opt?.label ?? val;
+                  return (
+                    <Combobox.Chip key={val} className={styleConfig.chip}>
+                      {chipLabel}
+                      <Combobox.ChipRemove className={styleConfig.chipRemove} aria-label={`Remove ${chipLabel}`}>
+                        <XIcon size={8} />
+                      </Combobox.ChipRemove>
+                    </Combobox.Chip>
+                  );
+                })}
               </Combobox.Chips>
             )}
             <Combobox.Input
@@ -157,12 +175,13 @@ export function UICombobox({
           <Combobox.Positioner sideOffset={4}>
             <Combobox.Popup className={styleConfig.popup}>
               <Combobox.List className="max-h-60 overflow-y-auto">
-                <Combobox.Empty className={styleConfig.empty}>{emptyMessage}</Combobox.Empty>
+                <Combobox.Empty>
+                  <div className={styleConfig.empty}>{emptyMessage}</div>
+                </Combobox.Empty>
                 {options.map((opt) => (
                   <Combobox.Item
                     key={opt.value}
                     value={opt.value}
-                    label={opt.label}
                     disabled={opt.disabled}
                     className={styleConfig.item}
                   >
