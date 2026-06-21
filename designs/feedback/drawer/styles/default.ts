@@ -12,7 +12,7 @@ export type DrawerStyleConfig = {
 
 export const defaultStyle: DrawerStyleConfig = {
   backdrop:
-    "fixed inset-0 bg-black/50 backdrop-blur-[2px] data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 transition-opacity duration-300",
+    "fixed inset-0 z-[60] bg-black/50 backdrop-blur-[2px] data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 transition-opacity duration-300",
   popup:
     "fixed bg-card border-border focus:outline-none overflow-y-auto flex flex-col",
   positions: {

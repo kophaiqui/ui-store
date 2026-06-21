@@ -73,37 +73,39 @@ export function UIDrawer({
       </Drawer.Trigger>
       <Drawer.Portal>
         {overlay && <Drawer.Backdrop className={styleConfig.backdrop} />}
-        <Drawer.Popup
-          className={cn(
-            styleConfig.popup,
-            styleConfig.positions[position],
-            isHorizontal ? styleConfig.sizes[size] : "",
-            !isHorizontal && size === "sm" && "max-h-64",
-            !isHorizontal && size === "md" && "max-h-96",
-            !isHorizontal && size === "lg" && "max-h-[32rem]",
-            !isHorizontal && size === "full" && "h-screen",
-            className,
-          )}
-        >
-          <div className={styleConfig.header}>
-            <div>
-              {title && <Drawer.Title className={styleConfig.title}>{title}</Drawer.Title>}
-              {description && <Drawer.Description className={styleConfig.description}>{description}</Drawer.Description>}
+        <Drawer.Viewport className="fixed inset-0 z-[60]">
+          <Drawer.Popup
+            className={cn(
+              styleConfig.popup,
+              styleConfig.positions[position],
+              isHorizontal ? styleConfig.sizes[size] : "",
+              !isHorizontal && size === "sm" && "max-h-64",
+              !isHorizontal && size === "md" && "max-h-96",
+              !isHorizontal && size === "lg" && "max-h-[32rem]",
+              !isHorizontal && size === "full" && "h-screen",
+              className,
+            )}
+          >
+            <div className={styleConfig.header}>
+              <div>
+                {title && <Drawer.Title className={styleConfig.title}>{title}</Drawer.Title>}
+                {description && <Drawer.Description className={styleConfig.description}>{description}</Drawer.Description>}
+              </div>
+              <Drawer.Close className={styleConfig.close} aria-label="Close">
+                <CloseIcon />
+              </Drawer.Close>
             </div>
-            <Drawer.Close className={styleConfig.close} aria-label="Close">
-              <CloseIcon />
-            </Drawer.Close>
-          </div>
-          {loading ? (
-            <div className={styleConfig.loadingWrapper}>
-              <Spinner />
-            </div>
-          ) : (
-            <div className="flex-1 overflow-y-auto p-5">
-              {children ?? <p className="text-sm text-muted-foreground">Drawer content goes here.</p>}
-            </div>
-          )}
-        </Drawer.Popup>
+            {loading ? (
+              <div className={styleConfig.loadingWrapper}>
+                <Spinner />
+              </div>
+            ) : (
+              <div className="flex-1 overflow-y-auto p-5">
+                {children ?? <p className="text-sm text-muted-foreground">Drawer content goes here.</p>}
+              </div>
+            )}
+          </Drawer.Popup>
+        </Drawer.Viewport>
       </Drawer.Portal>
     </Drawer.Root>
   );

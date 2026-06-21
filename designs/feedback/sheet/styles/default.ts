@@ -12,9 +12,9 @@ export type SheetStyleConfig = {
 
 export const defaultStyle: SheetStyleConfig = {
   backdrop:
-    "fixed inset-0 bg-black/50 backdrop-blur-[2px] data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 transition-opacity duration-300",
+    "fixed inset-0 z-[60] bg-black/50 backdrop-blur-[2px] data-[starting-style]:opacity-0 data-[ending-style]:opacity-0 transition-opacity duration-300",
   popup:
-    "fixed bg-card border-border focus:outline-none overflow-y-auto flex flex-col shadow-2xl shadow-black/30",
+    "fixed z-[60] bg-card border-border focus:outline-none overflow-y-auto flex flex-col shadow-2xl shadow-black/30",
   sides: {
     right: "inset-y-0 right-0 border-l data-[starting-style]:translate-x-full data-[ending-style]:translate-x-full transition-transform duration-300",
     left: "inset-y-0 left-0 border-r data-[starting-style]:-translate-x-full data-[ending-style]:-translate-x-full transition-transform duration-300",
