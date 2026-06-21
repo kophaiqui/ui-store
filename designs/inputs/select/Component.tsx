@@ -13,7 +13,6 @@ type Props = {
   styleConfig?: SelectStyleConfig;
   options?: Option[];
   placeholder?: string;
-  multiSelect?: boolean;
   clearable?: boolean;
   loading?: boolean;
   className?: string;
@@ -52,48 +51,37 @@ export function UISelect({
     { label: "Style Guide", value: "sg" },
   ],
   placeholder = "Select an option",
-  multiSelect = false,
   clearable = false,
   loading = false,
   className,
 }: Props) {
-  const [value, setValue] = useState<string | string[] | null>(null);
+  const [value, setValue] = useState<string | null>(null);
 
   const labelOf = (v: string) => options.find((opt) => opt.value === v)?.label ?? v;
 
-  const hasValue = Array.isArray(value) ? value.length > 0 : value != null && value !== "";
+  const hasValue = value != null && value !== "";
   const showClear = clearable && hasValue && !loading;
-
-  const renderValue = (v: string | string[] | null) => {
-    if (Array.isArray(v)) {
-      if (v.length === 0) return <span className={styleConfig.placeholder}>{placeholder}</span>;
-      const labels = v.map(labelOf);
-      const display = labels.length > 2
-        ? `${labels.slice(0, 2).join(", ")} +${labels.length - 2}`
-        : labels.join(", ");
-      return display;
-    }
-    if (v == null || v === "") return <span className={styleConfig.placeholder}>{placeholder}</span>;
-    return labelOf(v);
-  };
 
   const handleClear = (e: React.PointerEvent | React.KeyboardEvent) => {
     e.stopPropagation();
     e.preventDefault();
-    setValue(multiSelect ? [] : null);
+    setValue(null);
   };
 
   return (
     <Select.Root
       items={options}
-      multiple={multiSelect}
       value={value}
       onValueChange={setValue}
     >
       <Select.Trigger className={cn(styleConfig.trigger, className)}>
         <span className="min-w-0 flex-1 truncate text-left">
           <Select.Value placeholder={<span className={styleConfig.placeholder}>{placeholder}</span>}>
-            {renderValue}
+            {(v: string | null) =>
+              v == null || v === ""
+                ? <span className={styleConfig.placeholder}>{placeholder}</span>
+                : labelOf(v)
+            }
           </Select.Value>
         </span>
         <div className="flex shrink-0 items-center gap-1">
