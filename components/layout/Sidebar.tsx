@@ -519,12 +519,7 @@ function ComponentItem({
           )}
           {item.label}
         </span>
-        <div className="flex items-center gap-1.5">
-          <span className="rounded-full bg-violet-500/10 px-1.5 py-0.5 text-[0.6875rem] font-medium tabular-nums text-violet-400">
-            {variants.length}
-          </span>
-          <Chevron open={open} />
-        </div>
+        <Chevron open={open} />
       </button>
 
       {open && (
