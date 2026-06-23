@@ -90,13 +90,13 @@ export function ComponentPanel({ slug, meta }: Props) {
           <div
             className="pointer-events-none absolute inset-0"
             style={{
-              backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.045) 1px, transparent 1px)",
+              backgroundImage: "radial-gradient(circle, var(--preview-dot) 1px, transparent 1px)",
               backgroundSize: "18px 18px",
             }}
           />
           <div
             className="pointer-events-none absolute inset-0"
-            style={{ background: "radial-gradient(ellipse 75% 75% at 50% 50%, transparent 30%, rgba(0,0,0,0.32) 100%)" }}
+            style={{ background: "radial-gradient(ellipse 75% 75% at 50% 50%, transparent 30%, var(--preview-vignette) 100%)" }}
           />
           <div className="relative">
             <Preview />

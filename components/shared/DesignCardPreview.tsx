@@ -27,14 +27,14 @@ export function DesignCardPreview({ slug, meta, linkBase = "/components", showNe
         <div
           className="pointer-events-none absolute inset-0"
           style={{
-            backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.045) 1px, transparent 1px)",
+            backgroundImage: "radial-gradient(circle, var(--preview-dot) 1px, transparent 1px)",
             backgroundSize: "16px 16px",
           }}
         />
         {/* Edge vignette */}
         <div
           className="pointer-events-none absolute inset-0"
-          style={{ background: "radial-gradient(ellipse 70% 70% at 50% 50%, transparent 20%, rgba(0,0,0,0.35) 100%)" }}
+          style={{ background: "radial-gradient(ellipse 70% 70% at 50% 50%, transparent 20%, var(--preview-vignette) 100%)" }}
         />
         <div className={cn("relative pointer-events-none select-none", meta.previewClass)}>
           <Preview />

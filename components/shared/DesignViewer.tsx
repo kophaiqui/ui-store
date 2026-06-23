@@ -110,14 +110,14 @@ export function DesignViewer({ slug, meta, code, styleConfig }: Props) {
           <div
             className="pointer-events-none absolute inset-0"
             style={{
-              backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.045) 1px, transparent 1px)",
+              backgroundImage: "radial-gradient(circle, var(--preview-dot) 1px, transparent 1px)",
               backgroundSize: "18px 18px",
             }}
           />
-          {/* Edge vignette — darkens corners, stages the component */}
+          {/* Edge vignette — stages the component */}
           <div
             className="pointer-events-none absolute inset-0"
-            style={{ background: "radial-gradient(ellipse 75% 75% at 50% 50%, transparent 30%, rgba(0,0,0,0.32) 100%)" }}
+            style={{ background: "radial-gradient(ellipse 75% 75% at 50% 50%, transparent 30%, var(--preview-vignette) 100%)" }}
           />
           <div className={cn("relative flex items-center justify-center", meta.previewClass ?? "w-full")}>
             <Preview {...(styleConfig ? { styleConfig } : {})} />
