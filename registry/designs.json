@@ -11,7 +11,6 @@
     ],
     "description": "6 variants \u00b7 3 sizes \u00b7 3 shapes \u00b7 disabled + loading states. Built on Base UI's Button primitive.",
     "preview": true,
-    "new": true,
     "props": [
       {
         "name": "variant",
@@ -135,7 +134,6 @@
     ],
     "description": "An accessible checkbox with emerald checked state and optional label. Built on Base UI's Checkbox primitive.",
     "preview": true,
-    "new": true,
     "props": [
       {
         "name": "label",
@@ -255,7 +253,6 @@
     ],
     "description": "A dark text input with inset shadow, emerald focus ring, and full disabled/read-only state support.",
     "preview": true,
-    "new": true,
     "previewClass": "w-72",
     "props": [
       {
@@ -396,7 +393,6 @@
     ],
     "description": "An accessible radio group using Base UI Radio + RadioGroup primitives. Emerald accent on selection.",
     "preview": true,
-    "new": true,
     "props": [
       {
         "name": "options",
@@ -484,7 +480,6 @@
     ],
     "description": "A dark dropdown select with glass-effect popup, highlighted states, and a check mark on the selected item.",
     "preview": true,
-    "new": true,
     "previewClass": "w-56",
     "props": [
       {
@@ -543,7 +538,6 @@
     ],
     "description": "A range slider with emerald fill track and a thumb that grows on active. Built on Base UI's Slider primitive.",
     "preview": true,
-    "new": true,
     "previewClass": "w-64",
     "props": [
       {
@@ -622,7 +616,6 @@
     ],
     "description": "A toggle switch that transitions to emerald when active. Thumb translates smoothly on state change.",
     "preview": true,
-    "new": true,
     "props": [
       {
         "name": "label",
@@ -734,7 +727,6 @@
     ],
     "description": "Avatar with image support, text fallback, shape, size, and status dot. Built on Base UI's Avatar primitive.",
     "preview": true,
-    "new": true,
     "props": [
       {
         "name": "src",
@@ -816,7 +808,6 @@
     ],
     "description": "A thin 1px rule that divides content. Horizontal (default) splits stacked sections; vertical splits inline items such as nav links.",
     "preview": true,
-    "new": true,
     "previewClass": "w-64",
     "props": [
       {
@@ -851,7 +842,6 @@
     ],
     "description": "Tab bar with a sliding emerald underline indicator. Panels swap on selection.",
     "preview": true,
-    "new": true,
     "previewClass": "w-80",
     "props": [
       {
@@ -914,7 +904,6 @@
     ],
     "description": "A linear progress bar with optional label and value display. Emerald fill, zinc-800 track.",
     "preview": true,
-    "new": true,
     "previewClass": "w-64",
     "props": [
       {
@@ -1013,7 +1002,6 @@
     ],
     "description": "Collapsible panels with a chevron indicator that rotates on open. Divided by zinc-800 rules.",
     "preview": true,
-    "new": true,
     "previewClass": "w-80",
     "props": [
       {
@@ -1089,7 +1077,6 @@
     ],
     "description": "A dark glass tooltip anchored to its trigger with configurable side placement.",
     "preview": true,
-    "new": true,
     "props": [
       {
         "name": "content",
@@ -1166,7 +1153,6 @@
     ],
     "description": "A centered modal dialog with dark glass surface, backdrop blur, and confirm/cancel actions.",
     "preview": true,
-    "new": true,
     "props": [
       {
         "name": "trigger",
@@ -1236,7 +1222,6 @@
     ],
     "description": "A dark glass popover anchored to its trigger. Includes a close button and description slot.",
     "preview": true,
-    "new": true,
     "props": [
       {
         "name": "trigger",
@@ -1312,7 +1297,6 @@
     ],
     "description": "A flexible surface container for grouping related content. Supports bordered and hoverable variants.",
     "preview": true,
-    "new": true,
     "props": [
       {
         "name": "variant",
@@ -1424,7 +1408,6 @@
     ],
     "description": "A compact label for status indicators, counts, or metadata. Supports solid, soft, and outline styles across six colors.",
     "preview": true,
-    "new": true,
     "props": [
       {
         "name": "variant",
@@ -1500,7 +1483,6 @@
     ],
     "description": "An interactive filter or selection token. Supports selected state and a removable dismiss button.",
     "preview": true,
-    "new": true,
     "props": [
       {
         "name": "selected",
@@ -1572,7 +1554,6 @@
     ],
     "description": "An inline status message in four severity levels: info, success, warning, and error. Optionally dismissible.",
     "preview": true,
-    "new": true,
     "props": [
       {
         "name": "variant",
@@ -1666,7 +1647,6 @@
     ],
     "description": "Transient notifications that slide in from the corner. Uses Base UI Toast with a global toastManager for triggering outside React.",
     "preview": true,
-    "new": true,
     "props": [
       {
         "name": "timeout",
@@ -1737,7 +1717,6 @@
     ],
     "description": "A keyboard-navigable dropdown menu with icons, keyboard shortcuts, separators, and a danger style. Built on Base UI Menu primitive.",
     "preview": true,
-    "new": true,
     "props": [
       {
         "name": "triggerLabel",
@@ -1797,7 +1776,6 @@
     ],
     "description": "Multi-line text input with label, description, error/helper text, resize control, size variants, and a loading overlay.",
     "preview": true,
-    "new": true,
     "previewClass": "w-72",
     "props": [
       {
@@ -1932,7 +1910,6 @@
     ],
     "description": "A single radio button with optional label and description. Built on Base UI's Radio primitive.",
     "preview": true,
-    "new": true,
     "props": [
       {
         "name": "label",
@@ -2029,7 +2006,6 @@
     ],
     "description": "A searchable selection input with multi-select, chip display, clear button, and loading state. Built on Base UI Combobox.",
     "preview": true,
-    "new": true,
     "previewClass": "w-64",
     "props": [
       {
@@ -2146,7 +2122,6 @@
     ],
     "description": "A date selection input with a calendar popup. Supports single, range, and multi-date selection with min/max constraints.",
     "preview": true,
-    "new": true,
     "previewClass": "w-56",
     "props": [
       {
@@ -2242,7 +2217,6 @@
     ],
     "description": "A form field wrapper providing label, description, and error with accessibility linking. Built on Base UI's Field primitive.",
     "preview": true,
-    "new": true,
     "previewClass": "w-72",
     "props": [
       {
@@ -2335,7 +2309,6 @@
     ],
     "description": "A basic data table with local sorting, row selection, loading skeletons, and empty state support.",
     "preview": true,
-    "new": true,
     "props": [
       {
         "name": "columns",
@@ -2422,7 +2395,6 @@
     ],
     "description": "Advanced table with search, sorting, pagination, column visibility toggle, and row selection \u2014 all in one component.",
     "preview": true,
-    "new": true,
     "props": [
       {
         "name": "columns",
@@ -2540,7 +2512,6 @@
     ],
     "description": "An empty state panel with an icon, title, description, and optional action buttons.",
     "preview": true,
-    "new": true,
     "props": [
       {
         "name": "title",
@@ -2601,7 +2572,6 @@
     ],
     "description": "A blocking confirmation dialog. Supports destructive mode, loading state on the confirm button, and size variants.",
     "preview": true,
-    "new": true,
     "props": [
       {
         "name": "trigger",
@@ -2690,7 +2660,6 @@
     ],
     "description": "A toast notification system with type variants, position control, action buttons, and dismiss support. Built on Base UI Toast.",
     "preview": true,
-    "new": true,
     "props": [
       {
         "name": "message",
@@ -2763,7 +2732,6 @@
     ],
     "description": "A circular loading indicator in five sizes. Disappears when loading is false.",
     "preview": true,
-    "new": true,
     "props": [
       {
         "name": "size",
@@ -2824,7 +2792,6 @@
     ],
     "description": "A swipe-dismissible temporary side or bottom panel with title, description, and loading state. Built on Base UI Drawer.",
     "preview": true,
-    "new": true,
     "props": [
       {
         "name": "trigger",
@@ -2914,7 +2881,6 @@
     ],
     "description": "A persistent side panel that slides in from any edge. Unlike Drawer, it uses the Dialog primitive \u2014 no swipe dismiss.",
     "preview": true,
-    "new": true,
     "props": [
       {
         "name": "trigger",
@@ -3002,7 +2968,6 @@
     ],
     "description": "An application navigation sidebar with collapse support, nested items, badges, and active state tracking.",
     "preview": true,
-    "new": true,
     "props": [
       {
         "name": "items",
@@ -3073,7 +3038,6 @@
     ],
     "description": "A page hierarchy trail with configurable separator, ellipsis truncation for long paths, and aria-current on the last item.",
     "preview": true,
-    "new": true,
     "props": [
       {
         "name": "items",
@@ -3121,7 +3085,6 @@
     ],
     "description": "A keyboard-driven command palette with grouped commands, fuzzy search, arrow-key navigation, and a global \u2318K shortcut.",
     "preview": true,
-    "new": true,
     "props": [
       {
         "name": "groups",
@@ -3180,7 +3143,6 @@
     ],
     "description": "A page navigation control with smart ellipsis, first/last shortcuts, and size variants. Controlled and uncontrolled.",
     "preview": true,
-    "new": true,
     "props": [
       {
         "name": "totalPages",
