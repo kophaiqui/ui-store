@@ -119,7 +119,7 @@ export function UIInput({
         )}
         {inputEl}
         {(suffix || showClear) && (
-          <span className={cn("absolute right-3", styleConfig.icon)}>
+          <span className={cn("absolute right-3", styleConfig.icon, showClear && "pointer-events-auto")}>
             {showClear ? (
               <button
                 type="button"
