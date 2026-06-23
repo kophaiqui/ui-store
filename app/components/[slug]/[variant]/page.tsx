@@ -1,3 +1,5 @@
+import fs from "fs";
+import path from "path";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getDesign, getAllDesigns, getDesignStyle, getStyle } from "@/lib/registry";
@@ -9,9 +11,18 @@ import type { Metadata } from "next";
 type Props = { params: Promise<{ slug: string; variant: string }> };
 
 export async function generateStaticParams() {
-  return Object.keys(getAllDesigns()).flatMap((slug) => [
-    { slug, variant: "default" },
-  ]);
+  const designs = getAllDesigns();
+  return Object.entries(designs).flatMap(([slug, meta]) => {
+    const stylesDir = path.join(process.cwd(), "designs", meta.category, slug, "styles");
+    let styleIds = ["default"];
+    try {
+      styleIds = fs
+        .readdirSync(stylesDir)
+        .filter((f) => f.endsWith(".ts"))
+        .map((f) => f.replace(".ts", ""));
+    } catch {}
+    return styleIds.map((variant) => ({ slug, variant }));
+  });
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -22,14 +33,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return { title: label, description: meta.description };
 }
 
+async function loadStyleConfig(category: string, slug: string, variant: string) {
+  try {
+    const mod = await import(`@/designs/${category}/${slug}/styles/${variant}`);
+    return Object.values(mod).find((v) => typeof v === "object" && v !== null && !Array.isArray(v)) as Record<string, unknown> | undefined;
+  } catch {
+    return undefined;
+  }
+}
+
 export default async function ComponentVariantPage({ params }: Props) {
   const { slug, variant } = await params;
   const meta = getDesign(slug);
   if (!meta) notFound();
 
   const code = getDesignCode(slug, meta);
-  const styleId = getDesignStyle(meta);
+  const styleId = variant;
   const styleMeta = getStyle(styleId);
+  const styleConfig = await loadStyleConfig(meta.category, slug, variant);
 
   return (
     <div className="px-8 py-10 max-w-4xl">
@@ -88,7 +109,7 @@ export default async function ComponentVariantPage({ params }: Props) {
 
       {/* Preview + Code viewer */}
       <Section label="Preview">
-        <DesignViewer slug={slug} meta={meta} code={code} />
+        <DesignViewer slug={slug} meta={meta} code={code} styleConfig={styleConfig} />
       </Section>
 
       {/* Props table with live explorer */}
@@ -99,6 +120,7 @@ export default async function ComponentVariantPage({ params }: Props) {
             category={meta.category}
             props={meta.props}
             componentName={"UI" + meta.name.replace(/\s+/g, "")}
+            styleConfig={styleConfig}
           />
         </Section>
       )}
