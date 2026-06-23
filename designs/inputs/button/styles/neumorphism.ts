@@ -2,7 +2,7 @@ import type { ButtonStyleConfig } from "./default";
 export type { ButtonStyleConfig };
 
 export const neumorphismStyle: ButtonStyleConfig = {
-  base: "inline-flex items-center justify-center font-semibold whitespace-nowrap transition-all duration-200 ease-out focus-visible:outline-none bg-[#e8ecf1] text-slate-700",
+  base: "inline-flex items-center justify-center font-semibold whitespace-nowrap transition-all duration-200 ease-out focus-visible:outline-none bg-[#e0e5ec] text-slate-700",
   sizes: {
     sm: { base: "h-7 px-3 gap-1.5", square: "size-7", text: "text-xs" },
     md: { base: "h-9 px-4 gap-2",   square: "size-9", text: "text-sm" },
@@ -14,23 +14,23 @@ export const neumorphismStyle: ButtonStyleConfig = {
   },
   variants: {
     solid: {
-      base:  "text-blue-600 shadow-[5px_5px_10px_rgba(163,177,198,0.6),-5px_-5px_10px_rgba(255,255,255,0.8)]",
-      hover: "hover:shadow-[3px_3px_7px_rgba(163,177,198,0.5),-3px_-3px_7px_rgba(255,255,255,0.7)]",
+      base:  "text-blue-600 shadow-[3px_3px_6px_rgba(163,177,198,0.25),-3px_-3px_6px_rgba(255,255,255,0.18)]",
+      hover: "hover:shadow-[2px_2px_4px_rgba(163,177,198,0.2),-2px_-2px_4px_rgba(255,255,255,0.14)]",
       focus: "focus-visible:ring-2 focus-visible:ring-blue-400/40",
     },
     outline: {
-      base:  "text-slate-700 shadow-[5px_5px_10px_rgba(163,177,198,0.6),-5px_-5px_10px_rgba(255,255,255,0.8)]",
-      hover: "hover:shadow-[3px_3px_7px_rgba(163,177,198,0.5),-3px_-3px_7px_rgba(255,255,255,0.7)]",
+      base:  "text-slate-700 shadow-[3px_3px_6px_rgba(163,177,198,0.25),-3px_-3px_6px_rgba(255,255,255,0.18)]",
+      hover: "hover:shadow-[2px_2px_4px_rgba(163,177,198,0.2),-2px_-2px_4px_rgba(255,255,255,0.14)]",
       focus: "focus-visible:ring-2 focus-visible:ring-blue-400/40",
     },
     ghost: {
       base:  "text-slate-600 shadow-none",
-      hover: "hover:shadow-[3px_3px_7px_rgba(163,177,198,0.4),-3px_-3px_7px_rgba(255,255,255,0.6)]",
+      hover: "hover:shadow-[2px_2px_4px_rgba(163,177,198,0.18),-2px_-2px_4px_rgba(255,255,255,0.12)]",
       focus: "focus-visible:ring-2 focus-visible:ring-blue-400/40",
     },
     soft: {
-      base:  "text-slate-600 shadow-[3px_3px_7px_rgba(163,177,198,0.5),-3px_-3px_7px_rgba(255,255,255,0.7)]",
-      hover: "hover:shadow-[2px_2px_5px_rgba(163,177,198,0.4),-2px_-2px_5px_rgba(255,255,255,0.6)]",
+      base:  "text-slate-600 shadow-[2px_2px_5px_rgba(163,177,198,0.2),-2px_-2px_5px_rgba(255,255,255,0.16)]",
+      hover: "hover:shadow-[1px_1px_3px_rgba(163,177,198,0.16),-1px_-1px_3px_rgba(255,255,255,0.12)]",
       focus: "focus-visible:ring-2 focus-visible:ring-blue-400/40",
     },
     link: {
@@ -39,8 +39,8 @@ export const neumorphismStyle: ButtonStyleConfig = {
       focus: "focus-visible:ring-2 focus-visible:ring-blue-400/40",
     },
     destructive: {
-      base:  "text-red-500 shadow-[5px_5px_10px_rgba(163,177,198,0.6),-5px_-5px_10px_rgba(255,255,255,0.8)]",
-      hover: "hover:shadow-[3px_3px_7px_rgba(163,177,198,0.5),-3px_-3px_7px_rgba(255,255,255,0.7)]",
+      base:  "text-red-500 shadow-[3px_3px_6px_rgba(163,177,198,0.25),-3px_-3px_6px_rgba(255,255,255,0.18)]",
+      hover: "hover:shadow-[2px_2px_4px_rgba(163,177,198,0.2),-2px_-2px_4px_rgba(255,255,255,0.14)]",
       focus: "focus-visible:ring-2 focus-visible:ring-red-400/40",
     },
   },
