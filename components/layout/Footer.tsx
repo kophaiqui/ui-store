@@ -45,10 +45,10 @@ export default function Footer() {
     <footer className="border-t border-border/40 bg-background">
       <div className="mx-auto max-w-7xl px-6 py-8 md:py-10">
 
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-[2fr_1fr_1fr]">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-[1fr_2fr_1fr]">
 
           {/* Col 1 — brand */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 items-start">
             <div className="flex items-center gap-3">
               <Logo size={34} />
               <span className="text-xl font-bold tracking-tight">that one ui</span>
@@ -68,7 +68,7 @@ export default function Footer() {
           </div>
 
           {/* Col 2 — author */}
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 items-center text-center">
             <p className="text-[0.6875rem] uppercase tracking-[0.12em] text-muted-foreground/40">
               Author
             </p>
@@ -91,11 +91,11 @@ export default function Footer() {
           </div>
 
           {/* Col 3 — connect */}
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 md:pl-20">
             <p className="text-[0.6875rem] uppercase tracking-[0.12em] text-muted-foreground/40">
               Connect
             </p>
-            <nav className="flex flex-col gap-0.5">
+            <nav className="flex w-fit flex-col gap-0.5">
               {CONNECTIONS.map(({ label, href, icon: Icon, hint }) => (
                 <a
                   key={href}
