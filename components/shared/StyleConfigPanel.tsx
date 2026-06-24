@@ -13,9 +13,10 @@ function highlight(code: string): string {
 
 type Props = {
   code: string;
+  variant?: string;
 };
 
-export function StyleConfigPanel({ code }: Props) {
+export function StyleConfigPanel({ code, variant = "default" }: Props) {
   const [copied, setCopied] = useState(false);
 
   const highlighted = useMemo(() => highlight(code), [code]);
@@ -31,7 +32,7 @@ export function StyleConfigPanel({ code }: Props) {
       {/* Header */}
       <div className="flex items-center justify-between border-b border-border bg-muted/30 px-4 py-2">
         <span className="text-[0.6875rem] font-medium text-muted-foreground/60 uppercase tracking-widest">
-          styles/default.ts
+          styles/{variant}.ts
         </span>
         <button
           type="button"
