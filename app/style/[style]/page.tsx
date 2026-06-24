@@ -6,6 +6,7 @@ import {
   getStyle,
   getDesignsByStyle,
   getAllCategories,
+  type StyleMode,
 } from "@/lib/registry";
 import { StyleComponentCard } from "@/components/shared/StyleComponentCard";
 import { StyleDemo } from "@/components/shared/StyleDemo";
@@ -57,7 +58,10 @@ export default async function StyleDetailPage({ params }: Props) {
       <Breadcrumb name={meta.name} />
 
       <div className="mb-12 max-w-2xl">
-        <h1 className="mb-2 text-4xl font-bold tracking-tight">{meta.name}</h1>
+        <div className="mb-3 flex flex-wrap items-center gap-2">
+          <h1 className="text-4xl font-bold tracking-tight">{meta.name}</h1>
+          {meta.modes && <StyleModeBadge modes={meta.modes} />}
+        </div>
         <p className="text-[0.9375rem] leading-relaxed text-muted-foreground">{meta.description}</p>
         <p className="mt-3 text-sm text-muted-foreground">
           {total} component{total === 1 ? "" : "s"} in this style.
@@ -116,6 +120,22 @@ function ComingSoon({ id, name, description }: { id: string; name: string; descr
         </div>
       </div>
     </div>
+  );
+}
+
+const MODE_CONFIG: Record<StyleMode, { label: string; className: string } | null> = {
+  light: { label: "Light only", className: "border-amber-300/60 bg-amber-100 text-amber-700"   },
+  dark:  { label: "Dark only",  className: "border-indigo-300/60 bg-indigo-100 text-indigo-600" },
+  both:  null,
+};
+
+function StyleModeBadge({ modes }: { modes: StyleMode }) {
+  const cfg = MODE_CONFIG[modes];
+  if (!cfg) return null;
+  return (
+    <span className={`inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-semibold uppercase tracking-wider ${cfg.className}`}>
+      {cfg.label}
+    </span>
   );
 }
 
