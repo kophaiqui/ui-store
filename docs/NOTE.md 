@@ -9,3 +9,16 @@ Usage
 Accessibility
 Notes
 Tags
+
+
+Honest take:
+
+Copy code is the weakest — user still has to create the file, figure out where to put it, name it right.
+
+Download file is a quick win — one click gets them Component.tsx + styles/default.ts as a zip. Easy to build (a /api/download?slug=button route that zips the files), no infra needed. Better than copy but still manual work to integrate.
+
+CLI install (shadcn-style) is the gold standard UX — npx ui-store add button drops the files directly into their project with the right paths. But it needs a published npm package, a registry endpoint, and maintenance. Real investment.
+
+My recommendation: do download now, CLI later. Download takes maybe a day to build — a zip endpoint + a download button. It's a real UX upgrade over copy and doesn't block anything. When the library is bigger and you want to make it more "product-y", the CLI becomes worth building. The registry JSON you already have is halfway to what a CLI needs anyway.
+
+Want me to build the download endpoint + button?
