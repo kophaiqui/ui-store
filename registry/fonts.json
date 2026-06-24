@@ -3,15 +3,12 @@
     "name": "Inter",
     "family": "Inter",
     "category": "sans-serif",
-    "weights": [300, 400, 500, 600, 700],
+    "weights": [100, 200, 300, 400, 500, 600, 700, 800, 900],
     "license": "OFL",
     "designer": "Rasmus Andersson",
-    "description": "A typeface carefully crafted for computer screens.",
+    "description": "Designed for computer screens with a tall x-height and letterforms optimized for readability at small sizes.",
     "preview": "The quick brown fox jumps over the lazy dog",
-    "source": {
-      "provider": "google",
-      "url": "https://fonts.google.com/specimen/Inter"
-    }
+    "source": { "provider": "google", "url": "https://fonts.google.com/specimen/Inter" }
   },
   "geist": {
     "name": "Geist",
@@ -22,10 +19,7 @@
     "designer": "Vercel",
     "description": "A new font family created by Vercel, inspired by the Swiss International Style.",
     "preview": "The quick brown fox jumps over the lazy dog",
-    "source": {
-      "provider": "google",
-      "url": "https://fonts.google.com/specimen/Geist"
-    }
+    "source": { "provider": "google", "url": "https://fonts.google.com/specimen/Geist" }
   },
   "geist-mono": {
     "name": "Geist Mono",
@@ -36,9 +30,325 @@
     "designer": "Vercel",
     "description": "A monospace companion to Geist, designed for code and technical contexts.",
     "preview": "const hello = () => 'world';",
-    "source": {
-      "provider": "google",
-      "url": "https://fonts.google.com/specimen/Geist+Mono"
-    }
+    "source": { "provider": "google", "url": "https://fonts.google.com/specimen/Geist+Mono" }
+  },
+  "merriweather": {
+    "name": "Merriweather",
+    "family": "Merriweather",
+    "category": "serif",
+    "weights": [300, 400, 700, 900],
+    "license": "OFL",
+    "designer": "Sorkin Type",
+    "description": "Crafted for optimal screen readability with large x-heights, slightly condensed letterforms, and sturdy serifs.",
+    "preview": "The quick brown fox jumps over the lazy dog",
+    "source": { "provider": "google", "url": "https://fonts.google.com/specimen/Merriweather" }
+  },
+  "lora": {
+    "name": "Lora",
+    "family": "Lora",
+    "category": "serif",
+    "weights": [400, 500, 600, 700],
+    "license": "OFL",
+    "designer": "Cyreal",
+    "description": "A well-balanced contemporary serif with moderate contrast. Brushed curves give it a literary quality suited for long-form reading.",
+    "preview": "The quick brown fox jumps over the lazy dog",
+    "source": { "provider": "google", "url": "https://fonts.google.com/specimen/Lora" }
+  },
+  "playfair-display": {
+    "name": "Playfair Display",
+    "family": "Playfair Display",
+    "category": "serif",
+    "weights": [400, 500, 600, 700, 800, 900],
+    "license": "OFL",
+    "designer": "Claus Eggers Sorensen",
+    "description": "An elegant transitional serif inspired by 18th-century typography. High contrast letterforms for editorial headlines.",
+    "preview": "The quick brown fox jumps over the lazy dog",
+    "source": { "provider": "google", "url": "https://fonts.google.com/specimen/Playfair+Display" }
+  },
+  "libre-baskerville": {
+    "name": "Libre Baskerville",
+    "family": "Libre Baskerville",
+    "category": "serif",
+    "weights": [400, 700],
+    "license": "OFL",
+    "designer": "Impallari Type",
+    "description": "Based on the 1941 American Type Founders Baskerville, optimized for body text with wide spacing.",
+    "preview": "The quick brown fox jumps over the lazy dog",
+    "source": { "provider": "google", "url": "https://fonts.google.com/specimen/Libre+Baskerville" }
+  },
+  "cormorant-garamond": {
+    "name": "Cormorant Garamond",
+    "family": "Cormorant Garamond",
+    "category": "serif",
+    "weights": [300, 400, 500, 600, 700],
+    "license": "OFL",
+    "designer": "Christian Thalmann",
+    "description": "A free display type family based on the Garamond tradition. Excels in high-end editorial and luxury branding contexts.",
+    "preview": "The quick brown fox jumps over the lazy dog",
+    "source": { "provider": "google", "url": "https://fonts.google.com/specimen/Cormorant+Garamond" }
+  },
+  "roboto": {
+    "name": "Roboto",
+    "family": "Roboto",
+    "category": "sans-serif",
+    "weights": [100, 300, 400, 500, 700, 900],
+    "license": "Apache 2.0",
+    "designer": "Christian Robertson",
+    "description": "Google's signature typeface. Dual-nature design with mechanical skeleton and geometric forms alongside friendly open curves.",
+    "preview": "The quick brown fox jumps over the lazy dog",
+    "source": { "provider": "google", "url": "https://fonts.google.com/specimen/Roboto" }
+  },
+  "open-sans": {
+    "name": "Open Sans",
+    "family": "Open Sans",
+    "category": "sans-serif",
+    "weights": [300, 400, 500, 600, 700, 800],
+    "license": "Apache 2.0",
+    "designer": "Steve Matteson",
+    "description": "A humanist sans serif with open forms and neutral appearance. Optimized for legibility across print, web, and mobile interfaces.",
+    "preview": "The quick brown fox jumps over the lazy dog",
+    "source": { "provider": "google", "url": "https://fonts.google.com/specimen/Open+Sans" }
+  },
+  "source-sans-3": {
+    "name": "Source Sans 3",
+    "family": "Source Sans 3",
+    "category": "sans-serif",
+    "weights": [200, 300, 400, 500, 600, 700, 800, 900],
+    "license": "OFL",
+    "designer": "Paul D. Hunt",
+    "description": "Adobe's first open-source typeface. A clean, versatile sans designed for both UI and long-form reading.",
+    "preview": "The quick brown fox jumps over the lazy dog",
+    "source": { "provider": "google", "url": "https://fonts.google.com/specimen/Source+Sans+3" }
+  },
+  "work-sans": {
+    "name": "Work Sans",
+    "family": "Work Sans",
+    "category": "sans-serif",
+    "weights": [100, 200, 300, 400, 500, 600, 700, 800, 900],
+    "license": "OFL",
+    "designer": "Wei Huang",
+    "description": "Based loosely on early Grotesques. Optimized for screen use, particularly at medium sizes for interfaces.",
+    "preview": "The quick brown fox jumps over the lazy dog",
+    "source": { "provider": "google", "url": "https://fonts.google.com/specimen/Work+Sans" }
+  },
+  "manrope": {
+    "name": "Manrope",
+    "family": "Manrope",
+    "category": "sans-serif",
+    "weights": [200, 300, 400, 500, 600, 700, 800],
+    "license": "OFL",
+    "designer": "Mikhail Sharanda",
+    "description": "A modern geometric grotesque with subtle optical corrections. Popular in tech and SaaS products.",
+    "preview": "The quick brown fox jumps over the lazy dog",
+    "source": { "provider": "google", "url": "https://fonts.google.com/specimen/Manrope" }
+  },
+  "nunito": {
+    "name": "Nunito",
+    "family": "Nunito",
+    "category": "sans-serif",
+    "weights": [200, 300, 400, 500, 600, 700, 800, 900],
+    "license": "OFL",
+    "designer": "Vernon Adams",
+    "description": "A well-balanced rounded terminal sans-serif with very large x-height. Perfect for friendly, approachable interfaces.",
+    "preview": "The quick brown fox jumps over the lazy dog",
+    "source": { "provider": "google", "url": "https://fonts.google.com/specimen/Nunito" }
+  },
+  "rubik": {
+    "name": "Rubik",
+    "family": "Rubik",
+    "category": "sans-serif",
+    "weights": [300, 400, 500, 600, 700, 800, 900],
+    "license": "OFL",
+    "designer": "Hubert and Fischer",
+    "description": "A sans serif font with slightly rounded corners, designed as part of the Chrome Cube Lab project.",
+    "preview": "The quick brown fox jumps over the lazy dog",
+    "source": { "provider": "google", "url": "https://fonts.google.com/specimen/Rubik" }
+  },
+  "dm-sans": {
+    "name": "DM Sans",
+    "family": "DM Sans",
+    "category": "sans-serif",
+    "weights": [100, 200, 300, 400, 500, 600, 700, 800, 900],
+    "license": "OFL",
+    "designer": "Colophon Foundry",
+    "description": "A low-contrast geometric sans-serif designed for use at small sizes. Clean, modern, and highly legible.",
+    "preview": "The quick brown fox jumps over the lazy dog",
+    "source": { "provider": "google", "url": "https://fonts.google.com/specimen/DM+Sans" }
+  },
+  "poppins": {
+    "name": "Poppins",
+    "family": "Poppins",
+    "category": "sans-serif",
+    "weights": [100, 200, 300, 400, 500, 600, 700, 800, 900],
+    "license": "OFL",
+    "designer": "Indian Type Foundry",
+    "description": "A geometric sans-serif with monolinear letterforms. Each letterform is nearly monolinear with optical corrections applied.",
+    "preview": "The quick brown fox jumps over the lazy dog",
+    "source": { "provider": "google", "url": "https://fonts.google.com/specimen/Poppins" }
+  },
+  "bebas-neue": {
+    "name": "Bebas Neue",
+    "family": "Bebas Neue",
+    "category": "display",
+    "weights": [400],
+    "license": "OFL",
+    "designer": "Ryoichi Tsunekawa",
+    "description": "A sans-serif display font widely used in headlines and call-to-action contexts. Tall, narrow, and commanding.",
+    "preview": "THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG",
+    "source": { "provider": "google", "url": "https://fonts.google.com/specimen/Bebas+Neue" }
+  },
+  "oswald": {
+    "name": "Oswald",
+    "family": "Oswald",
+    "category": "display",
+    "weights": [200, 300, 400, 500, 600, 700],
+    "license": "OFL",
+    "designer": "Vernon Adams",
+    "description": "A reworking of gothic typeface style historically called Alternate Gothic. Condensed letterforms for impactful headlines.",
+    "preview": "The quick brown fox jumps over the lazy dog",
+    "source": { "provider": "google", "url": "https://fonts.google.com/specimen/Oswald" }
+  },
+  "archivo-black": {
+    "name": "Archivo Black",
+    "family": "Archivo Black",
+    "category": "display",
+    "weights": [400],
+    "license": "OFL",
+    "designer": "Omnibus-Type",
+    "description": "A grotesque sans-serif display typeface optimized for headlines. Maximum visual impact and presence.",
+    "preview": "The quick brown fox jumps over the lazy dog",
+    "source": { "provider": "google", "url": "https://fonts.google.com/specimen/Archivo+Black" }
+  },
+  "anton": {
+    "name": "Anton",
+    "family": "Anton",
+    "category": "display",
+    "weights": [400],
+    "license": "OFL",
+    "designer": "Vernon Adams",
+    "description": "A reworking of traditional advertising sans-serifs. Strong and condensed for headlines that demand attention.",
+    "preview": "THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG",
+    "source": { "provider": "google", "url": "https://fonts.google.com/specimen/Anton" }
+  },
+  "bungee": {
+    "name": "Bungee",
+    "family": "Bungee",
+    "category": "display",
+    "weights": [400],
+    "license": "OFL",
+    "designer": "David Jonathan Ross",
+    "description": "Inspired by urban sign-painting traditions. Bold and impactful with strong vertical rhythm for display use.",
+    "preview": "THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG",
+    "source": { "provider": "google", "url": "https://fonts.google.com/specimen/Bungee" }
+  },
+  "jetbrains-mono": {
+    "name": "JetBrains Mono",
+    "family": "JetBrains Mono",
+    "category": "monospace",
+    "weights": [100, 200, 300, 400, 500, 600, 700, 800],
+    "license": "OFL",
+    "designer": "JetBrains",
+    "description": "Designed specifically for developers with increased height for a better reading experience and distinctive letterforms for code.",
+    "preview": "const hello = () => 'world';",
+    "source": { "provider": "google", "url": "https://fonts.google.com/specimen/JetBrains+Mono" }
+  },
+  "fira-code": {
+    "name": "Fira Code",
+    "family": "Fira Code",
+    "category": "monospace",
+    "weights": [300, 400, 500, 600, 700],
+    "license": "OFL",
+    "designer": "Nikita Prokopov",
+    "description": "A monospace font with programming ligatures. Common code sequences render as single glyphs for better readability.",
+    "preview": "const hello = () => 'world';",
+    "source": { "provider": "google", "url": "https://fonts.google.com/specimen/Fira+Code" }
+  },
+  "ibm-plex-mono": {
+    "name": "IBM Plex Mono",
+    "family": "IBM Plex Mono",
+    "category": "monospace",
+    "weights": [100, 200, 300, 400, 500, 600, 700],
+    "license": "OFL",
+    "designer": "IBM Corp",
+    "description": "IBM's corporate monospace typeface. Clear, open, and neutral with a humanist character for technical contexts.",
+    "preview": "const hello = () => 'world';",
+    "source": { "provider": "google", "url": "https://fonts.google.com/specimen/IBM+Plex+Mono" }
+  },
+  "space-mono": {
+    "name": "Space Mono",
+    "family": "Space Mono",
+    "category": "monospace",
+    "weights": [400, 700],
+    "license": "OFL",
+    "designer": "Colophon Foundry",
+    "description": "A fixed-width type family built for editorial use in headlines and display. Distinct retro-digital aesthetic.",
+    "preview": "const hello = () => 'world';",
+    "source": { "provider": "google", "url": "https://fonts.google.com/specimen/Space+Mono" }
+  },
+  "roboto-mono": {
+    "name": "Roboto Mono",
+    "family": "Roboto Mono",
+    "category": "monospace",
+    "weights": [100, 200, 300, 400, 500, 600, 700],
+    "license": "Apache 2.0",
+    "designer": "Christian Robertson",
+    "description": "A monospace addition to the Roboto type family. Designed for technical contexts and code display.",
+    "preview": "const hello = () => 'world';",
+    "source": { "provider": "google", "url": "https://fonts.google.com/specimen/Roboto+Mono" }
+  },
+  "caveat": {
+    "name": "Caveat",
+    "family": "Caveat",
+    "category": "handwriting",
+    "weights": [400, 500, 600, 700],
+    "license": "OFL",
+    "designer": "Pablo Impallari",
+    "description": "A casual handwriting typeface with an informal, spontaneous feel. Great for annotations and personal touch elements.",
+    "preview": "The quick brown fox jumps over the lazy dog",
+    "source": { "provider": "google", "url": "https://fonts.google.com/specimen/Caveat" }
+  },
+  "pacifico": {
+    "name": "Pacifico",
+    "family": "Pacifico",
+    "category": "handwriting",
+    "weights": [400],
+    "license": "OFL",
+    "designer": "Vernon Adams",
+    "description": "An original brushscript inspired by 1950s American surf culture. Casual, friendly, and full of character.",
+    "preview": "The quick brown fox jumps over the lazy dog",
+    "source": { "provider": "google", "url": "https://fonts.google.com/specimen/Pacifico" }
+  },
+  "kalam": {
+    "name": "Kalam",
+    "family": "Kalam",
+    "category": "handwriting",
+    "weights": [300, 400, 700],
+    "license": "OFL",
+    "designer": "Jonny Pinhorn",
+    "description": "An informal handwriting typeface conveys a genuine handmade quality with warmth and personality.",
+    "preview": "The quick brown fox jumps over the lazy dog",
+    "source": { "provider": "google", "url": "https://fonts.google.com/specimen/Kalam" }
+  },
+  "dancing-script": {
+    "name": "Dancing Script",
+    "family": "Dancing Script",
+    "category": "handwriting",
+    "weights": [400, 500, 600, 700],
+    "license": "OFL",
+    "designer": "Impallari Type",
+    "description": "A lively casual script with bouncing letters and varying connecting strokes. Evokes natural, spontaneous handwriting.",
+    "preview": "The quick brown fox jumps over the lazy dog",
+    "source": { "provider": "google", "url": "https://fonts.google.com/specimen/Dancing+Script" }
+  },
+  "satisfy": {
+    "name": "Satisfy",
+    "family": "Satisfy",
+    "category": "handwriting",
+    "weights": [400],
+    "license": "OFL",
+    "designer": "Impallari Type",
+    "description": "A script typeface with swashes and calligraphic details. Elegant and fluid for logos and decorative contexts.",
+    "preview": "The quick brown fox jumps over the lazy dog",
+    "source": { "provider": "google", "url": "https://fonts.google.com/specimen/Satisfy" }
   }
 }
