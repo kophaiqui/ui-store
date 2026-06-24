@@ -6,9 +6,9 @@ export const neumorphismStyle: ToastStyleConfig = {
   viewport: "fixed bottom-4 right-4 z-[9999] flex flex-col gap-2 w-[340px] max-w-[calc(100vw-2rem)] focus:outline-none",
   closeBtn: "shrink-0 flex size-5 items-center justify-center rounded-full bg-[#e8ecf1] text-slate-400 shadow-[2px_2px_4px_rgba(163,177,198,0.4),-2px_-2px_4px_rgba(255,255,255,0.6)] hover:text-slate-700 transition-all duration-100 focus:outline-none",
   variants: {
-    default: { border: "",  progressColor: "bg-slate-400"   },
-    success: { border: "",  progressColor: "bg-emerald-500" },
-    error:   { border: "",  progressColor: "bg-red-400"     },
-    warning: { border: "",  progressColor: "bg-amber-400"   },
+    default: { border: "",  progressColor: "bg-slate-400",    titleColor: "text-slate-700",  descColor: "text-slate-500"  },
+    success: { border: "",  progressColor: "bg-emerald-500",  titleColor: "text-slate-700",  descColor: "text-slate-500"  },
+    error:   { border: "",  progressColor: "bg-red-400",      titleColor: "text-slate-700",  descColor: "text-slate-500"  },
+    warning: { border: "",  progressColor: "bg-amber-400",    titleColor: "text-slate-700",  descColor: "text-slate-500"  },
   },
 };

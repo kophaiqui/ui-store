@@ -73,12 +73,12 @@ function ToastItem({
       {variantIcons[variant]}
       <div className="min-w-0 flex-1">
         {toast.data?.title && (
-          <Toast.Title className="text-sm font-semibold text-foreground leading-snug">
+          <Toast.Title className={cn("text-sm font-semibold leading-snug", v.titleColor)}>
             {toast.data.title}
           </Toast.Title>
         )}
         {toast.data?.description && (
-          <Toast.Description className="mt-0.5 text-xs text-muted-foreground leading-relaxed">
+          <Toast.Description className={cn("mt-0.5 text-xs leading-relaxed", v.descColor)}>
             {toast.data.description}
           </Toast.Description>
         )}
@@ -123,18 +123,30 @@ function ToastRegion({
   );
 }
 
+const DEMO_VARIANTS: Array<{ variant: ToastVariant; label: string; title: string; description: string; className: string }> = [
+  { variant: "default", label: "Default", title: "Heads up",  description: "Something happened in the background.",     className: "bg-zinc-700 text-white hover:bg-zinc-800 border-zinc-700"           },
+  { variant: "success", label: "Success", title: "Saved",     description: "Your changes were saved successfully.",     className: "bg-emerald-600 text-white hover:bg-emerald-700 border-emerald-600"  },
+  { variant: "error",   label: "Error",   title: "Failed",    description: "Something went wrong. Please try again.",   className: "bg-red-600 text-white hover:bg-red-700 border-red-600"             },
+  { variant: "warning", label: "Warning", title: "Warning",   description: "This action may have side effects.",        className: "bg-amber-500 text-zinc-900 hover:bg-amber-400 border-amber-500"    },
+];
+
 function DemoToastTrigger({ showProgress, timeout }: { showProgress: boolean; timeout: number }) {
-  const fire = () => {
-    toastManager.add({ data: { title: "Saved", description: "Your changes were saved.", variant: "success", showProgress }, timeout });
+  const fire = (v: (typeof DEMO_VARIANTS)[number]) => {
+    toastManager.add({ data: { title: v.title, description: v.description, variant: v.variant, showProgress }, timeout });
   };
   return (
-    <button
-      type="button"
-      onClick={fire}
-      className="px-3 py-1.5 rounded-md border border-border bg-card text-xs font-medium text-foreground hover:bg-muted transition-colors duration-150"
-    >
-      Show toast
-    </button>
+    <div className="flex flex-wrap gap-2 justify-center">
+      {DEMO_VARIANTS.map((v) => (
+        <button
+          key={v.variant}
+          type="button"
+          onClick={() => fire(v)}
+          className={cn("px-3 py-1.5 rounded-md border text-xs font-semibold transition-colors duration-150", v.className)}
+        >
+          {v.label}
+        </button>
+      ))}
+    </div>
   );
 }
 
@@ -155,12 +167,15 @@ export function UIToast({
   _demo = true,
   children,
 }: Props) {
-  if (_demo) {
-    return <DemoToastTrigger showProgress={showProgress} timeout={timeout} />;
-  }
+  // Always mount the Provider so toastManager.add() has a Viewport to render into.
+  // In demo mode show a self-contained trigger; in real usage wrap app children.
   return (
     <Toast.Provider toastManager={toastManager} timeout={timeout} limit={limit}>
-      {children}
+      {_demo ? (
+        <DemoToastTrigger showProgress={showProgress} timeout={timeout} />
+      ) : (
+        children
+      )}
       <ToastRegion
         styleConfig={styleConfig}
         providerTimeout={timeout}

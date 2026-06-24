@@ -4,7 +4,12 @@ export type ToastStyleConfig = {
   root: string;
   viewport: string;
   closeBtn: string;
-  variants: Record<ToastVariant, { border: string; progressColor: string }>;
+  variants: Record<ToastVariant, {
+    border: string;
+    progressColor: string;
+    titleColor: string;
+    descColor: string;
+  }>;
 };
 
 export const defaultStyle: ToastStyleConfig = {
@@ -12,9 +17,9 @@ export const defaultStyle: ToastStyleConfig = {
   viewport: "fixed bottom-4 right-4 z-[9999] flex flex-col gap-2 w-[340px] max-w-[calc(100vw-2rem)] focus:outline-none",
   closeBtn: "shrink-0 flex size-5 items-center justify-center rounded text-muted-foreground/50 hover:text-foreground/80 transition-colors duration-100 focus:outline-none",
   variants: {
-    default: { border: "border-border",          progressColor: "bg-foreground/30" },
-    success: { border: "border-emerald-500/30",  progressColor: "bg-emerald-400"  },
-    error:   { border: "border-red-500/30",      progressColor: "bg-red-400"      },
-    warning: { border: "border-amber-500/30",    progressColor: "bg-amber-400"    },
+    default: { border: "border-border",          progressColor: "bg-foreground/30",  titleColor: "text-foreground",       descColor: "text-muted-foreground"   },
+    success: { border: "border-emerald-500/30",  progressColor: "bg-emerald-400",    titleColor: "text-foreground",       descColor: "text-muted-foreground"   },
+    error:   { border: "border-red-500/30",      progressColor: "bg-red-400",        titleColor: "text-foreground",       descColor: "text-muted-foreground"   },
+    warning: { border: "border-amber-500/30",    progressColor: "bg-amber-400",      titleColor: "text-foreground",       descColor: "text-muted-foreground"   },
   },
 };
