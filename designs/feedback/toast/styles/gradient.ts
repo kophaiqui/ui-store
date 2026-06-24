@@ -10,5 +10,6 @@ export const gradientStyle: ToastStyleConfig = {
     success: { border: "border-emerald-200 dark:border-emerald-400/30",  progressColor: "bg-emerald-500 dark:bg-emerald-400",  titleColor: "text-[#0F172A] dark:text-white",        descColor: "text-[#64748B] dark:text-emerald-200/70" },
     error:   { border: "border-red-200 dark:border-red-400/30",          progressColor: "bg-red-500 dark:bg-red-400",          titleColor: "text-[#0F172A] dark:text-white",        descColor: "text-[#64748B] dark:text-red-200/70"     },
     warning: { border: "border-amber-200 dark:border-amber-400/30",      progressColor: "bg-amber-500 dark:bg-amber-400",      titleColor: "text-[#0F172A] dark:text-white",        descColor: "text-[#64748B] dark:text-amber-200/70"   },
+    info:    { border: "border-blue-200 dark:border-blue-400/30",        progressColor: "bg-blue-500 dark:bg-blue-400",        titleColor: "text-[#0F172A] dark:text-white",        descColor: "text-[#64748B] dark:text-blue-200/70"    },
   },
 };

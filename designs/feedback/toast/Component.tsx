@@ -37,6 +37,13 @@ const variantIcons: Record<ToastVariant, React.ReactNode> = {
       <circle cx="8" cy="11.5" r="0.75" fill="currentColor" />
     </svg>
   ),
+  info: (
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="mt-0.5 shrink-0 text-blue-400" aria-hidden>
+      <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.25" />
+      <line x1="8" y1="7" x2="8" y2="11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <circle cx="8" cy="5" r="0.75" fill="currentColor" />
+    </svg>
+  ),
 };
 
 function ToastItem({
@@ -128,6 +135,7 @@ const DEMO_VARIANTS: Array<{ variant: ToastVariant; label: string; title: string
   { variant: "success", label: "Success", title: "Saved",     description: "Your changes were saved successfully.",     className: "bg-emerald-600 text-white hover:bg-emerald-700 border-emerald-600"  },
   { variant: "error",   label: "Error",   title: "Failed",    description: "Something went wrong. Please try again.",   className: "bg-red-600 text-white hover:bg-red-700 border-red-600"             },
   { variant: "warning", label: "Warning", title: "Warning",   description: "This action may have side effects.",        className: "bg-amber-500 text-zinc-900 hover:bg-amber-400 border-amber-500"    },
+  { variant: "info",    label: "Info",    title: "Info",      description: "Here's something you should know.",          className: "bg-blue-600 text-white hover:bg-blue-700 border-blue-600"          },
 ];
 
 function DemoToastTrigger({ showProgress, timeout }: { showProgress: boolean; timeout: number }) {

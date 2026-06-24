@@ -1,4 +1,4 @@
-export type ToastVariant = "default" | "success" | "error" | "warning";
+export type ToastVariant = "default" | "success" | "error" | "warning" | "info";
 
 export type ToastStyleConfig = {
   root: string;
@@ -21,5 +21,6 @@ export const defaultStyle: ToastStyleConfig = {
     success: { border: "border-emerald-500/30",  progressColor: "bg-emerald-400",    titleColor: "text-foreground",       descColor: "text-muted-foreground"   },
     error:   { border: "border-red-500/30",      progressColor: "bg-red-400",        titleColor: "text-foreground",       descColor: "text-muted-foreground"   },
     warning: { border: "border-amber-500/30",    progressColor: "bg-amber-400",      titleColor: "text-foreground",       descColor: "text-muted-foreground"   },
+    info:    { border: "border-blue-500/30",     progressColor: "bg-blue-400",       titleColor: "text-foreground",       descColor: "text-muted-foreground"   },
   },
 };

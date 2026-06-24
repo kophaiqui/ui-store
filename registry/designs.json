@@ -1700,6 +1700,10 @@
         "code": "toastManager.add({ data: { variant: 'error', title: 'Failed', description: 'Something went wrong.' } });"
       },
       {
+        "label": "Info",
+        "code": "toastManager.add({ data: { variant: 'info', title: 'Info', description: 'Here\\'s something you should know.' } });"
+      },
+      {
         "label": "With progress",
         "code": "toastManager.add({ data: { variant: 'success', title: 'Saved', description: 'All changes saved.', showProgress: true } });"
       }

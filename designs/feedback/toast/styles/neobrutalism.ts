@@ -10,5 +10,6 @@ export const neobrutalismStyle: ToastStyleConfig = {
     success: { border: "border-zinc-950 dark:border-white",  progressColor: "bg-yellow-400",                titleColor: "text-zinc-900 dark:text-white",   descColor: "text-zinc-600 dark:text-[#D1D5DB]"  },
     error:   { border: "border-zinc-950 dark:border-white",  progressColor: "bg-red-500",                   titleColor: "text-zinc-900 dark:text-white",   descColor: "text-zinc-600 dark:text-[#D1D5DB]"  },
     warning: { border: "border-zinc-950 dark:border-white",  progressColor: "bg-orange-500",                titleColor: "text-zinc-900 dark:text-white",   descColor: "text-zinc-600 dark:text-[#D1D5DB]"  },
+    info:    { border: "border-zinc-950 dark:border-white",  progressColor: "bg-blue-500",                  titleColor: "text-zinc-900 dark:text-white",   descColor: "text-zinc-600 dark:text-[#D1D5DB]"  },
   },
 };

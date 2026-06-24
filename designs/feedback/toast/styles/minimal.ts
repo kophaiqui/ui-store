@@ -10,5 +10,6 @@ export const minimalStyle: ToastStyleConfig = {
     success: { border: "border-emerald-500",   progressColor: "bg-emerald-500",  titleColor: "text-foreground",       descColor: "text-muted-foreground"  },
     error:   { border: "border-red-500",       progressColor: "bg-red-500",      titleColor: "text-foreground",       descColor: "text-muted-foreground"  },
     warning: { border: "border-amber-500",     progressColor: "bg-amber-500",    titleColor: "text-foreground",       descColor: "text-muted-foreground"  },
+    info:    { border: "border-blue-500",      progressColor: "bg-blue-500",     titleColor: "text-foreground",       descColor: "text-muted-foreground"  },
   },
 };

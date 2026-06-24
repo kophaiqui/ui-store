@@ -10,5 +10,6 @@ export const glassStyle: ToastStyleConfig = {
     success: { border: "border-emerald-300/50 dark:border-emerald-300/30", progressColor: "bg-emerald-400",           titleColor: "text-gray-900 dark:text-white",      descColor: "text-gray-600 dark:text-white/60"  },
     error:   { border: "border-red-300/50 dark:border-red-300/30",   progressColor: "bg-red-400",                      titleColor: "text-gray-900 dark:text-white",      descColor: "text-gray-600 dark:text-white/60"  },
     warning: { border: "border-amber-300/50 dark:border-amber-300/30",progressColor: "bg-amber-400",                   titleColor: "text-gray-900 dark:text-white",      descColor: "text-gray-600 dark:text-white/60"  },
+    info:    { border: "border-blue-300/50 dark:border-blue-300/30",  progressColor: "bg-blue-400",                    titleColor: "text-gray-900 dark:text-white",      descColor: "text-gray-600 dark:text-white/60"  },
   },
 };

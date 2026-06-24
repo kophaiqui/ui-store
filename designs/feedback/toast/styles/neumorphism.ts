@@ -10,5 +10,6 @@ export const neumorphismStyle: ToastStyleConfig = {
     success: { border: "",  progressColor: "bg-emerald-500",                    titleColor: "text-slate-700 dark:text-[#E2E8F0]",  descColor: "text-slate-500 dark:text-[#94A3B8]"  },
     error:   { border: "",  progressColor: "bg-red-400",                        titleColor: "text-slate-700 dark:text-[#E2E8F0]",  descColor: "text-slate-500 dark:text-[#94A3B8]"  },
     warning: { border: "",  progressColor: "bg-amber-400",                      titleColor: "text-slate-700 dark:text-[#E2E8F0]",  descColor: "text-slate-500 dark:text-[#94A3B8]"  },
+    info:    { border: "",  progressColor: "bg-blue-400",                       titleColor: "text-slate-700 dark:text-[#E2E8F0]",  descColor: "text-slate-500 dark:text-[#94A3B8]"  },
   },
 };

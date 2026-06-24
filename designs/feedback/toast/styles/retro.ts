@@ -10,5 +10,6 @@ export const retroStyle: ToastStyleConfig = {
     success: { border: "border-[#3d2410] dark:border-[#A78BFA]",   progressColor: "bg-[#e8743b] dark:bg-[#A78BFA]",  titleColor: "text-[#2c1a0e] dark:text-[#F5F3FF]",  descColor: "text-[#7a5230] dark:text-[#A1A1AA]"  },
     error:   { border: "border-red-800 dark:border-red-500",        progressColor: "bg-red-700 dark:bg-red-500",       titleColor: "text-red-900 dark:text-red-300",        descColor: "text-red-800 dark:text-red-400"        },
     warning: { border: "border-amber-800 dark:border-amber-500",    progressColor: "bg-amber-600 dark:bg-amber-400",   titleColor: "text-amber-900 dark:text-amber-300",    descColor: "text-amber-800 dark:text-amber-400"    },
+    info:    { border: "border-blue-800 dark:border-blue-400",      progressColor: "bg-blue-700 dark:bg-blue-400",     titleColor: "text-blue-900 dark:text-blue-300",      descColor: "text-blue-800 dark:text-blue-400"      },
   },
 };
