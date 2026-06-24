@@ -29,7 +29,7 @@
     "description": "Thick outlines, blocky offset shadows, and unapologetic primary colors. Interfaces that refuse to be ignored.",
     "status": "available",
     "accent": "#facc15",
-    "modes": "light"
+    "modes": "both"
   },
   "neumorphism": {
     "name": "Neumorphism",
@@ -37,7 +37,7 @@
     "description": "Monochrome panels that appear pressed into or raised out of the background using paired soft shadows.",
     "status": "available",
     "accent": "#8b95a5",
-    "modes": "light"
+    "modes": "both"
   },
   "gradient": {
     "name": "Gradient",
@@ -45,7 +45,7 @@
     "description": "Bold multi-stop gradients, glowing accents, and saturated color that carries the entire interface.",
     "status": "available",
     "accent": "#d946ef",
-    "modes": "dark"
+    "modes": "both"
   },
   "retro": {
     "name": "Retro",
@@ -53,15 +53,15 @@
     "description": "Cream paper backgrounds, chunky outlines, hard offset shadows, and a warm sunset palette of orange, mustard, and brown.",
     "status": "available",
     "accent": "#e8743b",
-    "modes": "light"
+    "modes": "both"
   },
   "terminal": {
     "name": "Terminal",
     "tagline": "Monospace command-line green",
     "description": "Pure black canvas, phosphor-green monospace type, blinking cursors, and bracketed labels — the interface as a console.",
-    "status": "coming-soon",
+    "status": "available",
     "accent": "#22c55e",
-    "modes": "dark"
+    "modes": "both"
   },
   "aurora": {
     "name": "Aurora",
