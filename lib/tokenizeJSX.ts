@@ -70,6 +70,6 @@ export const TT_CLS: Record<TT, string> = {
 };
 
 export const GRID_BG: React.CSSProperties = {
-  backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.045) 1px, transparent 1px)",
+  backgroundImage: "radial-gradient(circle, var(--preview-dot) 1px, transparent 1px)",
   backgroundSize: "18px 18px",
 };

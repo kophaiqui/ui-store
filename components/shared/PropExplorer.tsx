@@ -218,9 +218,9 @@ export function PropExplorer({ slug, category, props, componentName, styleConfig
             </div>
 
             {/* Preview — always mounted, hidden when on code tab to prevent re-mount flicker */}
-            <div className={propTab === "preview" ? "relative overflow-hidden px-8 py-8" : "hidden"}>
+            <div className={propTab === "preview" ? "relative overflow-hidden bg-card px-8 py-8" : "hidden"}>
               <div className="pointer-events-none absolute inset-0" style={GRID_BG} />
-              <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(ellipse 75% 75% at 50% 50%, transparent 30%, rgba(0,0,0,0.32) 100%)" }} />
+              <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(ellipse 75% 75% at 50% 50%, transparent 30%, var(--preview-vignette) 100%)" }} />
               <div className="relative flex flex-wrap items-end justify-center gap-x-8 gap-y-6">
                 {selected.values.map((val) => {
                   const isBool = selected.type.trim() === "boolean";
