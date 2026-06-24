@@ -4,76 +4,87 @@
     "tagline": "Dark, emerald-accented, motion-ready",
     "description": "The signature look of the library — deep zinc surfaces, emerald accents, soft shadows, and crisp 1px borders. Every component ships in this style today.",
     "status": "available",
-    "accent": "#10b981"
+    "accent": "#10b981",
+    "modes": "both"
   },
   "glass": {
     "name": "Glass",
     "tagline": "Frosted glassmorphism",
     "description": "Translucent frosted surfaces with backdrop blur, luminous edges, and layered depth floating over colorful backdrops.",
     "status": "available",
-    "accent": "#38bdf8"
+    "accent": "#38bdf8",
+    "modes": "both"
   },
   "minimal": {
     "name": "Minimal",
     "tagline": "Quiet, editorial, monochrome",
     "description": "Hairline borders, generous whitespace, and restrained typography. Nothing on screen but the essentials.",
     "status": "available",
-    "accent": "#a1a1aa"
+    "accent": "#a1a1aa",
+    "modes": "both"
   },
   "neobrutalism": {
     "name": "Neobrutalism",
     "tagline": "Loud borders, hard shadows",
     "description": "Thick outlines, blocky offset shadows, and unapologetic primary colors. Interfaces that refuse to be ignored.",
     "status": "available",
-    "accent": "#facc15"
+    "accent": "#facc15",
+    "modes": "light"
   },
   "neumorphism": {
     "name": "Neumorphism",
     "tagline": "Soft extruded surfaces",
     "description": "Monochrome panels that appear pressed into or raised out of the background using paired soft shadows.",
     "status": "available",
-    "accent": "#8b95a5"
+    "accent": "#8b95a5",
+    "modes": "light"
   },
   "gradient": {
     "name": "Gradient",
     "tagline": "Vibrant, glowing, saturated",
     "description": "Bold multi-stop gradients, glowing accents, and saturated color that carries the entire interface.",
     "status": "available",
-    "accent": "#d946ef"
+    "accent": "#d946ef",
+    "modes": "dark"
   },
   "retro": {
     "name": "Retro",
     "tagline": "Warm, nostalgic, 70s-inspired",
     "description": "Cream paper backgrounds, chunky outlines, hard offset shadows, and a warm sunset palette of orange, mustard, and brown.",
-    "status": "coming-soon",
-    "accent": "#e8743b"
+    "status": "available",
+    "accent": "#e8743b",
+    "modes": "light"
   },
   "terminal": {
     "name": "Terminal",
     "tagline": "Monospace command-line green",
     "description": "Pure black canvas, phosphor-green monospace type, blinking cursors, and bracketed labels — the interface as a console.",
     "status": "coming-soon",
-    "accent": "#22c55e"
+    "accent": "#22c55e",
+    "modes": "dark"
   },
   "aurora": {
     "name": "Aurora",
     "tagline": "Flowing northern-lights gradients",
     "description": "Deep night surfaces lit by drifting teal, indigo, and violet glows, with glassy panels floating on top.",
     "status": "coming-soon",
-    "accent": "#2dd4bf"
+    "accent": "#2dd4bf",
+    "modes": "dark"
   },
   "pixel": {
     "name": "Pixel",
     "tagline": "8-bit pixel-art interfaces",
     "description": "Hard pixel edges, chunky monospace type, blocky shadows, and a vivid retro-game palette. No anti-aliasing allowed.",
     "status": "coming-soon",
-    "accent": "#ef476f"
+    "accent": "#ef476f",
+    "modes": "dark"
   },
   "material": {
     "name": "Material",
     "tagline": "Elevated, tonal, expressive",
     "description": "Tonal surfaces, soft elevation shadows, pill-shaped buttons, and a confident accent — clean Material-style hierarchy.",
     "status": "coming-soon",
-    "accent": "#6750a4"
+    "accent": "#6750a4",
+    "modes": "both"
   }
 }

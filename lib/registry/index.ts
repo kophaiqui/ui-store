@@ -63,12 +63,15 @@ export type DesignMeta = {
 
 export type StyleStatus = "available" | "coming-soon";
 
+export type StyleMode = "light" | "dark" | "both";
+
 export type StyleMeta = {
   name: string;
   tagline: string;
   description: string;
   status: StyleStatus;
   accent: string;
+  modes?: StyleMode;
 };
 
 export function getAllComponents(): Record<string, ComponentMeta> {
