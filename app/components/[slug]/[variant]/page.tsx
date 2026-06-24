@@ -2,10 +2,11 @@ import fs from "fs";
 import path from "path";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getDesign, getAllDesigns, getDesignStyle, getStyle } from "@/lib/registry";
+import { getDesign, getAllDesigns, getDesignStyle, getStyle, getAllStyles } from "@/lib/registry";
 import { getDesignCode } from "@/lib/getDesignCode";
 import { DesignViewer } from "@/components/shared/DesignViewer";
 import { PropExplorer } from "@/components/shared/PropExplorer";
+import { StyleVariantSwitcher } from "@/components/shared/StyleVariantSwitcher";
 import type { Metadata } from "next";
 
 type Props = { params: Promise<{ slug: string; variant: string }> };
@@ -51,6 +52,26 @@ export default async function ComponentVariantPage({ params }: Props) {
   const styleId = variant;
   const styleMeta = getStyle(styleId);
   const styleConfig = await loadStyleConfig(meta.category, slug, variant);
+
+  // Collect available style variants for this component from the filesystem
+  const stylesDir = path.join(process.cwd(), "designs", meta.category, slug, "styles");
+  const allStyles = getAllStyles();
+  let styleFileIds: string[] = ["default"];
+  try {
+    styleFileIds = fs
+      .readdirSync(stylesDir)
+      .filter((f) => f.endsWith(".ts"))
+      .map((f) => f.replace(".ts", ""));
+  } catch {}
+
+  const styleOptions = styleFileIds
+    .filter((id) => allStyles[id]?.status === "available")
+    .map((id) => ({
+      id,
+      name: allStyles[id]?.name ?? id,
+      accent: allStyles[id]?.accent ?? "#a1a1aa",
+      modes: allStyles[id]?.modes,
+    }));
 
   return (
     <div className="px-8 py-10 max-w-4xl">
@@ -103,9 +124,12 @@ export default async function ComponentVariantPage({ params }: Props) {
           </span>
         )}
       </div>
-      <p className="mb-10 max-w-xl text-[0.9375rem] leading-relaxed text-muted-foreground">
+      <p className="mb-6 max-w-xl text-[0.9375rem] leading-relaxed text-muted-foreground">
         {meta.description}
       </p>
+
+      {/* Style variant switcher */}
+      <StyleVariantSwitcher slug={slug} current={variant} options={styleOptions} />
 
       {/* Preview + Code viewer */}
       <Section label="Preview">
