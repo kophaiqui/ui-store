@@ -7,6 +7,6 @@ export const glassStyle: BreadcrumbStyleConfig = {
   item: "flex items-center gap-1",
   link: "text-sm text-foreground/50 transition-colors duration-100 hover:text-foreground",
   current: "text-sm text-foreground font-medium",
-  separator: "text-white/20 select-none text-sm",
+  separator: "text-black/20 dark:text-white/20 select-none text-sm",
   ellipsis: "text-sm text-foreground/50 hover:text-foreground transition-colors cursor-pointer px-1",
 };
