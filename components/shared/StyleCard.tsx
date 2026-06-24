@@ -31,7 +31,7 @@ export function StyleCard({ id, meta, count }: Props) {
             </span>
           )}
         </div>
-        <p className="mb-3 text-xs leading-relaxed text-muted-foreground">{meta.tagline}</p>
+        <p className="mb-2 text-xs leading-relaxed text-muted-foreground">{meta.tagline}</p>
         <span className="mt-auto text-xs text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100">
           {available ? "Browse components →" : "Preview →"}
         </span>
