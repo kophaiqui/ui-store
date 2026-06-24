@@ -86,7 +86,7 @@ export function ComponentPanel({ slug, meta }: Props) {
 
       {/* Panel body */}
       {tab === "preview" ? (
-        <div className="relative flex min-h-[180px] items-center justify-center overflow-hidden bg-card px-8 py-10">
+        <div className="relative flex min-h-[180px] items-center justify-center overflow-hidden bg-muted/40 px-8 py-10">
           <div
             className="pointer-events-none absolute inset-0"
             style={{

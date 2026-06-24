@@ -53,8 +53,8 @@
   --background: oklch(1 0 0);
   --foreground: oklch(0.12 0 0);
   --card: oklch(1 0 0);
-  --preview-dot: oklch(0 0 0 / 0.07);
-  --preview-vignette: oklch(0 0 0 / 0.06);
+  --preview-dot: oklch(0 0 0 / 0.13);
+  --preview-vignette: oklch(0 0 0 / 0.08);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);

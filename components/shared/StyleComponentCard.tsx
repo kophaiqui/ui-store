@@ -24,19 +24,14 @@ export function StyleComponentCard({ slug, meta, href = `/components/${slug}`, s
   return (
     <div className="group flex flex-col overflow-hidden rounded-xl border border-border/60 bg-card transition-colors hover:border-border">
       {/* Live preview with grid background — fixed height keeps every card aligned */}
-      <div className="relative h-[240px] overflow-auto border-b border-border/60 bg-background">
+      <div className="relative h-[240px] overflow-auto border-b border-border/60 bg-muted/40">
         {/* Dot grid */}
         <div
           className="pointer-events-none absolute inset-0"
           style={{
-            backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.045) 1px, transparent 1px)",
+            backgroundImage: "radial-gradient(circle, var(--preview-dot) 1px, transparent 1px)",
             backgroundSize: "18px 18px",
           }}
-        />
-        {/* Edge vignette */}
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{ background: "radial-gradient(ellipse 75% 75% at 50% 50%, transparent 30%, rgba(0,0,0,0.32) 100%)" }}
         />
         <div className="relative flex min-h-full items-center justify-center px-6 py-8">
           <Preview {...(styleConfig ? { styleConfig } : {})} />
