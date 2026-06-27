@@ -5,11 +5,11 @@ import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 const TABS = [
-  { id: "base",        label: "Base tokens"                 },
-  { id: "maincolor",   label: "Your colors"                 },
-  { id: "styles",      label: "Style palettes", count: "11" },
-  { id: "inspiration", label: "Inspiration",    count: "12" },
-  { id: "collection",  label: "Collection",     count: "15" },
+  { id: "base",        label: "Base tokens"   },
+  { id: "maincolor",   label: "Your colors"   },
+  { id: "styles",      label: "Style palettes"},
+  { id: "inspiration", label: "Inspiration"   },
+  { id: "collection",  label: "Collection"    },
 ] as const;
 
 function ColorNavInner() {
@@ -38,18 +38,6 @@ function ColorNavInner() {
                 )}
               >
                 {tab.label}
-                {"count" in tab && (
-                  <span
-                    className={cn(
-                      "flex h-4 min-w-[18px] items-center justify-center rounded-full px-1 text-[0.5rem] font-bold",
-                      isActive
-                        ? "bg-violet-500/20 text-violet-400"
-                        : "bg-muted text-muted-foreground"
-                    )}
-                  >
-                    {tab.count}
-                  </span>
-                )}
               </button>
             </li>
           );
