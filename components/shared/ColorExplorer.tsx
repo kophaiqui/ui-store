@@ -244,6 +244,203 @@ function FilterPills<T extends string>({
   );
 }
 
+// ─── Token Group Demo Popups ──────────────────────────────────────────────────
+
+function DemoSurface() {
+  return (
+    <div className="space-y-3">
+      <div className="relative rounded-2xl p-4" style={{ background: "#0d1117", border: "1px solid #ffffff10" }}>
+        <span className="mb-2 block text-xs font-bold uppercase tracking-widest" style={{ color: "#ffffff40" }}>--background · Page canvas</span>
+        <p className="mb-3 text-sm" style={{ color: "#ffffff60" }}>The outermost layer everything sits on. Swap <code style={{ color: "#3b82f6" }}>--background</code> and the whole page shifts.</p>
+        <div className="rounded-xl p-4" style={{ background: "#161b27", border: "1px solid #ffffff14" }}>
+          <div className="mb-2.5 flex items-center justify-between">
+            <div>
+              <p className="text-base font-semibold" style={{ color: "#e2e8f0" }}>Card surface</p>
+              <p className="text-xs" style={{ color: "#ffffff50" }}>--card · elevated from --background</p>
+            </div>
+            <span className="rounded-full px-2.5 py-1 text-xs font-bold" style={{ background: "#3b82f615", color: "#3b82f6", border: "1px solid #3b82f625" }}>--card-foreground</span>
+          </div>
+          <div className="rounded-lg p-3" style={{ background: "#1e2535", border: "1px solid #ffffff1a", boxShadow: "0 12px 32px rgba(0,0,0,0.5)" }}>
+            <p className="mb-2 text-xs font-bold uppercase tracking-widest" style={{ color: "#ffffff40" }}>--popover · Floating menu</p>
+            {["Profile", "Settings", "Sign out"].map(item => (
+              <div key={item} className="flex items-center gap-2 rounded-md px-2 py-1.5">
+                <div className="h-1.5 w-1.5 rounded-full" style={{ background: item === "Profile" ? "#3b82f6" : "#ffffff20" }} />
+                <span className="text-sm" style={{ color: "#ffffffcc" }}>{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      <p className="text-xs text-muted-foreground">Three elevation layers — <span className="font-medium text-foreground/70">background → card → popover</span> — let content float without box-shadow workarounds.</p>
+    </div>
+  );
+}
+
+function DemoInteractive() {
+  return (
+    <div className="space-y-4">
+      <div>
+        <p className="mb-2.5 text-xs font-bold uppercase tracking-widest text-muted-foreground/50">Button roles</p>
+        <div className="flex flex-wrap gap-3">
+          <div className="flex flex-col items-center gap-1.5">
+            <button className="rounded-lg px-4 py-2 text-sm font-semibold text-white" style={{ background: "#3b82f6", boxShadow: "0 4px 14px #3b82f650" }}>Save changes</button>
+            <span className="text-xs text-muted-foreground/50">--primary</span>
+          </div>
+          <div className="flex flex-col items-center gap-1.5">
+            <button className="rounded-lg px-4 py-2 text-sm font-semibold" style={{ background: "#1e293b", color: "#94a3b8", border: "1px solid #334155" }}>Cancel</button>
+            <span className="text-xs text-muted-foreground/50">--secondary</span>
+          </div>
+          <div className="flex flex-col items-center gap-1.5">
+            <button className="rounded-lg px-4 py-2 text-sm font-semibold" style={{ background: "#8b5cf615", color: "#8b5cf6", border: "1px solid #8b5cf630" }}>Filter</button>
+            <span className="text-xs text-muted-foreground/50">--accent</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p className="mb-2.5 text-xs font-bold uppercase tracking-widest text-muted-foreground/50">Toggle — primary as selected state</p>
+        <div className="flex overflow-hidden rounded-lg" style={{ border: "1px solid #334155" }}>
+          {["Weekly", "Monthly", "Yearly"].map((label, i) => (
+            <button key={label} className="flex-1 py-2 text-sm font-semibold" style={i === 0 ? { background: "#3b82f6", color: "#fff" } : { background: "transparent", color: "#64748b" }}>
+              {label}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div>
+        <p className="mb-2.5 text-xs font-bold uppercase tracking-widest text-muted-foreground/50">Badges — accent tints</p>
+        <div className="flex flex-wrap gap-2">
+          {[{ label: "Active", bg: "#3b82f615", color: "#3b82f6" }, { label: "Pending", bg: "#8b5cf615", color: "#8b5cf6" }, { label: "Draft", bg: "#94a3b815", color: "#94a3b8" }].map(b => (
+            <span key={b.label} className="rounded-full px-3 py-1 text-xs font-bold uppercase tracking-widest" style={{ background: b.bg, color: b.color }}>{b.label}</span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function DemoNeutral() {
+  return (
+    <div className="space-y-3 rounded-2xl p-4" style={{ background: "#0d1117", border: "1px solid #1e293b" }}>
+      <div>
+        <label className="text-xs font-bold uppercase tracking-widest" style={{ color: "#64748b" }}>Email address</label>
+        <div className="mt-1.5 rounded-lg px-3 py-2.5 text-sm" style={{ background: "#0d1117", border: "1px solid #334155", color: "#94a3b8" }}>user@example.com</div>
+        <p className="mt-1 text-xs" style={{ color: "#64748b" }}>--muted-foreground on placeholder · --input on border</p>
+      </div>
+      <div>
+        <label className="text-xs font-bold uppercase tracking-widest" style={{ color: "#64748b" }}>Password <span style={{ color: "#3b82f6" }}>(focused)</span></label>
+        <div className="mt-1.5 rounded-lg px-3 py-2.5 text-sm" style={{ background: "#0d1117", border: "1.5px solid #3b82f6", color: "#e2e8f0", boxShadow: "0 0 0 3px #3b82f620" }}>
+          ••••••••
+          <span className="float-right text-xs font-bold uppercase tracking-wide" style={{ color: "#3b82f6" }}>--ring</span>
+        </div>
+      </div>
+      <div className="h-px" style={{ background: "#1e293b" }} />
+      <div className="rounded-lg px-3 py-3" style={{ background: "#1e293b" }}>
+        <p className="text-sm font-semibold" style={{ color: "#94a3b8" }}>--muted</p>
+        <p className="text-xs" style={{ color: "#64748b" }}>Quiet containers for hints, sidebars, and helper text.</p>
+      </div>
+    </div>
+  );
+}
+
+function DemoFeedback() {
+  return (
+    <div className="space-y-3">
+      <div className="flex items-start gap-3 rounded-2xl p-4" style={{ background: "#ef444412", border: "1px solid #ef444430" }}>
+        <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full" style={{ background: "#ef4444" }}>
+          <svg width="11" height="11" fill="white" viewBox="0 0 24 24"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+        </div>
+        <div>
+          <p className="text-base font-semibold" style={{ color: "#ef4444" }}>Action failed</p>
+          <p className="text-sm" style={{ color: "#ef444490" }}>You don't have permission to delete this item. Contact your admin.</p>
+        </div>
+      </div>
+      <div>
+        <label className="text-xs font-bold uppercase tracking-widest" style={{ color: "#ef444490" }}>Email address</label>
+        <div className="mt-1.5 rounded-lg px-3 py-2.5 text-sm" style={{ background: "#0d1117", border: "1.5px solid #ef4444", color: "#e2e8f0" }}>
+          invalid-email@
+        </div>
+        <p className="mt-1 text-xs" style={{ color: "#ef4444" }}>--destructive on border + message — invalid email address</p>
+      </div>
+      <button className="w-full rounded-lg py-2.5 text-sm font-semibold text-white" style={{ background: "#ef4444", boxShadow: "0 4px 16px #ef444445" }}>
+        Delete account permanently
+      </button>
+    </div>
+  );
+}
+
+function DemoCharts() {
+  const DATA = [
+    { label: "Mon", value: 72, color: "#3b82f6" },
+    { label: "Tue", value: 88, color: "#8b5cf6" },
+    { label: "Wed", value: 55, color: "#06b6d4" },
+    { label: "Thu", value: 94, color: "#10b981" },
+    { label: "Fri", value: 68, color: "#f59e0b" },
+  ];
+  const max = Math.max(...DATA.map(d => d.value));
+  return (
+    <div className="space-y-3">
+      <div className="rounded-2xl p-4" style={{ background: "#0d1117", border: "1px solid #1e293b" }}>
+        <div className="mb-3 flex items-center justify-between">
+          <p className="text-base font-semibold" style={{ color: "#e2e8f0" }}>Weekly activity</p>
+          <span className="text-xs font-bold uppercase tracking-widest" style={{ color: "#ffffff40" }}>5 series · 5 tokens</span>
+        </div>
+        <div className="flex items-end gap-3" style={{ height: "72px" }}>
+          {DATA.map(d => (
+            <div key={d.label} className="flex-1 rounded-t" style={{ height: `${(d.value / max) * 72}px`, background: d.color, boxShadow: `0 4px 14px ${d.color}55` }} />
+          ))}
+        </div>
+        <div className="mt-2 flex gap-3">
+          {DATA.map(d => (
+            <span key={d.label} className="flex-1 text-center text-xs font-medium" style={{ color: "#ffffff50" }}>{d.label}</span>
+          ))}
+        </div>
+      </div>
+      <div className="flex flex-wrap gap-3">
+        {DATA.map((d, i) => (
+          <div key={d.label} className="flex items-center gap-1.5">
+            <div className="h-2.5 w-2.5 rounded-full" style={{ background: d.color }} />
+            <span className="font-mono text-xs" style={{ color: "#94a3b8" }}>--chart-{i + 1}</span>
+          </div>
+        ))}
+      </div>
+      <p className="text-xs text-muted-foreground">Each token owns one series. No two bars share a hue — clarity at a glance.</p>
+    </div>
+  );
+}
+
+function TokenGroupDemoModal({ group, onClose }: { group: string; onClose: () => void }) {
+  const demoMap: Record<string, React.ReactNode> = {
+    Surface:     <DemoSurface />,
+    Interactive: <DemoInteractive />,
+    Neutral:     <DemoNeutral />,
+    Feedback:    <DemoFeedback />,
+    Charts:      <DemoCharts />,
+  };
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={onClose}>
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+      <div
+        className="relative z-10 flex w-full max-w-[50vw] flex-col overflow-hidden rounded-2xl border border-border/60 bg-card shadow-2xl shadow-black/40" style={{ height: "40vh" }}
+        onClick={e => e.stopPropagation()}
+      >
+        <div className="flex items-center justify-between border-b border-border/40 px-4 py-3">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground/50">Token group demo</p>
+            <p className="text-base font-semibold">{group}</p>
+          </div>
+          <button
+            onClick={onClose}
+            className="flex h-7 w-7 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          >
+            <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <div className="flex-1 overflow-y-auto p-4">{demoMap[group]}</div>
+      </div>
+    </div>
+  );
+}
+
 // ─── Base Panel ───────────────────────────────────────────────────────────────
 
 const LIGHT_CHIPS = [
@@ -260,6 +457,7 @@ const DARK_CHIPS = [
 ];
 
 function BasePanel({ copy }: { copy: (text: string, label: string) => void }) {
+  const [openDemo, setOpenDemo] = useState<string | null>(null);
   return (
     <div>
       {/* Explainer */}
@@ -325,7 +523,16 @@ function BasePanel({ copy }: { copy: (text: string, label: string) => void }) {
       {/* Token groups */}
       {TOKEN_GROUPS.map(group => (
         <div key={group.title} className="mb-10">
-          <SectionLabel>{group.title}</SectionLabel>
+          <div className="mb-4 flex items-center justify-between">
+            <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">{group.title}</p>
+            <button
+              onClick={() => setOpenDemo(group.title)}
+              className="flex items-center gap-1.5 rounded-lg border border-border/60 px-2.5 py-1 text-[0.625rem] font-medium text-muted-foreground transition-colors hover:border-border hover:bg-muted hover:text-foreground"
+            >
+              <svg width="9" height="9" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/></svg>
+              Demo
+            </button>
+          </div>
           <div
             className="overflow-hidden rounded-2xl border border-border/60 bg-border/60"
             style={{ display: "grid", gridTemplateColumns: `repeat(${group.tokens.length}, 1fr)`, gap: "1px" }}
@@ -334,7 +541,7 @@ function BasePanel({ copy }: { copy: (text: string, label: string) => void }) {
               <button
                 key={token.var}
                 onClick={() => copy(`var(${token.var})`, `Copied var(${token.var})`)}
-                className="group flex flex-col bg-card text-left transition-colors duration-150 hover:bg-muted/50 active:scale-[0.99]"
+                className="group flex flex-col bg-card text-left transition-colors duration-150 hover:bg-muted/50 "
               >
                 <div
                   className="relative h-[68px] border-b border-border/40"
@@ -358,22 +565,7 @@ function BasePanel({ copy }: { copy: (text: string, label: string) => void }) {
         </div>
       ))}
 
-      {/* Charts band */}
-      <SectionLabel>Charts</SectionLabel>
-      <div className="flex h-[68px] overflow-hidden rounded-2xl border border-border/60" style={{ gap: "1px", background: "rgba(128,128,128,0.18)" }}>
-        {CHART_SWATCHES.map(s => (
-          <button
-            key={s.var}
-            onClick={() => copy(`var(${s.var})`, `Copied var(${s.var})`)}
-            className="group flex flex-1 items-end px-3 pb-2.5 transition-[flex] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:flex-[2.2]"
-            style={{ background: s.bg }}
-          >
-            <span className="font-mono text-[0.5rem] font-bold uppercase tracking-widest opacity-0 transition-opacity group-hover:opacity-60" style={{ color: s.dark ? "#fff" : "#000" }}>
-              {s.var}
-            </span>
-          </button>
-        ))}
-      </div>
+      {openDemo && <TokenGroupDemoModal group={openDemo} onClose={() => setOpenDemo(null)} />}
     </div>
   );
 }
