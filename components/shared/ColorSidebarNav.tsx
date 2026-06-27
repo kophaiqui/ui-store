@@ -6,9 +6,9 @@ import { cn } from "@/lib/utils";
 
 const TABS = [
   { id: "base",        label: "Base tokens"                 },
+  { id: "maincolor",   label: "Your colors"                 },
   { id: "styles",      label: "Style palettes", count: "11" },
   { id: "inspiration", label: "Inspiration",    count: "12" },
-  { id: "maincolor",   label: "Your colors"                 },
   { id: "collection",  label: "Collection",     count: "15" },
 ] as const;
 
