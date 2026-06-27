@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback, useRef, Suspense } from "react";
+import { useState, useMemo, useCallback, useRef, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 
@@ -548,41 +548,153 @@ function InspirationPanel({ filter, setFilter, copy }: { filter: InspFilter; set
 
 // ─── Harmony Panel ────────────────────────────────────────────────────────────
 
-function PickerBlock({
-  label, hex, inputVal, onPickerChange, onInputChange, onBlur, action,
-}: {
-  label: string; hex: string; inputVal: string;
-  onPickerChange: (v: string) => void; onInputChange: (v: string) => void;
-  onBlur: () => void; action?: React.ReactNode;
+const PICKER_PRESETS = [
+  "#ef4444","#f97316","#eab308","#22c55e",
+  "#06b6d4","#6366f1","#a855f7","#ec4899",
+  "#ffffff","#d4d4d8","#71717a","#27272a",
+  "#1d4ed8","#0891b2","#059669","#000000",
+] as const;
+
+const THUMB = [
+  "[&::-webkit-slider-thumb]:h-3.5",
+  "[&::-webkit-slider-thumb]:w-3.5",
+  "[&::-webkit-slider-thumb]:appearance-none",
+  "[&::-webkit-slider-thumb]:rounded-full",
+  "[&::-webkit-slider-thumb]:border-2",
+  "[&::-webkit-slider-thumb]:border-white/80",
+  "[&::-webkit-slider-thumb]:bg-white",
+  "[&::-webkit-slider-thumb]:shadow",
+  "[&::-moz-range-thumb]:h-3.5",
+  "[&::-moz-range-thumb]:w-3.5",
+  "[&::-moz-range-thumb]:appearance-none",
+  "[&::-moz-range-thumb]:rounded-full",
+  "[&::-moz-range-thumb]:border-2",
+  "[&::-moz-range-thumb]:border-white/80",
+  "[&::-moz-range-thumb]:bg-white",
+].join(" ");
+
+function ColorPickerPopup({ hex, onChange, onClose }: {
+  hex: string;
+  onChange: (v: string) => void;
+  onClose: () => void;
 }) {
+  const [localHex, setLocalHex] = useState(hex);
+  const ref = useRef<HTMLDivElement>(null);
+  const [h, s, l] = useMemo(() => hexToHSL(hex), [hex]);
+
+  useEffect(() => { setLocalHex(hex); }, [hex]);
+
+  useEffect(() => {
+    function down(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) onClose();
+    }
+    document.addEventListener("mousedown", down);
+    return () => document.removeEventListener("mousedown", down);
+  }, [onClose]);
+
+  function applyHex(raw: string) {
+    let v = raw.trim();
+    if (!v.startsWith("#")) v = "#" + v;
+    if (/^#[0-9a-fA-F]{6}$/.test(v)) onChange(v);
+    else setLocalHex(hex);
+  }
+
+  const hueGrad = `linear-gradient(to right,${Array.from({ length: 13 }, (_, i) => `hsl(${i * 30},${Math.max(s, 50)}%,${Math.min(Math.max(l, 30), 65)}%)`).join(",")})`;
+  const satGrad = `linear-gradient(to right,hsl(${h},0%,${l}%),hsl(${h},100%,${l}%))`;
+  const litGrad = `linear-gradient(to right,hsl(${h},${s}%,5%),hsl(${h},${s}%,50%),hsl(${h},${s}%,95%))`;
+
   return (
-    <div className="flex flex-col gap-2.5">
-      <label className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-        {label}{action}
-      </label>
-      <div
-        className="relative h-[120px] w-[120px] cursor-pointer overflow-hidden rounded-2xl border border-border/60 transition-[box-shadow] hover:shadow-[0_0_0_2px_rgba(0,0,0,0.15)] dark:hover:shadow-[0_0_0_2px_rgba(255,255,255,0.2)]"
-        style={{ background: hex }}
-      >
-        <input type="color" value={hex} onChange={e => onPickerChange(e.target.value)} className="absolute inset-0 h-full w-full cursor-pointer opacity-0" />
-        <div className="absolute inset-x-0 bottom-0 px-2.5 py-2 font-mono text-[0.625rem] font-semibold text-white" style={{ background: "rgba(0,0,0,0.3)", backdropFilter: "blur(4px)" }}>
-          {hex}
+    <div ref={ref} className="absolute left-0 top-[calc(100%+8px)] z-50 w-60 overflow-hidden rounded-2xl border border-border/60 bg-card shadow-2xl shadow-black/30">
+      <div className="h-10 w-full transition-colors duration-75" style={{ background: hex }} />
+      <div className="space-y-3 p-4 pb-3">
+        <div className="flex items-center gap-2.5">
+          <span className="w-3 shrink-0 text-[0.5625rem] font-bold uppercase tracking-widest text-muted-foreground/40">H</span>
+          <input type="range" min="0" max="359" value={h} onChange={e => onChange(hslToHex(+e.target.value, s, l))}
+            className={cn("h-2 flex-1 cursor-pointer appearance-none rounded-full", THUMB)} style={{ background: hueGrad }} />
+        </div>
+        <div className="flex items-center gap-2.5">
+          <span className="w-3 shrink-0 text-[0.5625rem] font-bold uppercase tracking-widest text-muted-foreground/40">S</span>
+          <input type="range" min="0" max="100" value={s} onChange={e => onChange(hslToHex(h, +e.target.value, l))}
+            className={cn("h-2 flex-1 cursor-pointer appearance-none rounded-full", THUMB)} style={{ background: satGrad }} />
+        </div>
+        <div className="flex items-center gap-2.5">
+          <span className="w-3 shrink-0 text-[0.5625rem] font-bold uppercase tracking-widest text-muted-foreground/40">L</span>
+          <input type="range" min="0" max="100" value={l} onChange={e => onChange(hslToHex(h, s, +e.target.value))}
+            className={cn("h-2 flex-1 cursor-pointer appearance-none rounded-full", THUMB)} style={{ background: litGrad }} />
+        </div>
+        <input type="text" value={localHex} onChange={e => setLocalHex(e.target.value)}
+          onBlur={() => applyHex(localHex)} onKeyDown={e => e.key === "Enter" && applyHex(localHex)} maxLength={7}
+          className="mt-1 w-full rounded-xl border border-border/60 bg-background px-3 py-1.5 font-mono text-sm text-foreground outline-none transition-colors focus:border-foreground/30" />
+      </div>
+      <div className="border-t border-border/40 px-4 pb-4 pt-3">
+        <p className="mb-2 text-[0.5rem] font-bold uppercase tracking-widest text-muted-foreground/40">Presets</p>
+        <div className="grid grid-cols-8 gap-1">
+          {PICKER_PRESETS.map(c => (
+            <button key={c} onClick={() => onChange(c)} title={c}
+              className="h-6 w-6 rounded-md transition-transform hover:scale-110 active:scale-95"
+              style={{ background: c, boxShadow: hex.toLowerCase() === c.toLowerCase() ? "0 0 0 2px var(--background), 0 0 0 3.5px var(--foreground)" : "inset 0 0 0 1px rgba(128,128,128,0.22)" }} />
+          ))}
         </div>
       </div>
-      <input
-        type="text" value={inputVal} onChange={e => onInputChange(e.target.value)} onBlur={onBlur} maxLength={7}
-        className="w-[120px] rounded-xl border border-border/60 bg-card px-3 py-2 font-mono text-sm text-foreground outline-none transition-colors focus:border-foreground/30"
-      />
+    </div>
+  );
+}
+
+function PickerBlock({ label, hex, onChange, onRemove }: {
+  label: string;
+  hex: string;
+  onChange: (v: string) => void;
+  onRemove?: () => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    function down(e: MouseEvent) {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) setOpen(false);
+    }
+    document.addEventListener("mousedown", down);
+    return () => document.removeEventListener("mousedown", down);
+  }, [open]);
+
+  return (
+    <div ref={containerRef} className="relative flex flex-col gap-2.5">
+      <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">{label}</label>
+      <div className="relative w-fit">
+        <button
+          onClick={() => setOpen(o => !o)}
+          className={cn(
+            "relative h-[120px] w-[120px] overflow-hidden rounded-2xl border border-border/60 transition-[box-shadow]",
+            open ? "shadow-[0_0_0_2px_rgba(0,0,0,0.2)] dark:shadow-[0_0_0_2px_rgba(255,255,255,0.25)]"
+                 : "hover:shadow-[0_0_0_2px_rgba(0,0,0,0.12)] dark:hover:shadow-[0_0_0_2px_rgba(255,255,255,0.15)]"
+          )}
+          style={{ background: hex }}
+        >
+          <div className="absolute inset-x-0 bottom-0 px-2.5 py-2 font-mono text-[0.625rem] font-semibold text-white" style={{ background: "rgba(0,0,0,0.3)", backdropFilter: "blur(4px)" }}>
+            {hex}
+          </div>
+        </button>
+        {onRemove && (
+          <button onClick={onRemove} title="Remove"
+            className="group/rm absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full border border-red-500/60 bg-black shadow-[0_0_6px_rgba(239,68,68,0.3)] transition-all duration-150 hover:border-red-500 hover:bg-red-500 hover:shadow-none"
+          >
+            <svg width="8" height="8" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" viewBox="0 0 24 24"
+              className="text-red-500 drop-shadow-[0_0_4px_rgba(239,68,68,0.9)] transition-all duration-150 group-hover/rm:text-white group-hover/rm:drop-shadow-none">
+              <path d="M18 6 6 18M6 6l12 12" />
+            </svg>
+          </button>
+        )}
+      </div>
+      {open && <ColorPickerPopup hex={hex} onChange={onChange} onClose={() => setOpen(false)} />}
     </div>
   );
 }
 
 function HarmonyPanel({ copy }: { copy: (text: string, label: string) => void }) {
-  const [primaryHex, setPrimaryHex]       = useState("#6366f1");
-  const [secondaryHex, setSecondaryHex]   = useState("#f97316");
-  const [hasSecondary, setHasSecondary]   = useState(false);
-  const [primaryInput, setPrimaryInput]   = useState("#6366f1");
-  const [secondaryInput, setSecondaryInput] = useState("#f97316");
+  const [primaryHex, setPrimaryHex]     = useState("#6366f1");
+  const [secondaryHex, setSecondaryHex] = useState("#f97316");
+  const [hasSecondary, setHasSecondary] = useState(false);
 
   const [h, s, l] = useMemo(() => hexToHSL(primaryHex), [primaryHex]);
   const harmonies  = useMemo(() => buildHarmonies(h, s, l), [h, s, l]);
@@ -592,23 +704,11 @@ function HarmonyPanel({ copy }: { copy: (text: string, label: string) => void })
     return detectRelationship(h, h2);
   }, [h, hasSecondary, secondaryHex]);
 
-  const lightened    = useMemo(() => hslToHex(h, s, Math.min(l + 30, 92)), [h, s, l]);
-  const darkened     = useMemo(() => hslToHex(h, s, Math.max(l - 25, 8)), [h, s, l]);
+  const lightened     = useMemo(() => hslToHex(h, s, Math.min(l + 30, 92)), [h, s, l]);
+  const darkened      = useMemo(() => hslToHex(h, s, Math.max(l - 25, 8)),  [h, s, l]);
   const textOnPrimary = useMemo(() => contrastColor(primaryHex), [primaryHex]);
-  const neutralBg    = harmonies.neutral[0];
-  const neutralText  = harmonies.neutral[3];
-
-  function applyHex(n: 1 | 2, raw: string) {
-    let v = raw.trim();
-    if (!v.startsWith("#")) v = "#" + v;
-    if (/^#[0-9a-fA-F]{6}$/.test(v)) {
-      if (n === 1) { setPrimaryHex(v); setPrimaryInput(v); }
-      else         { setSecondaryHex(v); setSecondaryInput(v); }
-    } else {
-      if (n === 1) setPrimaryInput(primaryHex);
-      else         setSecondaryInput(secondaryHex);
-    }
-  }
+  const neutralBg     = harmonies.neutral[0];
+  const neutralText   = harmonies.neutral[3];
 
   return (
     <div>
@@ -618,21 +718,12 @@ function HarmonyPanel({ copy }: { copy: (text: string, label: string) => void })
 
       {/* Pickers */}
       <div className="mb-8 flex flex-wrap items-start gap-5">
-        <PickerBlock label="Primary color" hex={primaryHex} inputVal={primaryInput}
-          onPickerChange={v => { setPrimaryHex(v); setPrimaryInput(v); }}
-          onInputChange={v => setPrimaryInput(v)} onBlur={() => applyHex(1, primaryInput)} />
+        <PickerBlock label="Primary color" hex={primaryHex} onChange={setPrimaryHex} />
         {hasSecondary ? (
-          <PickerBlock label="Second color" hex={secondaryHex} inputVal={secondaryInput}
-            onPickerChange={v => { setSecondaryHex(v); setSecondaryInput(v); }}
-            onInputChange={v => setSecondaryInput(v)} onBlur={() => applyHex(2, secondaryInput)}
-            action={
-              <button onClick={() => setHasSecondary(false)} className="ml-auto text-[0.625rem] text-muted-foreground/40 hover:text-muted-foreground transition-colors">
-                remove
-              </button>
-            } />
+          <PickerBlock label="Second color" hex={secondaryHex} onChange={setSecondaryHex} onRemove={() => setHasSecondary(false)} />
         ) : (
           <div className="flex flex-col gap-2.5">
-            <label className="text-xs font-semibold uppercase tracking-widest text-transparent select-none">·</label>
+            <label className="select-none text-xs font-semibold uppercase tracking-widest text-transparent">·</label>
             <button
               onClick={() => setHasSecondary(true)}
               className="flex h-[120px] w-[120px] flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-border/60 text-sm font-medium text-muted-foreground transition-all hover:border-border hover:bg-muted hover:text-foreground"
