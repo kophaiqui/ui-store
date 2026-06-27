@@ -379,9 +379,21 @@ function BasePanel({ copy }: { copy: (text: string, label: string) => void }) {
 
 // ─── Styles Panel ─────────────────────────────────────────────────────────────
 
-function StylesPanel() {
+const PALETTE_ROLES = ["background", "surface", "primary", "secondary", "highlight"] as const;
+
+function StylesPanel({ copy }: { copy: (text: string, label: string) => void }) {
+  const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const available = STYLE_PALETTES.filter(s => s.status === "available");
   const soon      = STYLE_PALETTES.filter(s => s.status === "coming-soon");
+
+  function copyPalette(style: typeof STYLE_PALETTES[number]) {
+    const text = style.palette
+      .map((hex, i) => `${PALETTE_ROLES[i] ?? `color-${i + 1}`}: ${hex}`)
+      .join("\n");
+    copy(text, `Copied ${style.name} palette`);
+    setCopiedKey(style.key);
+    setTimeout(() => setCopiedKey(null), 1400);
+  }
 
   return (
     <div>
@@ -396,8 +408,9 @@ function StylesPanel() {
         {available.map(style => (
           <div
             key={style.key}
-            className="group grid grid-cols-[1fr_auto_100px] items-center gap-6 bg-card px-5 py-4 transition-colors hover:bg-muted/40 sm:grid-cols-[200px_1fr_100px]"
+            className="group grid grid-cols-[1fr_auto_auto] items-center gap-4 bg-card px-5 py-4 transition-colors hover:bg-muted/40 sm:grid-cols-[200px_1fr_auto]"
           >
+            {/* Name + tagline */}
             <div>
               <div className="mb-0.5 flex items-center gap-2">
                 <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: style.accent }} />
@@ -405,19 +418,45 @@ function StylesPanel() {
               </div>
               <p className="text-xs text-muted-foreground">{style.tagline}</p>
             </div>
-            <div className="hidden h-6 gap-[3px] sm:flex">
+
+            {/* Swatches — each copies its own hex on click */}
+            <div className="hidden h-8 gap-[3px] sm:flex">
               {style.palette.map((color, i) => (
-                <div
+                <button
                   key={i}
-                  className="flex-1 rounded-sm transition-transform duration-200 group-hover:scale-y-[1.4]"
-                  style={{ background: color, transformOrigin: "bottom" }}
-                />
+                  onClick={() => copy(color, `Copied ${color}`)}
+                  title={PALETTE_ROLES[i]}
+                  className="group/sw relative flex-1 overflow-hidden rounded-sm transition-transform duration-200 group-hover:scale-y-[1.3]"
+                  style={{ background: color, transformOrigin: "bottom", boxShadow: "inset 0 0 0 1px rgba(128,128,128,0.18)" }}
+                >
+                  <span
+                    className="absolute inset-x-0 bottom-0 truncate px-0.5 py-0.5 text-center font-mono text-[0.4rem] font-semibold text-white opacity-0 transition-opacity duration-150 group-hover/sw:opacity-100"
+                    style={{ background: "rgba(0,0,0,0.4)", backdropFilter: "blur(2px)" }}
+                  >
+                    {color}
+                  </span>
+                </button>
               ))}
             </div>
-            <div className="text-right">
-              <span className="rounded-full bg-emerald-500/10 px-2.5 py-1 text-[0.5625rem] font-bold uppercase tracking-widest text-emerald-500">
-                Available
+
+            {/* Copy button — always visible */}
+            <div className="flex items-center gap-2">
+              <span className={cn(
+                "text-[0.5rem] font-bold uppercase tracking-widest transition-opacity duration-150",
+                copiedKey === style.key ? "text-foreground/40 opacity-100" : "opacity-0"
+              )}>
+                Copied!
               </span>
+              <button
+                onClick={() => copyPalette(style)}
+                title="Copy palette"
+                className="flex h-7 w-7 items-center justify-center rounded-lg border border-border/60 text-muted-foreground transition-colors hover:border-border hover:bg-muted hover:text-foreground"
+              >
+                <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <rect x="9" y="9" width="13" height="13" rx="2" />
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                </svg>
+              </button>
             </div>
           </div>
         ))}
@@ -426,7 +465,7 @@ function StylesPanel() {
       <SectionLabel>Coming soon</SectionLabel>
       <div className="flex flex-col gap-px overflow-hidden rounded-2xl border border-border/60 opacity-40 select-none pointer-events-none">
         {soon.map(style => (
-          <div key={style.key} className="grid grid-cols-[1fr_auto_100px] items-center gap-6 bg-card px-5 py-4 sm:grid-cols-[200px_1fr_100px]">
+          <div key={style.key} className="grid grid-cols-[1fr_auto_auto] items-center gap-4 bg-card px-5 py-4 sm:grid-cols-[200px_1fr_auto]">
             <div>
               <div className="mb-0.5 flex items-center gap-2">
                 <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: style.accent }} />
@@ -434,15 +473,16 @@ function StylesPanel() {
               </div>
               <p className="text-xs text-muted-foreground">{style.tagline}</p>
             </div>
-            <div className="hidden h-6 gap-[3px] sm:flex">
+            <div className="hidden h-8 gap-[3px] sm:flex">
               {style.palette.map((color, i) => (
-                <div key={i} className="flex-1 rounded-sm" style={{ background: color }} />
+                <div key={i} className="flex-1 rounded-sm" style={{ background: color, boxShadow: "inset 0 0 0 1px rgba(128,128,128,0.18)" }} />
               ))}
             </div>
-            <div className="text-right">
-              <span className="rounded-full bg-muted px-2.5 py-1 text-[0.5625rem] font-bold uppercase tracking-widest text-muted-foreground">
-                Soon
-              </span>
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg border border-border/60 text-muted-foreground">
+              <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <rect x="9" y="9" width="13" height="13" rx="2" />
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+              </svg>
             </div>
           </div>
         ))}
@@ -784,7 +824,7 @@ function ColorExplorerInner() {
 
       {/* Tab content */}
       {activeTab === "base"        && <BasePanel copy={copy} />}
-      {activeTab === "styles"      && <StylesPanel />}
+      {activeTab === "styles"      && <StylesPanel copy={copy} />}
       {activeTab === "inspiration" && <InspirationPanel filter={inspFilter} setFilter={setInspFilter} copy={copy} />}
       {activeTab === "maincolor"   && <HarmonyPanel copy={copy} />}
       {activeTab === "collection"  && <CollectionPanel filter={collFilter} setFilter={setCollFilter} copy={copy} />}
