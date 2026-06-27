@@ -189,7 +189,7 @@ function buildHarmonies(h: number, s: number, l: number): HarmonySet {
     triadic:       [hslToHex(h,s,l),hslToHex(h+120,s,l),hslToHex(h+240,s,l)],
     splitComp:     [hslToHex(h,s,l),hslToHex(h+150,s,l),hslToHex(h+210,s,l)],
     tetradic:      [hslToHex(h,s,l),hslToHex(h+90,s,l),hslToHex(h+180,s,l),hslToHex(h+270,s,l)],
-    neutral:       [hslToHex(h,5,96),hslToHex(h,5,80),hslToHex(h,4,55),hslToHex(h,5,30),hslToHex(h,5,12)],
+    neutral:       [hslToHex(h,Math.round(s*0.12),96),hslToHex(h,Math.round(s*0.14),80),hslToHex(h,Math.round(s*0.16),55),hslToHex(h,Math.round(s*0.18),30),hslToHex(h,Math.round(s*0.20),12)],
   };
 }
 
@@ -691,18 +691,71 @@ function PickerBlock({ label, hex, onChange, onRemove }: {
   );
 }
 
+function SwatchStrip({ colors, label, copy }: {
+  colors: string[];
+  label?: string;
+  copy: (text: string, label: string) => void;
+}) {
+  return (
+    <div className="relative flex h-10">
+      {label && (
+        <span className="pointer-events-none absolute left-2 top-1/2 z-10 -translate-y-1/2 text-[0.4rem] font-bold uppercase tracking-widest text-white/60">
+          {label}
+        </span>
+      )}
+      {colors.map((hex, i) => (
+        <button key={i} onClick={() => copy(hex, `Copied ${hex}`)}
+          className="group/sw relative flex-1 transition-[flex] duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] hover:flex-[2]"
+          style={{ background: hex }} title={hex}>
+          <span className="absolute inset-x-0 bottom-0 py-0.5 text-center font-mono text-[0.4rem] font-semibold text-white opacity-0 transition-opacity group-hover/sw:opacity-100" style={{ background: "rgba(0,0,0,0.4)", backdropFilter: "blur(2px)" }}>
+            {hex}
+          </span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function HarmonyCard({ def, harmonies, harmonies2, hasSecondary, copy }: {
+  def: typeof HARMONY_DEFS[number];
+  harmonies: HarmonySet;
+  harmonies2?: HarmonySet;
+  hasSecondary: boolean;
+  copy: (text: string, label: string) => void;
+}) {
+  return (
+    <div className="overflow-hidden rounded-2xl border border-border/60 bg-card">
+      <SwatchStrip colors={harmonies[def.key]} label={hasSecondary ? "primary" : undefined} copy={copy} />
+      {hasSecondary && harmonies2 && (
+        <SwatchStrip colors={harmonies2[def.key]} label="second" copy={copy} />
+      )}
+      <div className="p-4">
+        <p className="mb-1 text-sm font-semibold">{def.title}</p>
+        <p className="mb-3 text-xs leading-relaxed text-muted-foreground">{def.desc}</p>
+        <div className="flex flex-wrap gap-1">
+          {def.roles.map(r => (
+            <span key={r} className="rounded-md bg-muted px-1.5 py-0.5 text-[0.5rem] font-bold uppercase tracking-widest text-muted-foreground">{r}</span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function HarmonyPanel({ copy }: { copy: (text: string, label: string) => void }) {
   const [primaryHex, setPrimaryHex]     = useState("#6366f1");
   const [secondaryHex, setSecondaryHex] = useState("#f97316");
   const [hasSecondary, setHasSecondary] = useState(false);
 
-  const [h, s, l] = useMemo(() => hexToHSL(primaryHex), [primaryHex]);
-  const harmonies  = useMemo(() => buildHarmonies(h, s, l), [h, s, l]);
+  const [h, s, l]    = useMemo(() => hexToHSL(primaryHex),   [primaryHex]);
+  const [h2, s2, l2] = useMemo(() => hexToHSL(secondaryHex), [secondaryHex]);
+  const harmonies     = useMemo(() => buildHarmonies(h,  s,  l),  [h, s, l]);
+  const harmonies2    = useMemo(() => buildHarmonies(h2, s2, l2), [h2, s2, l2]);
+
   const relationship = useMemo(() => {
     if (!hasSecondary) return null;
-    const [h2] = hexToHSL(secondaryHex);
     return detectRelationship(h, h2);
-  }, [h, hasSecondary, secondaryHex]);
+  }, [h, h2, hasSecondary]);
 
   const lightened     = useMemo(() => hslToHex(h, s, Math.min(l + 30, 92)), [h, s, l]);
   const darkened      = useMemo(() => hslToHex(h, s, Math.max(l - 25, 8)),  [h, s, l]);
@@ -748,31 +801,14 @@ function HarmonyPanel({ copy }: { copy: (text: string, label: string) => void })
       <SectionLabel>Generated harmonies</SectionLabel>
       <div className="mb-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {HARMONY_DEFS.map(def => (
-          <div key={def.key} className="overflow-hidden rounded-2xl border border-border/60 bg-card">
-            <div className="flex h-12">
-              {harmonies[def.key].map((hex, i) => (
-                <button
-                  key={i}
-                  onClick={() => copy(hex, `Copied ${hex}`)}
-                  className="group/sw relative flex-1 transition-[flex] duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] hover:flex-[2]"
-                  style={{ background: hex }} title={hex}
-                >
-                  <span className="absolute inset-x-0 bottom-0 py-1 text-center font-mono text-[0.4375rem] font-semibold text-white opacity-0 transition-opacity group-hover/sw:opacity-100" style={{ background: "rgba(0,0,0,0.4)", backdropFilter: "blur(2px)" }}>
-                    {hex}
-                  </span>
-                </button>
-              ))}
-            </div>
-            <div className="p-4">
-              <p className="mb-1 text-sm font-semibold">{def.title}</p>
-              <p className="mb-3 text-xs leading-relaxed text-muted-foreground">{def.desc}</p>
-              <div className="flex flex-wrap gap-1">
-                {def.roles.map(r => (
-                  <span key={r} className="rounded-md bg-muted px-1.5 py-0.5 text-[0.5rem] font-bold uppercase tracking-widest text-muted-foreground">{r}</span>
-                ))}
-              </div>
-            </div>
-          </div>
+          <HarmonyCard
+            key={def.key}
+            def={def}
+            harmonies={harmonies}
+            harmonies2={hasSecondary ? harmonies2 : undefined}
+            hasSecondary={hasSecondary}
+            copy={copy}
+          />
         ))}
       </div>
 
