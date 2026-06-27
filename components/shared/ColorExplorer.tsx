@@ -205,6 +205,14 @@ function detectRelationship(h1: number, h2: number) {
   return         { name: "Complementary",             dot: "#f97316", desc: "Directly opposite on the wheel — maximum contrast." };
 }
 
+function adaptForMode(hex: string, dark: boolean): string {
+  const [h, s, l] = hexToHSL(hex);
+  // Dark mode: lift lightness so color pops on dark backgrounds
+  // Light mode: deepen it so it contrasts against white
+  const newL = dark ? Math.min(l + 15, 85) : Math.max(l - 12, 18);
+  return hslToHex(h, s, newL);
+}
+
 // ─── Shared primitives ────────────────────────────────────────────────────────
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
@@ -1190,6 +1198,7 @@ function HarmonyPanel({ copy }: { copy: (text: string, label: string) => void })
   const [secondaryHex, setSecondaryHex] = useState("#f97316");
   const [hasSecondary, setHasSecondary] = useState(false);
   const [selectedKey, setSelectedKey]   = useState<HarmonyKey | null>(null);
+  const [liveDark,    setLiveDark]      = useState(false);
 
   const [h, s, l]    = useMemo(() => hexToHSL(primaryHex),   [primaryHex]);
   const [h2, s2, l2] = useMemo(() => hexToHSL(secondaryHex), [secondaryHex]);
@@ -1230,7 +1239,15 @@ function HarmonyPanel({ copy }: { copy: (text: string, label: string) => void })
   const textOnSecond  = useMemo(() => contrastColor(previewSecond), [previewSecond]);
   const textOnThird   = useMemo(() => previewThird ? contrastColor(previewThird) : "#fff", [previewThird]);
 
-  const neutralBg   = harmonies.neutral[0];
+  // Mode-adapted accent colors — lifted in dark, deepened in light
+  const modeAccent = useMemo(() => adaptForMode(previewAccent, liveDark), [previewAccent, liveDark]);
+  const modeSecond = useMemo(() => adaptForMode(previewSecond, liveDark), [previewSecond, liveDark]);
+  const modeThird  = useMemo(() => previewThird ? adaptForMode(previewThird, liveDark) : null, [previewThird, liveDark]);
+  const modeTextOnAccent = useMemo(() => contrastColor(modeAccent), [modeAccent]);
+  const modeTextOnSecond = useMemo(() => contrastColor(modeSecond), [modeSecond]);
+  const modeTextOnThird  = useMemo(() => modeThird ? contrastColor(modeThird) : "#fff", [modeThird]);
+
+  const neutralBg   = liveDark ? harmonies.neutral[4] : harmonies.neutral[0];
   // Auto-contrast: pick text from the opposite end of the neutral scale relative to the bg
   const neutralText = luminance(neutralBg) > 0.179 ? harmonies.neutral[4] : harmonies.neutral[1];
 
@@ -1293,11 +1310,24 @@ function HarmonyPanel({ copy }: { copy: (text: string, label: string) => void })
       {/* Live preview */}
       <div className="mb-3 flex items-center justify-between">
         <SectionLabel>Live UI preview</SectionLabel>
-        {selectedKey && (
-          <span className="text-[0.6875rem] text-muted-foreground/60">
-            Using <strong className="text-muted-foreground">{HARMONY_DEFS.find(d => d.key === selectedKey)?.title}</strong> · click card to deselect
-          </span>
-        )}
+        <div className="flex items-center gap-3">
+          {selectedKey && (
+            <span className="text-[0.6875rem] text-muted-foreground/60">
+              Using <strong className="text-muted-foreground">{HARMONY_DEFS.find(d => d.key === selectedKey)?.title}</strong> · click card to deselect
+            </span>
+          )}
+          <button
+            onClick={() => setLiveDark(d => !d)}
+            className="flex items-center gap-1.5 rounded-lg border border-border/60 px-2.5 py-1 text-[0.625rem] font-medium text-muted-foreground transition-colors hover:border-border hover:bg-muted hover:text-foreground"
+            title="Toggle light / dark preview"
+          >
+            {liveDark
+              ? <svg width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+              : <svg width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            }
+            {liveDark ? "Light" : "Dark"}
+          </button>
+        </div>
       </div>
 
       {/* Mini app mockup */}
@@ -1306,21 +1336,21 @@ function HarmonyPanel({ copy }: { copy: (text: string, label: string) => void })
         {/* Title bar */}
         <div
           className="flex h-9 items-center justify-between px-4 transition-colors duration-500"
-          style={{ background: previewAccent }}
+          style={{ background: modeAccent }}
         >
           <div className="flex items-center gap-2">
             <div className="flex gap-1">
-              {[previewAccent, previewSecond, previewThird ?? neutralBg].map((c, i) => (
-                <div key={i} className="h-2 w-2 rounded-full border border-white/20" style={{ background: `${textOnAccent}30` }} />
+              {[modeAccent, modeSecond, modeThird ?? neutralBg].map((c, i) => (
+                <div key={i} className="h-2 w-2 rounded-full border border-white/20" style={{ background: `${modeTextOnAccent}30` }} />
               ))}
             </div>
-            <span className="text-[0.4375rem] font-bold uppercase tracking-widest" style={{ color: textOnAccent, opacity: 0.6 }}>Dashboard</span>
+            <span className="text-[0.4375rem] font-bold uppercase tracking-widest" style={{ color: modeTextOnAccent, opacity: 0.6 }}>Dashboard</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="rounded-full px-2 py-0.5 text-[0.4rem] font-bold uppercase tracking-wider" style={{ background: `${previewSecond}`, color: textOnSecond }}>
+            <span className="rounded-full px-2 py-0.5 text-[0.4rem] font-bold uppercase tracking-wider" style={{ background: modeSecond, color: modeTextOnSecond }}>
               Pro
             </span>
-            <div className="h-4 w-4 rounded-full border border-white/30" style={{ background: `${textOnAccent}20` }} />
+            <div className="h-4 w-4 rounded-full border border-white/30" style={{ background: `${modeTextOnAccent}20` }} />
           </div>
         </div>
 
@@ -1328,7 +1358,7 @@ function HarmonyPanel({ copy }: { copy: (text: string, label: string) => void })
         <div className="grid grid-cols-[110px_1fr] sm:grid-cols-[130px_1fr]">
 
           {/* Sidebar */}
-          <div className="border-r p-3 transition-colors duration-500" style={{ borderColor: `${neutralText}12`, background: `${neutralBg}` }}>
+          <div className="border-r p-3 transition-colors duration-500" style={{ borderColor: `${neutralText}12`, background: neutralBg }}>
             <p className="mb-2 px-1 text-[0.375rem] font-bold uppercase tracking-widest" style={{ color: neutralText, opacity: 0.35 }}>Menu</p>
             {[
               { label: "Overview", active: true },
@@ -1340,23 +1370,23 @@ function HarmonyPanel({ copy }: { copy: (text: string, label: string) => void })
                 key={label}
                 className="relative mb-0.5 flex items-center gap-1.5 overflow-hidden rounded-lg px-2 py-1.5 text-[0.5625rem] font-medium transition-colors duration-300"
                 style={active
-                  ? { background: `${previewAccent}18`, color: previewAccent }
+                  ? { background: `${modeAccent}20`, color: modeAccent }
                   : { color: neutralText, opacity: 0.5 }
                 }
               >
-                {active && <div className="absolute inset-y-1.5 left-0 w-[2px] rounded-full transition-colors duration-500" style={{ background: previewAccent }} />}
-                <div className="h-1.5 w-1.5 shrink-0 rounded-sm transition-colors duration-500" style={{ background: active ? previewAccent : `${neutralText}40` }} />
+                {active && <div className="absolute inset-y-1.5 left-0 w-[2px] rounded-full transition-colors duration-500" style={{ background: modeAccent }} />}
+                <div className="h-1.5 w-1.5 shrink-0 rounded-sm transition-colors duration-500" style={{ background: active ? modeAccent : `${neutralText}40` }} />
                 {label}
               </div>
             ))}
 
             {/* Secondary color promo card */}
-            <div className="mt-3 rounded-xl p-2.5 transition-colors duration-500" style={{ background: `${previewSecond}18`, border: `1px solid ${previewSecond}30` }}>
-              <p className="mb-0.5 text-[0.4375rem] font-bold uppercase tracking-widest transition-colors duration-500" style={{ color: previewSecond }}>Upgrade</p>
+            <div className="mt-3 rounded-xl p-2.5 transition-colors duration-500" style={{ background: `${modeSecond}20`, border: `1px solid ${modeSecond}35` }}>
+              <p className="mb-0.5 text-[0.4375rem] font-bold uppercase tracking-widest transition-colors duration-500" style={{ color: modeSecond }}>Upgrade</p>
               <p className="mb-1.5 text-[0.5rem] leading-tight" style={{ color: neutralText, opacity: 0.6 }}>Unlock all features</p>
               <div
                 className="rounded-md px-2 py-1 text-center text-[0.4375rem] font-bold transition-colors duration-500"
-                style={{ background: previewSecond, color: textOnSecond }}
+                style={{ background: modeSecond, color: modeTextOnSecond }}
               >
                 Go Pro
               </div>
@@ -1372,13 +1402,13 @@ function HarmonyPanel({ copy }: { copy: (text: string, label: string) => void })
                 <p className="text-[0.6875rem] font-semibold" style={{ color: neutralText }}>Good morning, Alex</p>
                 <p className="text-[0.5rem]" style={{ color: neutralText, opacity: 0.45 }}>3 tasks pending this week</p>
               </div>
-              {/* PRIMARY CTA — highlighted with colored shadow */}
+              {/* PRIMARY CTA */}
               <button
                 className="flex items-center gap-1 rounded-lg px-3 py-1.5 text-[0.5625rem] font-bold transition-all duration-500 active:scale-95"
                 style={{
-                  background: previewAccent,
-                  color: textOnAccent,
-                  boxShadow: `0 4px 16px ${previewAccent}60, 0 1px 3px ${previewAccent}40`,
+                  background: modeAccent,
+                  color: modeTextOnAccent,
+                  boxShadow: `0 4px 16px ${modeAccent}60, 0 1px 3px ${modeAccent}40`,
                 }}
               >
                 <svg width="7" height="7" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
@@ -1386,12 +1416,12 @@ function HarmonyPanel({ copy }: { copy: (text: string, label: string) => void })
               </button>
             </div>
 
-            {/* Stat tiles — each uses a different harmony color */}
+            {/* Stat tiles */}
             <div className="mb-4 grid grid-cols-3 gap-2">
               {[
-                { value: "47", label: "Done",    color: previewAccent,  text: textOnAccent  },
-                { value: "12", label: "Review",  color: previewSecond,  text: textOnSecond  },
-                { value: "8",  label: "Blocked", color: previewThird ?? `${neutralText}20`, text: previewThird ? textOnThird : neutralText },
+                { value: "47", label: "Done",    color: modeAccent,  text: modeTextOnAccent  },
+                { value: "12", label: "Review",  color: modeSecond,  text: modeTextOnSecond  },
+                { value: "8",  label: "Blocked", color: modeThird ?? `${neutralText}20`, text: modeThird ? modeTextOnThird : neutralText },
               ].map(({ value, label, color, text }) => (
                 <div
                   key={label}
@@ -1404,7 +1434,7 @@ function HarmonyPanel({ copy }: { copy: (text: string, label: string) => void })
               ))}
             </div>
 
-            {/* Progress bar — all harmony colors in one bar */}
+            {/* Progress bar */}
             <div className="mb-4">
               <div className="mb-1 flex items-center justify-between">
                 <p className="text-[0.4375rem] font-bold uppercase tracking-widest" style={{ color: neutralText, opacity: 0.4 }}>Sprint progress</p>
@@ -1412,19 +1442,19 @@ function HarmonyPanel({ copy }: { copy: (text: string, label: string) => void })
               </div>
               <div className="h-2 overflow-hidden rounded-full transition-colors duration-500" style={{ background: `${neutralText}12` }}>
                 <div className="flex h-full transition-all duration-700">
-                  <div className="transition-colors duration-500" style={{ width: "48%", background: previewAccent, borderRadius: "9999px 0 0 9999px" }} />
-                  <div className="transition-colors duration-500" style={{ width: "20%", background: previewSecond }} />
-                  {previewThird
-                    ? <div className="transition-colors duration-500" style={{ width: "8%", background: previewThird, borderRadius: "0 9999px 9999px 0" }} />
+                  <div className="transition-colors duration-500" style={{ width: "48%", background: modeAccent, borderRadius: "9999px 0 0 9999px" }} />
+                  <div className="transition-colors duration-500" style={{ width: "20%", background: modeSecond }} />
+                  {modeThird
+                    ? <div className="transition-colors duration-500" style={{ width: "8%", background: modeThird, borderRadius: "0 9999px 9999px 0" }} />
                     : null
                   }
                 </div>
               </div>
               <div className="mt-1.5 flex items-center gap-3">
                 {[
-                  { label: "Primary",   color: previewAccent },
-                  { label: "Secondary", color: previewSecond },
-                  ...(previewThird ? [{ label: "Tertiary", color: previewThird }] : []),
+                  { label: "Primary",   color: modeAccent },
+                  { label: "Secondary", color: modeSecond },
+                  ...(modeThird ? [{ label: "Tertiary", color: modeThird }] : []),
                 ].map(({ label, color }) => (
                   <div key={label} className="flex items-center gap-1">
                     <div className="h-1.5 w-1.5 shrink-0 rounded-full transition-colors duration-500" style={{ background: color }} />
@@ -1439,23 +1469,23 @@ function HarmonyPanel({ copy }: { copy: (text: string, label: string) => void })
               <button
                 className="flex-1 rounded-xl py-2 text-[0.5625rem] font-bold transition-all duration-500 active:scale-[0.97]"
                 style={{
-                  background: previewAccent,
-                  color: textOnAccent,
-                  boxShadow: `0 4px 14px ${previewAccent}55`,
+                  background: modeAccent,
+                  color: modeTextOnAccent,
+                  boxShadow: `0 4px 14px ${modeAccent}55`,
                 }}
               >
                 Confirm
               </button>
               <button
                 className="flex-1 rounded-xl py-2 text-[0.5625rem] font-semibold transition-all duration-500"
-                style={{ color: previewSecond, border: `1.5px solid ${previewSecond}`, background: "transparent" }}
+                style={{ color: modeSecond, border: `1.5px solid ${modeSecond}`, background: "transparent" }}
               >
                 Cancel
               </button>
-              {previewThird && (
+              {modeThird && (
                 <button
                   className="rounded-xl px-3 py-2 text-[0.5625rem] font-semibold transition-all duration-500"
-                  style={{ background: `${previewThird}20`, color: previewThird, border: `1px solid ${previewThird}40` }}
+                  style={{ background: `${modeThird}20`, color: modeThird, border: `1px solid ${modeThird}40` }}
                 >
                   More
                 </button>
