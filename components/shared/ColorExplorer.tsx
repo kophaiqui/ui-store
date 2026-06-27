@@ -604,89 +604,70 @@ function ColorPickerPopup({ hex, onChange, onClose }: {
   const litGrad = `linear-gradient(to right,hsl(${h},${s}%,5%),hsl(${h},${s}%,50%),hsl(${h},${s}%,95%))`;
 
   return (
-    <div ref={ref} className="absolute left-0 top-[calc(100%+8px)] z-50 w-60 overflow-hidden rounded-2xl border border-border/60 bg-card shadow-2xl shadow-black/30">
+    <div
+      ref={ref}
+      className="absolute left-0 top-[calc(100%+8px)] z-50 w-60 overflow-hidden rounded-2xl border border-border/60 bg-card shadow-2xl shadow-black/30"
+    >
+      {/* Preview bar */}
       <div className="h-10 w-full transition-colors duration-75" style={{ background: hex }} />
+
+      {/* HSL sliders */}
       <div className="space-y-3 p-4 pb-3">
         <div className="flex items-center gap-2.5">
           <span className="w-3 shrink-0 text-[0.5625rem] font-bold uppercase tracking-widest text-muted-foreground/40">H</span>
-          <input type="range" min="0" max="359" value={h} onChange={e => onChange(hslToHex(+e.target.value, s, l))}
-            className={cn("h-2 flex-1 cursor-pointer appearance-none rounded-full", THUMB)} style={{ background: hueGrad }} />
+          <input type="range" min="0" max="359" value={h}
+            onChange={e => onChange(hslToHex(+e.target.value, s, l))}
+            className={cn("h-2 flex-1 cursor-pointer appearance-none rounded-full", THUMB)}
+            style={{ background: hueGrad }}
+          />
         </div>
         <div className="flex items-center gap-2.5">
           <span className="w-3 shrink-0 text-[0.5625rem] font-bold uppercase tracking-widest text-muted-foreground/40">S</span>
-          <input type="range" min="0" max="100" value={s} onChange={e => onChange(hslToHex(h, +e.target.value, l))}
-            className={cn("h-2 flex-1 cursor-pointer appearance-none rounded-full", THUMB)} style={{ background: satGrad }} />
+          <input type="range" min="0" max="100" value={s}
+            onChange={e => onChange(hslToHex(h, +e.target.value, l))}
+            className={cn("h-2 flex-1 cursor-pointer appearance-none rounded-full", THUMB)}
+            style={{ background: satGrad }}
+          />
         </div>
         <div className="flex items-center gap-2.5">
           <span className="w-3 shrink-0 text-[0.5625rem] font-bold uppercase tracking-widest text-muted-foreground/40">L</span>
-          <input type="range" min="0" max="100" value={l} onChange={e => onChange(hslToHex(h, s, +e.target.value))}
-            className={cn("h-2 flex-1 cursor-pointer appearance-none rounded-full", THUMB)} style={{ background: litGrad }} />
+          <input type="range" min="0" max="100" value={l}
+            onChange={e => onChange(hslToHex(h, s, +e.target.value))}
+            className={cn("h-2 flex-1 cursor-pointer appearance-none rounded-full", THUMB)}
+            style={{ background: litGrad }}
+          />
         </div>
-        <input type="text" value={localHex} onChange={e => setLocalHex(e.target.value)}
-          onBlur={() => applyHex(localHex)} onKeyDown={e => e.key === "Enter" && applyHex(localHex)} maxLength={7}
-          className="mt-1 w-full rounded-xl border border-border/60 bg-background px-3 py-1.5 font-mono text-sm text-foreground outline-none transition-colors focus:border-foreground/30" />
+        <input
+          type="text"
+          value={localHex}
+          onChange={e => setLocalHex(e.target.value)}
+          onBlur={() => applyHex(localHex)}
+          onKeyDown={e => e.key === "Enter" && applyHex(localHex)}
+          maxLength={7}
+          className="mt-1 w-full rounded-xl border border-border/60 bg-background px-3 py-1.5 font-mono text-sm text-foreground outline-none transition-colors focus:border-foreground/30"
+        />
       </div>
+
+      {/* Presets */}
       <div className="border-t border-border/40 px-4 pb-4 pt-3">
         <p className="mb-2 text-[0.5rem] font-bold uppercase tracking-widest text-muted-foreground/40">Presets</p>
         <div className="grid grid-cols-8 gap-1">
           {PICKER_PRESETS.map(c => (
-            <button key={c} onClick={() => onChange(c)} title={c}
+            <button
+              key={c}
+              onClick={() => onChange(c)}
+              title={c}
               className="h-6 w-6 rounded-md transition-transform hover:scale-110 active:scale-95"
-              style={{ background: c, boxShadow: hex.toLowerCase() === c.toLowerCase() ? "0 0 0 2px var(--background), 0 0 0 3.5px var(--foreground)" : "inset 0 0 0 1px rgba(128,128,128,0.22)" }} />
+              style={{
+                background: c,
+                boxShadow: hex.toLowerCase() === c.toLowerCase()
+                  ? "0 0 0 2px var(--background), 0 0 0 3.5px var(--foreground)"
+                  : "inset 0 0 0 1px rgba(128,128,128,0.22)",
+              }}
+            />
           ))}
         </div>
       </div>
-    </div>
-  );
-}
-
-function PickerBlock({ label, hex, onChange, onRemove }: {
-  label: string;
-  hex: string;
-  onChange: (v: string) => void;
-  onRemove?: () => void;
-}) {
-  const [open, setOpen] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!open) return;
-    function down(e: MouseEvent) {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) setOpen(false);
-    }
-    document.addEventListener("mousedown", down);
-    return () => document.removeEventListener("mousedown", down);
-  }, [open]);
-
-  return (
-    <div ref={containerRef} className="relative flex flex-col gap-2.5">
-      <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">{label}</label>
-      <div className="relative w-fit">
-        <button
-          onClick={() => setOpen(o => !o)}
-          className={cn(
-            "relative h-[120px] w-[120px] overflow-hidden rounded-2xl border border-border/60 transition-[box-shadow]",
-            open ? "shadow-[0_0_0_2px_rgba(0,0,0,0.2)] dark:shadow-[0_0_0_2px_rgba(255,255,255,0.25)]"
-                 : "hover:shadow-[0_0_0_2px_rgba(0,0,0,0.12)] dark:hover:shadow-[0_0_0_2px_rgba(255,255,255,0.15)]"
-          )}
-          style={{ background: hex }}
-        >
-          <div className="absolute inset-x-0 bottom-0 px-2.5 py-2 font-mono text-[0.625rem] font-semibold text-white" style={{ background: "rgba(0,0,0,0.3)", backdropFilter: "blur(4px)" }}>
-            {hex}
-          </div>
-        </button>
-        {onRemove && (
-          <button onClick={onRemove} title="Remove"
-            className="group/rm absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full border border-red-500/60 bg-black shadow-[0_0_6px_rgba(239,68,68,0.3)] transition-all duration-150 hover:border-red-500 hover:bg-red-500 hover:shadow-none"
-          >
-            <svg width="8" height="8" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" viewBox="0 0 24 24"
-              className="text-red-500 drop-shadow-[0_0_4px_rgba(239,68,68,0.9)] transition-all duration-150 group-hover/rm:text-white group-hover/rm:drop-shadow-none">
-              <path d="M18 6 6 18M6 6l12 12" />
-            </svg>
-          </button>
-        )}
-      </div>
-      {open && <ColorPickerPopup hex={hex} onChange={onChange} onClose={() => setOpen(false)} />}
     </div>
   );
 }
@@ -704,9 +685,12 @@ function SwatchStrip({ colors, label, copy }: {
         </span>
       )}
       {colors.map((hex, i) => (
-        <button key={i} onClick={() => copy(hex, `Copied ${hex}`)}
+        <button
+          key={i}
+          onClick={() => copy(hex, `Copied ${hex}`)}
           className="group/sw relative flex-1 transition-[flex] duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] hover:flex-[2]"
-          style={{ background: hex }} title={hex}>
+          style={{ background: hex }} title={hex}
+        >
           <span className="absolute inset-x-0 bottom-0 py-0.5 text-center font-mono text-[0.4rem] font-semibold text-white opacity-0 transition-opacity group-hover/sw:opacity-100" style={{ background: "rgba(0,0,0,0.4)", backdropFilter: "blur(2px)" }}>
             {hex}
           </span>
@@ -716,28 +700,119 @@ function SwatchStrip({ colors, label, copy }: {
   );
 }
 
-function HarmonyCard({ def, harmonies, harmonies2, hasSecondary, copy }: {
+function HarmonyCard({ def, harmonies, harmonies2, hasSecondary, isSelected, onSelect, copy }: {
   def: typeof HARMONY_DEFS[number];
   harmonies: HarmonySet;
   harmonies2?: HarmonySet;
   hasSecondary: boolean;
+  isSelected: boolean;
+  onSelect: () => void;
   copy: (text: string, label: string) => void;
 }) {
+  const accent = harmonies[def.key][0];
   return (
-    <div className="overflow-hidden rounded-2xl border border-border/60 bg-card">
+    <div
+      className={cn(
+        "overflow-hidden rounded-2xl border bg-card transition-[border-color,box-shadow] duration-150",
+        isSelected
+          ? "border-transparent shadow-[0_0_0_2px_var(--selected-ring)]"
+          : "border-border/60 hover:border-border"
+      )}
+      style={{ "--selected-ring": accent } as React.CSSProperties}
+    >
       <SwatchStrip colors={harmonies[def.key]} label={hasSecondary ? "primary" : undefined} copy={copy} />
       {hasSecondary && harmonies2 && (
         <SwatchStrip colors={harmonies2[def.key]} label="second" copy={copy} />
       )}
-      <div className="p-4">
-        <p className="mb-1 text-sm font-semibold">{def.title}</p>
+      <button
+        onClick={onSelect}
+        className="w-full p-4 text-left transition-colors hover:bg-muted/30"
+      >
+        <div className="mb-1 flex items-center justify-between">
+          <p className="text-sm font-semibold">{def.title}</p>
+          {isSelected && (
+            <span className="rounded-full px-2 py-0.5 text-[0.5rem] font-bold uppercase tracking-widest text-white" style={{ background: accent }}>
+              previewing
+            </span>
+          )}
+        </div>
         <p className="mb-3 text-xs leading-relaxed text-muted-foreground">{def.desc}</p>
         <div className="flex flex-wrap gap-1">
           {def.roles.map(r => (
             <span key={r} className="rounded-md bg-muted px-1.5 py-0.5 text-[0.5rem] font-bold uppercase tracking-widest text-muted-foreground">{r}</span>
           ))}
         </div>
+      </button>
+    </div>
+  );
+}
+
+function PickerBlock({ label, hex, onChange, onRemove }: {
+  label: string;
+  hex: string;
+  onChange: (v: string) => void;
+  onRemove?: () => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    function down(e: MouseEvent) {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", down);
+    return () => document.removeEventListener("mousedown", down);
+  }, [open]);
+
+  return (
+    <div ref={containerRef} className="relative flex flex-col gap-2.5">
+      <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+        {label}
+      </label>
+
+      {/* Color square + remove overlay */}
+      <div className="relative w-fit">
+        <button
+          onClick={() => setOpen(o => !o)}
+          className={cn(
+            "relative h-[120px] w-[120px] overflow-hidden rounded-2xl border border-border/60 transition-[box-shadow]",
+            open
+              ? "shadow-[0_0_0_2px_rgba(0,0,0,0.2)] dark:shadow-[0_0_0_2px_rgba(255,255,255,0.25)]"
+              : "hover:shadow-[0_0_0_2px_rgba(0,0,0,0.12)] dark:hover:shadow-[0_0_0_2px_rgba(255,255,255,0.15)]"
+          )}
+          style={{ background: hex }}
+        >
+          <div className="absolute inset-x-0 bottom-0 px-2.5 py-2 font-mono text-[0.625rem] font-semibold text-white" style={{ background: "rgba(0,0,0,0.3)", backdropFilter: "blur(4px)" }}>
+            {hex}
+          </div>
+        </button>
+
+        {onRemove && (
+          <button
+            onClick={onRemove}
+            title="Remove"
+            className="group/rm absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full border border-red-500/60 bg-black shadow-[0_0_6px_rgba(239,68,68,0.3)] transition-all duration-150 hover:border-red-500 hover:bg-red-500 hover:shadow-none"
+          >
+            <svg
+              width="8" height="8" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" viewBox="0 0 24 24"
+              className="text-red-500 drop-shadow-[0_0_4px_rgba(239,68,68,0.9)] transition-all duration-150 group-hover/rm:text-white group-hover/rm:drop-shadow-none"
+            >
+              <path d="M18 6 6 18M6 6l12 12" />
+            </svg>
+          </button>
+        )}
       </div>
+
+      {open && (
+        <ColorPickerPopup
+          hex={hex}
+          onChange={onChange}
+          onClose={() => setOpen(false)}
+        />
+      )}
     </div>
   );
 }
@@ -746,6 +821,7 @@ function HarmonyPanel({ copy }: { copy: (text: string, label: string) => void })
   const [primaryHex, setPrimaryHex]     = useState("#6366f1");
   const [secondaryHex, setSecondaryHex] = useState("#f97316");
   const [hasSecondary, setHasSecondary] = useState(false);
+  const [selectedKey, setSelectedKey]   = useState<HarmonyKey | null>(null);
 
   const [h, s, l]    = useMemo(() => hexToHSL(primaryHex),   [primaryHex]);
   const [h2, s2, l2] = useMemo(() => hexToHSL(secondaryHex), [secondaryHex]);
@@ -757,11 +833,29 @@ function HarmonyPanel({ copy }: { copy: (text: string, label: string) => void })
     return detectRelationship(h, h2);
   }, [h, h2, hasSecondary]);
 
-  const lightened     = useMemo(() => hslToHex(h, s, Math.min(l + 30, 92)), [h, s, l]);
-  const darkened      = useMemo(() => hslToHex(h, s, Math.max(l - 25, 8)),  [h, s, l]);
-  const textOnPrimary = useMemo(() => contrastColor(primaryHex), [primaryHex]);
-  const neutralBg     = harmonies.neutral[0];
-  const neutralText   = harmonies.neutral[3];
+  // Preview colors — driven by selected harmony card
+  const previewAccent = useMemo(() => {
+    if (!selectedKey) return primaryHex;
+    return harmonies[selectedKey][0];
+  }, [selectedKey, harmonies, primaryHex]);
+
+  const previewSecond = useMemo(() => {
+    if (hasSecondary) return secondaryHex;
+    if (!selectedKey) return primaryHex;
+    return harmonies[selectedKey][1] ?? harmonies[selectedKey][0];
+  }, [selectedKey, harmonies, hasSecondary, secondaryHex, primaryHex]);
+
+  const previewThird = useMemo(() => {
+    if (!selectedKey) return null;
+    return harmonies[selectedKey][2] ?? null;
+  }, [selectedKey, harmonies]);
+
+  const textOnAccent  = useMemo(() => contrastColor(previewAccent), [previewAccent]);
+  const textOnSecond  = useMemo(() => contrastColor(previewSecond), [previewSecond]);
+  const textOnThird   = useMemo(() => previewThird ? contrastColor(previewThird) : "#fff", [previewThird]);
+
+  const neutralBg   = harmonies.neutral[0];
+  const neutralText = harmonies.neutral[3];
 
   return (
     <div>
@@ -773,7 +867,12 @@ function HarmonyPanel({ copy }: { copy: (text: string, label: string) => void })
       <div className="mb-8 flex flex-wrap items-start gap-5">
         <PickerBlock label="Primary color" hex={primaryHex} onChange={setPrimaryHex} />
         {hasSecondary ? (
-          <PickerBlock label="Second color" hex={secondaryHex} onChange={setSecondaryHex} onRemove={() => setHasSecondary(false)} />
+          <PickerBlock
+            label="Second color"
+            hex={secondaryHex}
+            onChange={setSecondaryHex}
+            onRemove={() => setHasSecondary(false)}
+          />
         ) : (
           <div className="flex flex-col gap-2.5">
             <label className="select-none text-xs font-semibold uppercase tracking-widest text-transparent">·</label>
@@ -807,54 +906,201 @@ function HarmonyPanel({ copy }: { copy: (text: string, label: string) => void })
             harmonies={harmonies}
             harmonies2={hasSecondary ? harmonies2 : undefined}
             hasSecondary={hasSecondary}
+            isSelected={selectedKey === def.key}
+            onSelect={() => setSelectedKey(k => k === def.key ? null : def.key)}
             copy={copy}
           />
         ))}
       </div>
 
       {/* Live preview */}
-      <SectionLabel>Live UI preview</SectionLabel>
-      <div className="grid grid-cols-1 gap-[1px] overflow-hidden rounded-2xl border border-border/60 bg-border/60 sm:grid-cols-3">
-        {/* Buttons + badges */}
-        <div className="flex flex-col gap-3 bg-card p-5">
-          <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Actions</span>
-          <button className="flex w-full items-center justify-center rounded-xl py-2.5 text-sm font-semibold transition-transform active:scale-[0.98]" style={{ background: primaryHex, color: textOnPrimary }}>
-            Primary action
-          </button>
-          <button className="flex w-full items-center justify-center rounded-xl bg-transparent py-2.5 text-sm font-semibold transition-colors" style={{ color: primaryHex, border: `1.5px solid ${primaryHex}` }}>
-            Secondary
-          </button>
-          <div className="flex gap-2">
-            <span className="rounded-full px-2.5 py-0.5 text-xs font-semibold" style={{ background: primaryHex, color: textOnPrimary }}>New</span>
-            <span className="rounded-full px-2.5 py-0.5 text-xs font-semibold" style={{ background: lightened, color: darkened }}>Active</span>
-          </div>
-        </div>
+      <div className="mb-3 flex items-center justify-between">
+        <SectionLabel>Live UI preview</SectionLabel>
+        {selectedKey && (
+          <span className="text-[0.6875rem] text-muted-foreground/60">
+            Using <strong className="text-muted-foreground">{HARMONY_DEFS.find(d => d.key === selectedKey)?.title}</strong> · click card to deselect
+          </span>
+        )}
+      </div>
 
-        {/* Card */}
-        <div className="overflow-hidden bg-card">
-          <div className="px-5 py-3" style={{ background: primaryHex }}>
-            <span className="text-[0.5rem] font-bold uppercase tracking-widest" style={{ color: textOnPrimary, opacity: 0.7 }}>Feature</span>
-          </div>
-          <div className="p-5" style={{ background: neutralBg }}>
-            <p className="mb-1.5 text-sm font-bold" style={{ color: neutralText }}>Card heading</p>
-            <p className="text-xs leading-relaxed" style={{ color: neutralText, opacity: 0.65 }}>Supporting text describing this card in a brief, scannable way.</p>
-          </div>
-        </div>
+      {/* Mini app mockup */}
+      <div className="overflow-hidden rounded-2xl border border-border/60 transition-all duration-500" style={{ background: neutralBg }}>
 
-        {/* Input + neutral */}
-        <div className="flex flex-col gap-3 bg-card p-5">
-          <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Input</span>
-          <input readOnly value="Focused input" className="w-full rounded-xl px-3 py-2 text-sm outline-none" style={{ borderWidth: "1.5px", borderStyle: "solid", borderColor: primaryHex, color: neutralText, background: neutralBg }} />
+        {/* Title bar */}
+        <div
+          className="flex h-9 items-center justify-between px-4 transition-colors duration-500"
+          style={{ background: previewAccent }}
+        >
           <div className="flex items-center gap-2">
-            <div className="h-3 w-3 shrink-0 rounded-full" style={{ background: primaryHex, boxShadow: `0 0 0 3px ${primaryHex}35` }} />
-            <span className="text-xs text-muted-foreground">Focus ring</span>
+            <div className="flex gap-1">
+              {[previewAccent, previewSecond, previewThird ?? neutralBg].map((c, i) => (
+                <div key={i} className="h-2 w-2 rounded-full border border-white/20" style={{ background: `${textOnAccent}30` }} />
+              ))}
+            </div>
+            <span className="text-[0.4375rem] font-bold uppercase tracking-widest" style={{ color: textOnAccent, opacity: 0.6 }}>Dashboard</span>
           </div>
-          <div className="flex gap-[3px] mt-1">
+          <div className="flex items-center gap-1.5">
+            <span className="rounded-full px-2 py-0.5 text-[0.4rem] font-bold uppercase tracking-wider" style={{ background: `${previewSecond}`, color: textOnSecond }}>
+              Pro
+            </span>
+            <div className="h-4 w-4 rounded-full border border-white/30" style={{ background: `${textOnAccent}20` }} />
+          </div>
+        </div>
+
+        {/* Body: sidebar + content */}
+        <div className="grid grid-cols-[110px_1fr] sm:grid-cols-[130px_1fr]">
+
+          {/* Sidebar */}
+          <div className="border-r p-3 transition-colors duration-500" style={{ borderColor: `${neutralText}12`, background: `${neutralBg}` }}>
+            <p className="mb-2 px-1 text-[0.375rem] font-bold uppercase tracking-widest" style={{ color: neutralText, opacity: 0.35 }}>Menu</p>
+            {[
+              { label: "Overview", active: true },
+              { label: "Projects",  active: false },
+              { label: "Analytics", active: false },
+              { label: "Settings",  active: false },
+            ].map(({ label, active }) => (
+              <div
+                key={label}
+                className="relative mb-0.5 flex items-center gap-1.5 overflow-hidden rounded-lg px-2 py-1.5 text-[0.5625rem] font-medium transition-colors duration-300"
+                style={active
+                  ? { background: `${previewAccent}18`, color: previewAccent }
+                  : { color: neutralText, opacity: 0.5 }
+                }
+              >
+                {active && <div className="absolute inset-y-1.5 left-0 w-[2px] rounded-full transition-colors duration-500" style={{ background: previewAccent }} />}
+                <div className="h-1.5 w-1.5 shrink-0 rounded-sm transition-colors duration-500" style={{ background: active ? previewAccent : `${neutralText}40` }} />
+                {label}
+              </div>
+            ))}
+
+            {/* Secondary color promo card */}
+            <div className="mt-3 rounded-xl p-2.5 transition-colors duration-500" style={{ background: `${previewSecond}18`, border: `1px solid ${previewSecond}30` }}>
+              <p className="mb-0.5 text-[0.4375rem] font-bold uppercase tracking-widest transition-colors duration-500" style={{ color: previewSecond }}>Upgrade</p>
+              <p className="mb-1.5 text-[0.5rem] leading-tight" style={{ color: neutralText, opacity: 0.6 }}>Unlock all features</p>
+              <div
+                className="rounded-md px-2 py-1 text-center text-[0.4375rem] font-bold transition-colors duration-500"
+                style={{ background: previewSecond, color: textOnSecond }}
+              >
+                Go Pro
+              </div>
+            </div>
+          </div>
+
+          {/* Main content */}
+          <div className="p-4 transition-colors duration-500">
+
+            {/* Top bar */}
+            <div className="mb-4 flex items-start justify-between">
+              <div>
+                <p className="text-[0.6875rem] font-semibold" style={{ color: neutralText }}>Good morning, Alex</p>
+                <p className="text-[0.5rem]" style={{ color: neutralText, opacity: 0.45 }}>3 tasks pending this week</p>
+              </div>
+              {/* PRIMARY CTA — highlighted with colored shadow */}
+              <button
+                className="flex items-center gap-1 rounded-lg px-3 py-1.5 text-[0.5625rem] font-bold transition-all duration-500 active:scale-95"
+                style={{
+                  background: previewAccent,
+                  color: textOnAccent,
+                  boxShadow: `0 4px 16px ${previewAccent}60, 0 1px 3px ${previewAccent}40`,
+                }}
+              >
+                <svg width="7" height="7" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+                New task
+              </button>
+            </div>
+
+            {/* Stat tiles — each uses a different harmony color */}
+            <div className="mb-4 grid grid-cols-3 gap-2">
+              {[
+                { value: "47", label: "Done",    color: previewAccent,  text: textOnAccent  },
+                { value: "12", label: "Review",  color: previewSecond,  text: textOnSecond  },
+                { value: "8",  label: "Blocked", color: previewThird ?? `${neutralText}20`, text: previewThird ? textOnThird : neutralText },
+              ].map(({ value, label, color, text }) => (
+                <div
+                  key={label}
+                  className="rounded-xl p-2.5 transition-colors duration-500"
+                  style={{ background: `${color}18`, border: `1px solid ${color}30` }}
+                >
+                  <p className="font-mono text-[0.875rem] font-bold leading-none transition-colors duration-500" style={{ color }}>{value}</p>
+                  <p className="mt-0.5 text-[0.375rem] font-bold uppercase tracking-wider" style={{ color: neutralText, opacity: 0.45 }}>{label}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Progress bar — all harmony colors in one bar */}
+            <div className="mb-4">
+              <div className="mb-1 flex items-center justify-between">
+                <p className="text-[0.4375rem] font-bold uppercase tracking-widest" style={{ color: neutralText, opacity: 0.4 }}>Sprint progress</p>
+                <p className="font-mono text-[0.5rem] font-semibold" style={{ color: neutralText, opacity: 0.6 }}>68%</p>
+              </div>
+              <div className="h-2 overflow-hidden rounded-full transition-colors duration-500" style={{ background: `${neutralText}12` }}>
+                <div className="flex h-full transition-all duration-700">
+                  <div className="transition-colors duration-500" style={{ width: "48%", background: previewAccent, borderRadius: "9999px 0 0 9999px" }} />
+                  <div className="transition-colors duration-500" style={{ width: "20%", background: previewSecond }} />
+                  {previewThird
+                    ? <div className="transition-colors duration-500" style={{ width: "8%", background: previewThird, borderRadius: "0 9999px 9999px 0" }} />
+                    : null
+                  }
+                </div>
+              </div>
+              <div className="mt-1.5 flex items-center gap-3">
+                {[
+                  { label: "Primary",   color: previewAccent },
+                  { label: "Secondary", color: previewSecond },
+                  ...(previewThird ? [{ label: "Tertiary", color: previewThird }] : []),
+                ].map(({ label, color }) => (
+                  <div key={label} className="flex items-center gap-1">
+                    <div className="h-1.5 w-1.5 shrink-0 rounded-full transition-colors duration-500" style={{ background: color }} />
+                    <span className="text-[0.375rem] font-medium" style={{ color: neutralText, opacity: 0.5 }}>{label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Actions row */}
+            <div className="flex items-center gap-2">
+              <button
+                className="flex-1 rounded-xl py-2 text-[0.5625rem] font-bold transition-all duration-500 active:scale-[0.97]"
+                style={{
+                  background: previewAccent,
+                  color: textOnAccent,
+                  boxShadow: `0 4px 14px ${previewAccent}55`,
+                }}
+              >
+                Confirm
+              </button>
+              <button
+                className="flex-1 rounded-xl py-2 text-[0.5625rem] font-semibold transition-all duration-500"
+                style={{ color: previewSecond, border: `1.5px solid ${previewSecond}`, background: "transparent" }}
+              >
+                Cancel
+              </button>
+              {previewThird && (
+                <button
+                  className="rounded-xl px-3 py-2 text-[0.5625rem] font-semibold transition-all duration-500"
+                  style={{ background: `${previewThird}20`, color: previewThird, border: `1px solid ${previewThird}40` }}
+                >
+                  More
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Footer neutral strip */}
+        <div className="flex items-center gap-2 border-t px-4 py-2 transition-colors duration-500" style={{ borderColor: `${neutralText}10`, background: `${neutralText}06` }}>
+          <span className="text-[0.375rem] font-bold uppercase tracking-widest" style={{ color: neutralText, opacity: 0.3 }}>Neutral scale</span>
+          <div className="flex flex-1 gap-[2px]">
             {harmonies.neutral.map((c, i) => (
-              <button key={i} onClick={() => copy(c, `Copied ${c}`)} className="h-4 flex-1 rounded-sm transition-[flex] hover:flex-[1.6]" style={{ background: c }} title={c} />
+              <button
+                key={i}
+                onClick={() => copy(c, `Copied ${c}`)}
+                title={c}
+                className="h-3 flex-1 rounded-sm transition-[flex] duration-200 hover:flex-[1.6]"
+                style={{ background: c }}
+              />
             ))}
           </div>
-          <span className="text-[0.5rem] font-bold uppercase tracking-widest text-muted-foreground/50">Neutral scale</span>
         </div>
       </div>
     </div>
