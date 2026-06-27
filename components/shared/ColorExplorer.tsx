@@ -836,17 +836,25 @@ function HarmonyPanel({ copy }: { copy: (text: string, label: string) => void })
   // Preview colors — driven by selected harmony card
   const previewAccent = useMemo(() => {
     if (!selectedKey) return primaryHex;
+    // Neutral: light→dark scale; use darkest as accent so buttons/title bar are legible
+    if (selectedKey === "neutral") return harmonies.neutral[4];
+    // Monochromatic: [0] is lightest (+35L), [2] is the original primary — use [2] as accent
+    if (selectedKey === "monochromatic") return harmonies.monochromatic[2];
     return harmonies[selectedKey][0];
   }, [selectedKey, harmonies, primaryHex]);
 
   const previewSecond = useMemo(() => {
     if (hasSecondary) return secondaryHex;
     if (!selectedKey) return primaryHex;
+    if (selectedKey === "neutral") return harmonies.neutral[3];
+    if (selectedKey === "monochromatic") return harmonies.monochromatic[1];
     return harmonies[selectedKey][1] ?? harmonies[selectedKey][0];
   }, [selectedKey, harmonies, hasSecondary, secondaryHex, primaryHex]);
 
   const previewThird = useMemo(() => {
     if (!selectedKey) return null;
+    if (selectedKey === "neutral") return harmonies.neutral[2];
+    if (selectedKey === "monochromatic") return harmonies.monochromatic[3];
     return harmonies[selectedKey][2] ?? null;
   }, [selectedKey, harmonies]);
 
@@ -855,7 +863,8 @@ function HarmonyPanel({ copy }: { copy: (text: string, label: string) => void })
   const textOnThird   = useMemo(() => previewThird ? contrastColor(previewThird) : "#fff", [previewThird]);
 
   const neutralBg   = harmonies.neutral[0];
-  const neutralText = harmonies.neutral[3];
+  // Auto-contrast: pick text from the opposite end of the neutral scale relative to the bg
+  const neutralText = luminance(neutralBg) > 0.179 ? harmonies.neutral[4] : harmonies.neutral[1];
 
   return (
     <div>
