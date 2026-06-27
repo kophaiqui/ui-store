@@ -7,9 +7,9 @@ const NAV = [
   { label: "Home",       href: "/"           },
   { label: "Documents",  href: "/documents"  },
   { label: "Components", href: "/components" },
-  { label: "Styles",     href: "/style"      },
   { label: "Colors",     href: "/colors"     },
   { label: "Typography", href: "/fonts"      },
+  { label: "Styles",     href: "/style"      },
   { label: "Motion",     href: "/motion"     },
   { label: "Templates",  href: "/template"   },
 ];
