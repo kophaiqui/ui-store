@@ -246,196 +246,302 @@ function FilterPills<T extends string>({
 
 // ─── Token Group Demo Popups ──────────────────────────────────────────────────
 
-function DemoSurface() {
+const DEMO_PRESETS = ["#3b82f6","#8b5cf6","#ec4899","#10b981","#f97316","#ef4444","#06b6d4","#f59e0b"] as const;
+
+const GROUP_TOKEN_KEYS: Record<string, string[]> = {
+  Surface:     ["background","foreground","card","card-foreground","popover","popover-foreground"],
+  Interactive: ["primary","primary-foreground","secondary","secondary-foreground","accent","accent-foreground"],
+  Neutral:     ["muted","muted-foreground","border","input","ring"],
+  Feedback:    ["destructive"],
+  Charts:      [],
+};
+
+function deriveDemoPalette(hex: string): Record<string, string> {
+  const [h, s, l] = hexToHSL(hex);
+  const sat = Math.max(s, 35);
+  const fg  = hslToHex(h, Math.round(sat * 0.05), 94);
+  return {
+    "background":           hslToHex(h, Math.round(sat * 0.25), 9),
+    "foreground":           fg,
+    "card":                 hslToHex(h, Math.round(sat * 0.35), 13),
+    "card-foreground":      fg,
+    "popover":              hslToHex(h, Math.round(sat * 0.40), 16),
+    "popover-foreground":   fg,
+    "primary":              hex,
+    "primary-foreground":   contrastColor(hex),
+    "secondary":            hslToHex(h, Math.round(sat * 0.30), 19),
+    "secondary-foreground": fg,
+    "accent":               hslToHex(h, Math.round(sat * 0.40), 24),
+    "accent-foreground":    fg,
+    "muted":                hslToHex(h, Math.round(sat * 0.25), 15),
+    "muted-foreground":     hslToHex(h, Math.round(sat * 0.20), 55),
+    "border":               hslToHex(h, Math.round(sat * 0.30), 20),
+    "input":                hslToHex(h, Math.round(sat * 0.30), 22),
+    "ring":                 hex,
+    "destructive":          hslToHex(0, 70, 50),
+    "chart-1":              hex,
+    "chart-2":              hslToHex(h + 40,  sat, l),
+    "chart-3":              hslToHex(h + 80,  sat, Math.min(l + 8, 80)),
+    "chart-4":              hslToHex(h + 160, sat, l),
+    "chart-5":              hslToHex(h + 220, sat, l),
+  };
+}
+
+type DP = Record<string, string>;
+
+function DemoSurface({ p }: { p: DP }) {
   return (
     <div className="space-y-3">
-      <div className="relative rounded-2xl p-4" style={{ background: "#0d1117", border: "1px solid #ffffff10" }}>
-        <span className="mb-2 block text-xs font-bold uppercase tracking-widest" style={{ color: "#ffffff40" }}>--background · Page canvas</span>
-        <p className="mb-3 text-sm" style={{ color: "#ffffff60" }}>The outermost layer everything sits on. Swap <code style={{ color: "#3b82f6" }}>--background</code> and the whole page shifts.</p>
-        <div className="rounded-xl p-4" style={{ background: "#161b27", border: "1px solid #ffffff14" }}>
+      <div className="relative rounded-2xl p-4" style={{ background: p["background"], border: `1px solid ${p["border"]}` }}>
+        <span className="mb-2 block text-xs font-bold uppercase tracking-widest" style={{ color: p["muted-foreground"] }}>--background · Page canvas</span>
+        <p className="mb-3 text-sm" style={{ color: p["muted-foreground"] }}>The outermost layer everything sits on. Swap <code style={{ color: p["primary"] }}>--background</code> and the whole page shifts.</p>
+        <div className="rounded-xl p-4" style={{ background: p["card"], border: `1px solid ${p["border"]}` }}>
           <div className="mb-2.5 flex items-center justify-between">
             <div>
-              <p className="text-base font-semibold" style={{ color: "#e2e8f0" }}>Card surface</p>
-              <p className="text-xs" style={{ color: "#ffffff50" }}>--card · elevated from --background</p>
+              <p className="text-base font-semibold" style={{ color: p["card-foreground"] }}>Card surface</p>
+              <p className="text-xs" style={{ color: p["muted-foreground"] }}>--card · elevated from --background</p>
             </div>
-            <span className="rounded-full px-2.5 py-1 text-xs font-bold" style={{ background: "#3b82f615", color: "#3b82f6", border: "1px solid #3b82f625" }}>--card-foreground</span>
+            <span className="rounded-full px-2.5 py-1 text-xs font-bold" style={{ background: `${p["primary"]}18`, color: p["primary"], border: `1px solid ${p["primary"]}30` }}>--card-foreground</span>
           </div>
-          <div className="rounded-lg p-3" style={{ background: "#1e2535", border: "1px solid #ffffff1a", boxShadow: "0 12px 32px rgba(0,0,0,0.5)" }}>
-            <p className="mb-2 text-xs font-bold uppercase tracking-widest" style={{ color: "#ffffff40" }}>--popover · Floating menu</p>
+          <div className="rounded-lg p-3" style={{ background: p["popover"], border: `1px solid ${p["border"]}`, boxShadow: "0 12px 32px rgba(0,0,0,0.3)" }}>
+            <p className="mb-2 text-xs font-bold uppercase tracking-widest" style={{ color: p["muted-foreground"] }}>--popover · Floating menu</p>
             {["Profile", "Settings", "Sign out"].map(item => (
               <div key={item} className="flex items-center gap-2 rounded-md px-2 py-1.5">
-                <div className="h-1.5 w-1.5 rounded-full" style={{ background: item === "Profile" ? "#3b82f6" : "#ffffff20" }} />
-                <span className="text-sm" style={{ color: "#ffffffcc" }}>{item}</span>
+                <div className="h-1.5 w-1.5 rounded-full" style={{ background: item === "Profile" ? p["primary"] : p["border"] }} />
+                <span className="text-sm" style={{ color: p["popover-foreground"] }}>{item}</span>
               </div>
             ))}
           </div>
         </div>
       </div>
-      <p className="text-xs text-muted-foreground">Three elevation layers — <span className="font-medium text-foreground/70">background → card → popover</span> — let content float without box-shadow workarounds.</p>
+      <p className="text-xs text-muted-foreground">Three elevation layers — <span className="font-medium text-foreground/70">background → card → popover</span> — float content without extra shadows.</p>
     </div>
   );
 }
 
-function DemoInteractive() {
+function DemoInteractive({ p }: { p: DP }) {
   return (
     <div className="space-y-4">
       <div>
         <p className="mb-2.5 text-xs font-bold uppercase tracking-widest text-muted-foreground/50">Button roles</p>
         <div className="flex flex-wrap gap-3">
           <div className="flex flex-col items-center gap-1.5">
-            <button className="rounded-lg px-4 py-2 text-sm font-semibold text-white" style={{ background: "#3b82f6", boxShadow: "0 4px 14px #3b82f650" }}>Save changes</button>
+            <button className="rounded-lg px-4 py-2 text-sm font-semibold" style={{ background: p["primary"], color: p["primary-foreground"], boxShadow: `0 4px 14px ${p["primary"]}50` }}>Save changes</button>
             <span className="text-xs text-muted-foreground/50">--primary</span>
           </div>
           <div className="flex flex-col items-center gap-1.5">
-            <button className="rounded-lg px-4 py-2 text-sm font-semibold" style={{ background: "#1e293b", color: "#94a3b8", border: "1px solid #334155" }}>Cancel</button>
+            <button className="rounded-lg px-4 py-2 text-sm font-semibold" style={{ background: p["secondary"], color: p["secondary-foreground"], border: `1px solid ${p["border"]}` }}>Cancel</button>
             <span className="text-xs text-muted-foreground/50">--secondary</span>
           </div>
           <div className="flex flex-col items-center gap-1.5">
-            <button className="rounded-lg px-4 py-2 text-sm font-semibold" style={{ background: "#8b5cf615", color: "#8b5cf6", border: "1px solid #8b5cf630" }}>Filter</button>
+            <button className="rounded-lg px-4 py-2 text-sm font-semibold" style={{ background: p["accent"], color: p["accent-foreground"], border: `1px solid ${p["border"]}` }}>Filter</button>
             <span className="text-xs text-muted-foreground/50">--accent</span>
           </div>
         </div>
       </div>
       <div>
         <p className="mb-2.5 text-xs font-bold uppercase tracking-widest text-muted-foreground/50">Toggle — primary as selected state</p>
-        <div className="flex overflow-hidden rounded-lg" style={{ border: "1px solid #334155" }}>
+        <div className="flex overflow-hidden rounded-lg" style={{ border: `1px solid ${p["border"]}` }}>
           {["Weekly", "Monthly", "Yearly"].map((label, i) => (
-            <button key={label} className="flex-1 py-2 text-sm font-semibold" style={i === 0 ? { background: "#3b82f6", color: "#fff" } : { background: "transparent", color: "#64748b" }}>
+            <button key={label} className="flex-1 py-2 text-sm font-semibold" style={i === 0 ? { background: p["primary"], color: p["primary-foreground"] } : { background: "transparent", color: p["muted-foreground"] }}>
               {label}
             </button>
           ))}
         </div>
       </div>
       <div>
-        <p className="mb-2.5 text-xs font-bold uppercase tracking-widest text-muted-foreground/50">Badges — accent tints</p>
+        <p className="mb-2.5 text-xs font-bold uppercase tracking-widest text-muted-foreground/50">Badges — tints</p>
         <div className="flex flex-wrap gap-2">
-          {[{ label: "Active", bg: "#3b82f615", color: "#3b82f6" }, { label: "Pending", bg: "#8b5cf615", color: "#8b5cf6" }, { label: "Draft", bg: "#94a3b815", color: "#94a3b8" }].map(b => (
-            <span key={b.label} className="rounded-full px-3 py-1 text-xs font-bold uppercase tracking-widest" style={{ background: b.bg, color: b.color }}>{b.label}</span>
-          ))}
+          <span className="rounded-full px-3 py-1 text-xs font-bold uppercase tracking-widest" style={{ background: `${p["primary"]}18`, color: p["primary"], border: `1px solid ${p["primary"]}30` }}>Active</span>
+          <span className="rounded-full px-3 py-1 text-xs font-bold uppercase tracking-widest" style={{ background: p["accent"], color: p["accent-foreground"], border: `1px solid ${p["border"]}` }}>Pending</span>
+          <span className="rounded-full px-3 py-1 text-xs font-bold uppercase tracking-widest" style={{ background: p["muted"], color: p["muted-foreground"], border: `1px solid ${p["border"]}` }}>Draft</span>
         </div>
       </div>
     </div>
   );
 }
 
-function DemoNeutral() {
+function DemoNeutral({ p }: { p: DP }) {
   return (
-    <div className="space-y-3 rounded-2xl p-4" style={{ background: "#0d1117", border: "1px solid #1e293b" }}>
+    <div className="space-y-3 rounded-2xl p-4" style={{ background: p["background"], border: `1px solid ${p["border"]}` }}>
       <div>
-        <label className="text-xs font-bold uppercase tracking-widest" style={{ color: "#64748b" }}>Email address</label>
-        <div className="mt-1.5 rounded-lg px-3 py-2.5 text-sm" style={{ background: "#0d1117", border: "1px solid #334155", color: "#94a3b8" }}>user@example.com</div>
-        <p className="mt-1 text-xs" style={{ color: "#64748b" }}>--muted-foreground on placeholder · --input on border</p>
+        <label className="text-xs font-bold uppercase tracking-widest" style={{ color: p["muted-foreground"] }}>Email address</label>
+        <div className="mt-1.5 rounded-lg px-3 py-2.5 text-sm" style={{ background: p["background"], border: `1px solid ${p["input"]}`, color: p["muted-foreground"] }}>user@example.com</div>
+        <p className="mt-1 text-xs" style={{ color: p["muted-foreground"] }}>--muted-foreground on placeholder · --input on border</p>
       </div>
       <div>
-        <label className="text-xs font-bold uppercase tracking-widest" style={{ color: "#64748b" }}>Password <span style={{ color: "#3b82f6" }}>(focused)</span></label>
-        <div className="mt-1.5 rounded-lg px-3 py-2.5 text-sm" style={{ background: "#0d1117", border: "1.5px solid #3b82f6", color: "#e2e8f0", boxShadow: "0 0 0 3px #3b82f620" }}>
+        <label className="text-xs font-bold uppercase tracking-widest" style={{ color: p["muted-foreground"] }}>Password <span style={{ color: p["ring"] }}>(focused)</span></label>
+        <div className="mt-1.5 rounded-lg px-3 py-2.5 text-sm" style={{ background: p["background"], border: `1.5px solid ${p["ring"]}`, color: p["foreground"], boxShadow: `0 0 0 3px ${p["ring"]}25` }}>
           ••••••••
-          <span className="float-right text-xs font-bold uppercase tracking-wide" style={{ color: "#3b82f6" }}>--ring</span>
+          <span className="float-right text-xs font-bold uppercase tracking-wide" style={{ color: p["ring"] }}>--ring</span>
         </div>
       </div>
-      <div className="h-px" style={{ background: "#1e293b" }} />
-      <div className="rounded-lg px-3 py-3" style={{ background: "#1e293b" }}>
-        <p className="text-sm font-semibold" style={{ color: "#94a3b8" }}>--muted</p>
-        <p className="text-xs" style={{ color: "#64748b" }}>Quiet containers for hints, sidebars, and helper text.</p>
+      <div className="h-px" style={{ background: p["border"] }} />
+      <div className="rounded-lg px-3 py-3" style={{ background: p["muted"] }}>
+        <p className="text-sm font-semibold" style={{ color: p["muted-foreground"] }}>--muted</p>
+        <p className="text-xs" style={{ color: p["muted-foreground"], opacity: 0.7 }}>Quiet containers for hints, sidebars, and helper text.</p>
       </div>
     </div>
   );
 }
 
-function DemoFeedback() {
+function DemoFeedback({ p }: { p: DP }) {
+  const d = p["destructive"];
   return (
     <div className="space-y-3">
-      <div className="flex items-start gap-3 rounded-2xl p-4" style={{ background: "#ef444412", border: "1px solid #ef444430" }}>
-        <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full" style={{ background: "#ef4444" }}>
+      <div className="flex items-start gap-3 rounded-2xl p-4" style={{ background: `${d}12`, border: `1px solid ${d}30` }}>
+        <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full" style={{ background: d }}>
           <svg width="11" height="11" fill="white" viewBox="0 0 24 24"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
         </div>
         <div>
-          <p className="text-base font-semibold" style={{ color: "#ef4444" }}>Action failed</p>
-          <p className="text-sm" style={{ color: "#ef444490" }}>You don't have permission to delete this item. Contact your admin.</p>
+          <p className="text-base font-semibold" style={{ color: d }}>Action failed</p>
+          <p className="text-sm" style={{ color: `${d}90` }}>You don't have permission to delete this item. Contact your admin.</p>
         </div>
       </div>
       <div>
-        <label className="text-xs font-bold uppercase tracking-widest" style={{ color: "#ef444490" }}>Email address</label>
-        <div className="mt-1.5 rounded-lg px-3 py-2.5 text-sm" style={{ background: "#0d1117", border: "1.5px solid #ef4444", color: "#e2e8f0" }}>
+        <label className="text-xs font-bold uppercase tracking-widest" style={{ color: `${d}90` }}>Email address</label>
+        <div className="mt-1.5 rounded-lg px-3 py-2.5 text-sm" style={{ background: p["background"], border: `1.5px solid ${d}`, color: p["foreground"] }}>
           invalid-email@
         </div>
-        <p className="mt-1 text-xs" style={{ color: "#ef4444" }}>--destructive on border + message — invalid email address</p>
+        <p className="mt-1 text-xs" style={{ color: d }}>--destructive on border + message — invalid email address</p>
       </div>
-      <button className="w-full rounded-lg py-2.5 text-sm font-semibold text-white" style={{ background: "#ef4444", boxShadow: "0 4px 16px #ef444445" }}>
+      <button className="w-full rounded-lg py-2.5 text-sm font-semibold text-white" style={{ background: d, boxShadow: `0 4px 16px ${d}45` }}>
         Delete account permanently
       </button>
     </div>
   );
 }
 
-function DemoCharts() {
-  const DATA = [
-    { label: "Mon", value: 72, color: "#3b82f6" },
-    { label: "Tue", value: 88, color: "#8b5cf6" },
-    { label: "Wed", value: 55, color: "#06b6d4" },
-    { label: "Thu", value: 94, color: "#10b981" },
-    { label: "Fri", value: 68, color: "#f59e0b" },
+function DemoCharts({ p }: { p: DP }) {
+  const [h, s, l] = hexToHSL(p["primary"]);
+  const CHART_COLORS = [
+    p["primary"],
+    hslToHex(h + 40,  s, l),
+    hslToHex(h + 80,  s, Math.min(l + 8, 80)),
+    hslToHex(h + 160, s, l),
+    hslToHex(h + 220, s, l),
   ];
-  const max = Math.max(...DATA.map(d => d.value));
+  const DATA = [{ label: "Mon", value: 72 }, { label: "Tue", value: 88 }, { label: "Wed", value: 55 }, { label: "Thu", value: 94 }, { label: "Fri", value: 68 }];
+  const max  = Math.max(...DATA.map(d => d.value));
   return (
     <div className="space-y-3">
-      <div className="rounded-2xl p-4" style={{ background: "#0d1117", border: "1px solid #1e293b" }}>
+      <div className="rounded-2xl p-4" style={{ background: p["card"], border: `1px solid ${p["border"]}` }}>
         <div className="mb-3 flex items-center justify-between">
-          <p className="text-base font-semibold" style={{ color: "#e2e8f0" }}>Weekly activity</p>
-          <span className="text-xs font-bold uppercase tracking-widest" style={{ color: "#ffffff40" }}>5 series · 5 tokens</span>
+          <p className="text-base font-semibold" style={{ color: p["card-foreground"] }}>Weekly activity</p>
+          <span className="text-xs font-bold uppercase tracking-widest" style={{ color: p["muted-foreground"] }}>5 series · 5 tokens</span>
         </div>
         <div className="flex items-end gap-3" style={{ height: "72px" }}>
-          {DATA.map(d => (
-            <div key={d.label} className="flex-1 rounded-t" style={{ height: `${(d.value / max) * 72}px`, background: d.color, boxShadow: `0 4px 14px ${d.color}55` }} />
+          {DATA.map((d, i) => (
+            <div key={d.label} className="flex-1 rounded-t" style={{ height: `${(d.value / max) * 72}px`, background: CHART_COLORS[i], boxShadow: `0 4px 14px ${CHART_COLORS[i]}55` }} />
           ))}
         </div>
         <div className="mt-2 flex gap-3">
-          {DATA.map(d => (
-            <span key={d.label} className="flex-1 text-center text-xs font-medium" style={{ color: "#ffffff50" }}>{d.label}</span>
-          ))}
+          {DATA.map(d => <span key={d.label} className="flex-1 text-center text-xs font-medium" style={{ color: p["muted-foreground"] }}>{d.label}</span>)}
         </div>
       </div>
       <div className="flex flex-wrap gap-3">
-        {DATA.map((d, i) => (
-          <div key={d.label} className="flex items-center gap-1.5">
-            <div className="h-2.5 w-2.5 rounded-full" style={{ background: d.color }} />
-            <span className="font-mono text-xs" style={{ color: "#94a3b8" }}>--chart-{i + 1}</span>
+        {CHART_COLORS.map((c, i) => (
+          <div key={i} className="flex items-center gap-1.5">
+            <div className="h-2.5 w-2.5 rounded-full" style={{ background: c }} />
+            <span className="font-mono text-xs" style={{ color: p["muted-foreground"] }}>--chart-{i + 1}</span>
           </div>
         ))}
       </div>
-      <p className="text-xs text-muted-foreground">Each token owns one series. No two bars share a hue — clarity at a glance.</p>
+      <p className="text-xs text-muted-foreground">Colors derived from your primary hue — each series steps 40° around the wheel.</p>
     </div>
   );
 }
 
 function TokenGroupDemoModal({ group, onClose }: { group: string; onClose: () => void }) {
+  const [primaryHex, setPrimaryHex] = useState("#3b82f6");
+  const [pickerOpen, setPickerOpen]  = useState(false);
+  const pickerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!pickerOpen) return;
+    function down(e: MouseEvent) {
+      if (pickerRef.current && !pickerRef.current.contains(e.target as Node)) setPickerOpen(false);
+    }
+    document.addEventListener("mousedown", down);
+    return () => document.removeEventListener("mousedown", down);
+  }, [pickerOpen]);
+
+  const palette   = useMemo(() => deriveDemoPalette(primaryHex), [primaryHex]);
+  const tokenKeys = GROUP_TOKEN_KEYS[group] ?? [];
+
   const demoMap: Record<string, React.ReactNode> = {
-    Surface:     <DemoSurface />,
-    Interactive: <DemoInteractive />,
-    Neutral:     <DemoNeutral />,
-    Feedback:    <DemoFeedback />,
-    Charts:      <DemoCharts />,
+    Surface:     <DemoSurface     p={palette} />,
+    Interactive: <DemoInteractive p={palette} />,
+    Neutral:     <DemoNeutral     p={palette} />,
+    Feedback:    <DemoFeedback    p={palette} />,
+    Charts:      <DemoCharts      p={palette} />,
   };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={onClose}>
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
       <div
-        className="relative z-10 flex w-full max-w-[50vw] flex-col overflow-hidden rounded-2xl border border-border/60 bg-card shadow-2xl shadow-black/40" style={{ height: "40vh" }}
+        className="relative z-10 w-full max-w-[50vw] overflow-hidden rounded-2xl border border-border/60 bg-card shadow-2xl shadow-black/40"
         onClick={e => e.stopPropagation()}
       >
+        {/* Title bar */}
         <div className="flex items-center justify-between border-b border-border/40 px-4 py-3">
           <div>
             <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground/50">Token group demo</p>
             <p className="text-base font-semibold">{group}</p>
           </div>
-          <button
-            onClick={onClose}
-            className="flex h-7 w-7 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-          >
+          <button onClick={onClose} className="flex h-7 w-7 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
             <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
           </button>
         </div>
-        <div className="flex-1 overflow-y-auto p-4">{demoMap[group]}</div>
+
+        {/* Primary color picker */}
+        <div className="flex items-center gap-3 border-b border-border/40 px-4 py-3">
+          <div ref={pickerRef} className="relative shrink-0">
+            <button
+              onClick={() => setPickerOpen(o => !o)}
+              className="h-9 w-9 rounded-xl shadow-md transition-transform hover:scale-105"
+              style={{ background: primaryHex, border: `2px solid ${primaryHex}60` }}
+              title="Change primary color"
+            />
+            {pickerOpen && (
+              <ColorPickerPopup hex={primaryHex} onChange={setPrimaryHex} onClose={() => setPickerOpen(false)} />
+            )}
+          </div>
+          <div className="min-w-0 flex-1">
+            <p className="text-sm font-semibold">Demo primary — <code className="font-mono text-xs" style={{ color: primaryHex }}>{primaryHex}</code></p>
+            <p className="text-xs text-muted-foreground">Using this as <code className="font-mono">--primary</code> · all tokens derive from it · click to change</p>
+          </div>
+          <div className="flex shrink-0 gap-1.5">
+            {DEMO_PRESETS.map(c => (
+              <button
+                key={c}
+                onClick={() => setPrimaryHex(c)}
+                className="h-5 w-5 rounded-md transition-transform hover:scale-110"
+                style={{ background: c, outline: primaryHex === c ? `2px solid ${c}` : "none", outlineOffset: "2px" }}
+                title={c}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Derived token colors for this group */}
+        {tokenKeys.length > 0 && (
+          <div className="border-b border-border/40 px-4 py-3">
+            <p className="mb-2 text-[0.5625rem] font-bold uppercase tracking-widest text-muted-foreground/40">Derived token colors from this primary</p>
+            <div className="flex flex-wrap gap-2">
+              {tokenKeys.map(key => (
+                <div key={key} className="flex items-center gap-1.5 rounded-lg border border-border/50 bg-background/40 px-2.5 py-1.5">
+                  <div className="h-3 w-3 shrink-0 rounded-sm" style={{ background: palette[key], boxShadow: "inset 0 0 0 1px rgba(128,128,128,0.2)" }} />
+                  <span className="font-mono text-[0.625rem] text-muted-foreground">--{key}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Demo UI */}
+        <div className="p-4">{demoMap[group]}</div>
       </div>
     </div>
   );
@@ -457,7 +563,22 @@ const DARK_CHIPS = [
 ];
 
 function BasePanel({ copy }: { copy: (text: string, label: string) => void }) {
-  const [openDemo, setOpenDemo] = useState<string | null>(null);
+  const [openDemo,    setOpenDemo]    = useState<string | null>(null);
+  const [primaryHex,  setPrimaryHex]  = useState("#3b82f6");
+  const [pickerOpen,  setPickerOpen]  = useState(false);
+  const pickerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!pickerOpen) return;
+    function down(e: MouseEvent) {
+      if (pickerRef.current && !pickerRef.current.contains(e.target as Node)) setPickerOpen(false);
+    }
+    document.addEventListener("mousedown", down);
+    return () => document.removeEventListener("mousedown", down);
+  }, [pickerOpen]);
+
+  const palette = useMemo(() => deriveDemoPalette(primaryHex), [primaryHex]);
+
   return (
     <div>
       {/* Explainer */}
@@ -520,6 +641,56 @@ function BasePanel({ copy }: { copy: (text: string, label: string) => void }) {
         </div>
       </div>
 
+      {/* Primary preview */}
+      <div className="mb-10 overflow-hidden rounded-2xl border border-border/60 bg-card">
+        {/* Picker row */}
+        <div className="flex items-center gap-3 px-5 py-4">
+          <div ref={pickerRef} className="relative shrink-0">
+            <button
+              onClick={() => setPickerOpen(o => !o)}
+              className="h-9 w-9 rounded-xl shadow-md transition-transform hover:scale-105"
+              style={{ background: primaryHex, border: `2px solid ${primaryHex}60` }}
+              title="Change preview primary"
+            />
+            {pickerOpen && (
+              <ColorPickerPopup hex={primaryHex} onChange={setPrimaryHex} onClose={() => setPickerOpen(false)} />
+            )}
+          </div>
+          <div className="min-w-0 flex-1">
+            <p className="text-sm font-semibold">Preview primary — <code className="font-mono text-xs" style={{ color: primaryHex }}>{primaryHex}</code></p>
+            <p className="text-xs text-muted-foreground">See what all token groups look like with this primary · click swatch or pick a preset</p>
+          </div>
+          <div className="flex shrink-0 gap-1.5">
+            {DEMO_PRESETS.map(c => (
+              <button
+                key={c}
+                onClick={() => setPrimaryHex(c)}
+                className="h-5 w-5 rounded-md transition-transform hover:scale-110"
+                style={{ background: c, outline: primaryHex === c ? `2px solid ${c}` : "none", outlineOffset: "2px" }}
+                title={c}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Derived token rows per group */}
+        <div className="border-t border-border/40">
+          {TOKEN_GROUPS.filter(g => (GROUP_TOKEN_KEYS[g.title] ?? []).length > 0).map((group, gi, arr) => (
+            <div key={group.title} className={`flex items-start gap-4 px-5 py-3 ${gi < arr.length - 1 ? "border-b border-border/40" : ""}`}>
+              <span className="mt-0.5 w-20 shrink-0 text-[0.625rem] font-bold uppercase tracking-widest text-muted-foreground/50">{group.title}</span>
+              <div className="flex flex-wrap gap-1.5">
+                {(GROUP_TOKEN_KEYS[group.title] ?? []).map(key => (
+                  <div key={key} className="flex items-center gap-1.5 rounded-lg border border-border/50 bg-background/40 px-2 py-1">
+                    <div className="h-3 w-3 shrink-0 rounded-sm" style={{ background: palette[key], boxShadow: "inset 0 0 0 1px rgba(128,128,128,0.15)" }} />
+                    <span className="font-mono text-[0.575rem] text-muted-foreground">--{key}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Token groups */}
       {TOKEN_GROUPS.map(group => (
         <div key={group.title} className="mb-10">
@@ -537,7 +708,10 @@ function BasePanel({ copy }: { copy: (text: string, label: string) => void }) {
             className="overflow-hidden rounded-2xl border border-border/60 bg-border/60"
             style={{ display: "grid", gridTemplateColumns: `repeat(${group.tokens.length}, 1fr)`, gap: "1px" }}
           >
-            {group.tokens.map(token => (
+            {group.tokens.map(token => {
+              const key = token.var.slice(2);
+              const swatchColor = palette[key] ?? `var(${token.var})`;
+              return (
               <button
                 key={token.var}
                 onClick={() => copy(`var(${token.var})`, `Copied var(${token.var})`)}
@@ -546,7 +720,7 @@ function BasePanel({ copy }: { copy: (text: string, label: string) => void }) {
                 <div
                   className="relative h-[68px] border-b border-border/40"
                   style={{
-                    background: `var(${token.var})`,
+                    background: swatchColor,
                     boxShadow: "inset 0 0 0 1px rgba(128,128,128,0.18)",
                   }}
                 >
@@ -560,7 +734,8 @@ function BasePanel({ copy }: { copy: (text: string, label: string) => void }) {
                   <span className="mt-0.5 text-[0.6875rem] text-muted-foreground/45">{token.description}</span>
                 </div>
               </button>
-            ))}
+              );
+            })}
           </div>
         </div>
       ))}
