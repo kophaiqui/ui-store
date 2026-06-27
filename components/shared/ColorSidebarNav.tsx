@@ -1,31 +1,21 @@
 "use client";
 
-import { Suspense } from "react";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import {
-  LayoutGrid,
-  Braces,
-  Pipette,
-  Palette,
-  Lightbulb,
-  Bookmark,
-} from "lucide-react";
+import { LayoutGrid, Braces, Pipette, Palette, Lightbulb, Bookmark } from "lucide-react";
 
 const TABS = [
-  { id: "overview",    label: "Overview",       Icon: LayoutGrid },
-  { id: "base",        label: "Base tokens",    Icon: Braces     },
-  { id: "maincolor",   label: "Your colors",    Icon: Pipette    },
-  { id: "styles",      label: "Style palettes", Icon: Palette    },
-  { id: "inspiration", label: "Inspiration",    Icon: Lightbulb  },
-  { id: "collection",  label: "Collection",     Icon: Bookmark   },
+  { label: "Overview",       href: "/colors",             Icon: LayoutGrid },
+  { label: "Base tokens",    href: "/colors/base",        Icon: Braces     },
+  { label: "Your colors",    href: "/colors/maincolor",   Icon: Pipette    },
+  { label: "Style palettes", href: "/colors/styles",      Icon: Palette    },
+  { label: "Inspiration",    href: "/colors/inspiration", Icon: Lightbulb  },
+  { label: "Collection",     href: "/colors/collection",  Icon: Bookmark   },
 ] as const;
 
-function ColorNavInner() {
-  const searchParams = useSearchParams();
-  const router       = useRouter();
-  const pathname     = usePathname();
-  const activeTab    = searchParams.get("tab") ?? "overview";
+export function ColorSidebarNav() {
+  const pathname = usePathname();
 
   return (
     <nav className="px-3 pb-10 pt-2">
@@ -34,11 +24,13 @@ function ColorNavInner() {
       </p>
       <ul className="space-y-0.5">
         {TABS.map((tab) => {
-          const isActive = activeTab === tab.id;
+          const isActive = tab.href === "/colors"
+            ? pathname === "/colors"
+            : pathname.startsWith(tab.href);
           return (
-            <li key={tab.id}>
-              <button
-                onClick={() => router.push(`${pathname}?tab=${tab.id}`, { scroll: false })}
+            <li key={tab.href}>
+              <Link
+                href={tab.href}
                 className={cn(
                   "group relative flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-[0.875rem] font-medium transition-all duration-150",
                   isActive
@@ -48,19 +40,11 @@ function ColorNavInner() {
               >
                 <tab.Icon size={14} className="shrink-0 opacity-70" />
                 {tab.label}
-              </button>
+              </Link>
             </li>
           );
         })}
       </ul>
     </nav>
-  );
-}
-
-export function ColorSidebarNav() {
-  return (
-    <Suspense>
-      <ColorNavInner />
-    </Suspense>
   );
 }
