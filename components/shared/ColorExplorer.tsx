@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo, useCallback, useRef } from "react";
+import { useState, useMemo, useCallback, useRef, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -733,16 +734,10 @@ function CollectionPanel({ filter, setFilter, copy }: { filter: CollFilter; setF
 
 // ─── Main Export ──────────────────────────────────────────────────────────────
 
-const TABS: { id: Tab; label: string; count?: string }[] = [
-  { id: "base",        label: "Base tokens",    count: "21" },
-  { id: "styles",      label: "Style palettes", count: "11" },
-  { id: "inspiration", label: "Inspiration",    count: "12" },
-  { id: "maincolor",   label: "Your colors"                 },
-  { id: "collection",  label: "Collection",     count: "15" },
-];
+function ColorExplorerInner() {
+  const searchParams = useSearchParams();
+  const activeTab    = (searchParams.get("tab") as Tab) ?? "base";
 
-export function ColorExplorer() {
-  const [activeTab, setActiveTab]   = useState<Tab>("base");
   const [toast, setToast]           = useState<string | null>(null);
   const toastTimer                  = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const [inspFilter, setInspFilter] = useState<InspFilter>("all");
@@ -756,67 +751,21 @@ export function ColorExplorer() {
   }, []);
 
   return (
-    <div className="relative">
-      {/* Ambient color blobs — spectrum hint behind the hero */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[340px] overflow-hidden">
-        <div className="absolute -top-20 left-[5%]   h-[300px] w-[480px] rounded-full bg-rose-500/[0.06]   dark:bg-rose-400/[0.07]   blur-[100px]" />
-        <div className="absolute -top-10 left-[28%]  h-[260px] w-[380px] rounded-full bg-amber-400/[0.06]  dark:bg-amber-400/[0.07]  blur-[90px]"  />
-        <div className="absolute -top-10 right-[20%] h-[280px] w-[420px] rounded-full bg-emerald-500/[0.05] dark:bg-emerald-400/[0.06] blur-[100px]" />
-        <div className="absolute  top-0  right-[2%]  h-[240px] w-[320px] rounded-full bg-violet-500/[0.06] dark:bg-violet-400/[0.07] blur-[80px]"  />
+    <div className="px-8 py-10">
+      {/* Page header */}
+      <div className="mb-10">
+        <h1 className="mb-1 text-3xl font-bold tracking-tight">Colors</h1>
+        <p className="text-[0.9375rem] text-muted-foreground">
+          Semantic tokens, style palettes, curated inspiration, a live harmony tool, and a collection from 15 real design systems.
+        </p>
       </div>
 
-      <div className="mx-auto max-w-7xl px-6 py-16">
-        {/* Page header */}
-        <div className="mb-10 max-w-2xl">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/40 px-3 py-1.5 text-xs font-medium text-muted-foreground">
-            <span className="flex gap-[3px]">
-              {["#ef4444","#f97316","#eab308","#22c55e","#6366f1","#ec4899"].map(c => (
-                <span key={c} className="inline-block h-2 w-2 rounded-full" style={{ background: c }} />
-              ))}
-            </span>
-            21 tokens · 5 sections
-          </div>
-          <h1 className="mb-3 text-4xl font-bold tracking-tight">Colors</h1>
-          <p className="text-[0.9375rem] leading-relaxed text-muted-foreground">
-            Semantic tokens, style palettes, curated inspiration, a live harmony tool, and a collection from 15 real design systems.
-          </p>
-        </div>
-
-        {/* Tabs — pill style matching the site */}
-        <div className="mb-10 flex flex-wrap gap-2 border-b border-border/60 pb-5">
-          {TABS.map(tab => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={cn(
-                "flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-medium transition-colors duration-150",
-                activeTab === tab.id
-                  ? "bg-foreground text-background"
-                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
-              )}
-            >
-              {tab.label}
-              {tab.count && (
-                <span className={cn(
-                  "flex h-4 min-w-[18px] items-center justify-center rounded-full px-1 text-[0.5rem] font-bold",
-                  activeTab === tab.id
-                    ? "bg-background/20 text-background"
-                    : "bg-muted text-muted-foreground"
-                )}>
-                  {tab.count}
-                </span>
-              )}
-            </button>
-          ))}
-        </div>
-
-        {/* Tab content */}
-        {activeTab === "base"        && <BasePanel copy={copy} />}
-        {activeTab === "styles"      && <StylesPanel />}
-        {activeTab === "inspiration" && <InspirationPanel filter={inspFilter} setFilter={setInspFilter} copy={copy} />}
-        {activeTab === "maincolor"   && <HarmonyPanel copy={copy} />}
-        {activeTab === "collection"  && <CollectionPanel filter={collFilter} setFilter={setCollFilter} copy={copy} />}
-      </div>
+      {/* Tab content */}
+      {activeTab === "base"        && <BasePanel copy={copy} />}
+      {activeTab === "styles"      && <StylesPanel />}
+      {activeTab === "inspiration" && <InspirationPanel filter={inspFilter} setFilter={setInspFilter} copy={copy} />}
+      {activeTab === "maincolor"   && <HarmonyPanel copy={copy} />}
+      {activeTab === "collection"  && <CollectionPanel filter={collFilter} setFilter={setCollFilter} copy={copy} />}
 
       {/* Toast */}
       <div
@@ -831,5 +780,13 @@ export function ColorExplorer() {
         {toast ?? ""}
       </div>
     </div>
+  );
+}
+
+export function ColorExplorer() {
+  return (
+    <Suspense>
+      <ColorExplorerInner />
+    </Suspense>
   );
 }
