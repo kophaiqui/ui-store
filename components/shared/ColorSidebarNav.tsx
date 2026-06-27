@@ -5,7 +5,7 @@ import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 const TABS = [
-  { id: "base",        label: "Base tokens",    count: "21" },
+  { id: "base",        label: "Base tokens"                 },
   { id: "styles",      label: "Style palettes", count: "11" },
   { id: "inspiration", label: "Inspiration",    count: "12" },
   { id: "maincolor",   label: "Your colors"                 },

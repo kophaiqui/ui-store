@@ -261,6 +261,28 @@ const DARK_CHIPS = [
 function BasePanel({ copy }: { copy: (text: string, label: string) => void }) {
   return (
     <div>
+      {/* Explainer */}
+      <div className="mb-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <div className="rounded-2xl border border-border/60 bg-card p-5">
+          <p className="mb-1.5 text-sm font-semibold">What are tokens?</p>
+          <p className="text-[0.8125rem] leading-relaxed text-muted-foreground">
+            Tokens are named CSS variables — <code className="rounded bg-muted px-1 py-0.5 font-mono text-[0.75rem] text-foreground/80">--primary</code>, <code className="rounded bg-muted px-1 py-0.5 font-mono text-[0.75rem] text-foreground/80">--background</code> — that every component reads from. Change one value and the whole UI updates.
+          </p>
+        </div>
+        <div className="rounded-2xl border border-border/60 bg-card p-5">
+          <p className="mb-1.5 text-sm font-semibold">How do I use them?</p>
+          <p className="text-[0.8125rem] leading-relaxed text-muted-foreground">
+            Paste the token block into your <code className="rounded bg-muted px-1 py-0.5 font-mono text-[0.75rem] text-foreground/80">globals.css</code> under <code className="rounded bg-muted px-1 py-0.5 font-mono text-[0.75rem] text-foreground/80">:root</code> and <code className="rounded bg-muted px-1 py-0.5 font-mono text-[0.75rem] text-foreground/80">.dark</code>. All installed components will pick them up automatically.
+          </p>
+        </div>
+        <div className="rounded-2xl border border-border/60 bg-card p-5">
+          <p className="mb-1.5 text-sm font-semibold">Can I customize?</p>
+          <p className="text-[0.8125rem] leading-relaxed text-muted-foreground">
+            Yes — override any token with your own color. Use the <span className="font-medium text-foreground/80">Your colors</span> tab to generate a full palette from your brand color, then swap the values here.
+          </p>
+        </div>
+      </div>
+
       {/* Mode compare */}
       <div className="mb-12 grid grid-cols-2 gap-[1px] overflow-hidden rounded-2xl border border-border/60 bg-border/60">
         <div className="p-5" style={{ background: "#ffffff" }}>
