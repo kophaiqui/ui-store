@@ -418,7 +418,7 @@ export function BasePanel() {
             <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">{group.title}</p>
             <button
               onClick={() => setOpenDemo(group.title)}
-              className="flex items-center gap-1.5 rounded-lg border border-border/60 px-2.5 py-1 text-[0.625rem] font-medium text-muted-foreground transition-colors hover:border-border hover:bg-muted hover:text-foreground"
+              className="flex items-center gap-1.5 rounded-lg border border-purple-500/60 bg-purple-500/10 px-2.5 py-1 text-[0.625rem] font-medium text-purple-400 transition-colors hover:border-purple-400 hover:bg-purple-500/20 hover:text-purple-300"
             >
               <svg width="9" height="9" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/></svg>
               Demo
