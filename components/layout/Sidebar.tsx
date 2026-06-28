@@ -483,12 +483,15 @@ function getSlug(href: string) {
 function ComponentItem({
   item,
   pathname,
+  open,
+  onToggle,
 }: {
   item: SidebarItem;
   pathname: string;
+  open: boolean;
+  onToggle: () => void;
 }) {
   const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
-  const [open, setOpen] = useState(isActive);
 
   const variants: SidebarVariant[] = item.variants?.length
     ? item.variants
@@ -500,7 +503,7 @@ function ComponentItem({
   return (
     <li>
       <button
-        onClick={() => setOpen((o) => !o)}
+        onClick={onToggle}
         className={cn(
           "group relative flex w-full items-center justify-between rounded-md px-2 py-1.5 text-[0.875rem] font-medium transition-all duration-150",
           isActive
@@ -557,9 +560,13 @@ function ComponentItem({
 function Category({
   section,
   pathname,
+  openSlugs,
+  onToggle,
 }: {
   section: SidebarSection;
   pathname: string;
+  openSlugs: Set<string>;
+  onToggle: (slug: string) => void;
 }) {
   return (
     <div className="mb-4">
@@ -568,7 +575,13 @@ function Category({
       </p>
       <ul className="space-y-0.5">
         {section.items.map((item) => (
-          <ComponentItem key={item.href} item={item} pathname={pathname} />
+          <ComponentItem
+            key={item.href}
+            item={item}
+            pathname={pathname}
+            open={openSlugs.has(getSlug(item.href))}
+            onToggle={() => onToggle(getSlug(item.href))}
+          />
         ))}
       </ul>
     </div>
@@ -581,23 +594,57 @@ export function Sidebar({ sections }: Props) {
   const pathname = usePathname();
   const isOverview = pathname === "/components";
 
+  const allSlugs = sections.flatMap(s => s.items.map(i => getSlug(i.href)));
+  const activeSlugs = sections.flatMap(s =>
+    s.items.filter(i => pathname === i.href || pathname.startsWith(i.href + "/")).map(i => getSlug(i.href))
+  );
+
+  const [openSlugs, setOpenSlugs] = useState<Set<string>>(() => new Set(activeSlugs));
+
+  const toggle = (slug: string) =>
+    setOpenSlugs(prev => {
+      const next = new Set(prev);
+      if (next.has(slug)) next.delete(slug);
+      else next.add(slug);
+      return next;
+    });
+
+  const collapseAll = () => setOpenSlugs(new Set());
+
   return (
     <nav className="px-3 pb-10 pt-2">
-      <Link
-        href="/components"
-        className={cn(
-          "relative mb-4 flex items-center gap-2 rounded-md px-2 py-2 text-[0.875rem] font-medium transition-all duration-150",
-          isOverview
-            ? "bg-violet-500/[0.08] text-foreground before:absolute before:inset-y-1.5 before:left-0 before:w-[2px] before:rounded-full before:bg-violet-500"
-            : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
-        )}
-      >
-        <GridIcon className={cn(isOverview ? "text-violet-400" : "text-muted-foreground/50")} />
-        Overview
-      </Link>
+      <div className="relative mb-4 flex items-center gap-1">
+        <Link
+          href="/components"
+          className={cn(
+            "relative flex flex-1 items-center gap-2 rounded-md px-2 py-2 text-[0.875rem] font-medium transition-all duration-150",
+            isOverview
+              ? "bg-violet-500/[0.08] text-foreground before:absolute before:inset-y-1.5 before:left-0 before:w-[2px] before:rounded-full before:bg-violet-500"
+              : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
+          )}
+        >
+          <GridIcon className={cn(isOverview ? "text-violet-400" : "text-muted-foreground/50")} />
+          Overview
+        </Link>
+        <button
+          onClick={collapseAll}
+          title="Collapse all"
+          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-muted-foreground/40 transition-colors hover:bg-muted/60 hover:text-foreground"
+        >
+          <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3m13 0h-3a2 2 0 0 1-2-2v-3" />
+          </svg>
+        </button>
+      </div>
 
       {sections.map((section) => (
-        <Category key={section.title} section={section} pathname={pathname} />
+        <Category
+          key={section.title}
+          section={section}
+          pathname={pathname}
+          openSlugs={openSlugs}
+          onToggle={toggle}
+        />
       ))}
     </nav>
   );
