@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback, useMemo, useRef, Suspense } from "react";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { useState, useEffect, useCallback, useMemo, useRef } from "react";
+import { useRouter, usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useFontFavorites } from "@/lib/useFontFavorites";
 import type { FontMeta } from "@/lib/registry";
@@ -96,10 +96,9 @@ function FontSidebarItem({
 // ─── Inner sidebar (needs useSearchParams) ────────────────────────────────────
 
 function FontSidebarInner({ fonts }: { fonts: Record<string, FontMeta> }) {
-  const searchParams  = useSearchParams();
   const router        = useRouter();
   const pathname      = usePathname();
-  const selectedSlug  = searchParams.get("font");
+  const selectedSlug  = pathname.startsWith("/fonts/") ? pathname.split("/fonts/")[1] : null;
 
   const [search,    setSearch]    = useState("");
   const [collapsed, setCollapsed] = useState<Set<string>>(new Set());
@@ -107,8 +106,8 @@ function FontSidebarInner({ fonts }: { fonts: Record<string, FontMeta> }) {
   const { favorites } = useFontFavorites();
 
   const selectFont = useCallback(
-    (slug: string) => router.push(`${pathname}?font=${slug}`, { scroll: false }),
-    [router, pathname]
+    (slug: string) => router.push(`/fonts/${slug}`),
+    [router]
   );
 
   const toggleCategory = (cat: string) => {
@@ -137,8 +136,8 @@ function FontSidebarInner({ fonts }: { fonts: Record<string, FontMeta> }) {
   const favMeta = [...favorites].filter((s) => fonts[s]);
 
   const goOverview = useCallback(
-    () => router.push(pathname, { scroll: false }),
-    [router, pathname]
+    () => router.push("/fonts"),
+    [router]
   );
 
   return (
@@ -270,9 +269,5 @@ function FontSidebarInner({ fonts }: { fonts: Record<string, FontMeta> }) {
 // ─── Export ───────────────────────────────────────────────────────────────────
 
 export function FontSidebarClient({ fonts }: { fonts: Record<string, FontMeta> }) {
-  return (
-    <Suspense>
-      <FontSidebarInner fonts={fonts} />
-    </Suspense>
-  );
+  return <FontSidebarInner fonts={fonts} />;
 }
