@@ -136,8 +136,40 @@ function FontSidebarInner({ fonts }: { fonts: Record<string, FontMeta> }) {
 
   const favMeta = [...favorites].filter((s) => fonts[s]);
 
+  const goOverview = useCallback(
+    () => router.push(pathname, { scroll: false }),
+    [router, pathname]
+  );
+
   return (
     <div className="flex h-full flex-col">
+      {/* Overview + Collapse all */}
+      <div className="flex-none flex items-center gap-1 px-1.5 pt-2 pb-1">
+        <button
+          onClick={goOverview}
+          className={cn(
+            "flex flex-1 items-center gap-2 rounded-md px-2.5 py-2 text-left text-[0.875rem] font-medium transition-colors duration-100",
+            !selectedSlug
+              ? "bg-foreground/[0.06] text-foreground relative before:absolute before:inset-y-1.5 before:left-0 before:w-[2px] before:rounded-full before:bg-foreground"
+              : "text-foreground/60 hover:bg-muted/50 hover:text-foreground"
+          )}
+        >
+          <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" />
+          </svg>
+          Overview
+        </button>
+        <button
+          onClick={() => setCollapsed(new Set(CATEGORY_ORDER))}
+          title="Collapse all"
+          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-muted-foreground/40 transition-colors hover:bg-muted/50 hover:text-foreground"
+        >
+          <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3m13 0h-3a2 2 0 0 1-2-2v-3" />
+          </svg>
+        </button>
+      </div>
+
       {/* Search */}
       <div className="flex-none border-b border-border/40 px-3 pb-3 pt-1">
         <div className="relative">
