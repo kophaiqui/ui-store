@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import dynamic from "next/dynamic";
 import hljs from "highlight.js/lib/core";
 import tsx from "highlight.js/lib/languages/typescript";
+import { Download, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { DesignMeta } from "@/lib/registry";
 
@@ -67,6 +68,19 @@ type Props = { slug: string; meta: DesignMeta; code: string; styleConfig?: Recor
 
 export function DesignViewer({ slug, meta, code, styleConfig }: Props) {
   const [tab, setTab] = useState<"preview" | "code">("preview");
+  const [downloaded, setDownloaded] = useState(false);
+
+  function handleDownload() {
+    const blob = new Blob([code], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${slug}.tsx`;
+    a.click();
+    URL.revokeObjectURL(url);
+    setDownloaded(true);
+    setTimeout(() => setDownloaded(false), 2000);
+  }
 
   const highlighted = useMemo(
     () => fixJSXHighlight(hljs.highlight(code, { language: "typescript" }).value),
@@ -83,8 +97,20 @@ export function DesignViewer({ slug, meta, code, styleConfig }: Props) {
 
   return (
     <div className="overflow-hidden rounded-xl border border-border">
-      {/* Tab bar — tabs on the right */}
-      <div className="flex items-center justify-end border-b border-border bg-muted/30 px-4 py-2">
+      {/* Tab bar */}
+      <div className="flex items-center justify-between border-b border-border bg-muted/30 px-4 py-2">
+        <button
+          onClick={handleDownload}
+          className={cn(
+            "flex items-center gap-1.5 rounded px-2 py-1 text-[0.6875rem] font-medium transition-colors",
+            downloaded
+              ? "text-emerald-500"
+              : "text-muted-foreground hover:text-foreground"
+          )}
+        >
+          {downloaded ? <Check size={12} /> : <Download size={12} />}
+          {downloaded ? "Downloaded" : "Download"}
+        </button>
         <div className="flex items-center rounded-md border border-border bg-muted p-0.5">
           {(["preview", "code"] as const).map((t) => (
             <button

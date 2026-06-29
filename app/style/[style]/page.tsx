@@ -10,6 +10,7 @@ import {
 } from "@/lib/registry";
 import { StyleComponentCard } from "@/components/shared/StyleComponentCard";
 import { StyleDemo } from "@/components/shared/StyleDemo";
+import { DownloadStyleButton } from "@/components/shared/DownloadStyleButton";
 
 type Props = { params: Promise<{ style: string }> };
 
@@ -66,6 +67,9 @@ export default async function StyleDetailPage({ params }: Props) {
         <p className="mt-3 text-sm text-muted-foreground">
           {total} component{total === 1 ? "" : "s"} in this style.
         </p>
+        <div className="mt-5">
+          <DownloadStyleButton style={style} count={total} />
+        </div>
       </div>
 
       {categories.map((cat) => {
