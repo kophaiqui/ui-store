@@ -1,0 +1,86 @@
+# Installation
+
+That One UI is not a package you install from npm.
+There is no `npm install`, no peer dependency tree to wrangle, no version conflicts.
+You grab the component source directly and drop it into your project.
+You own the code from that point forward.
+
+## Requirements
+
+Before you start, make sure your project has:
+
+- **React 18+**
+- **Tailwind CSS v4**
+- **TypeScript** (strongly recommended — all components are fully typed)
+- **Base UI** — `npm install @base-ui/react`
+
+## Download a single component
+
+On any component detail page, click the **Download** button in the top-left corner of the preview panel.
+Your browser saves a `.tsx` file — for example, `button.tsx`.
+
+Place it anywhere in your project:
+
+```
+src/
+  components/
+    ui/
+      button.tsx   ← drop it here
+```
+
+Then import and use it:
+
+```tsx
+import { UIButton } from "@/components/ui/button";
+
+export default function Page() {
+  return <UIButton variant="solid">Get started</UIButton>;
+}
+```
+
+## Download an entire style as a ZIP
+
+On any style overview page (for example, **Glass** or **Neobrutalism**), click **Download all components**.
+The ZIP contains every component that supports that style, organized by category:
+
+```
+glass-components.zip
+  glass-components/
+    inputs/
+      button/
+        Component.tsx
+        styles/
+          glass.ts
+      checkbox/
+        Component.tsx
+        styles/
+          glass.ts
+    feedback/
+      toast/
+        Component.tsx
+        styles/
+          glass.ts
+```
+
+Extract the ZIP and copy the folders into your project.
+Pass the style config to any component via the `styleConfig` prop:
+
+```tsx
+import { UIButton } from "@/components/ui/button/Component";
+import { glassStyle } from "@/components/ui/button/styles/glass";
+
+<UIButton styleConfig={glassStyle} variant="solid">
+  Click me
+</UIButton>
+```
+
+## CLI install — coming soon
+
+A CLI tool is in the works so you can add components directly from your terminal:
+
+```bash
+npx ui-store add button
+npx ui-store add button --style glass
+```
+
+Until then, the download buttons cover the same ground.
