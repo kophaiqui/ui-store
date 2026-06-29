@@ -2,6 +2,8 @@ import fs from "fs";
 import path from "path";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { parseHeadings } from "@/lib/parseHeadings";
+import { DocsToc } from "@/components/docs/DocsToc";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -39,24 +41,35 @@ export default async function DocPage({ params }: Props) {
           This page is being written. Check back soon.
         </p>
         <Link
-          href="/docs"
+          href="/documents"
           className="text-sm text-muted-foreground transition-colors hover:text-foreground"
         >
-          ← Back to docs
+          Back to docs
         </Link>
       </div>
     );
   }
+
+  const source = fs.readFileSync(filePath, "utf-8");
+  const headings = parseHeadings(source);
 
   const { default: MDXContent } = await import(`@/content/docs/${slug}.mdx`).catch(() => {
     return { default: () => null };
   });
 
   return (
-    <div className="px-8 py-10 max-w-3xl">
-      <article className="prose prose-zinc dark:prose-invert max-w-none">
+    <div className="flex min-h-0 gap-8 px-8 py-10">
+      <article className="min-w-0 flex-1 prose prose-zinc dark:prose-invert max-w-2xl">
         <MDXContent />
       </article>
+
+      {headings.length > 0 && (
+        <div className="hidden xl:block w-52 shrink-0">
+          <div className="sticky top-[73px]">
+            <DocsToc headings={headings} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
