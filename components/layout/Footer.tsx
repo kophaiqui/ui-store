@@ -62,7 +62,7 @@ export default function Footer() {
               <span>&copy; {year} that one ui</span>
               <span className="select-none">·</span>
               <span className="rounded border border-border/30 px-1.5 py-0.5 font-mono text-[0.6rem] tracking-wide">
-                v1.0.0
+                v0.4.0
               </span>
             </div>
           </div>

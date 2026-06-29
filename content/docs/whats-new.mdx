@@ -1,0 +1,104 @@
+# What's New
+
+Development log for That One UI.
+Versions are tagged when a meaningful batch of work lands together.
+
+---
+
+## v0.4.0
+
+_June 2026_
+
+**Docs system**
+
+The documentation section is now live.
+Introduction, Installation, Principles, and this changelog are all written.
+The docs layout has a left nav sidebar and a per-page table of contents that highlights the active section as you scroll.
+
+**Component download**
+
+Every component detail page now has a **Download** button that saves the `.tsx` file directly to your machine — no copy-paste required.
+
+**Style ZIP download**
+
+Style overview pages now have a **Download all components** button.
+It builds a ZIP on the server containing every component in that style, organized by category, and delivers it in one click.
+No external dependencies — built on a custom ZIP writer using Node's native `zlib`.
+
+---
+
+## v0.3.0
+
+_June 2026_
+
+**Color explorer**
+
+A five-tab color tool at `/colors`:
+- **Overview** — base token groups with interactive demo popups
+- **Your colors** — custom color picker that generates a full palette from a single hue, with live token preview
+- **Base** — full token reference
+- **Styles** — per-style palette swatches with hex hover and one-click copy
+- **Inspiration** — harmony cards (complementary, triadic, analogous) that drive a mini app live preview
+
+**Typography explorer**
+
+Redesigned typography page at `/typography` with font property showcase and specimen view.
+Font detail view migrated from query params to route-based navigation.
+
+**Layout improvements**
+
+Colors and typography pages integrated into `SectionLayout`.
+Nav reordered — styles moved after typography.
+
+---
+
+## v0.2.0
+
+_May 2026_
+
+**Full light/dark mode across all styles**
+
+Every style now supports both light and dark mode:
+
+- Glass — fully adaptive
+- Gradient — light mode added
+- Neobrutalism — dark mode added
+- Neumorphism — dark mode added
+- Retro — dark mode added
+
+**Terminal style**
+
+A new monospace command-line green style shipped for all 38 components.
+
+**Retro style**
+
+Warm cream backgrounds, chunky outlines, hard offset shadows, sunset palette.
+Shipped for all 38 components.
+
+**Style infrastructure**
+
+- `modes` field added to style registry metadata
+- Style mode badge on style detail pages
+- Style variant switcher on component detail pages
+- Active variant name shown in StyleConfigPanel header
+
+**Bug fixes**
+
+- Preview canvas dot grid invisible in light mode — fixed
+- Alert text invisible in light mode across default, glass, and neumorphism — fixed
+- Clearable input button blocked by `pointer-events-none` wrapper — fixed
+
+---
+
+## v0.1.0
+
+_April 2026_
+
+**Initial release.**
+
+38 components across 5 categories — inputs, feedback, navigation, data-display, overlay.
+6 styles: Default, Glass, Minimal, Neobrutalism, Neumorphism, Gradient.
+All built on Base UI primitives with full TypeScript types.
+Tailwind CSS v4 throughout.
+Zero database — content is JSON and source files.
+Deployed on Vercel.

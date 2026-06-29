@@ -12,8 +12,10 @@ const NAV: NavSection[] = [
     title: "Getting Started",
     items: [
       { label: "Introduction",  href: "/documents" },
+      { label: "What's New",   href: "/documents/whats-new" },
       { label: "Installation",  href: "/documents/installation" },
-      { label: "Theming",       href: "/documents/theming",       soon: true },
+      { label: "Principles",   href: "/documents/principles" },
+      { label: "Theming",      href: "/documents/theming",       soon: true },
     ],
   },
   {
