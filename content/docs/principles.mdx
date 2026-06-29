@@ -1,0 +1,71 @@
+# Principles
+
+The rules That One UI is built around.
+If something feels off about a component you downloaded, one of these principles is probably why.
+
+## All props are adjustable
+
+Nothing inside a component is hardcoded.
+Every string, number, array, or node that renders must be a prop with a default value.
+Defaults exist only so the component renders meaningfully with zero configuration — they are not the identity of the component.
+
+**Do:**
+```tsx
+export function UICheckbox({
+  label = "Accept terms and conditions",
+  size = "md",
+}: Props) { ... }
+```
+
+**Don't:**
+```tsx
+export function UICheckbox() {
+  return <label>Accept terms and conditions <Checkbox /></label>;
+}
+```
+
+A consumer must always be able to override any visible value.
+
+## styleConfig changes style only
+
+A custom `styleConfig` replaces Tailwind class strings.
+It must never affect prop shape, default values, or component behavior.
+The full prop API is identical regardless of which style is imported.
+
+Swapping from `defaultStyle` to `glassStyle` changes every visual detail — colors, borders, shadows, radius — and nothing else.
+Props, defaults, and accessibility stay exactly the same.
+
+## Type ownership lives in styles/default.ts
+
+Types shared between `styles/default.ts` and `Component.tsx` (like `ButtonVariant` or `ButtonSize`) are defined in `styles/default.ts` and re-exported from `Component.tsx`.
+
+Never import from `Component.tsx` inside `styles/default.ts` — that creates a circular dependency.
+
+```ts
+// styles/default.ts — defines the types
+export type ButtonVariant = "solid" | "outline" | "ghost";
+export type ButtonStyleConfig = { variants: Record<ButtonVariant, string> };
+
+// Component.tsx — re-exports them for consumers
+export type { ButtonVariant, ButtonStyleConfig } from "./styles/default";
+```
+
+## Component.tsx is the single source of truth
+
+There are no `Preview.tsx` wrapper files.
+`Component.tsx` is what renders in every preview surface — listing cards, detail viewer, PropExplorer.
+Default props on `Component.tsx` define what the preview shows.
+No separate demo file.
+
+## You own it
+
+Once you download a component it is yours.
+There is no version to upgrade, no breaking change to absorb, no upstream dependency to track.
+Edit the file however you want.
+The component's job is to give you a working, production-ready starting point — not to stay in sync with this library.
+
+## Accessibility is non-negotiable
+
+All interactive components are built on [Base UI](https://base-ui.com) primitives.
+ARIA roles, keyboard navigation, and focus management come from Base UI — they are not optional, not overridable, and not something you need to implement yourself.
+The `styleConfig` only touches visual classes; it cannot remove accessible behavior.
