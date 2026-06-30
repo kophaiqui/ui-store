@@ -94,10 +94,34 @@ export default function IntroductionPage() {
         <p className="mb-3 text-[0.6875rem] font-bold uppercase tracking-widest text-muted-foreground/40">
           Getting started
         </p>
-        <h1 className="mb-4 text-4xl font-bold tracking-tight text-foreground">Introduction</h1>
-        <p className="text-[1.0625rem] leading-relaxed text-muted-foreground">
-          That One UI is a design resource platform — components, color systems, and typography tools — built for developers who want to move fast without starting from scratch.
+        <p className="mb-2 text-[0.9375rem] font-medium text-muted-foreground/60">
+          Not another UI library. A pre-start design system for developers.
         </p>
+        <h1 className="mb-4 text-4xl font-bold tracking-tight text-foreground">Introduction</h1>
+        <p className="mb-3 text-[1.0625rem] leading-relaxed text-muted-foreground">
+          Most UI libraries start with components. That One UI starts before that.
+        </p>
+        <p className="text-[1.0625rem] leading-relaxed text-muted-foreground">
+          It&apos;s a copy-paste design system — components, color tokens, typography, and style presets — that lives inside your codebase from day one. No package to install. No black-box runtime. You own the code.
+        </p>
+      </div>
+
+      {/* Why it's different */}
+      <div className="mb-12 space-y-2">
+        {[
+          { title: "Foundation first", body: "Tokens, typography, and styles are ready before your first component." },
+          { title: "Own your code", body: "No black-box runtime, no locked-in abstraction. Copy it in and it's yours." },
+          { title: "Swap styles without touching logic", body: "One prop changes the entire visual layer — props, behavior, and accessibility stay the same." },
+          { title: "Consistent by default", body: "Every component shares the same tokens and visual language." },
+          { title: "Built to evolve", body: "Change your brand, extend a component, or drop one entirely without rewriting anything." },
+        ].map(({ title, body }) => (
+          <div key={title} className="flex items-start gap-3 rounded-lg border border-border/40 bg-card/20 px-4 py-3">
+            <span className="mt-[3px] h-1.5 w-1.5 shrink-0 rounded-full bg-violet-400" />
+            <p className="text-[0.9375rem] leading-relaxed text-muted-foreground">
+              <span className="font-semibold text-foreground">{title}</span> — {body}
+            </p>
+          </div>
+        ))}
       </div>
 
       {/* Quick links */}
