@@ -17,13 +17,29 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const SITE_URL = "https://that-one-ui.vercel.app";
+const SITE_DESCRIPTION =
+  "The UI library you keep coming back to. One accessible component, many complete styles — copy the source or download the file.";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "That One UI",
     template: "%s — That One UI",
   },
-  description:
-    "The UI library you keep coming back to. Beautiful designs, motion-ready, copy-paste.",
+  description: SITE_DESCRIPTION,
+  openGraph: {
+    type: "website",
+    siteName: "That One UI",
+    url: SITE_URL,
+    title: "That One UI",
+    description: SITE_DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "That One UI",
+    description: SITE_DESCRIPTION,
+  },
 };
 
 export default function RootLayout({
