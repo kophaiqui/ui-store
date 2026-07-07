@@ -40,6 +40,7 @@ export default function HomePage() {
   const styleEntries = Object.entries(styles).sort(([a], [b]) =>
     a === "default" ? -1 : b === "default" ? 1 : 0
   );
+  const styleCount = styleEntries.length;
 
   return (
     <>
@@ -59,7 +60,7 @@ export default function HomePage() {
             <div>
               <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-violet-500/30 dark:border-violet-400/30 bg-violet-500/[0.07] dark:bg-violet-400/[0.08] px-3.5 py-1.5 text-xs font-medium text-violet-700 dark:text-violet-400">
                 <span className="h-1.5 w-1.5 rounded-full bg-violet-500 dark:bg-violet-400" />
-                {total} components · 11 styles
+                {total} components · {styleCount} styles
               </div>
 
               <h1 className="mb-6 text-[3.25rem] font-bold leading-[1.04] tracking-tight sm:text-6xl lg:text-[4rem]">
@@ -97,7 +98,7 @@ export default function HomePage() {
                 </span>
                 <span className="flex items-center gap-2">
                   <span className="h-px w-5 bg-blue-700 dark:bg-blue-300" />
-                  11 styles
+                  {styleCount} styles
                 </span>
               </div>
             </div>
@@ -181,7 +182,7 @@ export default function HomePage() {
                 Style system
               </p>
               <h2 className="text-2xl font-semibold tracking-tight">
-                11 styles.{" "}
+                {styleCount} styles.{" "}
                 <span className="text-muted-foreground/40">One component.</span>
               </h2>
             </div>
@@ -202,6 +203,25 @@ export default function HomePage() {
           </p>
 
           <StyleCarousel styleIds={styleEntries.map(([id]) => id)} />
+        </div>
+      </section>
+
+      {/* ── Why this exists ──────────────────────────────────────────── */}
+      <section className="border-t border-border/40 px-6 py-20">
+        <div className="mx-auto max-w-2xl">
+          <p className="mb-6 text-[0.6875rem] font-semibold uppercase tracking-widest text-muted-foreground/40">
+            Why this exists
+          </p>
+          <p className="mb-5 text-xl leading-relaxed tracking-tight text-foreground sm:text-2xl">
+            I have loved UI since my first line of web code. The button that
+            presses back. The palette that changes a page&apos;s whole mood. The
+            two hours that vanish while a shadow moves two pixels.
+          </p>
+          <p className="text-[0.9375rem] leading-relaxed text-muted-foreground">
+            This site is that love, collected: every component built by hand,
+            styled eleven times over, and given away. If you care a little too
+            much about how things feel, you&apos;re in the right place.
+          </p>
         </div>
       </section>
 

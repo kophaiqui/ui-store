@@ -1,20 +1,37 @@
 # Introduction
 
-Not another UI library.
-A pre-start design system for developers who want to ship without rebuilding the same foundation every time.
+I have loved building interfaces since my first line of web code.
+Not the databases, not the deploy pipelines - the surface.
+The way a button presses back when you click it.
+The way one palette can make the same layout feel calm, loud, retro, or cold.
+The two hours that disappear while you nudge a shadow by two pixels until it finally feels right.
 
-**That One UI** is not a package you install.
-It is a copy-paste collection of components, color tokens, typography, and style presets that live inside your codebase — owned by you from day one.
+**That One UI** is that love, collected into one place.
+
+It is not a package you install.
+It is a copy-paste collection of components, color tokens, typography, and style presets that live inside your codebase - owned by you from day one.
 
 Most UI libraries start with components.
 That One UI starts before that.
 
+## Why this exists
+
+Every project I ever started began the same way: rebuilding the same foundation.
+Colors, a type scale, dark mode, a button that feels good to press.
+The libraries I reached for gave me components, but never the feeling - the visual soul was always someone else's, or missing entirely.
+
+So I built the place I wished existed.
+The foundation is ready before your first component, and the same checkbox can wear eleven different souls.
+Every component here was written, styled, and re-styled by hand - because the surface is not the shallow part.
+
+If you have ever cared a little too much about how an interface feels, this site is for you.
+
 ## What it is
 
-- **21 components** built on [Base UI](https://base-ui.com) primitives — accessible, unstyled at the core
-- **11 styles per component** via a `styleConfig` prop — swap the visual layer without touching logic
-- **Tailwind CSS** for all styling — works with any Tailwind project out of the box
-- **TypeScript-first** — every component is fully typed, including the style config
+- **The full component set** built on [Base UI](https://base-ui.com) primitives - accessible, unstyled at the core
+- **Multiple styles per component** via a `styleConfig` prop - swap the visual layer without touching logic
+- **Tailwind CSS** for all styling - works with any Tailwind project out of the box
+- **TypeScript-first** - every component is fully typed, including the style config
 
 ## The styleConfig pattern
 
@@ -29,19 +46,24 @@ import { glassStyle } from "./styles/glass";
 </UIButton>
 ```
 
-The config is a plain object of Tailwind class strings. Swapping it changes every visual detail — colors, borders, shadows, radius — while the component's props, behavior, and accessibility stay exactly the same.
+The config is a plain object of Tailwind class strings.
+Swapping it changes every visual detail - colors, borders, shadows, radius - while the component's props, behavior, and accessibility stay exactly the same.
 
 ## All props are adjustable
 
-Nothing is hardcoded. Every default value — labels, placeholder text, items arrays — is a prop you can override. Defaults exist only so the component renders meaningfully with zero configuration.
+Nothing is hardcoded.
+Every default value - labels, placeholder text, items arrays - is a prop you can override.
+Defaults exist only so the component renders meaningfully with zero configuration.
 
 ## Built on Base UI
 
-[Base UI](https://base-ui.com) is the headless primitive layer built by the MUI team. It handles ARIA, keyboard navigation, focus management, and accessibility so you don't have to. That One UI adds the visual layer on top.
+[Base UI](https://base-ui.com) is the headless primitive layer built by the MUI team.
+It handles ARIA, keyboard navigation, focus management, and accessibility so you don't have to.
+That One UI adds the visual layer on top.
 
 ## A different idea
 
-Most component libraries drop you at the component level and leave you to figure out the foundation — color tokens, typography scale, dark mode, a visual language that doesn't feel patched together.
+Most component libraries drop you at the component level and leave you to figure out the foundation - color tokens, typography scale, dark mode, a visual language that doesn't feel patched together.
 
 That One UI ships the foundation.
 Colors, fonts, motion patterns, and style presets are ready before you write your first component.
@@ -51,8 +73,8 @@ No setup. No config. No package to maintain.
 Just a clear picture of your UI before it exists.
 
 **Why it's different:**
-- Foundation first — tokens, typography, and styles are ready before your first component
-- Own your code — no black-box runtime, no locked-in abstraction
-- Swap styles without touching logic — one prop changes the entire visual layer
-- Consistent by default — every component shares the same tokens and language
-- Built to evolve — change your brand, extend a component, or drop one entirely without rewriting anything
+- Foundation first - tokens, typography, and styles are ready before your first component
+- Own your code - no black-box runtime, no locked-in abstraction
+- Swap styles without touching logic - one prop changes the entire visual layer
+- Consistent by default - every component shares the same tokens and language
+- Built to evolve - change your brand, extend a component, or drop one entirely without rewriting anything

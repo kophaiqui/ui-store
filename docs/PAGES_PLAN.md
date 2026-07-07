@@ -1,5 +1,9 @@
 # Pages Plan — Home & Docs Rebuild
 
+> **Historical.** This plan captured the home/docs rebuild when the library had 21 components.
+> It has been superseded — current planning lives in `docs/plans/` (`ROADMAP.md` for order, the numbered plans for detail).
+> Kept for reference; counts and route names here are point-in-time, not current.
+
 ## Decision: What gets built now vs later
 
 ### Home Page

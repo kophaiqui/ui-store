@@ -2,21 +2,43 @@
 
 > The UI library you keep coming back to.
 
-A curated collection of beautiful, motion-ready UI designs. Not another component library — this is a design library. Every entry is a distinct take on a familiar element: a button, a card, an input. Same HTML, different soul.
+**Live:** https://that-one-ui.vercel.app
 
-Pick a design. Copy the code. Ship it.
+A static, copy-paste UI resource.
+Every component is one accessible primitive that renders in many complete visual styles — swap the look without touching the logic.
+Pick a component, pick a style, copy the source or download the file. Ship it.
+
+No install, no account, no database.
+Everything is JSON plus source code, statically generated.
 
 ---
 
-## What makes it different
+## The idea: one component, many styles
 
-Most UI libraries give you a `<Button>`. We give you ten buttons — each with its own personality, motion, and visual style. You're not here for API docs. You're here because you saw something that looked good and want it in your project in 30 seconds.
+A component's behavior and its appearance are separated.
+Each component takes a `styleConfig` prop that holds nothing but Tailwind class strings.
+Importing a different style swaps those strings — the prop API, defaults, and behavior stay identical.
 
-- **Design-first** — organized by category, each category has many distinct visual designs
-- **Motion-ready** — hover effects, entrance animations, cursor interactions built in
-- **Copy-paste** — no install required, just grab the source from the Code tab
-- **Dark + light** — everything works in both modes
-- **Zero database** — all content is JSON + source code, statically generated
+```tsx
+import { UIButton } from "@/designs/inputs/button/Component";
+import { terminalStyle } from "@/designs/inputs/button/styles/terminal";
+
+<UIButton styleConfig={terminalStyle} variant="solid">Deploy</UIButton>
+```
+
+A **style** is meant to be a whole world — tokens, and over time fonts and motion — not just a recolor.
+Eight styles are available today (default, glass, minimal, neobrutalism, neumorphism, gradient, retro, terminal); more are marked coming-soon in the registry.
+
+---
+
+## What's on the site
+
+- **Components** — every component, browsable by category, each with a live preview, prop explorer, and copyable source
+- **Styles** — each style as its own page, applied across the library
+- **Colors** — palette and brand-color explorers
+- **Fonts** — a catalogued type reference
+- **Motion** — reusable animation patterns
+- **Docs** — MDX guides and a changelog
 
 ---
 
@@ -27,8 +49,8 @@ Most UI libraries give you a `<Button>`. We give you ten buttons — each with i
 | Framework | Next.js 16 (App Router) |
 | Language | TypeScript |
 | Styling | Tailwind CSS v4 |
-| Components | shadcn/ui (base-ui) |
-| Animation | Motion (formerly Framer Motion) |
+| Primitives | Base UI (`@base-ui/react`) |
+| Animation | Motion |
 | Docs | MDX |
 | Theme | next-themes |
 | Deploy | Vercel |
@@ -39,35 +61,37 @@ Most UI libraries give you a `<Button>`. We give you ten buttons — each with i
 
 ```
 designs/
-├── buttons/
-│   ├── neon-button/      ← Preview.tsx + meta.json
-│   ├── shimmer-button/
-│   └── magnetic-button/
-└── cards/
-    ├── glass-card/
-    └── tilt-card/
+  {category}/                 inputs, feedback, navigation, data-display
+    {slug}/
+      Component.tsx           the installable component (also the preview)
+      styles/
+        default.ts            StyleConfig type + default Tailwind classes
+        terminal.ts, ...      one file per available style
 
 registry/
-├── designs.json          ← source of truth for the library
-├── fonts.json
-└── components.json
+  designs.json               component metadata: name, category, tags, props, usage
+  styles.json                style metadata: tagline, accent, status
+  fonts.json, motion.json    font and motion catalogues
 
-app/
-├── page.tsx              ← landing page
-├── library/              ← browsable grid with category tabs
-└── design/[slug]/        ← individual design (preview + code)
+app/                         App Router pages (components, style, colors, fonts, motion, documents)
+components/                  shared UI and layout (viewer, prop explorer, sidebar, ...)
+content/docs/                MDX documentation
+lib/registry/               typed accessors over the JSON registry
 ```
+
+There are no `Preview.tsx` wrappers.
+`Component.tsx` is the single source of truth — it is loaded directly in every preview surface, and its default props define what the preview shows.
 
 ---
 
-## Adding a new design
+## Adding a component
 
-1. Create the folder: `designs/<category>/<slug>/`
-2. Add `Preview.tsx` — the component itself, self-contained
-3. Add `meta.json` — slug, name, category
-4. Register it in `registry/designs.json`
+1. Create `designs/<category>/<slug>/Component.tsx` — every rendered string, number, and node is exposed as a prop with a default.
+2. Create `designs/<category>/<slug>/styles/default.ts` — it owns the `StyleConfig` type and the default Tailwind classes; `Component.tsx` re-exports the shared types.
+3. Register the component in `registry/designs.json`.
 
-That's it. The page generates automatically.
+The page generates automatically.
+See `AGENTS.md` for the full component rules.
 
 ---
 
@@ -78,16 +102,19 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open http://localhost:3000.
 
----
-
-## Deploying
-
-Push to GitHub, import into Vercel. No environment variables needed.
+| Script | Does |
+|---|---|
+| `npm run dev` | Start the dev server |
+| `npm run build` | Production build |
+| `npm run lint` | ESLint |
+| `npm run props` | Regenerate component prop metadata |
+| `npm run licenses` | Regenerate third-party license list |
 
 ---
 
 ## License
 
-MIT. Take the designs, make them yours.
+MIT — see [LICENSE](./LICENSE).
+Take the designs, make them yours.
