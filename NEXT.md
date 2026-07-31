@@ -15,7 +15,7 @@ Detail lives in `docs/plans/` if needed. This file is the only one you must open
 
 ## NEXT - depth (phase 1)
 
-- [ ] style audit: default + glass + minimal + neobrutalism + neumorphism + gradient done (all clean), 2 of 8 columns left (retro, terminal) in docs/audits/STYLE_AUDIT.md. reusable helper: scripts/audit-style-screenshots.mjs <style> <outDir> (dev server must be running)
+- [x] style audit: all 8 available styles x 38 components x light/dark checked in docs/audits/STYLE_AUDIT.md. zero bugs found. reusable helper: scripts/audit-style-screenshots.mjs <style> <outDir>
 - [ ] fix logged bugs, one style batch at a time
 - [x] scripts/validate-registry.mjs + npm run validate (checks file existence, registry props vs Component.tsx Props type, companion targets, underscore-prop leaks into usage snippets - passes clean on all 38. not yet wired into a pre-commit hook or CI, that's still open)
 - [ ] cmd+k search (dogfood own command component)
