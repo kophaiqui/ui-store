@@ -30,6 +30,8 @@ export type MotionMeta = {
   path: string;
   category: string;
   tags: string[];
+  props?: PropDef[];
+  usage?: UsageExample[];
 };
 
 export type PropDef = {

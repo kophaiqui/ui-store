@@ -4,13 +4,174 @@
     "description": "Simple opacity entrance animation.",
     "path": "/motion/fade-in",
     "category": "entrance",
-    "tags": ["fade", "opacity", "entrance"]
+    "tags": ["fade", "opacity", "entrance"],
+    "props": [
+      { "name": "duration", "type": "number", "default": "0.4", "description": "Animation length in seconds" },
+      { "name": "delay", "type": "number", "default": "0", "description": "Delay before starting, in seconds" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<FadeIn>\n  <Card />\n</FadeIn>" },
+      { "label": "Delayed", "code": "<FadeIn delay={0.2} duration={0.6}>\n  <Card />\n</FadeIn>" }
+    ]
+  },
+  "slide-up": {
+    "title": "Slide Up",
+    "description": "Entrance that slides content up while fading in.",
+    "path": "/motion/slide-up",
+    "category": "entrance",
+    "tags": ["slide", "entrance"],
+    "props": [
+      { "name": "distance", "type": "number", "default": "24", "description": "Starting offset in pixels" },
+      { "name": "duration", "type": "number", "default": "0.4", "description": "Animation length in seconds" },
+      { "name": "delay", "type": "number", "default": "0", "description": "Delay before starting, in seconds" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<SlideUp>\n  <Card />\n</SlideUp>" },
+      { "label": "Longer distance", "code": "<SlideUp distance={48}>\n  <Card />\n</SlideUp>" }
+    ]
+  },
+  "scale-in": {
+    "title": "Scale In",
+    "description": "Entrance that scales content up from slightly smaller, with an optional spring overshoot.",
+    "path": "/motion/scale-in",
+    "category": "entrance",
+    "tags": ["scale", "entrance", "spring"],
+    "props": [
+      { "name": "from", "type": "number", "default": "0.9", "description": "Starting scale (1 = full size)" },
+      { "name": "overshoot", "type": "boolean", "default": "false", "description": "Use a springy overshoot instead of an eased tween" },
+      { "name": "duration", "type": "number", "default": "0.35", "description": "Animation length in seconds (ignored when overshoot is true)" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<ScaleIn>\n  <Card />\n</ScaleIn>" },
+      { "label": "With overshoot", "code": "<ScaleIn overshoot>\n  <Card />\n</ScaleIn>" }
+    ]
+  },
+  "blur-in": {
+    "title": "Blur In",
+    "description": "Entrance that resolves from blurred to sharp while fading in. Glass world's signature entrance.",
+    "path": "/motion/blur-in",
+    "category": "entrance",
+    "tags": ["blur", "entrance", "glass"],
+    "props": [
+      { "name": "blur", "type": "number", "default": "8", "description": "Starting blur radius in pixels" },
+      { "name": "duration", "type": "number", "default": "0.5", "description": "Animation length in seconds" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<BlurIn>\n  <Card />\n</BlurIn>" }
+    ]
+  },
+  "stagger-children": {
+    "title": "Stagger Children",
+    "description": "Entrance for a list or grid where each child animates in slightly after the previous one.",
+    "path": "/motion/stagger-children",
+    "category": "entrance",
+    "tags": ["stagger", "list", "entrance"],
+    "props": [
+      { "name": "items", "type": "string[]", "default": "[\"One\", \"Two\", \"Three\", \"Four\"]", "description": "Labels to render as list items" },
+      { "name": "stagger", "type": "number", "default": "0.08", "description": "Delay between each child's start, in seconds" },
+      { "name": "childDelay", "type": "number", "default": "0", "description": "Delay before the first child starts" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<StaggerChildren items={[\"Alice\", \"Bob\", \"Carol\"]} />" }
+    ]
   },
   "hover-lift": {
     "title": "Hover Lift",
     "description": "Subtle lift effect on hover with shadow.",
     "path": "/motion/hover-lift",
     "category": "interaction",
-    "tags": ["hover", "lift", "interaction"]
+    "tags": ["hover", "lift", "interaction"],
+    "props": [
+      { "name": "lift", "type": "number", "default": "4", "description": "Vertical rise in pixels on hover" },
+      { "name": "duration", "type": "number", "default": "0.2", "description": "Transition length in seconds" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<HoverLift>\n  <Card />\n</HoverLift>" }
+    ]
+  },
+  "hover-glow": {
+    "title": "Hover Glow",
+    "description": "Soft colored glow that appears on hover. Gradient world's signature interaction.",
+    "path": "/motion/hover-glow",
+    "category": "interaction",
+    "tags": ["hover", "glow", "interaction", "gradient"],
+    "props": [
+      { "name": "glowColor", "type": "string", "default": "\"#8b5cf6\"", "description": "Glow color as a hex string" },
+      { "name": "intensity", "type": "number", "default": "0.5", "description": "Glow strength, 0 to 1" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<HoverGlow>\n  <Card />\n</HoverGlow>" },
+      { "label": "Custom color", "code": "<HoverGlow glowColor=\"#22c55e\" intensity={0.7}>\n  <Card />\n</HoverGlow>" }
+    ]
+  },
+  "press": {
+    "title": "Press",
+    "description": "Scale-down tap feedback for buttons and other pressable elements.",
+    "path": "/motion/press",
+    "category": "interaction",
+    "tags": ["press", "tap", "interaction"],
+    "props": [
+      { "name": "scale", "type": "number", "default": "0.96", "description": "Scale while pressed, 0 to 1" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<Press>\n  <button>Click me</button>\n</Press>" }
+    ]
+  },
+  "magnetic": {
+    "title": "Magnetic",
+    "description": "Element gently pulls toward the cursor as it moves nearby.",
+    "path": "/motion/magnetic",
+    "category": "interaction",
+    "tags": ["magnetic", "cursor", "interaction"],
+    "props": [
+      { "name": "strength", "type": "number", "default": "0.3", "description": "How far the element follows the cursor, 0 to 1" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<Magnetic>\n  <button>Move near me</button>\n</Magnetic>" }
+    ]
+  },
+  "shake": {
+    "title": "Shake",
+    "description": "Horizontal shake for invalid or error feedback.",
+    "path": "/motion/shake",
+    "category": "feedback",
+    "tags": ["shake", "error", "invalid", "feedback"],
+    "props": [
+      { "name": "distance", "type": "number", "default": "8", "description": "Shake amplitude in pixels" },
+      { "name": "duration", "type": "number", "default": "0.4", "description": "Total shake length in seconds" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<Shake>\n  <Field error />\n</Shake>" }
+    ]
+  },
+  "success-pop": {
+    "title": "Success Pop",
+    "description": "A checkmark that draws in and pops, for success feedback.",
+    "path": "/motion/success-pop",
+    "category": "feedback",
+    "tags": ["success", "check", "feedback"],
+    "props": [
+      { "name": "size", "type": "number", "default": "56", "description": "Diameter of the badge in pixels" },
+      { "name": "duration", "type": "number", "default": "0.4", "description": "Checkmark draw length in seconds" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<SuccessPop />" },
+      { "label": "Larger", "code": "<SuccessPop size={80} />" }
+    ]
+  },
+  "collapse": {
+    "title": "Collapse",
+    "description": "Height-auto expand/collapse transition, the same technique an accordion uses.",
+    "path": "/motion/collapse",
+    "category": "transition",
+    "tags": ["collapse", "accordion", "height", "transition"],
+    "props": [
+      { "name": "label", "type": "string", "default": "\"Toggle details\"", "description": "Trigger button label" },
+      { "name": "content", "type": "string", "default": "\"This content animates...\"", "description": "Text shown when expanded" },
+      { "name": "duration", "type": "number", "default": "0.3", "description": "Expand/collapse length in seconds" }
+    ],
+    "usage": [
+      { "label": "Default", "code": "<Collapse label=\"Show more\" content=\"Extra detail here.\" />" }
+    ]
   }
 }

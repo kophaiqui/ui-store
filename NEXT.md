@@ -34,7 +34,13 @@ Detail lives in `docs/plans/` if needed. This file is the only one you must open
 - phase 3: 12 motions, 3 templates, world switcher demo, all worlds
 - phase 4: tell people
 
-**2026-08-01: explicit user override** - user asked to jump straight to plans 03-07 (theme configurator, motion, templates, people, agent-friendly) out of the normal phase order. Working through them in dependency order (07 done, 04 next, then 03, then 05, then 06) rather than declining - noting it here so a future session understands why phase order was skipped once.
+**2026-08-01: explicit user override** - user asked to jump straight to plans 03-07 (theme configurator, motion, templates, people, agent-friendly) out of the normal phase order. Working through them in dependency order rather than declining - noting it here so a future session understands why phase order was skipped once.
+
+- [x] plan 07 (agent-friendly): llms.txt, llms-full.txt, Copy for AI button, /documents/use-with-ai doc page. MCP + CLI stay in the parking lot.
+- [x] plan 04 (motion library): grew motion.json from 2 to 12 real patterns (entrance: fade-in, slide-up, scale-in, blur-in, stagger-children · interaction: hover-lift, hover-glow, press, magnetic · feedback: shake, success-pop · transition: collapse). Each is a self-contained file in `motion/` with props+defaults, matching the component convention. Live preview + replay + download + copy-for-ai on /motion/[slug], real listing on /motion. World-dependent tasks (per-world motion presets, world switcher demo) skipped - depend on plan 00 which is out of scope for this pass.
+- [ ] plan 03 (theme configurator) - next
+- [ ] plan 05 (templates) - needs navbar/hero-section/pricing-card components first
+- [ ] plan 06 (people) - mostly non-code (social posts, repo-public decision); will only build the code-adjacent parts (feedback link, analytics check)
 
 ## RULES (for the ADHD brain, with love)
 
