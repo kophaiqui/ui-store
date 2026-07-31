@@ -293,6 +293,117 @@ export function adaptForMode(hex: string, dark: boolean): string {
   return hslToHex(h, s, newL);
 }
 
+export function contrastRatio(hexA: string, hexB: string): number {
+  const l1 = luminance(hexA);
+  const l2 = luminance(hexB);
+  const lighter = Math.max(l1, l2);
+  const darker = Math.min(l1, l2);
+  return (lighter + 0.05) / (darker + 0.05);
+}
+
+/** Nudges fg's lightness toward black/white (whichever direction bg needs) until it passes WCAG AA (4.5:1). */
+export function ensureContrastFg(bgHex: string, fgHex: string, min = 4.5): { hex: string; wasNudged: boolean } {
+  if (contrastRatio(bgHex, fgHex) >= min) return { hex: fgHex, wasNudged: false };
+  const [h, s, l] = hexToHSL(fgHex);
+  const goDarker = luminance(bgHex) > 0.5;
+  let candidate = l;
+  for (let i = 0; i < 20; i++) {
+    candidate = goDarker ? Math.max(candidate - 5, 0) : Math.min(candidate + 5, 100);
+    const candidateHex = hslToHex(h, s, candidate);
+    if (contrastRatio(bgHex, candidateHex) >= min) return { hex: candidateHex, wasNudged: true };
+    if (candidate === 0 || candidate === 100) break;
+  }
+  return { hex: hslToHex(h, s, goDarker ? 0 : 100), wasNudged: true };
+}
+
+/** Nudges every background/foreground pair in a token set to meet WCAG AA, returning which keys changed. */
+export function nudgeForContrast(tokens: DP): { tokens: DP; nudged: string[] } {
+  const pairs: [string, string][] = [
+    ["background", "foreground"],
+    ["card", "card-foreground"],
+    ["popover", "popover-foreground"],
+    ["primary", "primary-foreground"],
+    ["secondary", "secondary-foreground"],
+    ["accent", "accent-foreground"],
+  ];
+  const out = { ...tokens };
+  const nudged: string[] = [];
+  for (const [bgKey, fgKey] of pairs) {
+    const bg = out[bgKey];
+    const fg = out[fgKey];
+    if (!bg || !fg) continue;
+    const { hex, wasNudged } = ensureContrastFg(bg, fg);
+    if (wasNudged) {
+      out[fgKey] = hex;
+      nudged.push(fgKey);
+    }
+  }
+  return { tokens: out, nudged };
+}
+
+/** Light-mode token set derived from one brand color — the `:root` counterpart to `deriveDemoPalette`'s dark set. */
+export function deriveLightTokens(hex: string): Record<string, string> {
+  const [h, s] = hexToHSL(hex);
+  const sat = Math.max(s, 35);
+  const fg = hslToHex(h, Math.round(sat * 0.08), 12);
+  const subtleFg = hslToHex(h, Math.round(sat * 0.1), 20);
+  return {
+    background: hslToHex(h, Math.round(sat * 0.05), 99),
+    foreground: fg,
+    card: hslToHex(h, Math.round(sat * 0.03), 100),
+    "card-foreground": fg,
+    popover: hslToHex(h, Math.round(sat * 0.03), 100),
+    "popover-foreground": fg,
+    primary: hex,
+    "primary-foreground": contrastColor(hex),
+    secondary: hslToHex(h, Math.round(sat * 0.15), 95),
+    "secondary-foreground": subtleFg,
+    accent: hslToHex(h, Math.round(sat * 0.18), 94),
+    "accent-foreground": subtleFg,
+    muted: hslToHex(h, Math.round(sat * 0.1), 96),
+    "muted-foreground": hslToHex(h, Math.round(sat * 0.1), 44),
+    border: hslToHex(h, Math.round(sat * 0.12), 90),
+    input: hslToHex(h, Math.round(sat * 0.12), 90),
+    ring: hex,
+    destructive: hslToHex(4, 75, 50),
+    "chart-1": hex,
+    "chart-2": hslToHex(h + 40, sat, 55),
+    "chart-3": hslToHex(h + 80, sat, 47),
+    "chart-4": hslToHex(h + 160, sat, 55),
+    "chart-5": hslToHex(h + 220, sat, 55),
+  };
+}
+
+/** Both mode token sets for one brand color, with WCAG AA contrast nudging applied. */
+export function deriveThemeTokens(hex: string): { light: DP; dark: DP; nudgedLight: string[]; nudgedDark: string[] } {
+  const lightRaw = deriveLightTokens(hex);
+  const darkRaw = deriveDemoPalette(hex);
+  const { tokens: light, nudged: nudgedLight } = nudgeForContrast(lightRaw);
+  const { tokens: dark, nudged: nudgedDark } = nudgeForContrast(darkRaw);
+  return { light, dark, nudgedLight, nudgedDark };
+}
+
+const TOKEN_KEY_ORDER = [
+  "background", "foreground", "card", "card-foreground", "popover", "popover-foreground",
+  "primary", "primary-foreground", "secondary", "secondary-foreground",
+  "accent", "accent-foreground", "muted", "muted-foreground",
+  "border", "input", "ring", "destructive",
+  "chart-1", "chart-2", "chart-3", "chart-4", "chart-5",
+];
+
+/** Formats a light+dark token pair as a paste-ready `:root { } .dark { }` CSS block. */
+export function formatCSSVariables(light: DP, dark: DP): string {
+  const block = (tokens: DP) =>
+    TOKEN_KEY_ORDER.filter((k) => tokens[k]).map((k) => `  --${k}: ${tokens[k]};`).join("\n");
+  return `:root {\n${block(light)}\n}\n\n.dark {\n${block(dark)}\n}`;
+}
+
+/** The invariant Tailwind v4 `@theme inline` mapping — same for every generated theme, paste once. */
+export function formatTailwindTheme(): string {
+  const lines = TOKEN_KEY_ORDER.map((k) => `  --color-${k}: var(--${k});`).join("\n");
+  return `@theme inline {\n${lines}\n}`;
+}
+
 export function deriveDemoPalette(hex: string): Record<string, string> {
   const [h, s, l] = hexToHSL(hex);
   const sat = Math.max(s, 35);

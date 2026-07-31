@@ -1,0 +1,30 @@
+# Make it yours in 5 minutes
+
+Every component reads the same set of CSS variables — `--primary`, `--background`, `--border`, and so on. Change those variables and every installed component updates together, no per-component edits.
+
+## 1. Pick your brand color
+
+Open the [Theme Configurator](/colors/configurator) and pick one color — a hex value, a picker, or one of the presets. That single color drives the whole token set: backgrounds, borders, muted surfaces, even the 5 chart colors, all derived from its hue.
+
+## 2. See it on real components
+
+The preview panel isn't a mockup — it's the actual `UIButton`, `UICard`, `UIInput`, `UIBadge`, `UITabs`, and `UIAlert` components from this library, wrapped in a container that sets your generated tokens as CSS variables. Toggle Light/Dark to check both modes before you commit.
+
+If a foreground/background pair fails WCAG AA contrast, the configurator nudges its lightness automatically and tells you which tokens it touched.
+
+## 3. Copy the block
+
+Two output formats:
+
+- **CSS variables** — a ready-to-paste `:root { }` / `.dark { }` block
+- **Tailwind v4 `@theme`** — the `--color-*: var(--*)` mapping Tailwind needs to turn those variables into utility classes like `bg-primary`
+
+Paste the CSS variables block into your `globals.css`. If you're starting a fresh Tailwind v4 project, paste the `@theme` block too — this project's own `globals.css` already has it, so you'd only need it once per project, not once per theme.
+
+## 4. Install a component
+
+Grab any component's source (Download button, or [Copy for AI](/documents/use-with-ai) if you're working with an agent) and drop it in. It reads `bg-primary`, `text-foreground`, `border-border` — the same tokens you just pasted — so it matches immediately, no configuration.
+
+## 5. Done
+
+Refresh your project. Every component wearing the default style now speaks your brand's color, in both modes.

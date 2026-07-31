@@ -3,12 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { LayoutGrid, Braces, Pipette, Palette, Lightbulb, Bookmark } from "lucide-react";
+import { LayoutGrid, Braces, Pipette, Palette, Lightbulb, Bookmark, Wand2 } from "lucide-react";
 
 const TABS = [
   { label: "Overview",       href: "/colors",             Icon: LayoutGrid },
   { label: "Base tokens",    href: "/colors/base",        Icon: Braces     },
   { label: "Your colors",    href: "/colors/maincolor",   Icon: Pipette    },
+  { label: "Theme configurator", href: "/colors/configurator", Icon: Wand2 },
   { label: "Style palettes", href: "/colors/styles",      Icon: Palette    },
   { label: "Inspiration",    href: "/colors/inspiration", Icon: Lightbulb  },
   { label: "Collection",     href: "/colors/collection",  Icon: Bookmark   },

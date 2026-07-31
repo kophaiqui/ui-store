@@ -38,7 +38,7 @@ Detail lives in `docs/plans/` if needed. This file is the only one you must open
 
 - [x] plan 07 (agent-friendly): llms.txt, llms-full.txt, Copy for AI button, /documents/use-with-ai doc page. MCP + CLI stay in the parking lot.
 - [x] plan 04 (motion library): grew motion.json from 2 to 12 real patterns (entrance: fade-in, slide-up, scale-in, blur-in, stagger-children · interaction: hover-lift, hover-glow, press, magnetic · feedback: shake, success-pop · transition: collapse). Each is a self-contained file in `motion/` with props+defaults, matching the component convention. Live preview + replay + download + copy-for-ai on /motion/[slug], real listing on /motion. World-dependent tasks (per-world motion presets, world switcher demo) skipped - depend on plan 00 which is out of scope for this pass.
-- [ ] plan 03 (theme configurator) - next
+- [x] plan 03 (theme configurator): /colors/configurator - pick a brand color, see it live on real components (UIButton/UICard/UIInput/UIBadge/UITabs/UIAlert via CSS variable overrides on a wrapper div, no styleConfig plumbing needed), copy CSS variables or Tailwind v4 @theme block, download theme.css, per-token override panel. Token list reuses the already-frozen TOKEN_GROUPS from lib/colors/utils.ts (matches globals.css exactly). Added deriveLightTokens + WCAG AA contrast auto-nudge (lib/colors/utils.ts) alongside the existing deriveDemoPalette (dark). Docs guide at /documents/make-it-yours.
 - [ ] plan 05 (templates) - needs navbar/hero-section/pricing-card components first
 - [ ] plan 06 (people) - mostly non-code (social posts, repo-public decision); will only build the code-adjacent parts (feedback link, analytics check)
 
