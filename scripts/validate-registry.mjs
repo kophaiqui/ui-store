@@ -10,6 +10,7 @@ import path from "path";
 const root = process.cwd();
 const designs = JSON.parse(fs.readFileSync(path.join(root, "registry", "designs.json"), "utf8"));
 const styles = JSON.parse(fs.readFileSync(path.join(root, "registry", "styles.json"), "utf8"));
+const templates = JSON.parse(fs.readFileSync(path.join(root, "registry", "templates.json"), "utf8"));
 
 const availableStyles = Object.entries(styles)
   .filter(([, meta]) => meta.status === "available")
@@ -79,7 +80,8 @@ for (const [slug, meta] of Object.entries(designs)) {
     errors.push(`${slug}: missing styles/default.ts`);
   }
 
-  for (const styleId of availableStyles) {
+  const requiredStyles = meta.stylesOnly ?? availableStyles;
+  for (const styleId of requiredStyles) {
     if (styleId === "default") continue;
     const stylePath = path.join(dir, "styles", `${styleId}.ts`);
     if (!fs.existsSync(stylePath)) {
@@ -120,10 +122,22 @@ for (const [slug, meta] of Object.entries(designs)) {
   }
 }
 
+for (const [slug, meta] of Object.entries(templates)) {
+  for (const componentSlug of meta.components ?? []) {
+    if (!designs[componentSlug]) {
+      errors.push(`template "${slug}": component "${componentSlug}" not found in designs.json`);
+    }
+  }
+  const templateFile = path.join(root, "templates", slug, "Template.tsx");
+  if (!fs.existsSync(templateFile)) {
+    errors.push(`template "${slug}": missing templates/${slug}/Template.tsx`);
+  }
+}
+
 if (errors.length > 0) {
   console.error(`✗ ${errors.length} registry validation error(s):\n`);
   for (const e of errors) console.error(`  - ${e}`);
   process.exit(1);
 }
 
-console.log(`✓ registry valid — ${Object.keys(designs).length} components, ${availableStyles.length} available styles.`);
+console.log(`✓ registry valid — ${Object.keys(designs).length} components, ${availableStyles.length} available styles, ${Object.keys(templates).length} templates.`);

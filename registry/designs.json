@@ -9,7 +9,7 @@
       "action",
       "base-ui"
     ],
-    "description": "6 variants \u00b7 3 sizes \u00b7 3 shapes \u00b7 disabled + loading states. Built on Base UI's Button primitive.",
+    "description": "6 variants · 3 sizes · 3 shapes · disabled + loading states. Built on Base UI's Button primitive.",
     "preview": true,
     "props": [
       {
@@ -49,7 +49,7 @@
         "name": "iconOnly",
         "type": "boolean",
         "default": "false",
-        "description": "Show only the icon \u2014 hides the text label and forces square sizing. Use children for accessible screen-reader text.",
+        "description": "Show only the icon — hides the text label and forces square sizing. Use children for accessible screen-reader text.",
         "companions": {
           "icon": "auto"
         }
@@ -77,7 +77,7 @@
         "name": "loadingPosition",
         "type": "\"start\" | \"center\"",
         "default": "\"start\"",
-        "description": "Where the spinner appears \u2014 start prepends it beside the label, center hides the label and centers the spinner",
+        "description": "Where the spinner appears — start prepends it beside the label, center hides the label and centers the spinner",
         "companions": {
           "loading": "true"
         }
@@ -86,7 +86,7 @@
         "name": "pressed",
         "type": "boolean",
         "default": "undefined",
-        "description": "Toggle state for aria-pressed buttons \u2014 applies a depressed visual and sets aria-pressed on the element",
+        "description": "Toggle state for aria-pressed buttons — applies a depressed visual and sets aria-pressed on the element",
         "valueLabels": {
           "false": "Default",
           "true": "Pressed"
@@ -114,7 +114,7 @@
       },
       {
         "label": "States",
-        "code": "<UIButton loading>Saving\u2026</UIButton>\n<UIButton loading loadingPosition=\"center\">Saving\u2026</UIButton>\n<UIButton disabled>Disabled</UIButton>\n<UIButton fullWidth>Full width</UIButton>"
+        "code": "<UIButton loading>Saving…</UIButton>\n<UIButton loading loadingPosition=\"center\">Saving…</UIButton>\n<UIButton disabled>Disabled</UIButton>\n<UIButton fullWidth>Full width</UIButton>"
       },
       {
         "label": "Pressed",
@@ -172,7 +172,7 @@
         "name": "checked",
         "type": "boolean",
         "default": "undefined",
-        "description": "Controlled checked state \u2014 use with onCheckedChange for fully controlled behavior"
+        "description": "Controlled checked state — use with onCheckedChange for fully controlled behavior"
       },
       {
         "name": "defaultChecked",
@@ -202,7 +202,7 @@
         "name": "required",
         "type": "boolean",
         "default": "false",
-        "description": "Marks the field as required for form validation \u2014 adds a red asterisk next to the label",
+        "description": "Marks the field as required for form validation — adds a red asterisk next to the label",
         "companions": {
           "label": "I agree to the terms"
         },
@@ -259,7 +259,7 @@
         "name": "variant",
         "type": "\"outline\" | \"filled\" | \"ghost\"",
         "default": "\"outline\"",
-        "description": "Surface style \u2014 outline adds border, filled uses a background, ghost is borderless",
+        "description": "Surface style — outline adds border, filled uses a background, ghost is borderless",
         "noChildren": true,
         "companions": {
           "placeholder": "Placeholder"
@@ -279,7 +279,7 @@
         "name": "type",
         "type": "\"text\" | \"email\" | \"password\" | \"number\" | \"search\"",
         "default": "\"text\"",
-        "description": "Native input type \u2014 affects keyboard, autofill hints, and browser behaviour",
+        "description": "Native input type — affects keyboard, autofill hints, and browser behaviour",
         "noChildren": true
       },
       {
@@ -298,19 +298,19 @@
         "name": "prefix",
         "type": "ReactNode",
         "default": "undefined",
-        "description": "Content pinned to the left inside the input \u2014 icon, currency symbol, or text"
+        "description": "Content pinned to the left inside the input — icon, currency symbol, or text"
       },
       {
         "name": "suffix",
         "type": "ReactNode",
         "default": "undefined",
-        "description": "Content pinned to the right inside the input \u2014 icon or unit label"
+        "description": "Content pinned to the right inside the input — icon or unit label"
       },
       {
         "name": "clearable",
         "type": "boolean",
         "default": "false",
-        "description": "Shows an \u00d7 button when the input has a value; clicking it clears the field",
+        "description": "Shows an × button when the input has a value; clicking it clears the field",
         "noChildren": true,
         "companions": {
           "placeholder": "Type something"
@@ -320,7 +320,7 @@
         "name": "error",
         "type": "boolean | string",
         "default": "false",
-        "description": "Error state \u2014 pass a string to show an error message below",
+        "description": "Error state — pass a string to show an error message below",
         "noChildren": true,
         "companions": {
           "placeholder": "Email address"
@@ -361,7 +361,7 @@
       },
       {
         "label": "Types",
-        "code": "<UIInput type=\"email\" placeholder=\"you@example.com\" />\n<UIInput type=\"password\" placeholder=\"Password\" />\n<UIInput type=\"search\" placeholder=\"Search\u2026\" clearable />"
+        "code": "<UIInput type=\"email\" placeholder=\"you@example.com\" />\n<UIInput type=\"password\" placeholder=\"Password\" />\n<UIInput type=\"search\" placeholder=\"Search…\" clearable />"
       },
       {
         "label": "With label & helper",
@@ -377,7 +377,7 @@
       },
       {
         "label": "Clearable",
-        "code": "<UIInput clearable placeholder=\"Type something\u2026\" />"
+        "code": "<UIInput clearable placeholder=\"Type something…\" />"
       }
     ]
   },
@@ -442,7 +442,7 @@
         "name": "required",
         "type": "boolean",
         "default": "false",
-        "description": "Marks the radio group as required \u2014 adds a red asterisk next to the group label",
+        "description": "Marks the radio group as required — adds a red asterisk next to the group label",
         "noChildren": true,
         "companions": {
           "label": "Notification preference"
@@ -486,7 +486,7 @@
         "name": "options",
         "type": "{ label: string; value: string }[]",
         "default": "[...]",
-        "description": "Options rendered inside the popup \u2014 defaults to a built-in sample list when omitted"
+        "description": "Options rendered inside the popup — defaults to a built-in sample list when omitted"
       },
       {
         "name": "placeholder",
@@ -498,7 +498,7 @@
         "name": "clearable",
         "type": "boolean",
         "default": "false",
-        "description": "Shows an \u00d7 button when a value is selected; clicking it clears the selection",
+        "description": "Shows an × button when a value is selected; clicking it clears the selection",
         "noChildren": true,
         "demoWidth": "w-52"
       },
@@ -522,7 +522,7 @@
       },
       {
         "label": "Loading",
-        "code": "<UISelect loading placeholder=\"Loading options\u2026\" options={[]} />"
+        "code": "<UISelect loading placeholder=\"Loading options…\" options={[]} />"
       }
     ]
   },
@@ -647,10 +647,10 @@
         "name": "loading",
         "type": "boolean",
         "default": "false",
-        "description": "Shows a spinner inside the thumb and disables interaction \u2014 use while saving the toggle state",
+        "description": "Shows a spinner inside the thumb and disables interaction — use while saving the toggle state",
         "noChildren": true,
         "companions": {
-          "label": "Saving\u2026"
+          "label": "Saving…"
         },
         "valueLabels": {
           "false": "Idle",
@@ -661,7 +661,7 @@
         "name": "checked",
         "type": "boolean",
         "default": "undefined",
-        "description": "Controlled on/off state \u2014 use with onCheckedChange for fully controlled behavior",
+        "description": "Controlled on/off state — use with onCheckedChange for fully controlled behavior",
         "noChildren": true,
         "companions": {
           "label": "Enabled"
@@ -707,7 +707,7 @@
       },
       {
         "label": "Loading",
-        "code": "<UISwitch loading label=\"Saving\u2026\" />"
+        "code": "<UISwitch loading label=\"Saving…\" />"
       },
       {
         "label": "On by default",
@@ -732,7 +732,7 @@
         "name": "src",
         "type": "string",
         "default": "undefined",
-        "description": "Image URL \u2014 shows fallback if missing or broken"
+        "description": "Image URL — shows fallback if missing or broken"
       },
       {
         "name": "alt",
@@ -750,7 +750,7 @@
         "name": "fallbackType",
         "type": "\"text\" | \"icon\"",
         "default": "\"text\"",
-        "description": "Fallback content style \u2014 text shows initials, icon shows a generic user silhouette"
+        "description": "Fallback content style — text shows initials, icon shows a generic user silhouette"
       },
       {
         "name": "size",
@@ -768,7 +768,7 @@
         "name": "status",
         "type": "\"online\" | \"offline\" | \"busy\"",
         "default": "undefined",
-        "description": "Status indicator dot \u2014 green, grey, or red"
+        "description": "Status indicator dot — green, grey, or red"
       },
       {
         "name": "bordered",
@@ -848,7 +848,7 @@
         "name": "tabs",
         "type": "{ label: string; value: string; content: ReactNode; icon?: ReactNode }[]",
         "default": "[...]",
-        "description": "Tab definitions \u2014 each may include an optional icon"
+        "description": "Tab definitions — each may include an optional icon"
       },
       {
         "name": "defaultValue",
@@ -910,7 +910,7 @@
         "name": "value",
         "type": "number",
         "default": "62",
-        "description": "Progress percentage (0\u2013100)"
+        "description": "Progress percentage (0–100)"
       },
       {
         "name": "label",
@@ -952,7 +952,7 @@
         "name": "animated",
         "type": "boolean",
         "default": "false",
-        "description": "Animates the stripes \u2014 only visible when striped is true",
+        "description": "Animates the stripes — only visible when striped is true",
         "noChildren": true,
         "companions": {
           "value": "62",
@@ -1176,7 +1176,7 @@
         "name": "showCloseButton",
         "type": "boolean",
         "default": "false",
-        "description": "Renders an \u00d7 button in the top-right corner of the dialog header"
+        "description": "Renders an × button in the top-right corner of the dialog header"
       },
       {
         "name": "closeOnOutsideClick",
@@ -1188,7 +1188,7 @@
         "name": "footer",
         "type": "ReactNode",
         "default": "undefined",
-        "description": "Custom footer content \u2014 replaces the default Cancel / Confirm button pair when provided"
+        "description": "Custom footer content — replaces the default Cancel / Confirm button pair when provided"
       }
     ],
     "usage": [
@@ -1302,7 +1302,7 @@
         "name": "variant",
         "type": "\"default\" | \"bordered\"",
         "default": "\"default\"",
-        "description": "Surface style \u2014 default uses card bg + border, bordered is transparent with a thicker border",
+        "description": "Surface style — default uses card bg + border, bordered is transparent with a thicker border",
         "demoWidth": "w-40"
       },
       {
@@ -1353,7 +1353,7 @@
         "name": "clickable",
         "type": "boolean",
         "default": "false",
-        "description": "Makes the card interactive \u2014 adds cursor-pointer and keyboard focus support",
+        "description": "Makes the card interactive — adds cursor-pointer and keyboard focus support",
         "noChildren": true,
         "companions": {
           "children": "Card"
@@ -1431,7 +1431,7 @@
         "name": "dot",
         "type": "boolean",
         "default": "false",
-        "description": "Prepends a small colored dot \u2014 useful for status indicators"
+        "description": "Prepends a small colored dot — useful for status indicators"
       },
       {
         "name": "rounded",
@@ -1494,7 +1494,7 @@
         "name": "removable",
         "type": "boolean",
         "default": "false",
-        "description": "Renders an \u00d7 button on the right that calls onRemove when clicked"
+        "description": "Renders an × button on the right that calls onRemove when clicked"
       },
       {
         "name": "onRemove",
@@ -1506,7 +1506,7 @@
         "name": "onClick",
         "type": "() => void",
         "default": "undefined",
-        "description": "Click handler \u2014 also enables button role and keyboard support"
+        "description": "Click handler — also enables button role and keyboard support"
       },
       {
         "name": "size",
@@ -1570,14 +1570,14 @@
       {
         "name": "description",
         "type": "string",
-        "default": "\"Something happened\u2026\"",
+        "default": "\"Something happened…\"",
         "description": "Main body text of the alert"
       },
       {
         "name": "icon",
         "type": "ReactNode",
         "default": "undefined",
-        "description": "Custom icon \u2014 overrides the default variant icon when provided"
+        "description": "Custom icon — overrides the default variant icon when provided"
       },
       {
         "name": "closable",
@@ -1732,7 +1732,7 @@
         "name": "trigger",
         "type": "ReactNode",
         "default": "undefined",
-        "description": "Custom trigger element \u2014 replaces the default trigger button when provided"
+        "description": "Custom trigger element — replaces the default trigger button when provided"
       },
       {
         "name": "items",
@@ -1760,11 +1760,11 @@
       },
       {
         "label": "Custom items",
-        "code": "<UIDropdownMenu items={[{ label: 'Profile' }, { label: 'Settings', shortcut: '\u2318,' }, { separator: true, label: '' }, { label: 'Log out', danger: true }]} />"
+        "code": "<UIDropdownMenu items={[{ label: 'Profile' }, { label: 'Settings', shortcut: '⌘,' }, { separator: true, label: '' }, { label: 'Log out', danger: true }]} />"
       },
       {
         "label": "Custom trigger",
-        "code": "<UIDropdownMenu trigger={<button>\u22ee</button>} items={[{ label: 'Edit' }, { label: 'Delete', danger: true }]} />"
+        "code": "<UIDropdownMenu trigger={<button>⋮</button>} items={[{ label: 'Edit' }, { label: 'Delete', danger: true }]} />"
       }
     ]
   },
@@ -1826,7 +1826,7 @@
         "name": "error",
         "type": "string",
         "default": "undefined",
-        "description": "Error message shown below \u2014 replaces helperText when present",
+        "description": "Error message shown below — replaces helperText when present",
         "noChildren": true,
         "demoWidth": "w-64"
       },
@@ -1870,7 +1870,7 @@
         "name": "required",
         "type": "boolean",
         "default": "false",
-        "description": "Marks the field as required \u2014 adds a red asterisk to the label"
+        "description": "Marks the field as required — adds a red asterisk to the label"
       },
       {
         "name": "maxLength",
@@ -1886,7 +1886,7 @@
       },
       {
         "label": "With description",
-        "code": "<UITextarea label=\"Feedback\" description=\"Tell us what you think.\" placeholder=\"Your thoughts\u2026\" />"
+        "code": "<UITextarea label=\"Feedback\" description=\"Tell us what you think.\" placeholder=\"Your thoughts…\" />"
       },
       {
         "label": "Error state",
@@ -1898,7 +1898,7 @@
       },
       {
         "label": "Loading",
-        "code": "<UITextarea loading label=\"Sending\u2026\" />"
+        "code": "<UITextarea loading label=\"Sending…\" />"
       }
     ]
   },
@@ -1956,7 +1956,7 @@
         "description": "Replaces the radio with a spinner while state is saving",
         "noChildren": true,
         "companions": {
-          "label": "Saving\u2026"
+          "label": "Saving…"
         },
         "valueLabels": {
           "false": "Idle",
@@ -2021,7 +2021,7 @@
       {
         "name": "placeholder",
         "type": "string",
-        "default": "\"Search\u2026\"",
+        "default": "\"Search…\"",
         "description": "Input placeholder"
       },
       {
@@ -2040,7 +2040,7 @@
         "name": "clearable",
         "type": "boolean",
         "default": "false",
-        "description": "Shows an \u00d7 button to clear the current selection",
+        "description": "Shows an × button to clear the current selection",
         "noChildren": true,
         "demoWidth": "w-64",
         "valueLabels": {
@@ -2052,7 +2052,7 @@
         "name": "loading",
         "type": "boolean",
         "default": "false",
-        "description": "Shows a spinner \u2014 use while options are fetching",
+        "description": "Shows a spinner — use while options are fetching",
         "noChildren": true,
         "demoWidth": "w-64",
         "valueLabels": {
@@ -2098,19 +2098,19 @@
       },
       {
         "label": "Clearable",
-        "code": "<UICombobox clearable placeholder=\"Pick one\u2026\" />"
+        "code": "<UICombobox clearable placeholder=\"Pick one…\" />"
       },
       {
         "label": "Multi-select",
-        "code": "<UICombobox multiple clearable placeholder=\"Pick many\u2026\" />"
+        "code": "<UICombobox multiple clearable placeholder=\"Pick many…\" />"
       },
       {
         "label": "With label",
-        "code": "<UICombobox label=\"Framework\" placeholder=\"Select framework\u2026\" />"
+        "code": "<UICombobox label=\"Framework\" placeholder=\"Select framework…\" />"
       },
       {
         "label": "Loading",
-        "code": "<UICombobox loading placeholder=\"Loading options\u2026\" options={[]} />"
+        "code": "<UICombobox loading placeholder=\"Loading options…\" options={[]} />"
       }
     ]
   },
@@ -2138,7 +2138,7 @@
         "name": "range",
         "type": "boolean",
         "default": "false",
-        "description": "Enable date range selection \u2014 click start then end date",
+        "description": "Enable date range selection — click start then end date",
         "noChildren": true,
         "demoWidth": "w-64",
         "valueLabels": {
@@ -2196,15 +2196,15 @@
       },
       {
         "label": "With label",
-        "code": "<UIDatePicker label=\"Start date\" placeholder=\"Select date\u2026\" />"
+        "code": "<UIDatePicker label=\"Start date\" placeholder=\"Select date…\" />"
       },
       {
         "label": "Range",
-        "code": "<UIDatePicker range placeholder=\"Select range\u2026\" />"
+        "code": "<UIDatePicker range placeholder=\"Select range…\" />"
       },
       {
         "label": "Multi",
-        "code": "<UIDatePicker multiple placeholder=\"Select dates\u2026\" />"
+        "code": "<UIDatePicker multiple placeholder=\"Select dates…\" />"
       }
     ]
   },
@@ -2245,7 +2245,7 @@
         "name": "required",
         "type": "boolean",
         "default": "false",
-        "description": "Marks the field required \u2014 adds a red asterisk to the label",
+        "description": "Marks the field required — adds a red asterisk to the label",
         "noChildren": true,
         "valueLabels": {
           "false": "Optional",
@@ -2397,14 +2397,14 @@
       "sort",
       "filter"
     ],
-    "description": "Advanced table with search, sorting, pagination, column visibility toggle, and row selection \u2014 all in one component.",
+    "description": "Advanced table with search, sorting, pagination, column visibility toggle, and row selection — all in one component.",
     "preview": true,
     "props": [
       {
         "name": "columns",
         "type": "Column[]",
         "default": "[...]",
-        "description": "Column definitions \u2014 each can be sortable, filterable, and togglable"
+        "description": "Column definitions — each can be sortable, filterable, and togglable"
       },
       {
         "name": "data",
@@ -2533,7 +2533,7 @@
         "name": "icon",
         "type": "ReactNode",
         "default": "undefined",
-        "description": "Custom icon \u2014 replaces the default inbox SVG"
+        "description": "Custom icon — replaces the default inbox SVG"
       },
       {
         "name": "action",
@@ -2648,7 +2648,7 @@
       },
       {
         "label": "Loading",
-        "code": "<UIAlertDialog loading confirmText=\"Deleting\u2026\" />"
+        "code": "<UIAlertDialog loading confirmText=\"Deleting…\" />"
       }
     ]
   },
@@ -2721,7 +2721,7 @@
       },
       {
         "label": "Top center",
-        "code": "<UISonner position=\"top-center\" message=\"Syncing\u2026\" />"
+        "code": "<UISonner position=\"top-center\" message=\"Syncing…\" />"
       }
     ]
   },
@@ -2775,7 +2775,7 @@
       },
       {
         "label": "With label",
-        "code": "<UISpinner label=\"Loading data\u2026\" />"
+        "code": "<UISpinner label=\"Loading data…\" />"
       },
       {
         "label": "Hidden when done",
@@ -2868,7 +2868,7 @@
       },
       {
         "label": "Loading",
-        "code": "<UIDrawer loading title=\"Loading\u2026\" />"
+        "code": "<UIDrawer loading title=\"Loading…\" />"
       }
     ]
   },
@@ -2883,7 +2883,7 @@
       "overlay",
       "base-ui"
     ],
-    "description": "A persistent side panel that slides in from any edge. Unlike Drawer, it uses the Dialog primitive \u2014 no swipe dismiss.",
+    "description": "A persistent side panel that slides in from any edge. Unlike Drawer, it uses the Dialog primitive — no swipe dismiss.",
     "preview": true,
     "props": [
       {
@@ -2922,7 +2922,7 @@
         "name": "closeButton",
         "type": "boolean",
         "default": "true",
-        "description": "Show an \u00d7 close button in the header",
+        "description": "Show an × close button in the header",
         "noChildren": true,
         "valueLabels": {
           "false": "Hidden",
@@ -3047,7 +3047,7 @@
         "name": "items",
         "type": "{ label: string; href?: string; icon?: ReactNode }[]",
         "default": "[...]",
-        "description": "Breadcrumb trail items \u2014 last item is treated as current page"
+        "description": "Breadcrumb trail items — last item is treated as current page"
       },
       {
         "name": "separator",
@@ -3059,7 +3059,7 @@
         "name": "maxItems",
         "type": "number",
         "default": "undefined",
-        "description": "Collapse middle items into \u2026 when the trail exceeds this count; click to expand"
+        "description": "Collapse middle items into … when the trail exceeds this count; click to expand"
       }
     ],
     "usage": [
@@ -3069,7 +3069,7 @@
       },
       {
         "label": "Custom separator",
-        "code": "<UIBreadcrumb separator=\"\u203a\" items={[{ label: 'Home', href: '/' }, { label: 'Docs', href: '/docs' }, { label: 'Components' }]} />"
+        "code": "<UIBreadcrumb separator=\"›\" items={[{ label: 'Home', href: '/' }, { label: 'Docs', href: '/docs' }, { label: 'Components' }]} />"
       },
       {
         "label": "Truncated",
@@ -3087,7 +3087,7 @@
       "keyboard",
       "palette"
     ],
-    "description": "A keyboard-driven command palette with grouped commands, fuzzy search, arrow-key navigation, and a global \u2318K shortcut.",
+    "description": "A keyboard-driven command palette with grouped commands, fuzzy search, arrow-key navigation, and a global ⌘K shortcut.",
     "preview": true,
     "props": [
       {
@@ -3099,14 +3099,14 @@
       {
         "name": "placeholder",
         "type": "string",
-        "default": "\"Type a command\u2026\"",
+        "default": "\"Type a command…\"",
         "description": "Search input placeholder"
       },
       {
         "name": "shortcut",
         "type": "string",
-        "default": "\"\u2318K\"",
-        "description": "Display label for the keyboard shortcut (shown on trigger). \u2318K is always registered."
+        "default": "\"⌘K\"",
+        "description": "Display label for the keyboard shortcut (shown on trigger). ⌘K is always registered."
       },
       {
         "name": "emptyMessage",
@@ -3170,7 +3170,7 @@
         "name": "showFirstLast",
         "type": "boolean",
         "default": "true",
-        "description": "Show \u27ea / \u27eb jump-to-first and jump-to-last buttons",
+        "description": "Show ⟪ / ⟫ jump-to-first and jump-to-last buttons",
         "noChildren": true,
         "valueLabels": {
           "false": "Hidden",
@@ -3213,6 +3213,202 @@
         "label": "More siblings",
         "code": "<UIPagination siblingCount={2} totalPages={20} />"
       }
+    ]
+  },
+  "navbar": {
+    "name": "Navbar",
+    "category": "sections",
+    "style": "default",
+    "tags": [
+      "navbar",
+      "navigation",
+      "header",
+      "section"
+    ],
+    "description": "Content-agnostic top navigation bar with brand, links, actions, and a mobile collapse menu.",
+    "preview": true,
+    "new": true,
+    "previewClass": "w-full",
+    "props": [
+      {
+        "name": "brand",
+        "type": "ReactNode",
+        "default": "\"Brand\"",
+        "description": "Left-aligned brand mark or name"
+      },
+      {
+        "name": "links",
+        "type": "{ label: string; href?: string; active?: boolean }[]",
+        "default": "[...]",
+        "description": "Nav links shown on desktop, collapsed into the mobile menu below md"
+      },
+      {
+        "name": "actions",
+        "type": "ReactNode",
+        "default": "Sign in / Get started buttons",
+        "description": "Right-aligned actions, hidden on mobile"
+      }
+    ],
+    "usage": [
+      {
+        "label": "Default",
+        "code": "<UINavbar />"
+      },
+      {
+        "label": "Custom links",
+        "code": "<UINavbar links={[{ label: \"Features\" }, { label: \"Pricing\" }]} />"
+      }
+    ],
+    "stylesOnly": [
+      "default"
+    ]
+  },
+  "hero-section": {
+    "name": "Hero Section",
+    "category": "sections",
+    "style": "default",
+    "tags": [
+      "hero",
+      "landing",
+      "section"
+    ],
+    "description": "Landing page hero with eyebrow, title, description, and a primary/secondary CTA pair.",
+    "preview": true,
+    "new": true,
+    "previewClass": "w-full",
+    "props": [
+      {
+        "name": "align",
+        "type": "\"left\" | \"center\"",
+        "default": "\"center\"",
+        "description": "Text alignment",
+        "demoWidth": "w-32"
+      },
+      {
+        "name": "background",
+        "type": "\"none\" | \"gradient\" | \"grid\"",
+        "default": "\"gradient\"",
+        "description": "Decorative background treatment",
+        "demoWidth": "w-32"
+      },
+      {
+        "name": "eyebrow",
+        "type": "string",
+        "default": "\"Now available\"",
+        "description": "Small label above the title"
+      },
+      {
+        "name": "title",
+        "type": "ReactNode",
+        "default": "\"Build your next idea, faster\"",
+        "description": "Main headline"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "default": "...",
+        "description": "Supporting paragraph under the title"
+      },
+      {
+        "name": "primaryCta",
+        "type": "{ label: string; href?: string; onClick?: () => void }",
+        "default": "{ label: \"Get started\" }",
+        "description": "Primary call to action"
+      },
+      {
+        "name": "secondaryCta",
+        "type": "{ label: string; href?: string; onClick?: () => void }",
+        "default": "{ label: \"Learn more\" }",
+        "description": "Secondary call to action"
+      }
+    ],
+    "usage": [
+      {
+        "label": "Default",
+        "code": "<UIHeroSection />"
+      },
+      {
+        "label": "Left-aligned, no background",
+        "code": "<UIHeroSection align=\"left\" background=\"none\" />"
+      }
+    ],
+    "stylesOnly": [
+      "default"
+    ]
+  },
+  "pricing-card": {
+    "name": "Pricing Card",
+    "category": "sections",
+    "style": "default",
+    "tags": [
+      "pricing",
+      "card",
+      "section"
+    ],
+    "description": "A single pricing tier with a typed feature list and an optional featured variant.",
+    "preview": true,
+    "new": true,
+    "props": [
+      {
+        "name": "featured",
+        "type": "boolean",
+        "default": "false",
+        "description": "Highlights this tier as the recommended one",
+        "demoWidth": "w-32",
+        "valueLabels": {
+          "false": "Regular",
+          "true": "Featured"
+        }
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "default": "\"Pro\"",
+        "description": "Plan name"
+      },
+      {
+        "name": "price",
+        "type": "string",
+        "default": "\"$19\"",
+        "description": "Price, formatted however you like"
+      },
+      {
+        "name": "period",
+        "type": "string",
+        "default": "\"/month\"",
+        "description": "Billing period shown next to the price"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "default": "...",
+        "description": "One-line plan summary"
+      },
+      {
+        "name": "features",
+        "type": "string[]",
+        "default": "[...]",
+        "description": "Feature list, each rendered with a check icon"
+      },
+      {
+        "name": "ctaLabel",
+        "type": "string",
+        "default": "\"Choose plan\"",
+        "description": "Button label"
+      }
+    ],
+    "usage": [
+      {
+        "label": "Default",
+        "code": "<UIPricingCard />"
+      },
+      {
+        "label": "Featured",
+        "code": "<UIPricingCard featured name=\"Team\" price=\"$49\" />"
+      }
+    ],
+    "stylesOnly": [
+      "default"
     ]
   }
 }

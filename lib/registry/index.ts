@@ -3,6 +3,7 @@ import fontsRegistry from "@/registry/fonts.json";
 import motionRegistry from "@/registry/motion.json";
 import designsRegistry from "@/registry/designs.json";
 import stylesRegistry from "@/registry/styles.json";
+import templatesRegistry from "@/registry/templates.json";
 
 export type ComponentMeta = {
   title: string;
@@ -61,6 +62,8 @@ export type DesignMeta = {
   previewClass?: string;
   props?: PropDef[];
   usage?: UsageExample[];
+  /** Explicit allow-list of style ids this component ships — for components still being ported to the full style set. Omit to require every available style. */
+  stylesOnly?: string[];
 };
 
 export type StyleStatus = "available" | "coming-soon";
@@ -144,4 +147,19 @@ export function getDesignsByStyle(styleId: string): Record<string, DesignMeta> {
   }
   // Non-default styles support all designs via styleConfig prop
   return all;
+}
+
+export type TemplateMeta = {
+  name: string;
+  description: string;
+  components: string[];
+  worlds: string[];
+};
+
+export function getAllTemplates(): Record<string, TemplateMeta> {
+  return templatesRegistry as Record<string, TemplateMeta>;
+}
+
+export function getTemplate(slug: string): TemplateMeta | null {
+  return (templatesRegistry as Record<string, TemplateMeta>)[slug] ?? null;
 }

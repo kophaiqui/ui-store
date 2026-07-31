@@ -1,0 +1,20 @@
+{
+  "landing": {
+    "name": "Landing Page",
+    "description": "Navbar, hero, feature cards, and a 3-tier pricing row — built entirely from library components.",
+    "components": ["navbar", "hero-section", "card", "pricing-card"],
+    "worlds": ["default"]
+  },
+  "dashboard": {
+    "name": "Dashboard",
+    "description": "Sidebar navigation, stat cards, tabs, a data table, and a dialog — the shell of a typical admin app.",
+    "components": ["sidebar", "card", "tabs", "data-table", "dialog"],
+    "worlds": ["default"]
+  },
+  "auth": {
+    "name": "Auth Flow",
+    "description": "Sign in, sign up, and forgot password in one tabbed card.",
+    "components": ["card", "tabs", "field", "input", "checkbox", "button", "alert"],
+    "worlds": ["default"]
+  }
+}
