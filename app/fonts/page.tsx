@@ -4,7 +4,7 @@ import { FontExplorer } from "@/components/shared/FontExplorer";
 
 export const metadata: Metadata = {
   title: "Typography",
-  description: "Browse 33 fonts across serif, sans-serif, display, monospace, and handwriting categories.",
+  description: `Browse ${getAllFonts().length} fonts across serif, sans-serif, display, monospace, and handwriting categories.`,
 };
 
 export default function FontsPage() {
