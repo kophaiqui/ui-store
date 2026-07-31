@@ -15,7 +15,7 @@ Detail lives in `docs/plans/` if needed. This file is the only one you must open
 
 ## NEXT - depth (phase 1)
 
-- [ ] style audit: ONE style per session, log bugs in docs/audits/STYLE_AUDIT.md
+- [ ] style audit: matrix scaffolded at docs/audits/STYLE_AUDIT.md (38 components x 8 available styles, all unchecked). next session: pick ONE style column and actually check it, log bugs
 - [ ] fix logged bugs, one style batch at a time
 - [ ] scripts/validate-registry.ts + npm run validate
 - [ ] cmd+k search (dogfood own command component)
