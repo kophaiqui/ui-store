@@ -8,44 +8,44 @@ Audit one style (one column) per session - do not try to do a whole row pass in 
 
 | Component | Category | default | glass | minimal | neobrutalism | neumorphism | gradient | retro | terminal |
 |---|---|---|---|---|---|---|---|---|---|
-| accordion | data-display | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| avatar | data-display | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| badge | data-display | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| card | data-display | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| chip | data-display | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| data-table | data-display | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| empty | data-display | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| progress | data-display | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| separator | data-display | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| table | data-display | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| tabs | data-display | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| tooltip | data-display | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| alert | feedback | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| alert-dialog | feedback | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| dialog | feedback | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| drawer | feedback | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| dropdown-menu | feedback | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| popover | feedback | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| sheet | feedback | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| sonner | feedback | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| spinner | feedback | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| toast | feedback | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| button | inputs | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| checkbox | inputs | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| combobox | inputs | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| date-picker | inputs | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| field | inputs | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| input | inputs | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| radio | inputs | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| radio-group | inputs | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| select | inputs | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| slider | inputs | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| switch | inputs | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| textarea | inputs | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| breadcrumb | navigation | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| command | navigation | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| pagination | navigation | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| sidebar | navigation | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| accordion | data-display | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| avatar | data-display | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| badge | data-display | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| card | data-display | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| chip | data-display | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| data-table | data-display | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| empty | data-display | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| progress | data-display | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| separator | data-display | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| table | data-display | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| tabs | data-display | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| tooltip | data-display | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| alert | feedback | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| alert-dialog | feedback | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| dialog | feedback | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| drawer | feedback | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| dropdown-menu | feedback | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| popover | feedback | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| sheet | feedback | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| sonner | feedback | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| spinner | feedback | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| toast | feedback | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| button | inputs | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| checkbox | inputs | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| combobox | inputs | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| date-picker | inputs | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| field | inputs | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| input | inputs | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| radio | inputs | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| radio-group | inputs | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| select | inputs | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| slider | inputs | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| switch | inputs | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| textarea | inputs | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| breadcrumb | navigation | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| command | navigation | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| pagination | navigation | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| sidebar | navigation | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
 
 Legend: `[ ]` not checked - `[x]` checked, clean - `[!]` bug logged below.
 
@@ -62,4 +62,4 @@ See `docs/COMPONENT_PITFALLS.md`. In short:
 
 ## Bugs found
 
-_None logged yet._
+- **default** (2026-07-31): audited via screenshots (light + dark, all 4 categories) - clean, no bugs found.
