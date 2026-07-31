@@ -6,11 +6,11 @@ Detail lives in `docs/plans/` if needed. This file is the only one you must open
 ## NOW - make it real (phase 0)
 
 - [x] deploy -> https://that-one-ui.vercel.app (jul 4)
-- [ ] redeploy from latest main (live build is stale: /api/health 404s, new homepage copy missing)
+- [ ] redeploy from latest main (deploymentEnabled is off in vercel.json, so pushes to main don't auto-deploy; needs a manual `vercel --prod`. note: /api/health now 404s by design when unauthorized - it's not a staleness signal anymore, verify with HEALTH_TOKEN instead)
 - [x] rewrite README (still describes the old dead project)
 - [x] add LICENSE file
 - [x] OG image + meta tags
-- [ ] walk every page once as a stranger, fix what reads wrong
+- [x] walk every page once as a stranger, fix what reads wrong (found + fixed: dead Preview.tsx fallback in api/design-code, hardcoded "33 fonts" in fonts metadata; everything else checked clean)
 - [x] kill hardcoded counts in docs
 
 ## NEXT - depth (phase 1)
