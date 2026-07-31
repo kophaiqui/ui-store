@@ -1,0 +1,36 @@
+# Use with AI tools
+
+That One UI's registry is plain JSON and every component is one self-contained file — the shape an AI coding agent (Claude Code, Cursor, and friends) can read directly, without a human copying anything by hand.
+
+## llms.txt
+
+[`/llms.txt`](/llms.txt) is a plain-text index of the whole library: the styleConfig contract, every component with its page and source URL, generated at build time from `registry/designs.json`. Point an agent at this URL and it can browse the library on its own.
+
+[`/llms-full.txt`](/llms-full.txt) is the same index with every component's full source (`Component.tsx` + `styles/default.ts`) inlined — useful when an agent wants everything in one fetch instead of one request per component.
+
+Both files are regenerated with:
+
+```bash
+npm run llms
+```
+
+## Copy for AI
+
+Every component detail page has a **Copy for AI** button next to Download. It copies one paste containing:
+
+- the component's description
+- the styleConfig contract (props are all overridable, style swaps classes only, shared types live in `styles/default.ts`)
+- the full source of `Component.tsx`
+- the full source of the style file for whichever variant you're viewing
+
+Paste that straight into a chat with your agent and it has everything it needs to install the component correctly.
+
+## Raw content URLs
+
+| What | URL |
+|---|---|
+| Component source | `/api/design-code?slug=<slug>&category=<category>&variant=<variant>` |
+| Full registry | [`/llms.txt`](/llms.txt) |
+| Full sources | [`/llms-full.txt`](/llms-full.txt) |
+
+`category` and `variant` (style id, defaults to `default`) come from `registry/designs.json`.

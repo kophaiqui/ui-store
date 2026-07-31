@@ -133,7 +133,7 @@ export default async function ComponentVariantPage({ params }: Props) {
 
       {/* Preview + Code viewer */}
       <Section label="Preview">
-        <DesignViewer slug={slug} meta={meta} code={code} styleConfig={styleConfig} />
+        <DesignViewer slug={slug} meta={meta} code={code} styleConfig={styleConfig} variant={variant} />
       </Section>
 
       {/* Props table with live explorer */}

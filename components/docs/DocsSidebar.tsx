@@ -15,6 +15,7 @@ const NAV: NavSection[] = [
       { label: "What's New",   href: "/documents/whats-new" },
       { label: "Installation",  href: "/documents/installation" },
       { label: "Principles",   href: "/documents/principles" },
+      { label: "Use with AI",  href: "/documents/use-with-ai" },
       { label: "Theming",      href: "/documents/theming",       soon: true },
     ],
   },

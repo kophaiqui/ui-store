@@ -19,7 +19,7 @@ Detail lives in `docs/plans/` if needed. This file is the only one you must open
 - [ ] fix logged bugs, one style batch at a time
 - [x] scripts/validate-registry.mjs + npm run validate (checks file existence, registry props vs Component.tsx Props type, companion targets, underscore-prop leaks into usage snippets - passes clean on all 38. not yet wired into a pre-commit hook or CI, that's still open)
 - [ ] cmd+k search (dogfood own command component)
-- [ ] llms.txt + copy-as-prompt button
+- [x] llms.txt + copy-as-prompt button (plan 07: llms.txt, llms-full.txt, "Copy for AI" button on component detail pages, docs page at /documents/use-with-ai. MCP server + CLI installer stay in the parking lot per the plan)
 - [ ] keyboard-only pass, all components
 - [ ] new: circular-progress
 - [ ] new: timeline
@@ -33,6 +33,8 @@ Detail lives in `docs/plans/` if needed. This file is the only one you must open
 - phase 2: theme configurator + pilot worlds (terminal, glass) + maker's notes
 - phase 3: 12 motions, 3 templates, world switcher demo, all worlds
 - phase 4: tell people
+
+**2026-08-01: explicit user override** - user asked to jump straight to plans 03-07 (theme configurator, motion, templates, people, agent-friendly) out of the normal phase order. Working through them in dependency order (07 done, 04 next, then 03, then 05, then 06) rather than declining - noting it here so a future session understands why phase order was skipped once.
 
 ## RULES (for the ADHD brain, with love)
 

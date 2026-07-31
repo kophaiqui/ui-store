@@ -4,7 +4,7 @@ import { useState, useMemo } from "react";
 import dynamic from "next/dynamic";
 import hljs from "highlight.js/lib/core";
 import tsx from "highlight.js/lib/languages/typescript";
-import { Download, Check } from "lucide-react";
+import { Download, Check, Bot } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { DesignMeta } from "@/lib/registry";
 
@@ -64,11 +64,28 @@ function fixJSXHighlight(html: string): string {
     .join("");
 }
 
-type Props = { slug: string; meta: DesignMeta; code: string; styleConfig?: Record<string, unknown> };
+type Props = {
+  slug: string;
+  meta: DesignMeta;
+  code: string;
+  styleConfig?: Record<string, unknown>;
+  variant?: string;
+};
 
-export function DesignViewer({ slug, meta, code, styleConfig }: Props) {
+const AI_CONTRACT = `Rules for this component:
+1. Every prop has a default value — nothing is hardcoded, override anything.
+2. The optional \`styleConfig\` prop swaps Tailwind classes only (colors,
+   borders, shadows, radius) — it never changes props, defaults, or behavior.
+3. Shared types live in styles/default.ts and are re-exported from Component.tsx.
+
+Install: copy both files below into your project at the same relative path
+(e.g. designs/<category>/<slug>/Component.tsx and .../styles/default.ts).
+No other setup needed beyond the Base UI + Tailwind imports already present.`;
+
+export function DesignViewer({ slug, meta, code, styleConfig, variant = "default" }: Props) {
   const [tab, setTab] = useState<"preview" | "code">("preview");
   const [downloaded, setDownloaded] = useState(false);
+  const [copiedForAI, setCopiedForAI] = useState(false);
 
   function handleDownload() {
     const blob = new Blob([code], { type: "text/plain" });
@@ -80,6 +97,29 @@ export function DesignViewer({ slug, meta, code, styleConfig }: Props) {
     URL.revokeObjectURL(url);
     setDownloaded(true);
     setTimeout(() => setDownloaded(false), 2000);
+  }
+
+  async function handleCopyForAI() {
+    try {
+      const res = await fetch(`/api/design-code?slug=${slug}&category=${meta.category}&variant=${variant}`);
+      const { code: componentSrc, styleCode } = await res.json();
+      const bundle = [
+        `# ${meta.name} (${slug})`,
+        meta.description,
+        "",
+        AI_CONTRACT,
+        "",
+        `\`\`\`tsx\n// Component.tsx\n${componentSrc}\`\`\``,
+        styleCode ? `\`\`\`ts\n// styles/${variant}.ts\n${styleCode}\`\`\`` : "",
+      ]
+        .filter(Boolean)
+        .join("\n");
+      await navigator.clipboard.writeText(bundle);
+      setCopiedForAI(true);
+      setTimeout(() => setCopiedForAI(false), 2000);
+    } catch {
+      setCopiedForAI(false);
+    }
   }
 
   const highlighted = useMemo(
@@ -99,18 +139,33 @@ export function DesignViewer({ slug, meta, code, styleConfig }: Props) {
     <div className="overflow-hidden rounded-xl border border-border">
       {/* Tab bar */}
       <div className="flex items-center justify-between border-b border-border bg-muted/30 px-4 py-2">
-        <button
-          onClick={handleDownload}
-          className={cn(
-            "flex items-center gap-1.5 rounded px-2 py-1 text-[0.6875rem] font-medium transition-colors",
-            downloaded
-              ? "text-emerald-500"
-              : "text-muted-foreground hover:text-foreground"
-          )}
-        >
-          {downloaded ? <Check size={12} /> : <Download size={12} />}
-          {downloaded ? "Downloaded" : "Download"}
-        </button>
+        <div className="flex items-center gap-1">
+          <button
+            onClick={handleDownload}
+            className={cn(
+              "flex items-center gap-1.5 rounded px-2 py-1 text-[0.6875rem] font-medium transition-colors",
+              downloaded
+                ? "text-emerald-500"
+                : "text-muted-foreground hover:text-foreground"
+            )}
+          >
+            {downloaded ? <Check size={12} /> : <Download size={12} />}
+            {downloaded ? "Downloaded" : "Download"}
+          </button>
+          <button
+            onClick={handleCopyForAI}
+            title="Copy component + style source + the styleConfig contract, ready to paste to an AI agent"
+            className={cn(
+              "flex items-center gap-1.5 rounded px-2 py-1 text-[0.6875rem] font-medium transition-colors",
+              copiedForAI
+                ? "text-emerald-500"
+                : "text-muted-foreground hover:text-foreground"
+            )}
+          >
+            {copiedForAI ? <Check size={12} /> : <Bot size={12} />}
+            {copiedForAI ? "Copied" : "Copy for AI"}
+          </button>
+        </div>
         <div className="flex items-center rounded-md border border-border bg-muted p-0.5">
           {(["preview", "code"] as const).map((t) => (
             <button

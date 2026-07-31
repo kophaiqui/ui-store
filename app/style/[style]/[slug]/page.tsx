@@ -93,7 +93,7 @@ export default async function StyleComponentPage({ params }: Props) {
       </p>
 
       <Section label="Preview">
-        <DesignViewer slug={slug} meta={meta} code={code} styleConfig={styleConfig} />
+        <DesignViewer slug={slug} meta={meta} code={code} styleConfig={styleConfig} variant={style} />
       </Section>
 
       {meta.props && meta.props.length > 0 && (

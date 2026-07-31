@@ -6,16 +6,21 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const slug = searchParams.get("slug");
   const category = searchParams.get("category");
+  const variant = searchParams.get("variant") || "default";
 
   if (!slug || !category) {
     return NextResponse.json({ code: "" }, { status: 400 });
   }
 
-  const filePath = path.join(process.cwd(), "designs", category, slug, "Component.tsx");
+  const dir = path.join(process.cwd(), "designs", category, slug);
 
   try {
-    const code = fs.readFileSync(filePath, "utf-8");
-    return NextResponse.json({ code });
+    const code = fs.readFileSync(path.join(dir, "Component.tsx"), "utf-8");
+    let styleCode = "";
+    try {
+      styleCode = fs.readFileSync(path.join(dir, "styles", `${variant}.ts`), "utf-8");
+    } catch {}
+    return NextResponse.json({ code, styleCode });
   } catch {
     return NextResponse.json({ code: "// Source not available" }, { status: 404 });
   }

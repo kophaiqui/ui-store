@@ -1,0 +1,164 @@
+# That One UI
+
+https://that-one-ui.vercel.app
+
+That One UI is a copy-paste React component library on Base UI primitives.
+Every component ships as one self-contained file (`Component.tsx`) with a
+`styles/default.ts` file next to it. There is no separate preview file —
+`Component.tsx` is both the installable component and what renders in every
+preview surface on the site.
+
+## The styleConfig contract
+
+1. Every prop that renders inside a component has a default value. Nothing is
+   hardcoded — a consumer can always override any string, number, array, or
+   node the component renders.
+2. A component accepts an optional `styleConfig` prop. Swapping it changes
+   Tailwind classes ONLY — colors, borders, shadows, radius. It never changes
+   the prop shape, defaults, or behavior. The full prop API is identical
+   regardless of which style is imported.
+3. Types shared between the component and its style file (e.g. a variant
+   union) are defined in `styles/default.ts` and re-exported from
+   `Component.tsx`.
+
+To install a component: copy `Component.tsx` and `styles/default.ts` (and any
+other style file you want) into your project. No other setup is required
+beyond the Tailwind + Base UI primitives already listed in the component's
+imports.
+
+## 38 components across 4 categories, 8 available styles
+
+Available styles: default, glass, minimal, neobrutalism, neumorphism, gradient, retro, terminal.
+
+## Components
+
+### inputs
+
+- Button (`button`, inputs): 6 variants · 3 sizes · 3 shapes · disabled + loading states. Built on Base UI's Button primitive.
+  page: https://that-one-ui.vercel.app/components/button/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=button&category=inputs
+- Checkbox (`checkbox`, inputs): An accessible checkbox with emerald checked state and optional label. Built on Base UI's Checkbox primitive.
+  page: https://that-one-ui.vercel.app/components/checkbox/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=checkbox&category=inputs
+- Input (`input`, inputs): A dark text input with inset shadow, emerald focus ring, and full disabled/read-only state support.
+  page: https://that-one-ui.vercel.app/components/input/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=input&category=inputs
+- Radio Group (`radio-group`, inputs): An accessible radio group using Base UI Radio + RadioGroup primitives. Emerald accent on selection.
+  page: https://that-one-ui.vercel.app/components/radio-group/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=radio-group&category=inputs
+- Select (`select`, inputs): A dark dropdown select with glass-effect popup, highlighted states, and a check mark on the selected item.
+  page: https://that-one-ui.vercel.app/components/select/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=select&category=inputs
+- Slider (`slider`, inputs): A range slider with emerald fill track and a thumb that grows on active. Built on Base UI's Slider primitive.
+  page: https://that-one-ui.vercel.app/components/slider/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=slider&category=inputs
+- Switch (`switch`, inputs): A toggle switch that transitions to emerald when active. Thumb translates smoothly on state change.
+  page: https://that-one-ui.vercel.app/components/switch/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=switch&category=inputs
+- Textarea (`textarea`, inputs): Multi-line text input with label, description, error/helper text, resize control, size variants, and a loading overlay.
+  page: https://that-one-ui.vercel.app/components/textarea/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=textarea&category=inputs
+- Radio (`radio`, inputs): A single radio button with optional label and description. Built on Base UI's Radio primitive.
+  page: https://that-one-ui.vercel.app/components/radio/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=radio&category=inputs
+- Combobox (`combobox`, inputs): A searchable selection input with multi-select, chip display, clear button, and loading state. Built on Base UI Combobox.
+  page: https://that-one-ui.vercel.app/components/combobox/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=combobox&category=inputs
+- Date Picker (`date-picker`, inputs): A date selection input with a calendar popup. Supports single, range, and multi-date selection with min/max constraints.
+  page: https://that-one-ui.vercel.app/components/date-picker/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=date-picker&category=inputs
+- Field (`field`, inputs): A form field wrapper providing label, description, and error with accessibility linking. Built on Base UI's Field primitive.
+  page: https://that-one-ui.vercel.app/components/field/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=field&category=inputs
+
+### data-display
+
+- Avatar (`avatar`, data-display): Avatar with image support, text fallback, shape, size, and status dot. Built on Base UI's Avatar primitive.
+  page: https://that-one-ui.vercel.app/components/avatar/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=avatar&category=data-display
+- Separator (`separator`, data-display): A thin 1px rule that divides content. Horizontal (default) splits stacked sections; vertical splits inline items such as nav links.
+  page: https://that-one-ui.vercel.app/components/separator/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=separator&category=data-display
+- Tabs (`tabs`, data-display): Tab bar with a sliding emerald underline indicator. Panels swap on selection.
+  page: https://that-one-ui.vercel.app/components/tabs/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=tabs&category=data-display
+- Progress (`progress`, data-display): A linear progress bar with optional label and value display. Emerald fill, zinc-800 track.
+  page: https://that-one-ui.vercel.app/components/progress/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=progress&category=data-display
+- Accordion (`accordion`, data-display): Collapsible panels with a chevron indicator that rotates on open. Divided by zinc-800 rules.
+  page: https://that-one-ui.vercel.app/components/accordion/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=accordion&category=data-display
+- Tooltip (`tooltip`, data-display): A dark glass tooltip anchored to its trigger with configurable side placement.
+  page: https://that-one-ui.vercel.app/components/tooltip/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=tooltip&category=data-display
+- Card (`card`, data-display): A flexible surface container for grouping related content. Supports bordered and hoverable variants.
+  page: https://that-one-ui.vercel.app/components/card/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=card&category=data-display
+- Badge (`badge`, data-display): A compact label for status indicators, counts, or metadata. Supports solid, soft, and outline styles across six colors.
+  page: https://that-one-ui.vercel.app/components/badge/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=badge&category=data-display
+- Chip (`chip`, data-display): An interactive filter or selection token. Supports selected state and a removable dismiss button.
+  page: https://that-one-ui.vercel.app/components/chip/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=chip&category=data-display
+- Table (`table`, data-display): A basic data table with local sorting, row selection, loading skeletons, and empty state support.
+  page: https://that-one-ui.vercel.app/components/table/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=table&category=data-display
+- Data Table (`data-table`, data-display): Advanced table with search, sorting, pagination, column visibility toggle, and row selection — all in one component.
+  page: https://that-one-ui.vercel.app/components/data-table/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=data-table&category=data-display
+- Empty (`empty`, data-display): An empty state panel with an icon, title, description, and optional action buttons.
+  page: https://that-one-ui.vercel.app/components/empty/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=empty&category=data-display
+
+### feedback
+
+- Dialog (`dialog`, feedback): A centered modal dialog with dark glass surface, backdrop blur, and confirm/cancel actions.
+  page: https://that-one-ui.vercel.app/components/dialog/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=dialog&category=feedback
+- Popover (`popover`, feedback): A dark glass popover anchored to its trigger. Includes a close button and description slot.
+  page: https://that-one-ui.vercel.app/components/popover/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=popover&category=feedback
+- Alert (`alert`, feedback): An inline status message in four severity levels: info, success, warning, and error. Optionally dismissible.
+  page: https://that-one-ui.vercel.app/components/alert/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=alert&category=feedback
+- Toast (`toast`, feedback): Transient notifications that slide in from the corner. Uses Base UI Toast with a global toastManager for triggering outside React.
+  page: https://that-one-ui.vercel.app/components/toast/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=toast&category=feedback
+- Dropdown Menu (`dropdown-menu`, feedback): A keyboard-navigable dropdown menu with icons, keyboard shortcuts, separators, and a danger style. Built on Base UI Menu primitive.
+  page: https://that-one-ui.vercel.app/components/dropdown-menu/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=dropdown-menu&category=feedback
+- Alert Dialog (`alert-dialog`, feedback): A blocking confirmation dialog. Supports destructive mode, loading state on the confirm button, and size variants.
+  page: https://that-one-ui.vercel.app/components/alert-dialog/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=alert-dialog&category=feedback
+- Sonner (`sonner`, feedback): A toast notification system with type variants, position control, action buttons, and dismiss support. Built on Base UI Toast.
+  page: https://that-one-ui.vercel.app/components/sonner/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=sonner&category=feedback
+- Spinner (`spinner`, feedback): A circular loading indicator in five sizes. Disappears when loading is false.
+  page: https://that-one-ui.vercel.app/components/spinner/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=spinner&category=feedback
+- Drawer (`drawer`, feedback): A swipe-dismissible temporary side or bottom panel with title, description, and loading state. Built on Base UI Drawer.
+  page: https://that-one-ui.vercel.app/components/drawer/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=drawer&category=feedback
+- Sheet (`sheet`, feedback): A persistent side panel that slides in from any edge. Unlike Drawer, it uses the Dialog primitive — no swipe dismiss.
+  page: https://that-one-ui.vercel.app/components/sheet/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=sheet&category=feedback
+
+### navigation
+
+- Sidebar (`sidebar`, navigation): An application navigation sidebar with collapse support, nested items, badges, and active state tracking.
+  page: https://that-one-ui.vercel.app/components/sidebar/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=sidebar&category=navigation
+- Breadcrumb (`breadcrumb`, navigation): A page hierarchy trail with configurable separator, ellipsis truncation for long paths, and aria-current on the last item.
+  page: https://that-one-ui.vercel.app/components/breadcrumb/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=breadcrumb&category=navigation
+- Command (`command`, navigation): A keyboard-driven command palette with grouped commands, fuzzy search, arrow-key navigation, and a global ⌘K shortcut.
+  page: https://that-one-ui.vercel.app/components/command/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=command&category=navigation
+- Pagination (`pagination`, navigation): A page navigation control with smart ellipsis, first/last shortcuts, and size variants. Controlled and uncontrolled.
+  page: https://that-one-ui.vercel.app/components/pagination/default
+  source: https://that-one-ui.vercel.app/api/design-code?slug=pagination&category=navigation
+
+
+## Full sources
+
+https://that-one-ui.vercel.app/llms-full.txt has every component's Component.tsx and styles/default.ts inlined.
