@@ -8,44 +8,44 @@ Audit one style (one column) per session - do not try to do a whole row pass in 
 
 | Component | Category | default | glass | minimal | neobrutalism | neumorphism | gradient | retro | terminal |
 |---|---|---|---|---|---|---|---|---|---|
-| accordion | data-display | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| avatar | data-display | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| badge | data-display | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| card | data-display | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| chip | data-display | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| data-table | data-display | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| empty | data-display | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| progress | data-display | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| separator | data-display | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| table | data-display | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| tabs | data-display | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| tooltip | data-display | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| alert | feedback | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| alert-dialog | feedback | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| dialog | feedback | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| drawer | feedback | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| dropdown-menu | feedback | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| popover | feedback | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| sheet | feedback | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| sonner | feedback | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| spinner | feedback | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| toast | feedback | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| button | inputs | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| checkbox | inputs | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| combobox | inputs | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| date-picker | inputs | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| field | inputs | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| input | inputs | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| radio | inputs | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| radio-group | inputs | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| select | inputs | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| slider | inputs | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| switch | inputs | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| textarea | inputs | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| breadcrumb | navigation | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| command | navigation | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| pagination | navigation | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| sidebar | navigation | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| accordion | data-display | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| avatar | data-display | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| badge | data-display | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| card | data-display | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| chip | data-display | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| data-table | data-display | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| empty | data-display | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| progress | data-display | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| separator | data-display | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| table | data-display | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| tabs | data-display | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| tooltip | data-display | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| alert | feedback | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| alert-dialog | feedback | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| dialog | feedback | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| drawer | feedback | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| dropdown-menu | feedback | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| popover | feedback | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| sheet | feedback | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| sonner | feedback | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| spinner | feedback | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| toast | feedback | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| button | inputs | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| checkbox | inputs | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| combobox | inputs | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| date-picker | inputs | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| field | inputs | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| input | inputs | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| radio | inputs | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| radio-group | inputs | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| select | inputs | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| slider | inputs | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| switch | inputs | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| textarea | inputs | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| breadcrumb | navigation | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| command | navigation | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| pagination | navigation | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| sidebar | navigation | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
 
 Legend: `[ ]` not checked - `[x]` checked, clean - `[!]` bug logged below.
 
@@ -64,3 +64,4 @@ See `docs/COMPONENT_PITFALLS.md`. In short:
 
 - **default** (2026-07-31): audited via screenshots (light + dark, all 4 categories) - clean, no bugs found.
 - **glass** (2026-07-31): same method - clean, no bugs found.
+- **minimal** (2026-07-31): same method - clean, no bugs found.
