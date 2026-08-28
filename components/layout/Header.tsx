@@ -12,6 +12,7 @@ const NAV = [
   { label: "Styles",     href: "/style"      },
   { label: "Motion",     href: "/motion"     },
   { label: "Templates",  href: "/template"   },
+  { label: "Demo",       href: "/demo"       },
 ];
 
 export default function Header() {
