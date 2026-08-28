@@ -75,7 +75,7 @@
     "name": "Pixel",
     "tagline": "8-bit pixel-art interfaces",
     "description": "Hard pixel edges, chunky monospace type, blocky shadows, and a vivid retro-game palette. No anti-aliasing allowed.",
-    "status": "coming-soon",
+    "status": "available",
     "accent": "#ef476f",
     "modes": "dark"
   },
