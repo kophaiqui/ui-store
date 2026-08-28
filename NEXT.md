@@ -46,6 +46,12 @@ Detail lives in `docs/plans/` if needed. This file is the only one you must open
   - [x] CONTRIBUTING.md - rules summary, local setup, 5 good-first-contribution ideas
   - [ ] NOT done (needs the user, not code): decide if the repo goes public, write + actually post the "why I built this" story to X/Reddit/dev.to, enable GitHub issues, file the good-first-issues, the 4-week analytics review. These require a human account and a real decision, not something to fake from here.
 
+**2026-08-29: new initiative, demo sites** - "level up" past static previews: full multi-page, click-through sites built from the library, not part of the phase 0-4 roadmap yet. Plans 08-10 (`docs/plans/08-demo-ecommerce.md`, `09-demo-travel.md`, `10-demo-social.md`), one style locked per site (no live world switcher - still depends on plan 00).
+
+- [x] plan 08 (demo: e-commerce, "Ember Audio") - 6 pages under `/demo/ecommerce` (home, shop w/ filters, product detail, cart, checkout, order confirmation), Glass style throughout except the navbar (sections components still default-only). Mock data + cart context in `demos/ecommerce/` (18 products, localStorage-persisted cart, sessionStorage handoff for the confirmation page). Swapped `select` for `combobox` everywhere a filter needed live state - `UISelect` has no controlled `value`/`onChange`. `tsc`, lint, and `next build` all clean; light-mode pass explicitly skipped (dark-only chrome by design, noted in the plan file).
+- [ ] plan 09 (demo: travel booking, "Nightfall Aurora Tours") - not started
+- [ ] plan 10 (demo: social feed, "Loud") - not started
+
 ## RULES (for the ADHD brain, with love)
 
 - new idea mid-session -> write ONE line in the right plan's Later. do not build it.

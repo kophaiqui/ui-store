@@ -25,6 +25,9 @@ If a feature is not clear enough to write a plan for, it is not clear enough to 
 | 05 | [Templates](./05-templates.md) | draft | Phase 3 |
 | 06 | [People](./06-people.md) | draft | Phase 4 |
 | 07 | [Agent-Friendly Library](./07-agent-friendly.md) | draft | Quick wins in Phase 1, MCP later |
+| 08 | [Demo: E-commerce](./08-demo-ecommerce.md) | done | New initiative, not yet slotted |
+| 09 | [Demo: Travel Booking](./09-demo-travel.md) | draft | New initiative, not yet slotted |
+| 10 | [Demo: Social Feed](./10-demo-social.md) | draft | New initiative, not yet slotted |
 
 ## Feature inventory
 
